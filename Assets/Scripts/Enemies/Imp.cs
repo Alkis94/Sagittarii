@@ -37,7 +37,7 @@ public class Imp : Enemy , IInitializable
     private void ImpAttack()
     {
         EnemyAnimator.SetTrigger("ImpAttack");
-        ObjectFactory.Instance.CreateProjectile<ImpProjectile>(transform, HorizontalDirection,0,ObjectFactory.Instance.ImpProjectilePrefab);
+        //ObjectFactory.Instance.CreateProjectile<ImpProjectile>(transform, HorizontalDirection,0,ObjectFactory.Instance.ImpProjectilePrefab);
     }
 
     protected override void EnemyDie()
@@ -55,7 +55,7 @@ public class Imp : Enemy , IInitializable
     {
         if (other.tag == "Arrow")
         {
-            Health -= 10 * ItemHandler.Instance.ImpFlameMultiplier;
+            Health -= PlayerStats.PlayerDamage;
             if (Health < 1)
             {
                 EnemyDie();

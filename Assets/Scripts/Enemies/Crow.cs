@@ -29,18 +29,18 @@ public class Crow : Enemy
 
     private void CrowAttack()
     {
-        ObjectFactory.Instance.CreateProjectile<CrowProjectile>(transform,0,0,ObjectFactory.Instance.CrowProjectilePrefab);
-        ObjectFactory.Instance.CreateProjectile<CrowProjectile>(transform, 1, 0, ObjectFactory.Instance.CrowProjectilePrefab);
-        ObjectFactory.Instance.CreateProjectile<CrowProjectile>(transform, -1, 0, ObjectFactory.Instance.CrowProjectilePrefab);
+        //ObjectFactory.Instance.CreateProjectile<CrowProjectile>(transform,0,0,ObjectFactory.Instance.CrowProjectilePrefab);
+        //ObjectFactory.Instance.CreateProjectile<CrowProjectile>(transform, 1, 0, ObjectFactory.Instance.CrowProjectilePrefab);
+        //ObjectFactory.Instance.CreateProjectile<CrowProjectile>(transform, -1, 0, ObjectFactory.Instance.CrowProjectilePrefab);
     }
 
     protected override void EnemyDie()
     {
         float randomNumber = Random.Range(0f, 1f);
-        if (randomNumber < C.DEAD_BIRD_DROP_RATE && ItemHandler.Instance.DeadBirdNotDropped)
+        if (randomNumber < C.DEAD_BIRD_DROP_RATE /*&& ItemHandler.DeadBirdNotDropped*/)
         {
             ObjectFactory.Instance.CreatePickup(transform,ObjectFactory.Instance.DeadBirdPickupPrefab);
-            ItemHandler.Instance.DeadBirdNotDropped = false;
+           // ItemHandler.DeadBirdNotDropped = false;
         }
         base.EnemyDie();
     }
@@ -49,7 +49,7 @@ public class Crow : Enemy
     {
         if (other.tag == "Arrow")
         {
-            Health -= 10 * ItemHandler.Instance.ImpFlameMultiplier;
+            Health -= PlayerStats.PlayerDamage;
             if (Health < 1)
             {
                 EnemyDie();

@@ -16,12 +16,12 @@ public class Arrow : Projectile
 
     void Start ()
     {
-        transform.GetChild(0).gameObject.SetActive(ItemHandler.Instance.PlayerHasImpFlame);
-        ProjectileRB2D = GetComponent<Rigidbody2D>();
+        transform.GetChild(0).gameObject.SetActive(ItemHandler.PlayerHasImpFlame);
+        rigidbody2d = GetComponent<Rigidbody2D>();
         ArrowCollider2D = GetComponent<Collider2D>();
         ArrowSpeed = C.ARROW_PROJECTILE_SPEED;
-        ProjectileRB2D.AddForce(transform.right * ArrowSpeed * ArrowPower);
-        ProjectileRB2D.AddForce(transform.up * ArrowSpeed * ArrowPower * VerticalFactor);
+        rigidbody2d.AddForce(transform.right * ArrowSpeed * ArrowPower);
+        rigidbody2d.AddForce(transform.up * ArrowSpeed * ArrowPower * VerticalFactor);
         Destroy(gameObject, 20.0f);
     }
 	
@@ -29,7 +29,7 @@ public class Arrow : Projectile
 
     void Update ()
     {
-        Vector2 v = ProjectileRB2D.velocity;
+        Vector2 v = rigidbody2d.velocity;
         ArrowAngle = Mathf.Atan2(v.y, v.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(ArrowAngle, Vector3.forward);
     }
@@ -44,17 +44,21 @@ public class Arrow : Projectile
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        ArrowCollider2D.enabled = false;
-        transform.GetChild(0).gameObject.SetActive(false);
-        ProjectileImpact(10f);
-        if (other.tag == "Enemy")
+        if(other.tag != "Background")
         {
-            transform.parent = other.transform;
-            ArrowImpact.Play();
+            ArrowCollider2D.enabled = false;
+            transform.GetChild(0).gameObject.SetActive(false);
+            ProjectileImpact(10f);
+            if (other.tag == "Enemy")
+            {
+                transform.parent = other.transform;
+                ArrowImpact.Play();
+            }
+            else
+            {
+                ArrowGroundImpact.Play();
+            }
         }
-        else
-        {
-            ArrowGroundImpact.Play();
-        }
+        
     }
 }

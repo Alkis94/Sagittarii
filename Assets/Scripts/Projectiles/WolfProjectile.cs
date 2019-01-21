@@ -9,13 +9,13 @@ public class WolfProjectile : Projectile , IInitializableProjectile
     {
         Destroy(gameObject, 0.8f);
         ProjectileSpeed = C.WOLF_PROJECTILE_SPEED;
-        ProjectileRB2D = GetComponent<Rigidbody2D>();
+        rigidbody2d = GetComponent<Rigidbody2D>();
         ProjectileMove(HorizontalFactor, VerticalFactor);
     }
 
     public void Initialize(Transform wolfPosition, float horizontalFactor, float verticalFactor)
     {
-        transform.position = wolfPosition.transform.position + new Vector3(2*horizontalFactor, 0, 0) ;
+        transform.position = wolfPosition.transform.position + new Vector3(0.1f*horizontalFactor, 0, 0) ;
         HorizontalFactor = horizontalFactor;
         VerticalFactor = verticalFactor;
     }

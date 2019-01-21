@@ -33,7 +33,7 @@ public class Enemy : MonoBehaviour
         EnemyRB2D.isKinematic = false;
         EnemyBoxCollider.isTrigger = false;
         EnemyRenderer.sortingLayerName = "DeadEnemies";
-        DestroyObject(gameObject, 10.0f);
+        Destroy(gameObject, 10.0f);
         UIManager.Instance.UpdateScore();
         gameObject.layer = 14;
         DeathCry.Play();
@@ -61,7 +61,7 @@ public class Enemy : MonoBehaviour
 
      protected virtual void EnemyMove()
     {
-        EnemyFlipSprite();
+        
         Vector3 Movement = new Vector3(HorizontalDirection, VerticalDirection, 0);
         transform.Translate(Movement * Time.deltaTime * Speed);
     }
@@ -69,15 +69,15 @@ public class Enemy : MonoBehaviour
 
     protected void EnemyChangeDirection()
     {
-        if(transform.position.x > C.ENEMY_BOUNDARY)
-        {
-            HorizontalDirection = -1;
-        }
+        //if(transform.position.x >= GameHandler.Instance.MaxBackgroundBoundX)
+        //{
+        //    HorizontalDirection = -1;
+        //}
 
-        if (transform.position.x < -C.ENEMY_BOUNDARY)
-        {
-            HorizontalDirection = 1;
-        }
+        //if (transform.position.x < GameHandler.Instance.MinBackgroundBoundX)
+        //{
+        //    HorizontalDirection = 1;
+        //}
     }
 
 

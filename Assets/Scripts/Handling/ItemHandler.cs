@@ -1,48 +1,28 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections;
+using System.Collections.Generic;
 
-public class ItemHandler : MonoBehaviour
+public static class ItemHandler 
 {
-    //   # # # # # # # # # # # # 
-    //   #                     #
-    //   #  SINGLETON CLASS    #
-    //   #                     #
-    //   # # # # # # # # # # # # 
 
-    public static ItemHandler Instance = null;
+    public static Dictionary<string, bool> ItemDropped = new Dictionary<string, bool>()
+    {
+        {"DeadBird",false},
+        {"ImpFlame",false},
+        {"BatWings",false}
+    };
 
-    public bool BatWingsNotDropped;
-    public bool DeadBirdNotDropped;
-    public bool PlayerHasDeadBird;
+    
+
+
+    public static bool BatWingsNotDropped = true;
+
+
     //public bool ImpFlameNotDropped;
     //public bool WolfPawNotDropped;
-    public bool PlayerHasImpFlame;
-    public int WolfPawMultiplier;
-    public int ImpFlameMultiplier;
 
-    void Awake()
-    {
-        // First we check if there are any other instances conflicting
-        if (Instance != null && Instance != this)
-        {
-            // If that is the case, we destroy other instances
-            Destroy(gameObject);
-        }
-        // Here we save our singleton instance
-        Instance = this;
-    }
+    public static bool PlayerHasImpFlame = false;
+    public static bool PlayerHasBatWings = false;
+    public static int WolfPawMultiplier = 1;
 
 
-    // Use this for initialization
-    void Start ()
-    {
-        //WolfPawNotDropped = true;
-        //ImpFlameNotDropped = true;
-        DeadBirdNotDropped = true;
-        BatWingsNotDropped = true;
-        PlayerHasDeadBird = false;
-        PlayerHasImpFlame = false;
-        WolfPawMultiplier = 1;
-        ImpFlameMultiplier = 1;
-    }
 }

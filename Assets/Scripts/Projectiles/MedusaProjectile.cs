@@ -8,7 +8,7 @@ public class MedusaProjectile : Projectile, IInitializableProjectile
     void Start ()
     {
         Destroy(gameObject, 20.0f);
-        ProjectileRB2D = GetComponent<Rigidbody2D>();
+        rigidbody2d = GetComponent<Rigidbody2D>();
         ProjectileSpeed = C.MEDUSA_PROJECTILE_SPEED;
         ProjectileMove(HorizontalFactor, -1);
     }

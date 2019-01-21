@@ -42,7 +42,7 @@ public class UIManager : MonoBehaviour
         AudioListener.pause = false;
         ResetPower();
         Score = 0;
-        HealthText.text = "Health: " + C.PLAYER_MAXIMUM_HEALTH + "/" + C.PLAYER_MAXIMUM_HEALTH;
+        HealthText.text =  C.PLAYER_MAXIMUM_HEALTH + "/" + C.PLAYER_MAXIMUM_HEALTH;
 
     }
 	
@@ -54,7 +54,7 @@ public class UIManager : MonoBehaviour
 
     public void PowerIncreasing()
     {
-        Counter += Time.deltaTime * ItemHandler.Instance.WolfPawMultiplier;
+        Counter += Time.deltaTime * ItemHandler.WolfPawMultiplier;
         CounterToPercentage = (int)Mathf.Round(Counter * 100);
         CounterToPercentage = CounterToPercentage > 100 ? 100 : CounterToPercentage;
         PowerText.text = "Power: " + CounterToPercentage.ToString() + "%";
@@ -69,7 +69,7 @@ public class UIManager : MonoBehaviour
     public void UpdateHealth(int health, int maximumHealth)
     {
         health = 0 > health ? 0 : health;
-        HealthText.text = "Health: " + health.ToString() + "/" + maximumHealth.ToString();
+        HealthText.text =  health.ToString() + "/" + maximumHealth.ToString();
     }
 
 

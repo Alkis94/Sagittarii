@@ -43,25 +43,25 @@ public class Medusa : Enemy
 
     private void MedusaFrenzyAttack()
     {
-        ObjectFactory.Instance.CreateProjectile<MedusaProjectile>(transform, 0,0,ObjectFactory.Instance.MedusaProjectilePrefab);
-        ObjectFactory.Instance.CreateProjectile<MedusaProjectile>(transform, 1, 0, ObjectFactory.Instance.MedusaProjectilePrefab);
-        ObjectFactory.Instance.CreateProjectile<MedusaProjectile>(transform, -1, 0, ObjectFactory.Instance.MedusaProjectilePrefab);
-        ObjectFactory.Instance.CreateProjectile<CrowProjectile>(transform, 0.5f, 0, ObjectFactory.Instance.CrowProjectilePrefab);
-        ObjectFactory.Instance.CreateProjectile<CrowProjectile>(transform, -0.5f, 0, ObjectFactory.Instance.CrowProjectilePrefab);
+        //ObjectFactory.Instance.CreateProjectile<MedusaProjectile>(transform, 0,0,ObjectFactory.Instance.MedusaProjectilePrefab);
+        //ObjectFactory.Instance.CreateProjectile<MedusaProjectile>(transform, 1, 0, ObjectFactory.Instance.MedusaProjectilePrefab);
+        //ObjectFactory.Instance.CreateProjectile<MedusaProjectile>(transform, -1, 0, ObjectFactory.Instance.MedusaProjectilePrefab);
+        //ObjectFactory.Instance.CreateProjectile<CrowProjectile>(transform, 0.5f, 0, ObjectFactory.Instance.CrowProjectilePrefab);
+        //ObjectFactory.Instance.CreateProjectile<CrowProjectile>(transform, -0.5f, 0, ObjectFactory.Instance.CrowProjectilePrefab);
         Invoke("MedusaFrenzyAttack", AttackFrequency);
     }
 
     private void MedusaDeathAttack()
     {
-        ObjectFactory.Instance.CreateProjectile<MedusaProjectile>(transform, 0,0, ObjectFactory.Instance.MedusaProjectilePrefab);
-        ObjectFactory.Instance.CreateProjectile<MedusaProjectile>(transform, 0.5f, 0, ObjectFactory.Instance.MedusaProjectilePrefab);
-        ObjectFactory.Instance.CreateProjectile<MedusaProjectile>(transform, -0.5f, 0, ObjectFactory.Instance.MedusaProjectilePrefab);
-        ObjectFactory.Instance.CreateProjectile<MedusaProjectile>(transform, 1, 0, ObjectFactory.Instance.MedusaProjectilePrefab);
-        ObjectFactory.Instance.CreateProjectile<MedusaProjectile>(transform, -1, 0, ObjectFactory.Instance.MedusaProjectilePrefab);
-        ObjectFactory.Instance.CreateProjectile<MedusaProjectile>(transform, 1.5f, 0, ObjectFactory.Instance.MedusaProjectilePrefab);
-        ObjectFactory.Instance.CreateProjectile<MedusaProjectile>(transform, -1.5f, 0, ObjectFactory.Instance.MedusaProjectilePrefab);
-        ObjectFactory.Instance.CreateProjectile<MedusaProjectile>(transform, -2, 0, ObjectFactory.Instance.MedusaProjectilePrefab);
-        ObjectFactory.Instance.CreateProjectile<MedusaProjectile>(transform, 2, 0, ObjectFactory.Instance.MedusaProjectilePrefab);
+        //ObjectFactory.Instance.CreateProjectile<MedusaProjectile>(transform, 0,0, ObjectFactory.Instance.MedusaProjectilePrefab);
+        //ObjectFactory.Instance.CreateProjectile<MedusaProjectile>(transform, 0.5f, 0, ObjectFactory.Instance.MedusaProjectilePrefab);
+        //ObjectFactory.Instance.CreateProjectile<MedusaProjectile>(transform, -0.5f, 0, ObjectFactory.Instance.MedusaProjectilePrefab);
+        //ObjectFactory.Instance.CreateProjectile<MedusaProjectile>(transform, 1, 0, ObjectFactory.Instance.MedusaProjectilePrefab);
+        //ObjectFactory.Instance.CreateProjectile<MedusaProjectile>(transform, -1, 0, ObjectFactory.Instance.MedusaProjectilePrefab);
+        //ObjectFactory.Instance.CreateProjectile<MedusaProjectile>(transform, 1.5f, 0, ObjectFactory.Instance.MedusaProjectilePrefab);
+        //ObjectFactory.Instance.CreateProjectile<MedusaProjectile>(transform, -1.5f, 0, ObjectFactory.Instance.MedusaProjectilePrefab);
+        //ObjectFactory.Instance.CreateProjectile<MedusaProjectile>(transform, -2, 0, ObjectFactory.Instance.MedusaProjectilePrefab);
+        //ObjectFactory.Instance.CreateProjectile<MedusaProjectile>(transform, 2, 0, ObjectFactory.Instance.MedusaProjectilePrefab);
     }
 
     protected override void EnemyDie()
@@ -76,7 +76,7 @@ public class Medusa : Enemy
     {
         if (other.tag == "Arrow")
         {
-            Health -= 10 * ItemHandler.Instance.ImpFlameMultiplier;
+            Health -= PlayerStats.PlayerDamage;
             if(Health < C.MEDUSA_ANGRY_HEALTH && !MedusaAngry)
             {
                 MedusaAngry = true;

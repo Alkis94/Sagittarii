@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Projectile : MonoBehaviour
 {
-    protected Rigidbody2D ProjectileRB2D;
+    protected Rigidbody2D rigidbody2d;
 
     protected int ProjectileSpeed;
     protected float HorizontalFactor;
@@ -11,16 +11,16 @@ public class Projectile : MonoBehaviour
 
     protected void ProjectileMove(float horizontalFactor, float verticalFactor)
     {
-        ProjectileRB2D.AddForce(transform.right * ProjectileSpeed * horizontalFactor);
-        ProjectileRB2D.AddForce(transform.up * ProjectileSpeed * verticalFactor);
+        rigidbody2d.AddForce(transform.right * ProjectileSpeed * horizontalFactor);
+        rigidbody2d.AddForce(transform.up * ProjectileSpeed * verticalFactor);
     }
 
     protected virtual void ProjectileImpact (float destroyDelay)
     {
-        ProjectileRB2D.velocity = Vector2.zero;
-        ProjectileRB2D.angularVelocity = 0;
-        ProjectileRB2D.isKinematic = true;
+        rigidbody2d.velocity = Vector2.zero;
+        rigidbody2d.angularVelocity = 0;
+        rigidbody2d.isKinematic = true;
         enabled = false;
-        DestroyObject(gameObject,destroyDelay);
+        Destroy(gameObject,destroyDelay);
     }
 }

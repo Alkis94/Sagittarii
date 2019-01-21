@@ -42,12 +42,12 @@ public class Wolf : Enemy , IInitializable
         {
             yield return new WaitForSeconds(attackFrequency);
             EnemyAnimator.SetTrigger("Attack");
-            EnemyRB2D.AddForce(new Vector2(7.5f * HorizontalDirection, 4), ForceMode2D.Impulse);
+            EnemyRB2D.AddForce(new Vector2(2.5f * HorizontalDirection, 4), ForceMode2D.Impulse);
             yield return new WaitForSeconds(0.6f);
             WolfAttackSound.Play();
-            ObjectFactory.Instance.CreateProjectile<WolfProjectile>(transform, HorizontalDirection, 0.1f,ObjectFactory.Instance.WolfProjectilePrefab);
-            ObjectFactory.Instance.CreateProjectile<WolfProjectile>(transform, HorizontalDirection, 0,ObjectFactory.Instance.WolfProjectilePrefab);
-            ObjectFactory.Instance.CreateProjectile<WolfProjectile>(transform, HorizontalDirection, -0.1f, ObjectFactory.Instance.WolfProjectilePrefab);
+            //ObjectFactory.Instance.CreateProjectile<WolfProjectile>(transform, HorizontalDirection,  0.1f, ObjectFactory.Instance.WolfProjectilePrefab);
+            //ObjectFactory.Instance.CreateProjectile<WolfProjectile>(transform, HorizontalDirection,     0, ObjectFactory.Instance.WolfProjectilePrefab);
+            //ObjectFactory.Instance.CreateProjectile<WolfProjectile>(transform, HorizontalDirection, -0.1f, ObjectFactory.Instance.WolfProjectilePrefab);
         }
     }
 
@@ -68,7 +68,7 @@ public class Wolf : Enemy , IInitializable
     {
         if (other.tag == "Arrow")
         {
-            Health -= 10 * ItemHandler.Instance.ImpFlameMultiplier;
+            Health -= PlayerStats.PlayerDamage;
             if (Health < 1)
             {
                 EnemyDie();

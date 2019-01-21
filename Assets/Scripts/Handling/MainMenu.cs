@@ -17,7 +17,7 @@ public class MainMenu : MonoBehaviour
 	
     public void PlayPress()
     {
-        SceneManager.LoadScene("LevelEndless");
+        SceneManager.LoadScene("Town");
     }
 
     public void QuitPress()

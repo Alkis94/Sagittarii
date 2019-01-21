@@ -12,15 +12,17 @@ public class GameHandler : MonoBehaviour
 
     public static GameHandler Instance = null;
 
-    public bool GamePaused;
+
     public static int CurrentLevel = 1;
-    
+
 
     public Text PausedMenuText;
     public Text ContinueText;
     public Button ContinueButton;
     public Canvas PausedMenu;
     public Canvas VictoryMenu;
+
+    
 
 
 
@@ -42,14 +44,21 @@ public class GameHandler : MonoBehaviour
     void Start()
     {
         Time.timeScale = 1;
-        GamePaused = false;
+        GlobalVariables.GamePaused = false;
         PausedMenu.enabled = false;
         VictoryMenu.enabled = false;
     }
 
     void Update ()
     {
-        
+        if (Input.GetButtonDown("Cancel") && !GlobalVariables.GamePaused)
+        {
+            CallPausedMenu();
+        }
+        else if (Input.GetButtonDown("Cancel") && GlobalVariables.GamePaused)
+        {
+            UnpauseGame();
+        }
     }
 
     public void CallVictoryMenu()
@@ -71,14 +80,14 @@ public class GameHandler : MonoBehaviour
         PausedMenu.enabled = true;
         PausedMenuText.text = "Paused";
         Time.timeScale = 0;
-        GamePaused = true;
+        GlobalVariables.GamePaused = true;
     }
 
     public void UnpauseGame()
     {
         PausedMenu.enabled = false;
         Time.timeScale = 1;
-        GamePaused = false;
+        GlobalVariables.GamePaused = false;
     }
 
     public void PressRestart()

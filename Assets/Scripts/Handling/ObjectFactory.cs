@@ -31,10 +31,7 @@ public class ObjectFactory : MonoBehaviour
 
 
     public GameObject ArrowPrefab;
-    public GameObject CrowProjectilePrefab;
-    public GameObject MedusaProjectilePrefab;
-    public GameObject ImpProjectilePrefab;
-    public GameObject WolfProjectilePrefab;
+
 
     //   # # # # # # # # # # # # 
     //   #                     #
@@ -105,10 +102,17 @@ public class ObjectFactory : MonoBehaviour
         return arrow;
     }
 
-    public T CreateProjectile<T>(Transform projectilePosition, float horizontalFactor, float verticalFactor,GameObject projectile) where T : IInitializableProjectile
+    public T CreateProjectile<T>(Transform projectilePosition, Vector2 direction,GameObject projectile) where T : IInitializableProjectile
     {
         var someProjectile = Instantiate(projectile).GetComponent<T>();
-        someProjectile.Initialize(projectilePosition, horizontalFactor,verticalFactor);
+        someProjectile.Initialize(projectilePosition, direction.x, direction.y);
+        return someProjectile;
+    }
+
+    public ProjectileNew CreateProjectileNew(Transform projectilePosition, Vector2 direction, GameObject projectile,Vector3 spawnPositionOffset,float projectileSpeed,float projectileDestroyDelay,float projectileRotation) 
+    {
+        var someProjectile = Instantiate(projectile).GetComponent<ProjectileNew>();
+        someProjectile.Initialize(projectilePosition, direction, spawnPositionOffset,projectileSpeed,projectileDestroyDelay,projectileRotation);
         return someProjectile;
     }
 

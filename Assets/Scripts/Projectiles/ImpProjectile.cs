@@ -9,7 +9,7 @@ public class ImpProjectile : Projectile, IInitializableProjectile
     {
         Destroy(gameObject, 20.0f);
         ProjectileSpeed = C.IMP_PROJECTILE_SPEED;
-        ProjectileRB2D = GetComponent<Rigidbody2D>();
+        rigidbody2d = GetComponent<Rigidbody2D>();
         ProjectileMove(HorizontalFactor,0);
     }
 	

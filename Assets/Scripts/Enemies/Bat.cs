@@ -52,10 +52,10 @@ public class Bat : Enemy
     protected override void EnemyDie()
     {
         float randomNumber = Random.Range(0f, 1f);
-        if (randomNumber < C.BAT_WINGS_DROP_RATE && ItemHandler.Instance.BatWingsNotDropped)
+        if (randomNumber < C.BAT_WINGS_DROP_RATE && ItemHandler.BatWingsNotDropped)
         {
             ObjectFactory.Instance.CreatePickup(transform,ObjectFactory.Instance.BatWingsPickupPrefab);
-            ItemHandler.Instance.BatWingsNotDropped = false;
+            ItemHandler.BatWingsNotDropped = false;
         }
         base.EnemyDie();
     }
@@ -64,7 +64,7 @@ public class Bat : Enemy
     {
         if(other.tag == "Arrow")
         {
-            Health -= 10 * ItemHandler.Instance.ImpFlameMultiplier;
+            Health -=  PlayerStats.PlayerDamage;
             if(Health < 1)
             {
                 EnemyDie();
