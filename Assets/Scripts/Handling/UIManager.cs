@@ -11,12 +11,9 @@ public class UIManager : MonoBehaviour
 
     public static UIManager Instance = null;
 
-    private float Counter;
-    private int CounterToPercentage;
     private int Score;
 
 
-    public Text PowerText;
     public Text HealthText;
     public Text ScoreText;
     public Text MuteText;
@@ -40,7 +37,6 @@ public class UIManager : MonoBehaviour
     {
         
         AudioListener.pause = false;
-        ResetPower();
         Score = 0;
         HealthText.text =  C.PLAYER_MAXIMUM_HEALTH + "/" + C.PLAYER_MAXIMUM_HEALTH;
 
@@ -50,20 +46,6 @@ public class UIManager : MonoBehaviour
 	void Update ()
     {
        
-    }
-
-    public void PowerIncreasing()
-    {
-        Counter += Time.deltaTime * ItemHandler.WolfPawMultiplier;
-        CounterToPercentage = (int)Mathf.Round(Counter * 100);
-        CounterToPercentage = CounterToPercentage > 100 ? 100 : CounterToPercentage;
-        PowerText.text = "Power: " + CounterToPercentage.ToString() + "%";
-    }
-
-    public void ResetPower()
-    {
-        Counter = 0;
-        PowerText.text = "Power: " + Counter.ToString() + "%";
     }
 
     public void UpdateHealth(int health, int maximumHealth)

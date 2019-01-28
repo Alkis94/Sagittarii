@@ -1,16 +1,23 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerCollision : MonoBehaviour
 {
-    private bool PlayerNotDead = true;
-    public AudioSource PlayerGotHitSound;
+    
+    public AudioClip PlayerGotHitSound;
+    private AudioSource audioSource;
 
-    public delegate void VoidDelegate();
-    public static event VoidDelegate OnDeath;
-    public static event VoidDelegate OnPlayerGotBatWings;
-    public static event VoidDelegate OnPlayerGotDeadBird;
+    public static event Action OnDeath = delegate { };
+    public static event Action OnPlayerGotBatWings = delegate { };
+    public static event Action OnPlayerGotDeadBird = delegate { };
+
+    private bool PlayerNotDead = true;
+
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -25,7 +32,8 @@ public class PlayerCollision : MonoBehaviour
             }
             else
             {
-                PlayerGotHitSound.Play();
+                audioSource.clip = PlayerGotHitSound;
+                audioSource.Play();
             }
         }
 

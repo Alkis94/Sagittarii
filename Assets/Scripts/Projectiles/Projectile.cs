@@ -1,26 +1,33 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    protected Rigidbody2D rigidbody2d;
 
-    protected int ProjectileSpeed;
-    protected float HorizontalFactor;
-    protected float VerticalFactor;
+    public float DestroyDelay { private set; get; }
+    public float Speed { private set; get; }
 
-    protected void ProjectileMove(float horizontalFactor, float verticalFactor)
+
+    private void Start()
     {
-        rigidbody2d.AddForce(transform.right * ProjectileSpeed * horizontalFactor);
-        rigidbody2d.AddForce(transform.up * ProjectileSpeed * verticalFactor);
+        Destroy(gameObject, DestroyDelay);
     }
 
-    protected virtual void ProjectileImpact (float destroyDelay)
+    public void Initialize(Vector3 parentPosition,Vector3 spawnPositionOffset,float projectileSpeed,float projectileDestroyDelay,float projectileRotation)
     {
-        rigidbody2d.velocity = Vector2.zero;
-        rigidbody2d.angularVelocity = 0;
-        rigidbody2d.isKinematic = true;
-        enabled = false;
-        Destroy(gameObject,destroyDelay);
+        transform.position = parentPosition + spawnPositionOffset;
+        transform.rotation = Quaternion.Euler(0f, 0f, projectileRotation);
+        Speed = projectileSpeed;
+        DestroyDelay = projectileDestroyDelay;
     }
+
+    public void Initialize(Vector3 parentPosition, Vector3 spawnPositionOffset, float projectileSpeed, float projectileDestroyDelay, Quaternion projectileRotation)
+    {
+        transform.position = parentPosition + spawnPositionOffset;
+        transform.rotation = projectileRotation;
+        Speed = projectileSpeed;
+        DestroyDelay = projectileDestroyDelay;
+    }
+
 }

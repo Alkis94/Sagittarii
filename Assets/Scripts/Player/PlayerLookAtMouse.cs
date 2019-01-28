@@ -11,7 +11,7 @@ public class PlayerLookAtMouse : MonoBehaviour
     {
         if (PlayerStats.PlayerHealth > 0)
         {
-            if (!GlobalVariables.GamePaused)
+            if (!GameState.GamePaused)
             {
 
                 MousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);

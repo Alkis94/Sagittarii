@@ -44,18 +44,18 @@ public class GameHandler : MonoBehaviour
     void Start()
     {
         Time.timeScale = 1;
-        GlobalVariables.GamePaused = false;
+        GameState.GamePaused = false;
         PausedMenu.enabled = false;
         VictoryMenu.enabled = false;
     }
 
     void Update ()
     {
-        if (Input.GetButtonDown("Cancel") && !GlobalVariables.GamePaused)
+        if (Input.GetButtonDown("Cancel") && !GameState.GamePaused)
         {
             CallPausedMenu();
         }
-        else if (Input.GetButtonDown("Cancel") && GlobalVariables.GamePaused)
+        else if (Input.GetButtonDown("Cancel") && GameState.GamePaused)
         {
             UnpauseGame();
         }
@@ -80,14 +80,14 @@ public class GameHandler : MonoBehaviour
         PausedMenu.enabled = true;
         PausedMenuText.text = "Paused";
         Time.timeScale = 0;
-        GlobalVariables.GamePaused = true;
+        GameState.GamePaused = true;
     }
 
     public void UnpauseGame()
     {
         PausedMenu.enabled = false;
         Time.timeScale = 1;
-        GlobalVariables.GamePaused = false;
+        GameState.GamePaused = false;
     }
 
     public void PressRestart()
