@@ -28,7 +28,6 @@ public class PlayerFireProjectile : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
-        //Debug.Log("Current Animation: " + animator.GetCurrentAnimatorStateInfo(0).IsName("IdleHands"));
 
         if (ItemHandler.ItemDropped["DeadBird"])
         {
@@ -56,7 +55,6 @@ public class PlayerFireProjectile : MonoBehaviour
         {
             ArrowPower = TimePassedHoldingArrow / AttackHoldAnimationLength;
             ArrowPower = ArrowPower > 1 ? 1 : ArrowPower;
-            Debug.Log("Arrow Power: " + ArrowPower);
             if (ArrowPower > 0.01)
             {
                 animator.SetTrigger("PlayerAttackRelease");

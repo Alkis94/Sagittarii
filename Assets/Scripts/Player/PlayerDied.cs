@@ -42,7 +42,7 @@ public class PlayerDied : MonoBehaviour
     private void PlayerDiedDelayedMenu()
     {
         Time.timeScale = 0;
-        GameHandler.Instance.CallPlayerDiedMenu();
+        //GameHandler.Instance.CallPlayerDiedMenu();
     }
 
  
