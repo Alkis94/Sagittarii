@@ -42,7 +42,6 @@ public class EnemyDeath : MonoBehaviour
         rigidbody2d.gravityScale = 1;
         spriteRenderer.sortingLayerName = "DeadEnemies";
         Destroy(gameObject, 10.0f);
-        UIManager.Instance.UpdateScore();
         gameObject.layer = 14;
         DeathCry.Play();
         transform.gameObject.tag = "DeadEnemy";

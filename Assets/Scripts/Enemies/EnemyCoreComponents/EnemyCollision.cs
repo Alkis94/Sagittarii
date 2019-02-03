@@ -1,5 +1,5 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(EnemyData))]
@@ -10,10 +10,10 @@ public class EnemyCollision : MonoBehaviour
 
     private BoxCollider2D boxCollider;
    
-    public delegate void VoidDelegate();
-    public event VoidDelegate OnDeath;
-    public event VoidDelegate OnGroundCollision;
-    public event VoidDelegate OnWallCollision;
+   
+    public event Action OnDeath = delegate { };
+    public event Action OnGroundCollision = delegate { };
+    public event Action OnWallCollision = delegate { };
 
 
 
@@ -28,10 +28,10 @@ public class EnemyCollision : MonoBehaviour
     {
         if (other.tag == "Arrow")
         {
-            enemyData.Health -= PlayerStats.PlayerDamage;
+            enemyData.Health -= PlayerStats.Damage;
             if (enemyData.Health < 1)
             {
-                if (OnDeath != null) OnDeath();
+                OnDeath?.Invoke();
             }
         }
        
@@ -41,11 +41,11 @@ public class EnemyCollision : MonoBehaviour
     {
         if (collision.collider.tag == "Ground")
         {
-            if (OnWallCollision != null) OnGroundCollision();
+            OnGroundCollision?.Invoke();
         }
         if (collision.collider.tag == "Wall")
         {
-            if (OnWallCollision != null) OnWallCollision();
+            OnWallCollision?.Invoke();
         }
 
     }

@@ -36,18 +36,17 @@ namespace Factories
 
         private static GameObject CreateMenuAndPause(GameObject Menu)
         {
-            Time.timeScale = 0;
-            GameState.GamePaused = true;
-            someMenu = GameObject.Instantiate(PauseMenu);
+
+            GameState.PauseGame();
+            someMenu = GameObject.Instantiate(Menu);
             someMenu.transform.position = new Vector2(Camera.main.pixelHeight / 2, Camera.main.pixelWidth / 2);
             return someMenu;
         }
 
         public static void DestroyMenuAndUnpause()
         {
-            Time.timeScale = 1;
             GameObject.Destroy(someMenu);
-            GameState.GamePaused = false;
+            GameState.UnpauseGame();
         }
     }
 }

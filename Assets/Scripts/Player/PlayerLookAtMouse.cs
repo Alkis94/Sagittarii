@@ -9,7 +9,7 @@ public class PlayerLookAtMouse : MonoBehaviour
 
     void Update()
     {
-        if (PlayerStats.PlayerHealth > 0)
+        if (PlayerStats.CurrentHealth > 0)
         {
             if (!GameState.GamePaused)
             {

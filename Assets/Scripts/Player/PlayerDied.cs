@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Factories;
 
 public class PlayerDied : MonoBehaviour
 {
@@ -41,8 +42,7 @@ public class PlayerDied : MonoBehaviour
 
     private void PlayerDiedDelayedMenu()
     {
-        Time.timeScale = 0;
-        //GameHandler.Instance.CallPlayerDiedMenu();
+        MenuFactory.CallDefeatMenu();
     }
 
  

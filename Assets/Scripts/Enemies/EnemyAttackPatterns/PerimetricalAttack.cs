@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Factories;
 
 public class PerimetricalAttack : AttackPatern
 {
     private EnemyMovement enemyMovement;
+    public GameObject projectile;
 
     private void Start()
     {
@@ -13,21 +15,21 @@ public class PerimetricalAttack : AttackPatern
 
     public override void Attack(EnemyData enemyData)
     {
-        if(enemyData.AttackIsDirectionDependant)
+        if (enemyData.AttackIsDirectionDependant)
         {
-            foreach (Vector2 direction in enemyData.projectileDirections)
+            foreach (float rotation in enemyData.projectileRotations)
             {
-                //ObjectFactory.Instance.CreateProjectileNew(transform, direction*(-enemyMovement.HorizontalDirection), enemyData.projectile, enemyData.ProjectileSpawnPositionOffset * (-enemyMovement.HorizontalDirection), enemyData.ProjectileSpeed, enemyData.ProjectileDestroyDelay, 0);
+                ProjectileFactory.CreateProjectile(transform.position, projectile, enemyData.ProjectileSpawnPositionOffset, enemyData.ProjectileSpeed, enemyData.ProjectileDestroyDelay, rotation);
             }
         }
         else
         {
-            foreach (Vector2 direction in enemyData.projectileDirections)
+            foreach (float rotation in enemyData.projectileRotations)
             {
-                //ObjectFactory.Instance.CreateProjectileNew(transform, direction, enemyData.projectile, enemyData.ProjectileSpawnPositionOffset, enemyData.ProjectileSpeed, enemyData.ProjectileDestroyDelay, 0);
+                ProjectileFactory.CreateProjectile(transform.position, projectile, enemyData.ProjectileSpawnPositionOffset, enemyData.ProjectileSpeed, enemyData.ProjectileDestroyDelay, rotation);
             }
         }
-        
+
     }
 
 

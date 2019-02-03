@@ -7,7 +7,7 @@ public class EnemyData : MonoBehaviour
 
     public int Health;
 
-    public List<Vector2> projectileDirections;
+    public List<float> projectileRotations;
 
     public bool ChangingDirections;
     public bool AttackIsDirectionDependant;

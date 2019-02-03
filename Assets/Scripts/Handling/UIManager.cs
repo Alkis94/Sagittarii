@@ -1,15 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class UIManager : MonoBehaviour
 {
-    //   # # # # # # # # # # # # 
-    //   #                     #
-    //   #  SINGLETON CLASS    #
-    //   #                     #
-    //   # # # # # # # # # # # # 
-
-    public static UIManager Instance = null;
 
     private int Score;
 
@@ -17,49 +11,39 @@ public class UIManager : MonoBehaviour
     public Text HealthText;
     public Text ScoreText;
     public Text MuteText;
-   // public Text TimeText;
+    // public Text TimeText;
 
-    void Awake()
+
+    private void OnEnable()
     {
-        // First we check if there are any other instances conflicting
-        if (Instance != null && Instance != this)
-        {
-            // If that is the case, we destroy other instances
-            Destroy(gameObject);
-        }
-
-        // Here we save our singleton instance
-        Instance = this;
+        PlayerCollision.OnPlayerHealthChanged+= UpdateHealth;
     }
 
-    // Use this for initialization
-    void Start ()
+    private void Start ()
     {
         
         AudioListener.pause = false;
         Score = 0;
-        HealthText.text =  C.PLAYER_MAXIMUM_HEALTH + "/" + C.PLAYER_MAXIMUM_HEALTH;
+        HealthText.text =  PlayerStats.CurrentHealth + "/" + PlayerStats.MaximumHealth;
 
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+
+    private void UpdateHealth()
     {
-       
-    }
-
-    public void UpdateHealth(int health, int maximumHealth)
-    {
-        health = 0 > health ? 0 : health;
-        HealthText.text =  health.ToString() + "/" + maximumHealth.ToString();
+        int health;
+        health = 0 > PlayerStats.CurrentHealth ? 0 : PlayerStats.CurrentHealth;
+        health = PlayerStats.MaximumHealth < health ? PlayerStats.MaximumHealth : health;
+        HealthText.text =  health.ToString() + "/" + PlayerStats.MaximumHealth.ToString();
     }
 
 
-    public void UpdateScore()
-    {
-        Score += 10;
-        ScoreText.text = "Score: " + Score.ToString();
-    }
+
+    //public void UpdateScore()
+    //{
+    //    Score += 10;
+    //    ScoreText.text = "Score: " + Score.ToString();
+    //}
 
     public void PressMute()
     {

@@ -96,19 +96,6 @@ public class ObjectFactory : MonoBehaviour
     }
 
 
-    public T CreateProjectile<T>(Transform projectilePosition, Vector2 direction,GameObject projectile) where T : IInitializableProjectile
-    {
-        var someProjectile = Instantiate(projectile).GetComponent<T>();
-        someProjectile.Initialize(projectilePosition, direction.x, direction.y);
-        return someProjectile;
-    }
-
-    public Projectile CreateProjectile(Vector3 projectilePosition, GameObject projectile,Vector3 spawnPositionOffset,float projectileSpeed,float projectileDestroyDelay,float projectileRotation) 
-    {
-        var someProjectile = Instantiate(projectile).GetComponent<Projectile>();
-        someProjectile.Initialize(projectilePosition,  spawnPositionOffset,projectileSpeed,projectileDestroyDelay,projectileRotation);
-        return someProjectile;
-    }
 
     public Pickup CreatePickup(Transform deadEnemyPosition, GameObject pickup)
     {

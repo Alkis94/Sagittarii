@@ -12,6 +12,8 @@ public class PlayerCollision : MonoBehaviour
     public static event Action OnPlayerGotBatWings = delegate { };
     public static event Action OnPlayerGotDeadBird = delegate { };
 
+    public static event Action OnPlayerHealthChanged = delegate { };
+
     private bool PlayerNotDead = true;
 
     private void Start()
@@ -23,35 +25,22 @@ public class PlayerCollision : MonoBehaviour
     {
         if (other.tag == "EnemyProjectile" && PlayerNotDead)
         {
-            PlayerStats.PlayerHealth -= 10;
-            UIManager.Instance.UpdateHealth(PlayerStats.PlayerHealth, PlayerStats.PlayerMaximumHealth);
-            if (PlayerStats.PlayerHealth < 1)
-            {
-                PlayerNotDead = false;
-                if(OnDeath != null) OnDeath();
-            }
-            else
-            {
-                audioSource.clip = PlayerGotHitSound;
-                audioSource.Play();
-            }
+            PlayerGotHit();
         }
 
-        if (other.tag == "HealthPickup" && PlayerStats.PlayerMaximumHealth > PlayerStats.PlayerHealth)
+        if (other.tag == "HealthPickup" && PlayerStats.MaximumHealth > PlayerStats.CurrentHealth)
         {
-            PlayerStats.PlayerHealth += 10;
-            UIManager.Instance.UpdateHealth(PlayerStats.PlayerHealth, PlayerStats.PlayerMaximumHealth);
+            IncreaseCurrentHealthAndCallUpdateUI();
         }
         if (other.tag == "MaximumHealthPickup")
         {
-            PlayerStats.PlayerHealth += 10;
-            PlayerStats.PlayerMaximumHealth += 10;
-            UIManager.Instance.UpdateHealth(PlayerStats.PlayerHealth, PlayerStats.PlayerMaximumHealth);
+            PlayerStats.MaximumHealth += 10;
+            IncreaseCurrentHealthAndCallUpdateUI();
         }
         if (other.tag == "BatWingsPickup")
         {
             ItemHandler.PlayerHasBatWings = true;
-            if (OnPlayerGotBatWings != null) OnPlayerGotBatWings();
+            OnPlayerGotBatWings?.Invoke();
 
         }
         if (other.tag == "WolfPawPickup")
@@ -66,9 +55,34 @@ public class PlayerCollision : MonoBehaviour
         if (other.tag == "ImpFlamePickup")
         {
             ItemHandler.PlayerHasImpFlame = true;
-            PlayerStats.PlayerDamage += 10;
+            PlayerStats.Damage += 10;
         }
 
     }
 
+
+    private void PlayerGotHit()
+    {
+        PlayerStats.CurrentHealth -= 10;
+        OnPlayerHealthChanged?.Invoke();
+        if (PlayerStats.CurrentHealth < 1)
+        {
+            PlayerNotDead = false;
+            OnDeath?.Invoke();
+        }
+        else
+        {
+            audioSource.clip = PlayerGotHitSound;
+            audioSource.Play();
+        }
+    }
+
+    private void IncreaseCurrentHealthAndCallUpdateUI()
+    {
+        if (PlayerStats.MaximumHealth > PlayerStats.CurrentHealth)
+        {
+            PlayerStats.CurrentHealth += 10;
+            OnPlayerHealthChanged?.Invoke();
+        }
+    }
 }
