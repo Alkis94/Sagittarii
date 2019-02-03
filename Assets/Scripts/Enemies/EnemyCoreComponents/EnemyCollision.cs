@@ -2,7 +2,7 @@
 using System;
 using UnityEngine;
 
-[RequireComponent(typeof(EnemyData))]
+
 public class EnemyCollision : MonoBehaviour
 {
 

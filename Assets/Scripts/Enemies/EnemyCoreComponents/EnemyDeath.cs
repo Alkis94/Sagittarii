@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(EnemyCollision))]
+
 public class EnemyDeath : MonoBehaviour
 {
     private EnemyCollision enemyCollision;

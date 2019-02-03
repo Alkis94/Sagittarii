@@ -19,6 +19,11 @@ public class UIManager : MonoBehaviour
         PlayerCollision.OnPlayerHealthChanged+= UpdateHealth;
     }
 
+    private void OnDisable()
+    {
+        PlayerCollision.OnPlayerHealthChanged -= UpdateHealth;
+    }
+
     private void Start ()
     {
         

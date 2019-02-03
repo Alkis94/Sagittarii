@@ -322,6 +322,7 @@ GameObject:
   - component: {fileID: 5203365195596023964}
   - component: {fileID: 664476389737370298}
   - component: {fileID: 8874401740857501580}
+  - component: {fileID: 1059188013}
   m_Layer: 10
   m_Name: Archer
   m_TagString: Player
@@ -593,9 +594,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   JumpSound: {fileID: 8300000, guid: 51dcd922a0fbbff4eafca92345c169bd, type: 3}
-  maxJumpHeight: 4
-  minJumpHeight: 1
-  timeToJumpApex: 0.4
+  playerInput: {x: 0, y: 0}
 --- !u!114 &5203365195596023964
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -640,3 +639,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0772955175b0de842bea9a720dc1ae79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1059188013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6112859251357942033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55d8ca152090629489475ba0b4a30a4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxJumpHeight: 4
+  minJumpHeight: 1
+  timeToJumpApex: 0.4
+  accelerationTimeAirborne: 0.2
+  accelerationTimeGrounded: 0.1
+  value: 0
+  maxJumpVelocity: 0
+  minJumpVelocity: 0

@@ -51,7 +51,7 @@ public class CollisionHandler : MonoBehaviour
 
 
 
-    public void HandleVerticalCollisions(ref Vector2 moveAmount,float playerInputY)
+    public void HandleVerticalCollisions(ref Vector2 moveAmount,bool GoThroughPlatform)
     {
         float directionY = Mathf.Sign(moveAmount.y);
         float rayLength = Mathf.Abs(moveAmount.y) + Raycaster.skinWidth;
@@ -60,14 +60,14 @@ public class CollisionHandler : MonoBehaviour
         {
 
             Vector2 rayOrigin = (directionY == -1) ? raycaster.raycastOrigins.bottomLeft : raycaster.raycastOrigins.topLeft;
-            rayOrigin += Vector2.right * (raycaster.verticalRaySpacing * i /*+ moveAmount.x*/);
+            rayOrigin += Vector2.right * (raycaster.verticalRaySpacing * i);
             RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLength, collisionMask);
 
             Debug.DrawRay(rayOrigin, Vector2.up * directionY, Color.red);
 
             if (hit)
             {
-                if(!PassingThroughPlatform(hit, playerInputY,directionY))
+                if(!PassingThroughPlatform(hit, GoThroughPlatform, directionY))
                 {
                     moveAmount.y = (hit.distance - Raycaster.skinWidth) * directionY;
                     rayLength = hit.distance;
@@ -80,7 +80,7 @@ public class CollisionHandler : MonoBehaviour
         }
     }
 
-    private bool PassingThroughPlatform(RaycastHit2D hit, float playerInputY, float directionY)
+    private bool PassingThroughPlatform(RaycastHit2D hit, bool GoThroughPlatform, float directionY)
     {
 
         if (hit.collider.tag == "PassablePlatform")
@@ -93,7 +93,7 @@ public class CollisionHandler : MonoBehaviour
             {
                 return true;
             }
-            if (playerInputY == -1)
+            if (GoThroughPlatform)
             {
                 fallingThroughPlatform = true;
                 StartCoroutine(ResetFallingThroughPlatform());

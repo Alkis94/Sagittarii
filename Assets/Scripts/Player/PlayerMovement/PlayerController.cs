@@ -1,70 +1,34 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-
-[RequireComponent(typeof(Raycaster))]
-[RequireComponent(typeof(CollisionHandler))]
-public class PlayerController : MonoBehaviour
+public class PlayerController : Controller
 {
     public AudioClip JumpSound;
-
-    private Animator animator;
-    private Raycaster raycaster;
-    private CollisionHandler collisionHandler;
     private AudioSource audioSource;
 
+    private bool GoThroughPlatform = false;
     private bool DoubleJump = false;
     private bool TripleJump = false;
-
-
-
-
 
     public delegate void VoidDelegate();
     public VoidDelegate OnJump;
 
-    private Vector2 playerInput;
-    private Vector2 velocity;
-
-    public float maxJumpHeight = 4;
-    public float minJumpHeight = 1;
-    public float timeToJumpApex = .4f;
-    private float accelerationTimeAirborne = .2f;
-    private float accelerationTimeGrounded = .1f;
-    private float moveSpeed = 6;
-
-    private float gravity;
-    private float maxJumpVelocity;
-    private float minJumpVelocity;
-    private float velocityXSmoothing;
-
+    [HideInInspector]
+    public Vector2 playerInput;
 
     void OnEnable()
     {
         PlayerCollision.OnPlayerGotBatWings += PlayerGotBatWings;
     }
 
-
     void OnDisable()
     {
         PlayerCollision.OnPlayerGotBatWings -= PlayerGotBatWings;
     }
 
-
-
-
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         audioSource = GetComponent<AudioSource>();
-        animator = GetComponent<Animator>();
-        collisionHandler = GetComponent<CollisionHandler>();
-        raycaster = GetComponent<Raycaster>();
-        raycaster.CalculateRaySpacing();
-        collisionHandler.collisions.facingDirection = 1;
-        gravity = -(2 * maxJumpHeight) / Mathf.Pow(timeToJumpApex, 2);
-        maxJumpVelocity = Mathf.Abs(gravity) * timeToJumpApex;
-        minJumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(gravity) * minJumpHeight);
-
         if (ItemHandler.PlayerHasBatWings)
         {
             OnJump = JumpWithWings;
@@ -78,7 +42,8 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         CalculateVelocity();
-        Move(velocity * Time.deltaTime);
+        TryingToGoThroughPlatform();
+        Move(velocity * Time.deltaTime, GoThroughPlatform);
 
         if (collisionHandler.collisions.above || collisionHandler.collisions.below)
         {
@@ -88,41 +53,29 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void CalculateVelocity()
+    private void TryingToGoThroughPlatform()
     {
-        float targetVelocityX = playerInput.x * moveSpeed;
-        velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (collisionHandler.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
-        velocity.y += gravity * Time.deltaTime;
+        GoThroughPlatform = playerInput.y == -1 ? true : false;
     }
 
-
-    public void Move(Vector2 moveAmount)
+    protected override float CalculateTargetVelocity()
     {
-        HandleWalkingAnimation();
-        raycaster.UpdateRaycastOrigins();
-        collisionHandler.collisions.Reset();
-        collisionHandler.collisions.moveAmountOld = moveAmount;
+        return moveSpeed * playerInput.x;
+    }
 
-        if (moveAmount.x != 0)
-        { 
-            collisionHandler.collisions.facingDirection = (int)Mathf.Sign(moveAmount.x);
-        }
+    protected override void HandleWalkingAnimation()
+    {
 
-        
-        collisionHandler.HandleHorizontalCollisions(ref moveAmount);
-
-        if (moveAmount.y != 0)
+        if (collisionHandler.collisions.below && playerInput.x != 0)
         {
-            collisionHandler.HandleVerticalCollisions(ref moveAmount,playerInput.y);
+
+            animator.SetBool("IsMoving", true);
         }
+        else
+        {
 
-        transform.Translate(moveAmount,Space.World);
-    }
-
-
-    public void SetDirectionalInput(Vector2 input)
-    {
-        playerInput = input;
+            animator.SetBool("IsMoving", false);
+        }
     }
 
     public void JumpWithoutWings()
@@ -131,14 +84,14 @@ public class PlayerController : MonoBehaviour
         {
             DoubleJump = true;
             animator.SetTrigger("PlayerJumped");
-            velocity.y = maxJumpVelocity;
+            velocity.y = gravity.maxJumpVelocity;
             PlayJumpSound();
         }
         else if (DoubleJump && !collisionHandler.collisions.below)
         {
             DoubleJump = false;
             animator.SetTrigger("PlayerJumped");
-            velocity.y = maxJumpVelocity;
+            velocity.y = gravity.maxJumpVelocity;
             PlayJumpSound();
         }
     }
@@ -149,7 +102,7 @@ public class PlayerController : MonoBehaviour
         {
             DoubleJump = true;
             animator.SetTrigger("PlayerJumped");
-            velocity.y = maxJumpVelocity;
+            velocity.y = gravity.maxJumpVelocity;
             PlayJumpSound();
         }
         else if (DoubleJump && !collisionHandler.collisions.below)
@@ -157,14 +110,14 @@ public class PlayerController : MonoBehaviour
             TripleJump = true;
             DoubleJump = false;
             animator.SetTrigger("PlayerJumped");
-            velocity.y = maxJumpVelocity;
+            velocity.y = gravity.maxJumpVelocity;
             PlayJumpSound();
         }
         else if (TripleJump && !collisionHandler.collisions.below)
         {
             TripleJump = false;
             animator.SetTrigger("PlayerJumped");
-            velocity.y = maxJumpVelocity;
+            velocity.y = gravity.maxJumpVelocity;
             PlayJumpSound();
         }
     }
@@ -176,9 +129,9 @@ public class PlayerController : MonoBehaviour
     }
     public void OnJumpInputUp()
     {
-        if (velocity.y > minJumpVelocity)
+        if (velocity.y > gravity.minJumpVelocity)
         {
-            velocity.y = minJumpVelocity;
+            velocity.y = gravity.minJumpVelocity;
         }
     }
 
@@ -187,29 +140,12 @@ public class PlayerController : MonoBehaviour
         OnJump = JumpWithWings;
     }
 
-
-
-
-
     public void StandingOnPlatform()
     {
         collisionHandler.collisions.below = true;
     }
 
-    private void HandleWalkingAnimation()
-    {
-
-        if (collisionHandler.collisions.below && playerInput.x != 0)
-        {
-
-            animator.SetBool("PlayerIsMoving",true);
-        }
-        else
-        {
-
-            animator.SetBool("PlayerIsMoving", false);
-        }
-    }
+    
    
 
 }

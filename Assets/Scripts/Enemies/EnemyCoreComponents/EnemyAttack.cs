@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(EnemyData))]
-[RequireComponent(typeof(EnemyCollision))]
+
 public class EnemyAttack : MonoBehaviour
 {
 

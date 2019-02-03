@@ -9,11 +9,13 @@ public class PlayerDied : MonoBehaviour
 
     private Animator animator;
     private AudioSource audioSource;
+    private PlayerInput playerInput;
 
     void Start()
     {
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
+        playerInput = GetComponent<PlayerInput>();
     }
 
     void OnEnable()
@@ -37,6 +39,7 @@ public class PlayerDied : MonoBehaviour
         audioSource.Play();
         animator.SetTrigger("PlayerDied");
         Invoke("PlayerDiedDelayedMenu", 3);
+        playerInput.enabled = false;
 
     }
 

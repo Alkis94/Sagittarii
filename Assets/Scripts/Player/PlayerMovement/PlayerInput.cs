@@ -7,13 +7,14 @@ public class PlayerInput : MonoBehaviour {
 
     PlayerController controller2D;
 
-	void Start () {
+	void Start ()
+    {
         controller2D = GetComponent<PlayerController> ();
 	}
 
-	void Update () {
-		Vector2 directionalInput = new Vector2 (Input.GetAxisRaw ("Horizontal"), Input.GetAxisRaw ("Vertical"));
-        controller2D.SetDirectionalInput (directionalInput);
+	void Update ()
+    {
+        controller2D.playerInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
         if (Input.GetButtonDown("Cancel") && !GameState.GamePaused)
         {
