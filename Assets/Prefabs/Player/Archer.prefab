@@ -426,7 +426,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.15609157, y: 0.15344548}
+  m_Offset: {x: 0, y: 0.054363012}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.6, y: 0.37}
@@ -437,7 +437,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.83781695, y: 1.6105828}
+  m_Size: {x: 0.6344217, y: 1.4039578}
   m_EdgeRadius: 0
 --- !u!82 &861896868
 AudioSource:
@@ -594,6 +594,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   JumpSound: {fileID: 8300000, guid: 51dcd922a0fbbff4eafca92345c169bd, type: 3}
+  Speed: 6
   playerInput: {x: 0, y: 0}
 --- !u!114 &5203365195596023964
 MonoBehaviour:
@@ -654,8 +655,6 @@ MonoBehaviour:
   maxJumpHeight: 4
   minJumpHeight: 1
   timeToJumpApex: 0.4
-  accelerationTimeAirborne: 0.2
-  accelerationTimeGrounded: 0.1
   value: 0
   maxJumpVelocity: 0
   minJumpVelocity: 0

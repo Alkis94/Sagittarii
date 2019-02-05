@@ -5,13 +5,7 @@ using Factories;
 
 public class PerimetricalAttack : AttackPatern
 {
-    private EnemyMovement enemyMovement;
     public GameObject projectile;
-
-    private void Start()
-    {
-        enemyMovement = GetComponent<EnemyMovement>();
-    }
 
     public override void Attack(EnemyData enemyData)
     {
@@ -19,7 +13,7 @@ public class PerimetricalAttack : AttackPatern
         {
             foreach (float rotation in enemyData.projectileRotations)
             {
-                ProjectileFactory.CreateProjectile(transform.position, projectile, enemyData.ProjectileSpawnPositionOffset, enemyData.ProjectileSpeed, enemyData.ProjectileDestroyDelay, rotation);
+                ProjectileFactory.CreateProjectile(transform.position, projectile, enemyData.ProjectileSpawnPositionOffset, enemyData.ProjectileSpeed * transform.right.x, enemyData.ProjectileDestroyDelay, rotation);
             }
         }
         else

@@ -10,8 +10,7 @@ public class Gravity : MonoBehaviour
     private float minJumpHeight = 1;
     [SerializeField]
     private float timeToJumpApex = .4f;
-    public float accelerationTimeAirborne = .2f;
-    public float accelerationTimeGrounded = .1f;
+    
 
     [HideInInspector]
     public float value;

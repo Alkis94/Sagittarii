@@ -2,14 +2,14 @@
 using Factories;
 using System.Collections;
 
-[RequireComponent (typeof (PlayerController))]
+[RequireComponent (typeof (PlayerMovementController))]
 public class PlayerInput : MonoBehaviour {
 
-    PlayerController controller2D;
+    PlayerMovementController controller2D;
 
 	void Start ()
     {
-        controller2D = GetComponent<PlayerController> ();
+        controller2D = GetComponent<PlayerMovementController> ();
 	}
 
 	void Update ()
