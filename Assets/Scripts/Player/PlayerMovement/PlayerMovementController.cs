@@ -71,13 +71,9 @@ public class PlayerMovementController : MonoBehaviour
 
     private void Update()
     {
-  
+
         TryingToGoThroughPlatform();
-        if(PlayerStats.CurrentHealth > 0)
-        {
-            Move(Speed * playerInput.x, GoThroughPlatform);
-        }
-        
+        CalculateMovement(Speed * playerInput.x, GoThroughPlatform);
 
         if (movementCollisionHandler.collisions.above || movementCollisionHandler.collisions.below)
         {
@@ -87,13 +83,13 @@ public class PlayerMovementController : MonoBehaviour
         }
     }
 
-    public void Move(float speed, bool GoThroughPlatform)
+    private void CalculateMovement(float speed, bool GoThroughPlatform)
     {
         Vector2 moveAmount = CalculateVelocity(speed);
         HandleWalkingAnimation();
         raycaster.UpdateRaycastOrigins();
         movementCollisionHandler.collisions.Reset();
-        movementCollisionHandler.collisions.moveAmountOld = moveAmount;
+ 
 
         if (moveAmount.x != 0)
         {
@@ -116,7 +112,10 @@ public class PlayerMovementController : MonoBehaviour
     {
         float targetVelocityX = speed * HorizontalDirection;
         velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (movementCollisionHandler.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
-        velocity.y += gravity.enabled ? gravity.value * Time.deltaTime : 0;
+        if (gravity.enabled)
+        {
+            gravity.ApplyGravityForce(ref velocity.y);
+        }
         return new Vector2(velocity.x, velocity.y) * Time.deltaTime; ;
     }
 

@@ -27,5 +27,9 @@ public class Gravity : MonoBehaviour
         minJumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(value) * minJumpHeight);
     }
 
+    public void ApplyGravityForce(ref float VelocityY)
+    {
+        VelocityY += value * Time.deltaTime;
+    }
 
 }

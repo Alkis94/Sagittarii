@@ -80,24 +80,6 @@ public class MovementCollisionHandler : MonoBehaviour
         }
     }
 
-    public void CloseToVerticalWall(Vector2 moveAmount)
-    {
-        float directionX = Mathf.Sign(moveAmount.x);
-        float rayLength = Mathf.Abs(moveAmount.x) + Vector2.right.x * directionX * 0.5f;
-
-        for (int i = 0; i < raycaster.horizontalRayCount; i++)
-        {
-            Vector2 rayOrigin = (directionX == -1) ? raycaster.raycastOrigins.bottomLeft : raycaster.raycastOrigins.bottomRight;
-            rayOrigin += Vector2.up * (raycaster.horizontalRaySpacing * i);
-            RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.right * directionX, rayLength, collisionMask);
-            if(hit)
-            {
-                collisions.CloseToLeftWall = directionX == -1;
-                collisions.CloseToRightWall = directionX == 1;
-            }
-        }
-    }
-
 
     private bool PassingThroughPlatform(RaycastHit2D hit, bool GoThroughPlatform, float directionY)
     {
@@ -135,10 +117,7 @@ public class MovementCollisionHandler : MonoBehaviour
     {
         public bool above, below;
         public bool left, right;
-        public bool CloseToLeftWall, CloseToRightWall;
 
-
-        public Vector2 moveAmountOld;
         public int facingDirection;
 
         public void Reset()

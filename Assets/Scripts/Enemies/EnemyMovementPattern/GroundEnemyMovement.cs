@@ -26,7 +26,6 @@ public class GroundEnemyMovement : MonoBehaviour
 
     private void Start()
     {
-        
         gravity = GetComponent<Gravity>();
         animator = GetComponent<Animator>();
         movementCollisionHandler = GetComponent<MovementCollisionHandler>();
@@ -37,21 +36,13 @@ public class GroundEnemyMovement : MonoBehaviour
         maxJumpVelocity = gravity.maxJumpVelocity;
     }
 
-    private Vector2 CalculateVelocity(float speed)
-    {
-        float targetVelocityX = speed * HorizontalDirection;
-        velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (movementCollisionHandler.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
-        velocity.y += gravity.enabled ? gravity.value * Time.deltaTime : 0;
-        return new Vector2(velocity.x, velocity.y) * Time.deltaTime; ;
-    }
-
     public void Move(float speed, bool GoThroughPlatform)
     {
         Vector2 moveAmount = CalculateVelocity(speed);
         HandleWalkingAnimation();
         raycaster.UpdateRaycastOrigins();
         movementCollisionHandler.collisions.Reset();
-        movementCollisionHandler.collisions.moveAmountOld = moveAmount;
+
 
         if (moveAmount.x != 0)
         {
@@ -67,6 +58,17 @@ public class GroundEnemyMovement : MonoBehaviour
 
         moveAmount.x *= transform.right.x;
         transform.Translate(moveAmount);
+    }
+
+    private Vector2 CalculateVelocity(float speed)
+    {
+        float targetVelocityX = speed * HorizontalDirection;
+        velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (movementCollisionHandler.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
+        if (gravity.enabled)
+        {
+            gravity.ApplyGravityForce(ref velocity.y);
+        }
+        return new Vector2(velocity.x, velocity.y) * Time.deltaTime; ;
     }
 
     private void HandleWalkingAnimation()
