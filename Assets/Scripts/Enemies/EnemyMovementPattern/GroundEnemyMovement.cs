@@ -1,26 +1,32 @@
 ﻿using UnityEngine;
 
-public class MovementController : MonoBehaviour
+public class GroundEnemyMovement : MonoBehaviour
 {
-    protected Animator animator;
-    protected Raycaster raycaster;
-    protected MovementCollisionHandler movementCollisionHandler;
-    protected Gravity gravity;
+    private BoxCollider2D boxCollider2d;
+    private Animator animator;
+    private Raycaster raycaster;
+    private MovementCollisionHandler movementCollisionHandler;
+    private Gravity gravity;
 
-    protected Vector2 velocity;
-    protected float velocityXSmoothing;
+    private Vector2 velocity;
+    private float velocityXSmoothing;
 
-    protected float accelerationTimeAirborne = .2f;
-    protected float accelerationTimeGrounded = .1f;
+    private float accelerationTimeAirborne = .2f;
+    private float accelerationTimeGrounded = .1f;
 
-    protected float minJumpVelocity;
-    protected float maxJumpVelocity;
+    private float minJumpVelocity;
+    private float maxJumpVelocity;
 
     private int HorizontalDirection = 1;
 
-
-    protected virtual void Start()
+    private void Awake()
     {
+        boxCollider2d = GetComponent<BoxCollider2D>();
+    }
+
+    private void Start()
+    {
+        
         gravity = GetComponent<Gravity>();
         animator = GetComponent<Animator>();
         movementCollisionHandler = GetComponent<MovementCollisionHandler>();
@@ -52,7 +58,6 @@ public class MovementController : MonoBehaviour
             movementCollisionHandler.collisions.facingDirection = (int)Mathf.Sign(moveAmount.x);
         }
 
-
         movementCollisionHandler.HandleHorizontalCollisions(ref moveAmount);
 
         if (moveAmount.y != 0)
@@ -60,12 +65,12 @@ public class MovementController : MonoBehaviour
             movementCollisionHandler.HandleVerticalCollisions(ref moveAmount, GoThroughPlatform);
         }
 
-        transform.Translate(moveAmount, Space.World);
+        moveAmount.x *= transform.right.x;
+        transform.Translate(moveAmount);
     }
 
-    protected virtual void HandleWalkingAnimation()
+    private void HandleWalkingAnimation()
     {
-
         if (movementCollisionHandler.collisions.below)
         {
 
@@ -78,7 +83,7 @@ public class MovementController : MonoBehaviour
         }
     }
 
-    public virtual void Jump()
+    public  void Jump()
     {
         if (movementCollisionHandler.collisions.below)
         {
@@ -87,9 +92,19 @@ public class MovementController : MonoBehaviour
         }
     }
 
+
     public void ChangeDirection()
     {
         HorizontalDirection = HorizontalDirection * (-1);
+        transform.localRotation = transform.right.x > 0 ? Quaternion.Euler(0, 180, 0) : Quaternion.Euler(0, 0, 0);
+        if (HorizontalDirection == -1)
+        {
+            transform.position = new Vector3(transform.position.x + (2 * boxCollider2d.offset.x) - 0.25f, transform.position.y);
+        }
+        else
+        {
+            transform.position = new Vector3(transform.position.x - (2 * boxCollider2d.offset.x) + 0.25f, transform.position.y);
+        }
     }
 
 }

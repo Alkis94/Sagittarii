@@ -10,7 +10,10 @@ public class EnemyDeath : MonoBehaviour
     private Animator animator;
     private Rigidbody2D rigidbody2d;
     private SpriteRenderer spriteRenderer;
-    public AudioSource DeathCry;
+    private BoxCollider2D boxCollider2d;
+    private AudioSource audioSource;
+    [SerializeField]
+    private AudioClip DeathCry;
 
 
     private void OnEnable()
@@ -30,6 +33,8 @@ public class EnemyDeath : MonoBehaviour
         animator = GetComponent<Animator>();
         rigidbody2d = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        boxCollider2d = GetComponent<BoxCollider2D>();
+        audioSource = GetComponent<AudioSource>();
     }
 
 
@@ -48,9 +53,10 @@ public class EnemyDeath : MonoBehaviour
         spriteRenderer.sortingLayerName = "DeadEnemies";
         Destroy(gameObject, 10.0f);
         gameObject.layer = 14;
-        DeathCry.Play();
+        audioSource.clip = DeathCry;
+        audioSource.Play();
         transform.gameObject.tag = "DeadEnemy";
-
+        enemyCollision.enabled = false;
         randomNumber = Random.Range(0f, 1f);
         if (randomNumber < C.HEALTH_PICKUP_DROP_RATE)
         {
@@ -58,6 +64,9 @@ public class EnemyDeath : MonoBehaviour
         }
     }
 
-
+    //private void ChangeCollisionBoxOnDeath()
+    //{
+    //    boxCollider2d.size = spriteRenderer.size;
+    //}
 
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Factories;
 
-public class PlayerDied : MonoBehaviour
+public class PlayerDeath : MonoBehaviour
 {
     public AudioClip PlayerDiedSound;
 
@@ -20,16 +20,16 @@ public class PlayerDied : MonoBehaviour
 
     void OnEnable()
     {
-        PlayerCollision.OnDeath+= PlayerDie;
+        PlayerCollision.OnDeath+= Die;
     }
 
 
     void OnDisable()
     {
-        PlayerCollision.OnDeath -= PlayerDie;
+        PlayerCollision.OnDeath -= Die;
     }
 
-    private void PlayerDie()
+    private void Die()
     {
         foreach (Transform child in transform)
         {

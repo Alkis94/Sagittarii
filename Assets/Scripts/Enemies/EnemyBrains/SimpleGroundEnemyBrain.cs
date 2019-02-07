@@ -2,49 +2,74 @@
 
 public class SimpleGroundEnemyBrain : EnemyBrain
 {
+    private AudioSource audioSource;
+    [SerializeField]
+    private AudioClip AttackSound;
 
+    private BoxCollider2D boxCollider2d;
     private Animator animator;
-    private MovementController movementController;
+    private GroundEnemyMovement groundEnemyMovement;
     private MovementCollisionHandler movementCollisionHandler;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        groundEnemyMovement = GetComponent<GroundEnemyMovement>();
+        movementCollisionHandler = GetComponent<MovementCollisionHandler>();
+    }
+
+    private void OnEnable()
+    {
+        enemyCollision.OnGroundCollision += ChangeDirection;
+        enemyCollision.OnDeath += CancelInvoke;
+    }
+
+    private void OnDisable()
+    {
+        enemyCollision.OnGroundCollision -= ChangeDirection;
+        enemyCollision.OnDeath -= CancelInvoke;
+    }
 
     protected override void Start()
     {
         base.Start();
-        movementController = GetComponent<MovementController>();
-        movementCollisionHandler = GetComponent<MovementCollisionHandler>();
-        animator = GetComponent<Animator>();
-        InvokeRepeating("Attack", enemyData.DelayBeforeFirstAttack, enemyData.AttackFrequency);
         
-
-        if (enemyData.ChangingDirections)
-        {
-            InvokeRepeating("ChangeDirection", enemyData.ChangeDirectionFrequency, enemyData.ChangeDirectionFrequency);
-        }
+        
+        animator = GetComponent<Animator>();
+        boxCollider2d = GetComponent<BoxCollider2D>();
+        audioSource = GetComponent<AudioSource>();
+        audioSource.clip = AttackSound;
+        InvokeRepeating("StartAttackAnimation", enemyData.DelayBeforeFirstAttack, enemyData.AttackFrequency);   
     }
 
-
-    void Update()
+    private void Update()
     {
+        if (enemyData.Health > 1)
+        {
+            groundEnemyMovement.Move(enemyData.Speed,false);
+        }
+
         if (movementCollisionHandler.collisions.left || movementCollisionHandler.collisions.right)
         {
             ChangeDirection();
         }
-
-        if (enemyData.Health > 1)
-        {
-            movementController.Move(enemyData.Speed, false);
-        }
     }
 
-    private void Attack()
+    private void StartAttackAnimation()
     {
         animator.SetTrigger("Attack");
+        audioSource.Play();
+    }
+
+    private void CallAttack()
+    {
         attackPatern.Attack(enemyData);
     }
 
-    protected void ChangeDirection()
+    protected override void ChangeDirection()
     {
-        movementController.ChangeDirection();
-        transform.localRotation = transform.right.x > 0 ? Quaternion.Euler(0, 180, 0) : Quaternion.Euler(0, 0, 0);
+        groundEnemyMovement.ChangeDirection();
     }
+
+   
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class ProjectileEnemyTrigger : MonoBehaviour
 {
     [SerializeField]
-    private float ImpactDestroyDelay;
+    private float ImpactDestroyDelay = 0;
     private Rigidbody2D rigidbody2d;
 
     void Start()

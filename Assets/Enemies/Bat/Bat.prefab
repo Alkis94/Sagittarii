@@ -17,11 +17,11 @@ GameObject:
   - component: {fileID: 1767405959}
   - component: {fileID: 6026461623799748943}
   - component: {fileID: 1767405957}
-  - component: {fileID: 1767405958}
   - component: {fileID: 1767405955}
   - component: {fileID: 1767405954}
+  - component: {fileID: 5623888009569000007}
   m_Layer: 12
-  m_Name: Bat 1
+  m_Name: Bat
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -300,19 +300,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01e2923fc207e634cbbdf4dc6043672c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1767405958
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1767405952}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4f62bf9e9524d544bad0e40d5e12c46, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DeathCry: {fileID: 0}
 --- !u!114 &1767405955
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -338,3 +325,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectile: {fileID: 1000012292187914, guid: a8f9a03eddae3cb42ae4953a603f96de, type: 3}
+--- !u!114 &5623888009569000007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1767405952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4f62bf9e9524d544bad0e40d5e12c46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DeathCry: {fileID: 8300000, guid: a0e1fe8dabe199041938412484e900f6, type: 3}

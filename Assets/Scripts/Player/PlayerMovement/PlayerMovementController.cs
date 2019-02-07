@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class PlayerMovementController : MovementController
+public class PlayerMovementController : MonoBehaviour
 {
     public AudioClip JumpSound;
     private AudioSource audioSource;
@@ -15,6 +15,23 @@ public class PlayerMovementController : MovementController
     public delegate void VoidDelegate();
     public VoidDelegate OnJump;
 
+    protected BoxCollider2D boxCollider2d;
+    protected Animator animator;
+    protected Raycaster raycaster;
+    protected MovementCollisionHandler movementCollisionHandler;
+    protected Gravity gravity;
+
+    protected Vector2 velocity;
+    protected float velocityXSmoothing;
+
+    protected float accelerationTimeAirborne = .2f;
+    protected float accelerationTimeGrounded = .1f;
+
+    protected float minJumpVelocity;
+    protected float maxJumpVelocity;
+
+    private int HorizontalDirection = 1;
+
     [HideInInspector]
     public Vector2 playerInput;
 
@@ -28,9 +45,17 @@ public class PlayerMovementController : MovementController
         PlayerCollision.OnPlayerGotBatWings -= PlayerGotBatWings;
     }
 
-    protected override void Start()
+    private  void Start()
     {
-        base.Start();
+        boxCollider2d = GetComponent<BoxCollider2D>();
+        gravity = GetComponent<Gravity>();
+        animator = GetComponent<Animator>();
+        movementCollisionHandler = GetComponent<MovementCollisionHandler>();
+        raycaster = GetComponent<Raycaster>();
+        raycaster.CalculateRaySpacing();
+        movementCollisionHandler.collisions.facingDirection = 1;
+        minJumpVelocity = gravity.minJumpVelocity;
+        maxJumpVelocity = gravity.maxJumpVelocity;
         audioSource = GetComponent<AudioSource>();
 
 
@@ -48,7 +73,11 @@ public class PlayerMovementController : MovementController
     {
   
         TryingToGoThroughPlatform();
-        Move(Speed * playerInput.x,GoThroughPlatform);
+        if(PlayerStats.CurrentHealth > 0)
+        {
+            Move(Speed * playerInput.x, GoThroughPlatform);
+        }
+        
 
         if (movementCollisionHandler.collisions.above || movementCollisionHandler.collisions.below)
         {
@@ -58,13 +87,46 @@ public class PlayerMovementController : MovementController
         }
     }
 
+    public void Move(float speed, bool GoThroughPlatform)
+    {
+        Vector2 moveAmount = CalculateVelocity(speed);
+        HandleWalkingAnimation();
+        raycaster.UpdateRaycastOrigins();
+        movementCollisionHandler.collisions.Reset();
+        movementCollisionHandler.collisions.moveAmountOld = moveAmount;
+
+        if (moveAmount.x != 0)
+        {
+            movementCollisionHandler.collisions.facingDirection = (int)Mathf.Sign(moveAmount.x);
+        }
+
+
+        movementCollisionHandler.HandleHorizontalCollisions(ref moveAmount);
+
+        if (moveAmount.y != 0)
+        {
+            movementCollisionHandler.HandleVerticalCollisions(ref moveAmount, GoThroughPlatform);
+        }
+
+        moveAmount.x *= transform.right.x;
+        transform.Translate(moveAmount);
+    }
+
+    private Vector2 CalculateVelocity(float speed)
+    {
+        float targetVelocityX = speed * HorizontalDirection;
+        velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (movementCollisionHandler.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
+        velocity.y += gravity.enabled ? gravity.value * Time.deltaTime : 0;
+        return new Vector2(velocity.x, velocity.y) * Time.deltaTime; ;
+    }
+
     private void TryingToGoThroughPlatform()
     {
         GoThroughPlatform = playerInput.y == -1 ? true : false;
     }
 
 
-    protected override void HandleWalkingAnimation()
+    private void HandleWalkingAnimation()
     {
 
         if (movementCollisionHandler.collisions.below && playerInput.x != 0)

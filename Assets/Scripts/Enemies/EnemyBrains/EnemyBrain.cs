@@ -28,5 +28,18 @@ public abstract class  EnemyBrain : MonoBehaviour
         {
             InvokeRepeating("ChangeDirection", enemyData.ChangeDirectionFrequency, enemyData.ChangeDirectionFrequency);
         }
+
+        StartFacingRandomDirection();
+    }
+
+    protected abstract void ChangeDirection();
+
+    protected void StartFacingRandomDirection()
+    {
+        float random = Random.Range(0f, 1f);
+        if (random < 0.5f)
+        {
+            ChangeDirection();
+        }
     }
 }

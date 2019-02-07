@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3457750228986333726}
   - component: {fileID: 3457750228986333727}
   - component: {fileID: 1937972845201748223}
+  - component: {fileID: 5665686741376172791}
   - component: {fileID: 3457750228986333724}
   - component: {fileID: 3457750228986333717}
   - component: {fileID: 2046918722190791161}
@@ -109,6 +110,102 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!82 &5665686741376172791
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3457750228986333725}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 0.5
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!61 &3457750228986333724
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -122,7 +219,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.16748142, y: -0.07352662}
+  m_Offset: {x: -0.0974617, y: -0.100459814}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -133,7 +230,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.5369568, y: 1.5025725}
+  m_Size: {x: 0.31866074, y: 1.4416528}
   m_EdgeRadius: 0
 --- !u!114 &3457750228986333717
 MonoBehaviour:
@@ -152,7 +249,7 @@ MonoBehaviour:
   - 0
   ChangingDirections: 0
   AttackIsDirectionDependant: 1
-  Speed: 1
+  Speed: 2
   ProjectileSpeed: 5
   ProjectileDestroyDelay: 60
   AttackFrequency: 5
@@ -172,6 +269,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e78ae028003f3454fa935b6cf2c2520d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AttackSound: {fileID: 8300000, guid: 9e40a9f54c0c78249b63198a7bef3672, type: 3}
 --- !u!114 &3457750228986333715
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -196,7 +294,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4f62bf9e9524d544bad0e40d5e12c46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DeathCry: {fileID: 0}
+  DeathCry: {fileID: 8300000, guid: 6b4f050e74182454f8824328041ec75c, type: 3}
 --- !u!114 &6700407132681398649
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -271,4 +369,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a538059451f55a4c98844bd632a0d32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectile: {fileID: 1000012292187914, guid: 5ada07ae3bdf62948a6cf487586056dc, type: 3}
+  projectile: {fileID: 1000012292187914, guid: b774a9ee4dfc3f549a062b3fc69de24a, type: 3}

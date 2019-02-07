@@ -18,13 +18,11 @@ public class SimpleFlyingEnemyBrain : EnemyBrain
     {
         enemyCollision.OnGroundCollision += ChangeDirection;
         enemyCollision.OnDeath += CancelInvoke;
-        enemyCollision.OnDeath += CancelInvoke;
     }
 
     private void OnDisable()
     {
         enemyCollision.OnGroundCollision -= ChangeDirection;
-        enemyCollision.OnDeath -= CancelInvoke;
         enemyCollision.OnDeath -= CancelInvoke;
     }
 
@@ -32,7 +30,7 @@ public class SimpleFlyingEnemyBrain : EnemyBrain
     {
         base.Start();
         InvokeRepeating("Attack", enemyData.DelayBeforeFirstAttack, enemyData.AttackFrequency);
-        StartFacingRandomDirection();
+        
     }
 
 
@@ -49,16 +47,9 @@ public class SimpleFlyingEnemyBrain : EnemyBrain
         attackPatern.Attack(enemyData);
     }
 
-    private void StartFacingRandomDirection()
-    {
-        float random = Random.Range(0f, 1f);
-        if (random < 0.5f)
-        {
-            //ChangeDirection();
-        }
-    }
+    
 
-    protected void ChangeDirection()
+    protected override void ChangeDirection()
     {
         HorizontalDirection *= -1;
         if (HorizontalDirection == -1)

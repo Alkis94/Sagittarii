@@ -15,6 +15,8 @@ public class ProjectilePlayerTrigger : MonoBehaviour
     [SerializeField]
     private float ImpactDestroyDelay;
     private Rigidbody2D rigidbody2d;
+    private SpriteRenderer enemySpriteRenderer;
+    private EnemyCollision enemyCollision;
 
     public event Action OnCollision = delegate { };
 
@@ -25,29 +27,71 @@ public class ProjectilePlayerTrigger : MonoBehaviour
         collider2d = GetComponent<Collider2D>();
     }
 
+    private void OnDestroy()
+    {
+        if (enemyCollision != null)
+        {
+            enemyCollision.OnDeath -= StartFollowingRenderer;
+        }
+            
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag != "Background")
         {
-            if (OnCollision != null) OnCollision();
+            OnCollision?.Invoke();
             collider2d.enabled = false;
             rigidbody2d.velocity = Vector2.zero;
             rigidbody2d.angularVelocity = 0;
             rigidbody2d.isKinematic = true;
             enabled = false;
-            Destroy(gameObject, ImpactDestroyDelay);
+            
             if (other.tag == "Enemy")
             {
                 transform.parent = other.transform;
                 audioSource.clip = ArrowImpact;
                 audioSource.Play();
+                enemySpriteRenderer = other.GetComponent<SpriteRenderer>();
+                enemyCollision = other.GetComponent<EnemyCollision>();
+                enemyCollision.OnDeath += StartFollowingRenderer;
             }
             else
             {
                 audioSource.clip = ArrowGroundImpact;
                 audioSource.Play();
+                Destroy(gameObject, ImpactDestroyDelay);
             }
         }
     }
+
+    private void StartFollowingRenderer()
+    {
+        StartCoroutine(FollowRenderer());
+    }
+
+    IEnumerator FollowRenderer()
+    {
+        float signX;
+        float signY;
+        while(true)
+        {
+            if((enemySpriteRenderer.bounds.ClosestPoint(transform.position).x - transform.position.x) != 0)
+            {
+                signX =  Mathf.Sign(enemySpriteRenderer.bounds.ClosestPoint(transform.position).x - transform.position.x);
+                transform.position = enemySpriteRenderer.bounds.ClosestPoint(transform.position) + new Vector3(0.1f * signX, 0, 0);
+            }
+
+
+            if ((enemySpriteRenderer.bounds.ClosestPoint(transform.position).y - transform.position.y) != 0)
+            {
+                signY =  Mathf.Sign(enemySpriteRenderer.bounds.ClosestPoint(transform.position).y - transform.position.y);
+                transform.position = enemySpriteRenderer.bounds.ClosestPoint(transform.position) + new Vector3(0, 0.1f * signY, 0);
+            }
+
+            yield return null;
+        }
+    }
+
 
 }
