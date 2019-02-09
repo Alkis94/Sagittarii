@@ -26,10 +26,15 @@ public class Raycaster : MonoBehaviour {
 	public  void Awake()
     {
 		BoxCollider = GetComponent<BoxCollider2D> ();
-	}
+        
+    }
 
+    private void Start()
+    {
+        CalculateRaySpacing();
+    }
 
-	public void UpdateRaycastOrigins()
+    public void UpdateRaycastOrigins()
     {
 		Bounds bounds = GetComponent<BoxCollider2D>().bounds;
         bounds.Expand(skinWidth * -2);

@@ -16,14 +16,15 @@ public class MovementCollisionHandler : MonoBehaviour
     void Start()
     {
         raycaster = GetComponent<Raycaster>();
+        collisions.facingDirection = 1;
     }
 
-    public void HandleHorizontalCollisions(ref Vector2 moveAmount)
+    public void HandleHorizontalCollisions(ref float moveAmountX)
     {
         float directionX = collisions.facingDirection;
-        float rayLength = Mathf.Abs(moveAmount.x) + Raycaster.skinWidth;
+        float rayLength = Mathf.Abs(moveAmountX) + Raycaster.skinWidth;
 
-        if (Mathf.Abs(moveAmount.x) < Raycaster.skinWidth)
+        if (Mathf.Abs(moveAmountX) < Raycaster.skinWidth)
         {
             rayLength = 2 * Raycaster.skinWidth;
         }
@@ -34,13 +35,13 @@ public class MovementCollisionHandler : MonoBehaviour
             rayOrigin += Vector2.up * (raycaster.horizontalRaySpacing * i);
             RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.right * directionX, rayLength, collisionMask);
 
-            Debug.DrawRay(rayOrigin, Vector2.right * directionX, Color.red);
+            //Debug.DrawRay(rayOrigin, Vector2.right * directionX, Color.red);
 
             if (hit)
             {
                 if (hit.distance != 0)
                 {
-                    moveAmount.x = (hit.distance - Raycaster.skinWidth) * directionX;
+                    moveAmountX = (hit.distance - Raycaster.skinWidth) * directionX;
                     rayLength = hit.distance;
                     collisions.left = directionX == -1;
                     collisions.right = directionX == 1;
@@ -51,10 +52,10 @@ public class MovementCollisionHandler : MonoBehaviour
 
 
 
-    public void HandleVerticalCollisions(ref Vector2 moveAmount,bool GoThroughPlatform)
+    public void HandleVerticalCollisions(ref float moveAmountY,bool GoThroughPlatform)
     {
-        float directionY = Mathf.Sign(moveAmount.y);
-        float rayLength = Mathf.Abs(moveAmount.y) + Raycaster.skinWidth;
+        float directionY = Mathf.Sign(moveAmountY);
+        float rayLength = Mathf.Abs(moveAmountY) + Raycaster.skinWidth;
 
         for (int i = 0; i < raycaster.verticalRayCount; i++)
         {
@@ -63,13 +64,13 @@ public class MovementCollisionHandler : MonoBehaviour
             rayOrigin += Vector2.right * (raycaster.verticalRaySpacing * i);
             RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLength, collisionMask);
 
-            Debug.DrawRay(rayOrigin, Vector2.up * directionY, Color.red);
+            //Debug.DrawRay(rayOrigin, Vector2.up * directionY, Color.red);
 
             if (hit)
             {
                 if(!PassingThroughPlatform(hit, GoThroughPlatform, directionY))
                 {
-                    moveAmount.y = (hit.distance - Raycaster.skinWidth) * directionY;
+                    moveAmountY = (hit.distance - Raycaster.skinWidth) * directionY;
                     rayLength = hit.distance;
 
                     collisions.below = directionY == -1;
@@ -80,6 +81,30 @@ public class MovementCollisionHandler : MonoBehaviour
         }
     }
 
+    public bool CloseToGroundEdge()
+    {
+        float directionY = -1;
+        float rayLength = 3 * Raycaster.skinWidth;
+
+        Vector2 rayOrigin = raycaster.raycastOrigins.bottomLeft;
+        RaycastHit2D FirstRayHit = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLength, collisionMask);
+        //Debug.DrawRay(rayOrigin, Vector2.up * directionY, Color.red);
+
+        rayOrigin += Vector2.right * (raycaster.verticalRaySpacing * (raycaster.verticalRayCount - 1));
+        RaycastHit2D LastRayHit = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLength, collisionMask);
+        //Debug.DrawRay(rayOrigin, Vector2.up * directionY, Color.red);
+
+        if (FirstRayHit.distance > LastRayHit.distance)
+        {
+            return true;
+        }
+        else if (FirstRayHit.distance < LastRayHit.distance)
+        {
+            return true;
+        }
+
+        return false;
+    }
 
     private bool PassingThroughPlatform(RaycastHit2D hit, bool GoThroughPlatform, float directionY)
     {

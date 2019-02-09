@@ -2,10 +2,10 @@
 using Factories;
 using System.Collections;
 
-[RequireComponent (typeof (PlayerMovementController))]
+
 public class PlayerInput : MonoBehaviour {
 
-    private PlayerMovementController controller2D;
+    private PlayerMovement controller2D;
 
     void OnEnable()
     {
@@ -21,7 +21,7 @@ public class PlayerInput : MonoBehaviour {
 
     void Start ()
     {
-        controller2D = GetComponent<PlayerMovementController> ();
+        controller2D = GetComponent<PlayerMovement> ();
 	}
 
 

@@ -8,13 +8,13 @@ public class SimpleGroundEnemyBrain : EnemyBrain
 
     private BoxCollider2D boxCollider2d;
     private Animator animator;
-    private GroundEnemyMovement groundEnemyMovement;
+    private EnemyGroundMovement enemyGroundMovement;
     private MovementCollisionHandler movementCollisionHandler;
 
     protected override void Awake()
     {
         base.Awake();
-        groundEnemyMovement = GetComponent<GroundEnemyMovement>();
+        enemyGroundMovement = GetComponent<EnemyGroundMovement>();
         movementCollisionHandler = GetComponent<MovementCollisionHandler>();
     }
 
@@ -46,12 +46,12 @@ public class SimpleGroundEnemyBrain : EnemyBrain
     {
         if (enemyData.Health > 1)
         {
-            groundEnemyMovement.Move(enemyData.Speed,false);
-        }
+            enemyGroundMovement.CalculateMovement(enemyData.Speed,false);
 
-        if (movementCollisionHandler.collisions.left || movementCollisionHandler.collisions.right)
-        {
-            ChangeDirection();
+            if (movementCollisionHandler.collisions.left || movementCollisionHandler.collisions.right || movementCollisionHandler.CloseToGroundEdge())
+            {
+                ChangeDirection();
+            }
         }
     }
 
@@ -68,7 +68,7 @@ public class SimpleGroundEnemyBrain : EnemyBrain
 
     protected override void ChangeDirection()
     {
-        groundEnemyMovement.ChangeDirection();
+        enemyGroundMovement.ChangeDirection();
     }
 
    

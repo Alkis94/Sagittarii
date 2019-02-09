@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class PlayerMovementController : MonoBehaviour
+public class PlayerMovement : GroundMovement
 {
     public AudioClip JumpSound;
     private AudioSource audioSource;
@@ -15,22 +15,8 @@ public class PlayerMovementController : MonoBehaviour
     public delegate void VoidDelegate();
     public VoidDelegate OnJump;
 
-    protected BoxCollider2D boxCollider2d;
-    protected Animator animator;
-    protected Raycaster raycaster;
-    protected MovementCollisionHandler movementCollisionHandler;
-    protected Gravity gravity;
-
-    protected Vector2 velocity;
-    protected float velocityXSmoothing;
-
-    protected float accelerationTimeAirborne = .2f;
-    protected float accelerationTimeGrounded = .1f;
-
     protected float minJumpVelocity;
-    protected float maxJumpVelocity;
 
-    private int HorizontalDirection = 1;
 
     [HideInInspector]
     public Vector2 playerInput;
@@ -45,19 +31,15 @@ public class PlayerMovementController : MonoBehaviour
         PlayerCollision.OnPlayerGotBatWings -= PlayerGotBatWings;
     }
 
-    private  void Start()
+    protected override  void Start()
     {
-        boxCollider2d = GetComponent<BoxCollider2D>();
+        base.Start();
         gravity = GetComponent<Gravity>();
         animator = GetComponent<Animator>();
         movementCollisionHandler = GetComponent<MovementCollisionHandler>();
         raycaster = GetComponent<Raycaster>();
-        raycaster.CalculateRaySpacing();
-        movementCollisionHandler.collisions.facingDirection = 1;
         minJumpVelocity = gravity.minJumpVelocity;
-        maxJumpVelocity = gravity.maxJumpVelocity;
         audioSource = GetComponent<AudioSource>();
-
 
         if (ItemHandler.PlayerHasBatWings)
         {
@@ -83,49 +65,14 @@ public class PlayerMovementController : MonoBehaviour
         }
     }
 
-    private void CalculateMovement(float speed, bool GoThroughPlatform)
-    {
-        Vector2 moveAmount = CalculateVelocity(speed);
-        HandleWalkingAnimation();
-        raycaster.UpdateRaycastOrigins();
-        movementCollisionHandler.collisions.Reset();
  
-
-        if (moveAmount.x != 0)
-        {
-            movementCollisionHandler.collisions.facingDirection = (int)Mathf.Sign(moveAmount.x);
-        }
-
-
-        movementCollisionHandler.HandleHorizontalCollisions(ref moveAmount);
-
-        if (moveAmount.y != 0)
-        {
-            movementCollisionHandler.HandleVerticalCollisions(ref moveAmount, GoThroughPlatform);
-        }
-
-        moveAmount.x *= transform.right.x;
-        transform.Translate(moveAmount);
-    }
-
-    private Vector2 CalculateVelocity(float speed)
-    {
-        float targetVelocityX = speed * HorizontalDirection;
-        velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (movementCollisionHandler.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
-        if (gravity.enabled)
-        {
-            gravity.ApplyGravityForce(ref velocity.y);
-        }
-        return new Vector2(velocity.x, velocity.y) * Time.deltaTime; ;
-    }
-
     private void TryingToGoThroughPlatform()
     {
         GoThroughPlatform = playerInput.y == -1 ? true : false;
     }
 
 
-    private void HandleWalkingAnimation()
+    protected override void HandleWalkingAnimation()
     {
 
         if (movementCollisionHandler.collisions.below && playerInput.x != 0)
