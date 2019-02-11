@@ -14,16 +14,14 @@ public class SimpleFlyingEnemyBrain : EnemyBrain
 
     }
 
-    private void OnEnable()
+    protected override void OnEnable()
     {
-        enemyCollision.OnGroundCollision += ChangeDirection;
-        enemyCollision.OnDeath += CancelInvoke;
+        base.OnEnable();
     }
 
-    private void OnDisable()
+    protected override void OnDisable()
     {
-        enemyCollision.OnGroundCollision -= ChangeDirection;
-        enemyCollision.OnDeath -= CancelInvoke;
+        base.OnDisable();
     }
 
     protected override void Start()

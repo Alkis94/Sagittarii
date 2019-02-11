@@ -16,7 +16,7 @@ public class ProjectilePlayerTrigger : MonoBehaviour
     private float ImpactDestroyDelay;
     private Rigidbody2D rigidbody2d;
     private SpriteRenderer enemySpriteRenderer;
-    private EnemyCollision enemyCollision;
+    private EnemyGotShot enemyGotShot;
 
     public event Action OnCollision = delegate { };
 
@@ -29,16 +29,16 @@ public class ProjectilePlayerTrigger : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (enemyCollision != null)
+        if (enemyGotShot != null)
         {
-            enemyCollision.OnDeath -= StartFollowingRenderer;
+            enemyGotShot.OnDeath -= StartFollowingRenderer;
         }
             
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag != "Background")
+        if (other.tag != "Background" && other.GetType() != typeof(BoxCollider2D))
         {
             OnCollision?.Invoke();
             collider2d.enabled = false;
@@ -49,12 +49,12 @@ public class ProjectilePlayerTrigger : MonoBehaviour
             
             if (other.tag == "Enemy")
             {
-                transform.parent = other.transform;
+                transform.parent = other.transform.parent;
                 audioSource.clip = ArrowImpact;
                 audioSource.Play();
-                enemySpriteRenderer = other.GetComponent<SpriteRenderer>();
-                enemyCollision = other.GetComponent<EnemyCollision>();
-                enemyCollision.OnDeath += StartFollowingRenderer;
+                enemySpriteRenderer = other.GetComponentInParent<SpriteRenderer>();
+                enemyGotShot = other.GetComponent<EnemyGotShot>();
+                enemyGotShot.OnDeath += StartFollowingRenderer;
             }
             else
             {
@@ -63,6 +63,11 @@ public class ProjectilePlayerTrigger : MonoBehaviour
                 Destroy(gameObject, ImpactDestroyDelay);
             }
         }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log("Collision");
     }
 
     private void StartFollowingRenderer()

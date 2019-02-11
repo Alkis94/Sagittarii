@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyDropItemSpecial : MonoBehaviour
 {
-    private EnemyCollision enemyCollision;
+    private EnemyGotShot enemyGotShot;
     private EnemyData enemyData;
     private ItemData itemData;
    
@@ -13,13 +13,13 @@ public class EnemyDropItemSpecial : MonoBehaviour
     {
         enemyData = GetComponent<EnemyData>();
         itemData = enemyData.SpecialItem.GetComponent<ItemData>();
-        enemyCollision = GetComponent<EnemyCollision>();
-        enemyCollision.OnDeath += CancelInvoke;
+        enemyGotShot = GetComponentInChildren<EnemyGotShot>();
+        enemyGotShot.OnDeath += CancelInvoke;
     }
 
     private void OnDisable()
     {
-        enemyCollision.OnDeath -= CancelInvoke;
+        enemyGotShot.OnDeath -= CancelInvoke;
     }
 
     private void DropItem()

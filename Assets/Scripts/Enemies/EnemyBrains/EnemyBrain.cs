@@ -6,15 +6,29 @@ public abstract class  EnemyBrain : MonoBehaviour
 {
 
     protected EnemyData enemyData;
-    protected EnemyCollision enemyCollision;
+    protected EnemyGotShot enemyGotShot;
+    protected EnemyGroundCollision enemyGroundCollision;
     protected AttackPatern attackPatern;
     protected SpriteRenderer spriteRenderer;
    
     protected float Speed;
 
+    protected virtual void OnEnable()
+    {
+        enemyGroundCollision.OnGroundCollision += ChangeDirection;
+        enemyGotShot.OnDeath += CancelInvoke;
+    }
+
+    protected virtual void OnDisable()
+    {
+        enemyGroundCollision.OnGroundCollision -= ChangeDirection;
+        enemyGotShot.OnDeath -= CancelInvoke;
+    }
+
     protected virtual void Awake()
     {
-        enemyCollision = GetComponent<EnemyCollision>();
+        enemyGotShot = GetComponentInChildren<EnemyGotShot>();
+        enemyGroundCollision = GetComponent<EnemyGroundCollision>();
         enemyData = GetComponent<EnemyData>();
         attackPatern = GetComponent<AttackPatern>();
         spriteRenderer = GetComponent<SpriteRenderer>();

@@ -5,12 +5,11 @@ using UnityEngine;
 
 public class EnemyDeath : MonoBehaviour
 {
-    private EnemyCollision enemyCollision;
+    private EnemyGotShot enemyGotShot;
 
     private Animator animator;
     private Rigidbody2D rigidbody2d;
     private SpriteRenderer spriteRenderer;
-    private BoxCollider2D boxCollider2d;
     private AudioSource audioSource;
     [SerializeField]
     private AudioClip DeathCry;
@@ -18,13 +17,13 @@ public class EnemyDeath : MonoBehaviour
 
     private void OnEnable()
     {
-        enemyCollision = GetComponent<EnemyCollision>();
-        enemyCollision.OnDeath += Die;
+        enemyGotShot = GetComponentInChildren<EnemyGotShot>();
+        enemyGotShot.OnDeath += Die;
     }
 
     private void OnDisable()
     {
-        enemyCollision.OnDeath -= Die;
+        enemyGotShot.OnDeath -= Die;
     }
 
 
@@ -33,7 +32,6 @@ public class EnemyDeath : MonoBehaviour
         animator = GetComponent<Animator>();
         rigidbody2d = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        boxCollider2d = GetComponent<BoxCollider2D>();
         audioSource = GetComponent<AudioSource>();
     }
 
@@ -56,17 +54,12 @@ public class EnemyDeath : MonoBehaviour
         audioSource.clip = DeathCry;
         audioSource.Play();
         transform.gameObject.tag = "DeadEnemy";
-        enemyCollision.enabled = false;
+        enemyGotShot.enabled = false;
         randomNumber = Random.Range(0f, 1f);
         if (randomNumber < C.HEALTH_PICKUP_DROP_RATE)
         {
             ObjectFactory.Instance.CreatePickup(transform, ObjectFactory.Instance.HealthPickupPrefab);
         }
     }
-
-    //private void ChangeCollisionBoxOnDeath()
-    //{
-    //    boxCollider2d.size = spriteRenderer.size;
-    //}
 
 }

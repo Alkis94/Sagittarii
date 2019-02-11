@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent (typeof (BoxCollider2D))]
+
 public class Raycaster : MonoBehaviour {
 
 
@@ -23,7 +23,7 @@ public class Raycaster : MonoBehaviour {
 	public BoxCollider2D BoxCollider;
 	public RaycastOrigins raycastOrigins;
 
-	public  void Awake()
+	private void Awake()
     {
 		BoxCollider = GetComponent<BoxCollider2D> ();
         
