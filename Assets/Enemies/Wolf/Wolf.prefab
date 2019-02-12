@@ -324,17 +324,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Health: 30
   projectileRotations:
+  - 10
   - 0
+  - 350
   ChangingDirections: 0
   AttackIsDirectionDependant: 1
   Speed: 2
-  ProjectileSpeed: 5
-  ProjectileDestroyDelay: 60
+  ProjectileSpeed: 10
+  ProjectileDestroyDelay: 0.5
   AttackFrequency: 5
   ChangeDirectionFrequency: 0
   DelayBeforeFirstAttack: 2
   SpecialItem: {fileID: 0}
-  ProjectileSpawnPositionOffset: {x: 0, y: 0, z: 0}
+  ProjectileSpawnPositionOffset: {x: 0.65, y: 0, z: 0}
 --- !u!114 &2046918722190791161
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -347,7 +349,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e78ae028003f3454fa935b6cf2c2520d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AttackSound: {fileID: 8300000, guid: 9e40a9f54c0c78249b63198a7bef3672, type: 3}
+  AttackSound: {fileID: 8300000, guid: d060f97b5c12bf34f98bc6a78cd0c070, type: 3}
 --- !u!114 &3457750228986333715
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -372,7 +374,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4f62bf9e9524d544bad0e40d5e12c46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DeathCry: {fileID: 8300000, guid: 6b4f050e74182454f8824328041ec75c, type: 3}
+  DeathCry: {fileID: 8300000, guid: 6453350a75ca85c40acf284ab12054a3, type: 3}
 --- !u!114 &6700407132681398649
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -385,7 +387,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55d8ca152090629489475ba0b4a30a4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxJumpHeight: 4
+  maxJumpHeight: 2
   minJumpHeight: 1
   timeToJumpApex: 0.4
   value: 0
@@ -447,4 +449,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a538059451f55a4c98844bd632a0d32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectile: {fileID: 1000012292187914, guid: b774a9ee4dfc3f549a062b3fc69de24a, type: 3}
+  projectile: {fileID: 1000012292187914, guid: dd7fa803d9f17944f8103d110694c6e7, type: 3}

@@ -87,7 +87,7 @@ public class PlayerMovement : GroundMovement
         }
     }
 
-    public void JumpWithoutWings()
+    private void JumpWithoutWings()
     {
         if (movementCollisionHandler.collisions.below)
         {
@@ -105,7 +105,7 @@ public class PlayerMovement : GroundMovement
         }
     }
 
-    public void JumpWithWings()
+    private void JumpWithWings()
     {
         if (movementCollisionHandler.collisions.below)
         {

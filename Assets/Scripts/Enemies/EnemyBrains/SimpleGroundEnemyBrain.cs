@@ -11,6 +11,8 @@ public class SimpleGroundEnemyBrain : EnemyBrain
     private EnemyGroundMovement enemyGroundMovement;
     private MovementCollisionHandler movementCollisionHandler;
 
+    //private bool jumped = false;
+
     protected override void Awake()
     {
         base.Awake();
@@ -40,12 +42,19 @@ public class SimpleGroundEnemyBrain : EnemyBrain
     private void Update()
     {
         if (enemyData.Health > 1)
-        {
+        { 
             enemyGroundMovement.CalculateMovement(enemyData.Speed,false);
 
             if (movementCollisionHandler.collisions.left || movementCollisionHandler.collisions.right || movementCollisionHandler.CloseToGroundEdge())
             {
                 ChangeDirection();
+            }
+
+            if (movementCollisionHandler.collisions.above || movementCollisionHandler.collisions.below)
+            {
+                {
+                    enemyGroundMovement.velocity.y = 0;
+                }
             }
         }
     }
@@ -58,13 +67,14 @@ public class SimpleGroundEnemyBrain : EnemyBrain
 
     private void CallAttack()
     {
+        //Gets called from animation
         attackPatern.Attack(enemyData);
     }
+
+
 
     protected override void ChangeDirection()
     {
         enemyGroundMovement.ChangeDirection();
     }
-
-   
 }

@@ -16,7 +16,6 @@ public class EnemyGotShot : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("GotHit");
         if (other.tag == "Arrow")
         {
             enemyData.Health -= PlayerStats.Damage;

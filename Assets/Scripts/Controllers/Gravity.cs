@@ -20,7 +20,7 @@ public class Gravity : MonoBehaviour
     public float minJumpVelocity;
     
 
-    void Start()
+    void Awake()
     {
         value = -(2 * maxJumpHeight) / Mathf.Pow(timeToJumpApex, 2);
         maxJumpVelocity = Mathf.Abs(value) * timeToJumpApex;

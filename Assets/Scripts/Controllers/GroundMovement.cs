@@ -11,7 +11,7 @@ public abstract class GroundMovement : MonoBehaviour
     protected Gravity gravity;
 
     protected float velocityXSmoothing;
-    protected Vector2 velocity;
+    public Vector2 velocity;
     protected int HorizontalDirection = 1;
 
     protected float accelerationTimeAirborne = .2f;
@@ -79,12 +79,23 @@ public abstract class GroundMovement : MonoBehaviour
     }
 
 
-    public void Jump()
+    protected void Jump()
     {
         if (movementCollisionHandler.collisions.below)
         {
-            animator.SetTrigger("Jumped");
             velocity.y = maxJumpVelocity;
+        }
+    }
+
+    protected void ForwardJump()
+    {
+        if (movementCollisionHandler.collisions.below)
+        {
+            velocity.y = maxJumpVelocity/2;
+            float targetVelocityX = maxJumpVelocity * HorizontalDirection;
+            movementCollisionHandler.HandleHorizontalCollisions(ref targetVelocityX);
+            //Debug.Log("TargetVelocityX : " + targetVelocityX);
+            velocity.x += targetVelocityX;
         }
     }
 }
