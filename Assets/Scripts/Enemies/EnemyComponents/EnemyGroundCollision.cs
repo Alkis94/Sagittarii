@@ -5,11 +5,6 @@ using UnityEngine;
 
 public class EnemyGroundCollision : MonoBehaviour
 {
-
-    private BoxCollider2D boxCollider;
-   
-   
-    public event Action OnDeath = delegate { };
     public event Action OnGroundCollision = delegate { };
 
 

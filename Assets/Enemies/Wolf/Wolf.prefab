@@ -88,17 +88,16 @@ GameObject:
   - component: {fileID: 3457750228986333726}
   - component: {fileID: 3457750228986333727}
   - component: {fileID: 1937972845201748223}
+  - component: {fileID: 5479387137857257788}
   - component: {fileID: 7731630497407093978}
   - component: {fileID: 5665686741376172791}
   - component: {fileID: 3457750228986333717}
   - component: {fileID: 2046918722190791161}
-  - component: {fileID: 3457750228986333715}
   - component: {fileID: 3457750228986333712}
-  - component: {fileID: 6700407132681398649}
-  - component: {fileID: 4728520071994629470}
   - component: {fileID: 6757743525015241999}
   - component: {fileID: 3063393326953432483}
   - component: {fileID: 6725544850637037678}
+  - component: {fileID: 7897519054383583372}
   m_Layer: 12
   m_Name: Wolf
   m_TagString: Enemy
@@ -188,6 +187,27 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!50 &5479387137857257788
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3457750228986333725}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!61 &7731630497407093978
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -350,18 +370,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AttackSound: {fileID: 8300000, guid: d060f97b5c12bf34f98bc6a78cd0c070, type: 3}
---- !u!114 &3457750228986333715
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3457750228986333725}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01e2923fc207e634cbbdf4dc6043672c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &3457750228986333712
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -375,39 +383,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DeathCry: {fileID: 8300000, guid: 6453350a75ca85c40acf284ab12054a3, type: 3}
---- !u!114 &6700407132681398649
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3457750228986333725}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55d8ca152090629489475ba0b4a30a4a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxJumpHeight: 2
-  minJumpHeight: 1
-  timeToJumpApex: 0.4
-  value: 0
-  maxJumpVelocity: 0
-  minJumpVelocity: 0
---- !u!114 &4728520071994629470
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3457750228986333725}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52a4716cf79ed634d9fca527125fb3d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  collisionMask:
-    serializedVersion: 2
-    m_Bits: 256
 --- !u!114 &6757743525015241999
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -450,3 +425,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectile: {fileID: 1000012292187914, guid: dd7fa803d9f17944f8103d110694c6e7, type: 3}
+--- !u!114 &7897519054383583372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3457750228986333725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a3d2e2c8f175b346ba2070fe0e1fe40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collisionMask:
+    serializedVersion: 2
+    m_Bits: 256

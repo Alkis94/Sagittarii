@@ -17,11 +17,13 @@ public class SimpleFlyingEnemyBrain : EnemyBrain
     protected override void OnEnable()
     {
         base.OnEnable();
+        GetComponent<EnemyGroundCollision>().OnGroundCollision += ChangeDirection;
     }
 
     protected override void OnDisable()
     {
         base.OnDisable();
+        GetComponent<EnemyGroundCollision>().OnGroundCollision -= ChangeDirection;
     }
 
     protected override void Start()

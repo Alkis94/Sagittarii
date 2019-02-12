@@ -2,9 +2,8 @@
 using System.Collections;
 
 
-public class Raycaster : MonoBehaviour {
-
-
+public class Raycaster : MonoBehaviour
+{
 
     public const float skinWidth = .015f;
     const float dstBetweenRays = .175f;

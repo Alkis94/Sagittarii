@@ -9,7 +9,10 @@ public class SimpleGroundEnemyBrain : EnemyBrain
 
     private Animator animator;
     private EnemyGroundMovement enemyGroundMovement;
-    private MovementCollisionHandler movementCollisionHandler;
+    private CollisionTracker collisionTracker;
+    private Rigidbody2D rigidbody2d;
+
+    private int HorizontalDirection = 1;
 
     //private bool jumped = false;
 
@@ -17,7 +20,7 @@ public class SimpleGroundEnemyBrain : EnemyBrain
     {
         base.Awake();
         enemyGroundMovement = GetComponent<EnemyGroundMovement>();
-        movementCollisionHandler = GetComponent<MovementCollisionHandler>();
+        collisionTracker = GetComponent<CollisionTracker>();
     }
 
     protected override void OnEnable()
@@ -35,26 +38,26 @@ public class SimpleGroundEnemyBrain : EnemyBrain
         base.Start();
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
+        rigidbody2d = GetComponent<Rigidbody2D>();
         audioSource.clip = AttackSound;
+        
         InvokeRepeating("StartAttackAnimation", enemyData.DelayBeforeFirstAttack, enemyData.AttackFrequency);   
     }
 
     private void Update()
     {
         if (enemyData.Health > 1)
-        { 
-            enemyGroundMovement.CalculateMovement(enemyData.Speed,false);
+        {
+            collisionTracker.collisions.Reset();
+            collisionTracker.TrackHorizontalCollisions(HorizontalDirection);
+            collisionTracker.TrackVerticalCollisions(rigidbody2d.velocity.y);
+            enemyGroundMovement.Move(enemyData.Speed);
+            HandleWalkingAnimation();
 
-            if (movementCollisionHandler.collisions.left || movementCollisionHandler.collisions.right || movementCollisionHandler.CloseToGroundEdge())
+
+            if (collisionTracker.collisions.left || collisionTracker.collisions.right || collisionTracker.CloseToGroundEdge())
             {
                 ChangeDirection();
-            }
-
-            if (movementCollisionHandler.collisions.above || movementCollisionHandler.collisions.below)
-            {
-                {
-                    enemyGroundMovement.velocity.y = 0;
-                }
             }
         }
     }
@@ -71,10 +74,32 @@ public class SimpleGroundEnemyBrain : EnemyBrain
         attackPatern.Attack(enemyData);
     }
 
-
+    private void CallJump()
+    {
+        //Gets called from animation
+        if (collisionTracker.collisions.below)
+        {
+            enemyGroundMovement.Jump(HorizontalDirection);
+        }
+    }
 
     protected override void ChangeDirection()
     {
+        HorizontalDirection *= -1;
         enemyGroundMovement.ChangeDirection();
+    }
+
+    private void HandleWalkingAnimation()
+    {
+        if (collisionTracker.collisions.below)
+        {
+
+            animator.SetBool("IsMoving", true);
+        }
+        else
+        {
+
+            animator.SetBool("IsMoving", false);
+        }
     }
 }
