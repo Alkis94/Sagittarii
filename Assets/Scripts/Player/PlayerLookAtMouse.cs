@@ -18,23 +18,15 @@ public class PlayerLookAtMouse : MonoBehaviour
         {
             if (!GameState.GamePaused)
             {
-
                 MousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-                if (transform.position.x < (MousePosition.x - 0.1f) && transform.localRotation.Equals(Quaternion.Euler(0,180,0)))
+                if (transform.position.x < (MousePosition.x - 0.1f) && transform.eulerAngles == new Vector3(0, 180, 0))
                 {
-                    transform.localRotation = Quaternion.Euler(0,0,0);
-
-                    // We change the transform position based on boxcollifer.offset. This way whenever the sprite flips the collider remains on the same exact position in the world space.
-                    // this prevents wall clipping and other bugs.
-                    transform.position = new Vector3(transform.position.x - (2 * boxCollider2d.offset.x) + 0.01f, transform.position.y);
-                    
+                    transform.localRotation = Quaternion.Euler(0, 0, 0);
                 }
-                else if (transform.position.x > (MousePosition.x + 0.1f) && transform.localRotation.Equals(Quaternion.Euler(0, 0, 0)))
+                else if (transform.position.x > (MousePosition.x + 0.1f) && transform.eulerAngles == Vector3.zero)
                 {
-                    transform.localRotation = Quaternion.Euler(0, 180, 0);
-                    //Same as above comment
-                    transform.position = new Vector3(transform.position.x + (2 * boxCollider2d.offset.x) - 0.01f, transform.position.y);
+                    transform.localRotation = Quaternion.Euler(0, 180f, 0);
                 }
             }
         }

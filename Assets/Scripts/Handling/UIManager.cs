@@ -5,9 +5,6 @@ using System;
 public class UIManager : MonoBehaviour
 {
 
-    private int Score;
-
-
     public Text HealthText;
     public Text ScoreText;
     public Text MuteText;
@@ -28,7 +25,6 @@ public class UIManager : MonoBehaviour
     {
         
         AudioListener.pause = false;
-        Score = 0;
         HealthText.text =  PlayerStats.CurrentHealth + "/" + PlayerStats.MaximumHealth;
 
     }

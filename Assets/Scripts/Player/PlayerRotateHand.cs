@@ -27,14 +27,32 @@ public class PlayerRotateHand : MonoBehaviour
         if (transform.position.x < MousePosition.x)
         {
             spriteRenderer.flipY = false;
+
         }
         else if (transform.position.x > MousePosition.x)
         {
             spriteRenderer.flipY = true;
+
         }
 
     }
 
+
+    //private void HandFollowCursor()
+    //{
+    //    // convert mouse position into world coordinates
+    //    Vector2 MouseWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    //    Vector2 Direction = ((MouseWorldPosition - (Vector2)transform.position)).normalized;
+
+    //    if(transform.parent.localScale.Equals( new Vector3(1,1,0)))
+    //    {
+    //        transform.right = Direction;
+    //    }
+    //    else
+    //    {
+    //        transform.right = -Direction;
+    //    }
+    //}
 
     private void HandFollowCursor()
     {
@@ -42,6 +60,7 @@ public class PlayerRotateHand : MonoBehaviour
         Vector2 MouseWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2 Direction = ((MouseWorldPosition - (Vector2)transform.position)).normalized;
         transform.right = Direction;
+
     }
 
 }
