@@ -57,14 +57,15 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.650754, y: 0.31390524}
-      - {x: 0.47198486, y: 0.20191097}
-      - {x: -0.370574, y: 0.20210838}
-      - {x: -0.37621498, y: -0.021146297}
-      - {x: -0.048107147, y: -0.017918587}
-      - {x: 0.44339275, y: -0.022695541}
-      - {x: 0.46671295, y: 0.034973145}
-      - {x: 0.85912514, y: 0.03845024}
+    - - {x: 0.95799446, y: 0.13601255}
+      - {x: 0.86341286, y: 0.14459515}
+      - {x: 0.6405525, y: 0.37171268}
+      - {x: 0.4787855, y: 0.21551275}
+      - {x: -0.3943777, y: 0.21571016}
+      - {x: -0.4068184, y: -0.09595585}
+      - {x: 0.5012007, y: -0.100905895}
+      - {x: 0.56532574, y: 0.03837347}
+      - {x: 0.9509373, y: 0.011246681}
 --- !u!114 &8600465143656567261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -221,7 +222,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.075636685, y: -0.026575089}
+  m_Offset: {x: 0.075636685, y: -0.020585775}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -232,7 +233,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.7987267, y: 0.9468498}
+  m_Size: {x: 1.7987267, y: 0.9348712}
   m_EdgeRadius: 0
 --- !u!82 &5665686741376172791
 AudioSource:
@@ -246,7 +247,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.5
+  m_Volume: 0.25
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -342,21 +343,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f3050e6466b8984ba6fffabc648d3c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health: 30
+  Health: 10
+  Speed: 2
+  ChangeDirectionFrequency: 0
+  DelayBeforeFirstAttack: 2
+  ChangingDirections: 0
+  AttackIsDirectionDependant: 1
+  JumpingBehaviour: 1
   projectileRotations:
   - 10
   - 0
   - 350
-  ChangingDirections: 0
-  AttackIsDirectionDependant: 1
-  Speed: 2
   ProjectileSpeed: 10
   ProjectileDestroyDelay: 0.5
   AttackFrequency: 5
-  ChangeDirectionFrequency: 0
-  DelayBeforeFirstAttack: 2
-  SpecialItem: {fileID: 0}
   ProjectileSpawnPositionOffset: {x: 0.65, y: 0, z: 0}
+  SpecialItem: {fileID: 0}
 --- !u!114 &2046918722190791161
 MonoBehaviour:
   m_ObjectHideFlags: 0

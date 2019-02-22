@@ -11,7 +11,7 @@ public class SpawnManagerEndless : Spawn
 
     void Start()
     {
-        DifficultyIncreaseDelay = C.DIFFICULTY_INCREASE_DELAY;
+        DifficultyIncreaseDelay = 120;
         //StartCoroutine(SpawnFlyingEnemy(ObjectFactory.Instance.BatPrefab, C.BAT_SPAWN_FREQUENCY, 1,SpawnPoint3,SpawnPoint4));
         //StartCoroutine(SpawnFlyingEnemy(ObjectFactory.Instance.CrowPrefab, C.CROW_SPAWN_FREQUENCY, 3,SpawnPoint3,SpawnPoint4));
         //StartCoroutine(SpawnFlyingEnemy(ObjectFactory.Instance.MedusaPrefab, C.MEDUSA_SPAWN_FREQUENCY, C.MEDUSA_SPAWN_FREQUENCY));

@@ -11,17 +11,7 @@ public class ObjectFactory : MonoBehaviour
 
     public static ObjectFactory Instance = null; // Needed
 
-    //   # # # # # # # # # # # # 
-    //   #                     #
-    //   #       ENEMIES       #
-    //   #                     #
-    //   # # # # # # # # # # # # 
 
-    public GameObject BatPrefab;
-    public GameObject CrowPrefab;
-    public GameObject MedusaPrefab;
-    public GameObject ImpPrefab;
-    public GameObject WolfPrefab;
 
     //   # # # # # # # # # # # # 
     //   #                     #
@@ -39,7 +29,9 @@ public class ObjectFactory : MonoBehaviour
     //   #                     #
     //   # # # # # # # # # # # # 
 
+
     public GameObject HealthPickupPrefab;
+    public GameObject DamagePickupPrefab;
     public GameObject MaximumHealthPickupPrefab;
     public GameObject BatWingsPickupPrefab;
     public GameObject WolfPawPickupPrefab;
@@ -97,9 +89,9 @@ public class ObjectFactory : MonoBehaviour
 
 
 
-    public Pickup CreatePickup(Transform deadEnemyPosition, GameObject pickup)
+    public Item CreatePickup(Transform deadEnemyPosition, GameObject pickup)
     {
-        var somePickup = Instantiate(pickup).GetComponent<Pickup>();
+        var somePickup = Instantiate(pickup).GetComponent<Item>();
         somePickup.Initialize(deadEnemyPosition);
         return somePickup;
     }

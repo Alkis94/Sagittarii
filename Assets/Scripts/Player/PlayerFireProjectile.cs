@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Factories;
+using System;
 
 
 public class PlayerFireProjectile : MonoBehaviour
@@ -16,9 +17,8 @@ public class PlayerFireProjectile : MonoBehaviour
 
     private Animator animator;
     private Vector3 ArrowEmitterPosition;
-    
-    private delegate void VoidDelegate(float someFloat);
-    private VoidDelegate FireArrow;
+    private Action<float> FireArrow = delegate {};
+    public static event Action OnPlayerFiredProjectile = delegate { };
 
     private float AttackHoldAnimationLength = 0.333f;
     private float TimePassedHoldingArrow = 0f;
@@ -41,28 +41,33 @@ public class PlayerFireProjectile : MonoBehaviour
 
     void Update()
     {
-        if ((Input.GetButtonDown("Fire1") || Input.GetButton("Fire1")) && animator.GetCurrentAnimatorStateInfo(0).IsName("IdleHands"))
+        if (PlayerStats.Ammo > 0)
         {
-            TimePassedHoldingArrow = 0;
-            animator.SetTrigger("PlayerAttackHold");
-        }
-        else if (Input.GetButton("Fire1") && animator.GetCurrentAnimatorStateInfo(0).IsName("PlayerAttackHold"))
-        {
-            TimePassedHoldingArrow += Time.deltaTime;
-            ArrowPower += Time.deltaTime;
-        }
-        else if (Input.GetButtonUp("Fire1") && animator.GetCurrentAnimatorStateInfo(0).IsName("PlayerAttackHold"))
-        {
-            ArrowPower = TimePassedHoldingArrow / AttackHoldAnimationLength;
-            ArrowPower = ArrowPower > 1 ? 1 : ArrowPower;
-            if (ArrowPower > 0.01)
+            if ((Input.GetButtonDown("Fire1") || Input.GetButton("Fire1")) && animator.GetCurrentAnimatorStateInfo(0).IsName("IdleHands"))
             {
-                animator.SetTrigger("PlayerAttackRelease");
-                FireArrow(ArrowPower);
+                TimePassedHoldingArrow = 0;
+                animator.SetTrigger("PlayerAttackHold");
             }
-            else
+            else if (Input.GetButton("Fire1") && animator.GetCurrentAnimatorStateInfo(0).IsName("PlayerAttackHold"))
             {
-                animator.SetTrigger("PlayerAttackCanceled");
+                TimePassedHoldingArrow += Time.deltaTime;
+                ArrowPower += Time.deltaTime;
+            }
+            else if (Input.GetButtonUp("Fire1") && animator.GetCurrentAnimatorStateInfo(0).IsName("PlayerAttackHold"))
+            {
+                ArrowPower = TimePassedHoldingArrow / AttackHoldAnimationLength;
+                ArrowPower = ArrowPower > 1 ? 1 : ArrowPower;
+                if (ArrowPower > 0.01)
+                {
+                    animator.SetTrigger("PlayerAttackRelease");
+                    FireArrow(ArrowPower);
+                    PlayerStats.Ammo -= 1;
+                    OnPlayerFiredProjectile.Invoke();
+                }
+                else
+                {
+                    animator.SetTrigger("PlayerAttackCanceled");
+                }
             }
         }
     }

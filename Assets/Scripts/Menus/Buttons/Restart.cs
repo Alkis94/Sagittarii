@@ -6,7 +6,7 @@ public class Restart : MonoBehaviour
 
     public void PressRestart()
     {
-        PlayerStats.CurrentHealth = PlayerStats.MaximumHealth;
+        PlayerStats.ChangePlayerCurrentHealth(PlayerStats.MaximumHealth);
         var thisScene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(thisScene.name);
         Destroy(transform.parent.gameObject);

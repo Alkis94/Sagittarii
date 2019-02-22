@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class SimpleGroundEnemyBrain : EnemyBrain
 {
@@ -14,6 +15,8 @@ public class SimpleGroundEnemyBrain : EnemyBrain
 
     private int HorizontalDirection = 1;
 
+    private int animatorVelocityY_ID;
+    private int animatorIsGrounded_ID;
     //private bool jumped = false;
 
     protected override void Awake()
@@ -40,13 +43,21 @@ public class SimpleGroundEnemyBrain : EnemyBrain
         audioSource = GetComponent<AudioSource>();
         rigidbody2d = GetComponent<Rigidbody2D>();
         audioSource.clip = AttackSound;
+
+        animatorIsGrounded_ID = Animator.StringToHash("IsGrounded");
+
+        InvokeRepeating("StartAttackAnimation", enemyData.DelayBeforeFirstAttack, enemyData.AttackFrequency);  
         
-        InvokeRepeating("StartAttackAnimation", enemyData.DelayBeforeFirstAttack, enemyData.AttackFrequency);   
+        if(enemyData.JumpingBehaviour)
+        {
+            animatorVelocityY_ID = Animator.StringToHash("VelocityY");
+            StartCoroutine(UpdateVelocityYForAnimator());
+        }
     }
 
     private void Update()
     {
-        if (enemyData.Health > 1)
+        if (enemyData.Health > 0)
         {
             collisionTracker.collisions.Reset();
             collisionTracker.TrackHorizontalCollisions(HorizontalDirection);
@@ -94,12 +105,21 @@ public class SimpleGroundEnemyBrain : EnemyBrain
         if (collisionTracker.collisions.below)
         {
 
-            animator.SetBool("IsMoving", true);
+            animator.SetBool(animatorIsGrounded_ID, true);
         }
         else
         {
 
-            animator.SetBool("IsMoving", false);
+            animator.SetBool(animatorIsGrounded_ID, false);
+        }
+    }
+
+    IEnumerator UpdateVelocityYForAnimator()
+    {
+        while(true)
+        {
+            animator.SetFloat(animatorVelocityY_ID, rigidbody2d.velocity.y);
+            yield return null;
         }
     }
 }

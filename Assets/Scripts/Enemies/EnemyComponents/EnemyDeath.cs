@@ -1,6 +1,7 @@
 ﻿ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 
 public class EnemyDeath : MonoBehaviour
@@ -13,6 +14,13 @@ public class EnemyDeath : MonoBehaviour
     private AudioSource audioSource;
     [SerializeField]
     private AudioClip DeathCry;
+
+    [SerializeField]
+    private float HealthPickupDropRate = 0.05f;
+    [SerializeField]
+    private float DamagePickupDropRate = 0.05f;
+
+
 
 
     private void OnEnable()
@@ -39,15 +47,15 @@ public class EnemyDeath : MonoBehaviour
 
     private void Die()
     {
-        float randomNumber;
+        
         ObjectFactory.Instance.CreateDeathBloodSplat(transform);
         animator.SetTrigger("Die");
 
-        if(rigidbody2d != null)
+        if (rigidbody2d != null)
         {
             rigidbody2d.gravityScale = 1;
         }
-        
+
         spriteRenderer.sortingLayerName = "DeadEnemies";
         Destroy(gameObject, 10.0f);
         gameObject.layer = 14;
@@ -55,11 +63,18 @@ public class EnemyDeath : MonoBehaviour
         audioSource.Play();
         transform.gameObject.tag = "DeadEnemy";
         enemyGotShot.enabled = false;
-        randomNumber = Random.Range(0f, 1f);
-        if (randomNumber < C.HEALTH_PICKUP_DROP_RATE)
+
+        float randomNumber;
+        randomNumber = UnityEngine.Random.Range(0f, 1f);
+        if (randomNumber < HealthPickupDropRate)
         {
             ObjectFactory.Instance.CreatePickup(transform, ObjectFactory.Instance.HealthPickupPrefab);
         }
-    }
 
+        randomNumber = UnityEngine.Random.Range(0f, 1f);
+        if (randomNumber < DamagePickupDropRate)
+        {
+            ObjectFactory.Instance.CreatePickup(transform, ObjectFactory.Instance.DamagePickupPrefab);
+        }
+    } 
 }

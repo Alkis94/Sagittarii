@@ -11,8 +11,7 @@ public class PlayerCollision : MonoBehaviour
     public static event Action OnDeath = delegate { };
     public static event Action OnPlayerGotBatWings = delegate { };
     public static event Action OnPlayerGotDeadBird = delegate { };
-
-    public static event Action OnPlayerHealthChanged = delegate { };
+    
 
     private bool PlayerNotDead = true;
 
@@ -27,21 +26,10 @@ public class PlayerCollision : MonoBehaviour
         {
             PlayerGotHit();
         }
-
-        if (other.tag == "HealthPickup" && PlayerStats.MaximumHealth > PlayerStats.CurrentHealth)
-        {
-            IncreaseCurrentHealthAndCallUpdateUI();
-        }
-        if (other.tag == "MaximumHealthPickup")
-        {
-            PlayerStats.MaximumHealth += 10;
-            IncreaseCurrentHealthAndCallUpdateUI();
-        }
         if (other.tag == "BatWingsPickup")
         {
             ItemHandler.PlayerHasBatWings = true;
             OnPlayerGotBatWings?.Invoke();
-
         }
         if (other.tag == "WolfPawPickup")
         {
@@ -50,7 +38,7 @@ public class PlayerCollision : MonoBehaviour
         if (other.tag == "DeadBirdPickup")
         {
             ItemHandler.ItemDropped["DeadBird"] = true;
-            if (OnPlayerGotDeadBird != null) OnPlayerGotDeadBird();
+            OnPlayerGotDeadBird?.Invoke();
         }
         if (other.tag == "ImpFlamePickup")
         {
@@ -63,8 +51,9 @@ public class PlayerCollision : MonoBehaviour
 
     private void PlayerGotHit()
     {
-        PlayerStats.CurrentHealth -= 10;
-        OnPlayerHealthChanged?.Invoke();
+
+        PlayerStats.ChangePlayerCurrentHealth(PlayerStats.CurrentHealth - 10);
+
         if (PlayerStats.CurrentHealth < 1)
         {
             PlayerNotDead = false;
@@ -77,12 +66,4 @@ public class PlayerCollision : MonoBehaviour
         }
     }
 
-    private void IncreaseCurrentHealthAndCallUpdateUI()
-    {
-        if (PlayerStats.MaximumHealth > PlayerStats.CurrentHealth)
-        {
-            PlayerStats.CurrentHealth += 10;
-            OnPlayerHealthChanged?.Invoke();
-        }
-    }
 }

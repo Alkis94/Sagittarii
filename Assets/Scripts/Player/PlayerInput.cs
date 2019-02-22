@@ -2,6 +2,7 @@
 // inputs so swapping between mobile and standalone is simpler and 2) keeping inputs
 // from Update() in sync with FixedUpdate()
 
+using Factories;
 using UnityEngine;
 
 //We first ensure this script runs before all other player scripts to prevent laggy
@@ -30,7 +31,16 @@ public class PlayerInput : MonoBehaviour
 
     void Update()
 	{
-		ClearInput();
+        if (Input.GetButtonDown("Cancel") && !GameState.GamePaused)
+        {
+            MenuFactory.CallPauseMenu();
+        }
+        else if (Input.GetButtonDown("Cancel") && GameState.GamePaused)
+        {
+            MenuFactory.DestroyMenuAndUnpause();
+        }
+
+        ClearInput();
 		ProcessInputs();
 		horizontal = Mathf.Clamp(horizontal, -1f, 1f);
 	}
