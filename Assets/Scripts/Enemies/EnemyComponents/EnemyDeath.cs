@@ -2,29 +2,46 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Factories;
 
 
 public class EnemyDeath : MonoBehaviour
 {
+    public static event Action<Vector3, string> OnDeathDropPickup = delegate { };
+    public static event Action<GameObject, Vector3> OnDeathDropRelic = delegate { };
+
+    private EnemyData enemyData;
+    private RelicData relicData;
     private EnemyGotShot enemyGotShot;
+    private GameObject BloodSplat;
 
     private Animator animator;
     private Rigidbody2D rigidbody2d;
     private SpriteRenderer spriteRenderer;
     private AudioSource audioSource;
-    [SerializeField]
-    private AudioClip DeathCry;
 
     [SerializeField]
-    private float HealthPickupDropRate = 0.05f;
+    private  AudioClip DeathCry;
+
     [SerializeField]
-    private float DamagePickupDropRate = 0.05f;
+    private float HealthDropRate = 0.05f;
+    [SerializeField]
+    private float MaxHealthDropRate = 0.02f;
+    [SerializeField]
+    private float DamageDropRate = 0.01f;
 
-
+    
 
 
     private void OnEnable()
     {
+        enemyData = GetComponent<EnemyData>();
+
+        if(enemyData.Relic != null)
+        {
+            relicData = enemyData.Relic.GetComponent<RelicData>();
+        }
+        
         enemyGotShot = GetComponentInChildren<EnemyGotShot>();
         enemyGotShot.OnDeath += Die;
     }
@@ -41,21 +58,17 @@ public class EnemyDeath : MonoBehaviour
         rigidbody2d = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         audioSource = GetComponent<AudioSource>();
+
+        BloodSplat = Resources.Load("DeathBloodSplat") as GameObject;
     }
 
 
 
     private void Die()
     {
-        
-        ObjectFactory.Instance.CreateDeathBloodSplat(transform);
+        Instantiate(BloodSplat, transform.position, Quaternion.identity);
         animator.SetTrigger("Die");
-
-        if (rigidbody2d != null)
-        {
-            rigidbody2d.gravityScale = 1;
-        }
-
+        rigidbody2d.gravityScale = 1;
         spriteRenderer.sortingLayerName = "DeadEnemies";
         Destroy(gameObject, 10.0f);
         gameObject.layer = 14;
@@ -64,17 +77,50 @@ public class EnemyDeath : MonoBehaviour
         transform.gameObject.tag = "DeadEnemy";
         enemyGotShot.enabled = false;
 
+
+        if (enemyData.Relic != null)
+        {
+            float randomNumber;
+            randomNumber = UnityEngine.Random.Range(0f, 1f);
+            if (randomNumber < relicData.DropRate && ! RelicFactory.PlayerHasRelic[enemyData.Relic.name])
+            {
+                DropRelic();
+                return;
+            }
+        }
+
+        DropPickup();
+    }
+
+    private void DropPickup()
+    {
         float randomNumber;
         randomNumber = UnityEngine.Random.Range(0f, 1f);
-        if (randomNumber < HealthPickupDropRate)
+        if (randomNumber < HealthDropRate)
         {
-            ObjectFactory.Instance.CreatePickup(transform, ObjectFactory.Instance.HealthPickupPrefab);
+            OnDeathDropPickup?.Invoke(transform.position, "HealthPickup");
+            return;
         }
 
         randomNumber = UnityEngine.Random.Range(0f, 1f);
-        if (randomNumber < DamagePickupDropRate)
+        if (randomNumber < MaxHealthDropRate)
         {
-            ObjectFactory.Instance.CreatePickup(transform, ObjectFactory.Instance.DamagePickupPrefab);
+            OnDeathDropPickup?.Invoke(transform.position, "MaxHealthPickup");
+            return;
         }
-    } 
+
+        randomNumber = UnityEngine.Random.Range(0f, 1f);
+        if (randomNumber < DamageDropRate)
+        {
+            OnDeathDropPickup?.Invoke(transform.position, "DamagePickup");
+            return;
+        }
+    }
+
+    private void DropRelic()
+    {
+        OnDeathDropRelic?.Invoke(enemyData.Relic, transform.position);
+    }
+
+
 }

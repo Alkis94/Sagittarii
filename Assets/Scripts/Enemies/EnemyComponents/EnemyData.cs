@@ -27,12 +27,12 @@ public class EnemyData : MonoBehaviour
     public float AttackFrequency;
     public Vector3 ProjectileSpawnPositionOffset;
 
-    [Header("Item Drop")]
-    public GameObject SpecialItem;
+    [Header("Relic Drop")]
+    public GameObject Relic;
 
     private void Start()
     {
-        GoldGiven = Health % 10 == 0? Health * 2 : (Health - (Health % 10) + 10) * 2;
+        GoldGiven = Health % 10 == 0? Health * 2/10 : (Health - (Health % 10) + 10) * 2/10;
     }
 
 

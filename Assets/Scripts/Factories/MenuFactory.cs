@@ -4,11 +4,11 @@ namespace Factories
 {
     public static class MenuFactory
     {
-        private static GameObject PauseMenu;
-        private static GameObject VictoryMenu;
-        private static GameObject DefeatMenu;
+        public static GameObject PauseMenu { get; private set; }
+        public static GameObject VictoryMenu { get; private set; }
+        public static GameObject DefeatMenu { get; private set; }
 
-        public static GameObject someMenu;
+        private static GameObject someMenu;
 
 
 
@@ -19,22 +19,7 @@ namespace Factories
             DefeatMenu = Resources.Load("Menus/DefeatMenu") as GameObject;
         }
 
-        public static void CallPauseMenu()
-        {
-            CreateMenuAndPause(PauseMenu);
-        }
-
-        public static void CallVictoryMenu()
-        {
-            CreateMenuAndPause(VictoryMenu);
-        }
-
-        public static void CallDefeatMenu()
-        {
-            CreateMenuAndPause(DefeatMenu);
-        }
-
-        private static GameObject CreateMenuAndPause(GameObject Menu)
+        public static GameObject CreateMenuAndPause(GameObject Menu)
         {
 
             GameState.PauseGame();

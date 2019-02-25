@@ -77,7 +77,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -607018307
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300006, guid: 521a18c046d471f4daaee1bdc91f7e14, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -265,18 +265,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Health: 10
-  projectileRotations: []
+  Speed: 1
+  ChangeDirectionFrequency: 1
+  DelayBeforeFirstAttack: 2
+  GoldGiven: 0
   ChangingDirections: 1
   AttackIsDirectionDependant: 0
-  Speed: 1
+  JumpingBehaviour: 0
+  projectileRotations: []
   ProjectileSpeed: 4
   ProjectileDestroyDelay: 20
   AttackFrequency: 3
-  ChangeDirectionFrequency: 1
-  DelayBeforeFirstAttack: 2
+  ProjectileSpawnPositionOffset: {x: 0, y: 0, z: 0}
   SpecialItem: {fileID: 1000013028579116, guid: abce0cc5de32e0741a6cb7693f78688c,
     type: 3}
-  ProjectileSpawnPositionOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &6026461623799748943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -339,6 +341,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DeathCry: {fileID: 8300000, guid: a0e1fe8dabe199041938412484e900f6, type: 3}
+  HealthDropRate: 0.05
+  MaxHealthDropRate: 0.025
+  DamageDropRate: 0.01
 --- !u!1 &735138815173439918
 GameObject:
   m_ObjectHideFlags: 0

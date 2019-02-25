@@ -9,16 +9,17 @@ TagManager:
   - EnemyProjectile
   - HealthPickup
   - MaximumHealthPickup
-  - BatWingsPickup
-  - WolfPawPickup
-  - DeadBirdPickup
-  - ImpFlamePickup
   - DeadEnemy
   - Portal
   - Ground
   - Platform
   - Wall
   - Background
+  - DeadBirdPickup
+  - Trident
+  - BatWingsPickup
+  - ImpFlamePickup
+  - WolfPawPickup
   layers:
   - Default
   - TransparentFX
@@ -29,7 +30,7 @@ TagManager:
   - 
   - 
   - Ground
-  - PickUp
+  - Items
   - Player
   - Arrows
   - Enemies
@@ -65,8 +66,14 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Player
+    uniqueID: 2551196805
+    locked: 0
   - name: Enemy
     uniqueID: 3687948989
+    locked: 0
+  - name: Items
+    uniqueID: 3039499647
     locked: 0
   - name: UI
     uniqueID: 1238446907

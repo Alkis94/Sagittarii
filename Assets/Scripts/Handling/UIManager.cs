@@ -37,14 +37,14 @@ public class UIManager : MonoBehaviour
     {
         PlayerStats.OnPlayerHealthChanged += UpdateHealth;
         PlayerFireProjectile.OnPlayerFiredProjectile += UpdateAmmo;
-        EnemyGotShot.OnDeathNotifyUI += UpdateGold;
+        EnemyGotShot.OnDeathNotify += UpdateGold;
     }
 
     private void OnDisable()
     {
         PlayerStats.OnPlayerHealthChanged -= UpdateHealth;
         PlayerFireProjectile.OnPlayerFiredProjectile -= UpdateAmmo;
-        EnemyGotShot.OnDeathNotifyUI -= UpdateGold;
+        EnemyGotShot.OnDeathNotify -= UpdateGold;
     }
 
     private void Start ()
@@ -108,7 +108,7 @@ public class UIManager : MonoBehaviour
         AmmoText.text = PlayerStats.Ammo.ToString();
     }
 
-    private void UpdateGold()
+    private void UpdateGold(Vector3 enemyPosition)
     {
         GoldText.text = PlayerStats.Gold.ToString();
     }

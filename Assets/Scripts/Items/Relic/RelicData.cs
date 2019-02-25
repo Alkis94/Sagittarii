@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemData : MonoBehaviour
+public class RelicData : MonoBehaviour
 {
-    public string ItemId;
     public float DropRate;
 }

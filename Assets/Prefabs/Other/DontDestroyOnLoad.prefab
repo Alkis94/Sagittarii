@@ -9,8 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4214299108960782}
+  - component: {fileID: 3011334641436481442}
   m_Layer: 0
-  m_Name: Handlers
+  m_Name: DontDestroyOnLoad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31,6 +32,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3011334641436481442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1484116343011580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36533cc15f69a954bac290523f4ca7fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1721772088298390
 GameObject:
   m_ObjectHideFlags: 0
@@ -42,7 +55,7 @@ GameObject:
   - component: {fileID: 4606790915626240}
   - component: {fileID: 114578351053954530}
   m_Layer: 0
-  m_Name: ObjectFactory
+  m_Name: PickUpFactory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,27 +87,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db934f3ea7508fc42bd2bf10bfa2ec27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BatPrefab: {fileID: 0}
-  CrowPrefab: {fileID: 1000010732799478, guid: 9165a587287a5984db175fc564753835, type: 3}
-  MedusaPrefab: {fileID: 1000013875884218, guid: 5db60f55de092dc488086a0b2ae58196,
-    type: 3}
-  ImpPrefab: {fileID: 1000013146994032, guid: 6e7fe0a11bdd55b47adadfb2d3741169, type: 3}
-  WolfPrefab: {fileID: 1000010040663060, guid: 1bc935ce88f05e243bca2103dda69343, type: 3}
-  ArrowPrefab: {fileID: 1000011198274758, guid: 4d26fdc5bd047c748b3c75df77e646ab,
-    type: 3}
-  HealthPickupPrefab: {fileID: 1000013300930750, guid: 40b30148b6c092c4bb71fd6a206f5cdf,
-    type: 3}
-  MaximumHealthPickupPrefab: {fileID: 1000013538430894, guid: eff128034e108f94fac6ecdeb159cb8f,
-    type: 3}
-  BatWingsPickupPrefab: {fileID: 1000013028579116, guid: abce0cc5de32e0741a6cb7693f78688c,
-    type: 3}
-  WolfPawPickupPrefab: {fileID: 1000011645258076, guid: d9ed1a036efa97947a471835cf4acb0e,
-    type: 3}
-  ImpFlamePickupPrefab: {fileID: 1000014263955260, guid: 54687a7378ac1144790b4bd8ad36612d,
-    type: 3}
-  DeadBirdPickupPrefab: {fileID: 1000013710975054, guid: 365e22df0c2b211459a2f3969e7c5fa1,
-    type: 3}
+  PickupsList:
+  - {fileID: 1000013538430894, guid: eff128034e108f94fac6ecdeb159cb8f, type: 3}
+  - {fileID: 1000013300930750, guid: 40b30148b6c092c4bb71fd6a206f5cdf, type: 3}
+  - {fileID: 1000014263955260, guid: 54687a7378ac1144790b4bd8ad36612d, type: 3}
   DeathBloodSplatPrefab: {fileID: 198000010497517552, guid: 5017632f4a68f4a44901b10eebc14785,
-    type: 3}
-  PickupParticlesPrefab: {fileID: 198000012697716038, guid: 514a65863f0b1074ca2bf4f3b20fe0d7,
     type: 3}

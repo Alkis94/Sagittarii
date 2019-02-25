@@ -6,18 +6,18 @@ using System;
 public class PlayerFireProjectile : MonoBehaviour
 {
     [SerializeField]
-    private GameObject projectile;
+    private GameObject Projectile;
     [SerializeField]
     private GameObject ArrowEmitter;
     [SerializeField]
-    private float projectileSpeed;
+    private float ProjectileSpeed;
     [SerializeField]
-    private float projectileDestroyDelay = 30f;
+    private float ProjectileDestroyDelay = 30f;
 
 
     private Animator animator;
     private Vector3 ArrowEmitterPosition;
-    private Action<float> FireArrow = delegate {};
+    public Action<GameObject,GameObject,float,float,float> FireArrow = delegate {};
     public static event Action OnPlayerFiredProjectile = delegate { };
 
     private float AttackHoldAnimationLength = 0.333f;
@@ -28,15 +28,7 @@ public class PlayerFireProjectile : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
-
-        if (ItemHandler.ItemDropped["DeadBird"])
-        {
-            FireArrow = FireArrowWithBird;
-        }
-        else
-        {
-            FireArrow = FireArrowWithoutBird;
-        }
+        FireArrow = FireArrowSimple;
     }
 
     void Update()
@@ -60,7 +52,7 @@ public class PlayerFireProjectile : MonoBehaviour
                 if (ArrowPower > 0.01)
                 {
                     animator.SetTrigger("PlayerAttackRelease");
-                    FireArrow(ArrowPower);
+                    FireArrow(ArrowEmitter,Projectile,ProjectileSpeed,ProjectileDestroyDelay,ArrowPower);
                     PlayerStats.Ammo -= 1;
                     OnPlayerFiredProjectile.Invoke();
                 }
@@ -72,34 +64,9 @@ public class PlayerFireProjectile : MonoBehaviour
         }
     }
 
-    void OnEnable()
+    private void FireArrowSimple(GameObject arrowEmitter, GameObject projectile, float projectileSpeed, float projectileDestroyDelay, float arrowPower)
     {
-        PlayerCollision.OnPlayerGotDeadBird+= PlayerGotDeadBird;
+        ProjectileFactory.CreateProjectile(ArrowEmitter.transform.position,  Projectile, Vector3.zero, ProjectileSpeed*ArrowPower, ProjectileDestroyDelay, ArrowEmitter.transform.rotation);
     }
-
-
-    void OnDisable()
-    {
-        PlayerCollision.OnPlayerGotDeadBird -= PlayerGotDeadBird;
-    }
-
-
-    private void FireArrowWithoutBird(float arrowPower)
-    {
-        ProjectileFactory.CreateProjectile(ArrowEmitter.transform.position,  projectile, Vector3.zero, projectileSpeed*ArrowPower, projectileDestroyDelay, ArrowEmitter.transform.rotation);
-    }
-
-    private void FireArrowWithBird(float arrowPower)
-    {
-        ProjectileFactory.CreateProjectile(ArrowEmitter.transform.position, projectile, Vector3.zero, projectileSpeed * ArrowPower, projectileDestroyDelay, ArrowEmitter.transform.rotation);
-        ProjectileFactory.CreateProjectile(ArrowEmitter.transform.position, projectile, Vector3.zero, projectileSpeed * ArrowPower, projectileDestroyDelay, ArrowEmitter.transform.rotation);
-        ProjectileFactory.CreateProjectile(ArrowEmitter.transform.position, projectile, Vector3.zero, projectileSpeed * ArrowPower, projectileDestroyDelay, ArrowEmitter.transform.rotation);
-    }
-
-    private void PlayerGotDeadBird()
-    {
-        FireArrow = FireArrowWithBird;
-    }
-
 
 }

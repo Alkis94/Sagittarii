@@ -33,7 +33,7 @@ public class PlayerInput : MonoBehaviour
 	{
         if (Input.GetButtonDown("Cancel") && !GameState.GamePaused)
         {
-            MenuFactory.CallPauseMenu();
+            MenuFactory.CreateMenuAndPause(MenuFactory.PauseMenu);
         }
         else if (Input.GetButtonDown("Cancel") && GameState.GamePaused)
         {

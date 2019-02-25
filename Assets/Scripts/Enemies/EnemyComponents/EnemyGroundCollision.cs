@@ -15,8 +15,4 @@ public class EnemyGroundCollision : MonoBehaviour
             OnGroundCollision?.Invoke();
         }
     }
-
-
-
-
 }

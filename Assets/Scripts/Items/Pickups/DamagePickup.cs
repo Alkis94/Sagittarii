@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class DamagePickup : MonoBehaviour
 {
-
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.tag == "Player")
         {
-            PlayerStats.Damage += Random.Range(0,6);
+            PlayerStats.Damage += Random.Range(0, 6);
             //Debug.Log("Player Damage : " + PlayerStats.Damage);
         }
     }

@@ -65,8 +65,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1743770491
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 6fc020fb6ef3ac8489a23845c7077f32, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -149,8 +149,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1743770491
+  m_SortingLayer: 1
   m_SortingOrder: 2
   m_Sprite: {fileID: 21300012, guid: 6b74f1112fb9cfe48a8b8f923d8a6f63, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -206,10 +206,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ecb5258d6f4f7e4a80a50b7283681c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectile: {fileID: 1000011198274758, guid: 4d26fdc5bd047c748b3c75df77e646ab, type: 3}
+  Projectile: {fileID: 1000011198274758, guid: 4d26fdc5bd047c748b3c75df77e646ab, type: 3}
   ArrowEmitter: {fileID: 3681053211839336020}
-  projectileSpeed: 1100
-  projectileDestroyDelay: 30
+  ProjectileSpeed: 1000
+  ProjectileDestroyDelay: 30
 --- !u!1 &3681053211839336020
 GameObject:
   m_ObjectHideFlags: 0
@@ -275,8 +275,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1743770491
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 6d1f8ed2eb7906b41ad7345a9445baea, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
@@ -306,7 +306,6 @@ GameObject:
   - component: {fileID: 1905537675866282385}
   - component: {fileID: 696266295396060517}
   - component: {fileID: 2481066987502239242}
-  - component: {fileID: 7133136527941322558}
   - component: {fileID: 7907791811425724120}
   - component: {fileID: 7528320261464877073}
   m_Layer: 10
@@ -365,8 +364,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1743770491
+  m_SortingLayer: 1
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300012, guid: 3d465445fbde5b741a733215ee097a89, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -562,6 +561,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerGotHitSound: {fileID: 8300000, guid: 237cfc5385e0ddc498d64ef42eb3e269, type: 3}
+  PlayerDiedSound: {fileID: 8300000, guid: bf3907a4fd5be2e4186ddd143307f7bb, type: 3}
 --- !u!114 &2481066987502239242
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -574,19 +574,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37a7ab22fd508eb419ac024a86fb5841, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7133136527941322558
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6112859251357942033}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1fe9d2bcddd7b7849badf86974ad3f2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PlayerDiedSound: {fileID: 8300000, guid: bf3907a4fd5be2e4186ddd143307f7bb, type: 3}
 --- !u!114 &7907791811425724120
 MonoBehaviour:
   m_ObjectHideFlags: 0

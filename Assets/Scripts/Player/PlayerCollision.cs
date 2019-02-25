@@ -1,16 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Factories;
 
 public class PlayerCollision : MonoBehaviour
 {
-    
-    public AudioClip PlayerGotHitSound;
     private AudioSource audioSource;
+    private Animator animator;
+
+
+    public AudioClip PlayerGotHitSound;
+    public AudioClip PlayerDiedSound;
+
 
     public static event Action OnDeath = delegate { };
     public static event Action OnPlayerGotBatWings = delegate { };
-    public static event Action OnPlayerGotDeadBird = delegate { };
+    public static event Action OnPlayerGotTrident = delegate { };
     
 
     private bool PlayerNotDead = true;
@@ -18,6 +23,7 @@ public class PlayerCollision : MonoBehaviour
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        animator = GetComponent<Animator>();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -28,35 +34,25 @@ public class PlayerCollision : MonoBehaviour
         }
         if (other.tag == "BatWingsPickup")
         {
-            ItemHandler.PlayerHasBatWings = true;
+            RelicFactory.PlayerHasRelic["BatWings"] = true;
             OnPlayerGotBatWings?.Invoke();
         }
-        if (other.tag == "WolfPawPickup")
+        if (other.tag == "Trident")
         {
-            ItemHandler.WolfPawMultiplier += 1;
-        }
-        if (other.tag == "DeadBirdPickup")
-        {
-            ItemHandler.ItemDropped["DeadBird"] = true;
-            OnPlayerGotDeadBird?.Invoke();
-        }
-        if (other.tag == "ImpFlamePickup")
-        {
-            ItemHandler.PlayerHasImpFlame = true;
-            PlayerStats.Damage += 10;
+            RelicFactory.PlayerHasRelic["Trident"] = true;
+            OnPlayerGotTrident?.Invoke();
         }
 
     }
 
-
     private void PlayerGotHit()
     {
-
         PlayerStats.ChangePlayerCurrentHealth(PlayerStats.CurrentHealth - 10);
 
         if (PlayerStats.CurrentHealth < 1)
         {
             PlayerNotDead = false;
+            Die();
             OnDeath?.Invoke();
         }
         else
@@ -64,6 +60,23 @@ public class PlayerCollision : MonoBehaviour
             audioSource.clip = PlayerGotHitSound;
             audioSource.Play();
         }
+    }
+
+    private void Die()
+    {
+        foreach (Transform child in transform)
+        {
+            Destroy(child.gameObject);
+        }
+        audioSource.clip = PlayerDiedSound;
+        audioSource.Play();
+        animator.SetTrigger("PlayerDied");
+        Invoke("PlayerDiedDelayedMenu", 3);
+    }
+
+    private void PlayerDiedDelayedMenu()
+    {
+        MenuFactory.CreateMenuAndPause(MenuFactory.DefeatMenu);
     }
 
 }

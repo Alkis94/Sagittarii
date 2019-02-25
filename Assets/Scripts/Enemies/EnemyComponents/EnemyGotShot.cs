@@ -4,7 +4,7 @@ using UnityEngine;
 public class EnemyGotShot : MonoBehaviour
 {
 
-    public static event Action OnDeathNotifyUI = delegate { };
+    public static event Action<Vector3> OnDeathNotify = delegate { };
     public event Action OnDeath = delegate { };
     private EnemyData enemyData;
 
@@ -23,7 +23,7 @@ public class EnemyGotShot : MonoBehaviour
             if (enemyData.Health <= 0)
             {
                 PlayerStats.Gold += enemyData.GoldGiven;
-                OnDeathNotifyUI?.Invoke();
+                OnDeathNotify?.Invoke(transform.position);
                 OnDeath?.Invoke();
                 Destroy(gameObject);
             }

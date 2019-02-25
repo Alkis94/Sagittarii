@@ -18,7 +18,7 @@ public class Spawn : MonoBehaviour
         {
 
             Vector2 screenPosition = new Vector2(Random.Range(SpawnPoint1.position.x, SpawnPoint2.position.x), Random.Range(SpawnPoint1.position.y, SpawnPoint2.position.y));
-            ObjectFactory.Instance.CreateFlyingEnemy(enemyPrefab, screenPosition);
+            //ObjectFactory.Instance.CreateFlyingEnemy(enemyPrefab, screenPosition);
             yield return new WaitForSeconds(frequency);
 
             TimeUntilFrequencyIncrease += frequency;
@@ -42,11 +42,11 @@ public class Spawn : MonoBehaviour
             RandomNumber = Random.Range(1, 3);
             if (RandomNumber == 1)
             {
-                ObjectFactory.Instance.CreateGroundEnemy<T>(SpawnPoint1, 1, enemy);
+                //ObjectFactory.Instance.CreateGroundEnemy<T>(SpawnPoint1, 1, enemy);
             }
             else
             {
-                ObjectFactory.Instance.CreateGroundEnemy<T>(SpawnPoint2, -1, enemy);
+                //ObjectFactory.Instance.CreateGroundEnemy<T>(SpawnPoint2, -1, enemy);
             }
             yield return new WaitForSeconds(frequency);
 

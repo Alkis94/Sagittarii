@@ -347,6 +347,7 @@ MonoBehaviour:
   Speed: 2
   ChangeDirectionFrequency: 0
   DelayBeforeFirstAttack: 2
+  GoldGiven: 0
   ChangingDirections: 0
   AttackIsDirectionDependant: 1
   JumpingBehaviour: 1
@@ -385,6 +386,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DeathCry: {fileID: 8300000, guid: 6453350a75ca85c40acf284ab12054a3, type: 3}
+  HealthDropRate: 0.25
+  MaxHealthDropRate: 0.25
+  DamageDropRate: 0.21
 --- !u!114 &6757743525015241999
 MonoBehaviour:
   m_ObjectHideFlags: 0
