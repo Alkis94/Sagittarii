@@ -5,8 +5,8 @@ using System.Collections;
 public class Raycaster : MonoBehaviour
 {
 
-    public const float skinWidth = .015f;
-    const float dstBetweenRays = .175f;
+    public const float skinWidth = .03f;
+    const float distanceBetweenRays = .5f;
 
 	[HideInInspector]
 	public int horizontalRayCount;
@@ -19,14 +19,7 @@ public class Raycaster : MonoBehaviour
 	public float verticalRaySpacing;
 
 	[HideInInspector]
-	public BoxCollider2D BoxCollider;
 	public RaycastOrigins raycastOrigins;
-
-	private void Awake()
-    {
-		BoxCollider = GetComponent<BoxCollider2D> ();
-        
-    }
 
     private void Start()
     {
@@ -52,8 +45,18 @@ public class Raycaster : MonoBehaviour
         float boundsWidth = bounds.size.x;
 		float boundsHeight = bounds.size.y;
 		
-		horizontalRayCount = Mathf.RoundToInt (boundsHeight / dstBetweenRays);
-		verticalRayCount = Mathf.RoundToInt (boundsWidth / dstBetweenRays);
+		horizontalRayCount = Mathf.RoundToInt (boundsHeight / distanceBetweenRays);
+		verticalRayCount = Mathf.RoundToInt (boundsWidth / distanceBetweenRays);
+
+        if(horizontalRayCount < 2)
+        {
+            horizontalRayCount = 2;
+        }
+
+        if(verticalRayCount < 2)
+        {
+            verticalRayCount = 2;
+        }
 		
 		horizontalRaySpacing = bounds.size.y / (horizontalRayCount - 1);
 		verticalRaySpacing = bounds.size.x / (verticalRayCount - 1);

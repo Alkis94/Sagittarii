@@ -11,34 +11,25 @@ public class PickUpFactory : MonoBehaviour
     //   # # # # # # # # # # # # 
 
 
-    private static PickUpFactory Instance = null;
+    private static PickUpFactory instance = null;
 
     [SerializeField]
-    private List<GameObject> PickupsList;
-
-
-    private Dictionary<string, GameObject> PickupsDictionery;
-    
-
-    //   # # # # # # # # # # # # 
-    //   #                     #
-    //   #       Other         #
-    //   #                     #
-    //   # # # # # # # # # # # #
+    private List<GameObject> pickupsList;
+    private Dictionary<string, GameObject> pickupsDictionery;
 
     public ParticleSystem DeathBloodSplatPrefab;
 
     void Awake()
     {
         // First we check if there are any other instances conflicting
-        if (Instance != null && Instance != this)
+        if (instance != null && instance != this)
         {
             // If that is the case, we destroy other instances
             Destroy(gameObject);
         }
 
         // Here we save our singleton instance
-        Instance = this;
+        instance = this;
     }
 
     private void OnEnable()
@@ -54,11 +45,11 @@ public class PickUpFactory : MonoBehaviour
 
     private void Start()
     {
-        PickupsDictionery = new Dictionary<string, GameObject>();
+        pickupsDictionery = new Dictionary<string, GameObject>();
 
-        for (int i=0; i < PickupsList.Count; i++)
+        for (int i=0; i < pickupsList.Count; i++)
         {
-            PickupsDictionery.Add(PickupsList[i].name, PickupsList[i]);
+            pickupsDictionery.Add(pickupsList[i].name, pickupsList[i]);
         }
     }
 
@@ -76,6 +67,6 @@ public class PickUpFactory : MonoBehaviour
 
     public void CreatePickup(Vector3 deadEnemyPosition, string pickup)
     {
-        Instantiate(PickupsDictionery[pickup],deadEnemyPosition,Quaternion.identity);
+        Instantiate(pickupsDictionery[pickup],deadEnemyPosition,Quaternion.identity);
     }
 }

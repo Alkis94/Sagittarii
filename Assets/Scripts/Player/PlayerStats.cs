@@ -3,34 +3,56 @@ using UnityEngine;
 
 public static class PlayerStats
 {
-    public static int CurrentHealth { get; private set; } = 100;
-    public static int MaximumHealth { get; private set; } = 100;
-    public static int Damage = 10;
-    public static int Ammo = 500;
-    public static int Gold = 0;
+    private static int currentHealth = 100;
+    private static int maximumHealth = 100;
+    public static int damage = 10;
+    public static int ammo = 500;
+    public static int gold = 0;
 
     public static event Action OnPlayerHealthChanged = delegate { };
 
-    public static void ChangePlayerCurrentHealth (int newCurrentHealth)
+    static PlayerStats()
     {
-        if(CurrentHealth <= MaximumHealth)
-        {
-            CurrentHealth = newCurrentHealth;
-        }
-
-        if(CurrentHealth > MaximumHealth)
-        {
-            CurrentHealth = MaximumHealth;
-        }
-
-        OnPlayerHealthChanged?.Invoke();
+        currentHealth = MaximumHealth;
     }
 
-    public static void ChangePlayerMaximumHealth(int newMaxHealth)
+    public static int CurrentHealth
     {
-        MaximumHealth = newMaxHealth;
-        OnPlayerHealthChanged?.Invoke();
+        get
+        {
+            return currentHealth;
+        }
+
+        set
+        {
+            int newCurrentHealth = value;
+
+            if (newCurrentHealth <= MaximumHealth)
+            {
+                currentHealth = newCurrentHealth;
+            }
+
+            if (newCurrentHealth > MaximumHealth)
+            {
+                currentHealth = MaximumHealth;
+            }
+
+            OnPlayerHealthChanged?.Invoke();
+        }
     }
 
+    public static int MaximumHealth
+    {
+        get
+        {
+            return maximumHealth;
+        }
+
+        set
+        {
+            maximumHealth = value;
+            OnPlayerHealthChanged?.Invoke();
+        }
+    }
 }
 

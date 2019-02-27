@@ -206,10 +206,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ecb5258d6f4f7e4a80a50b7283681c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Projectile: {fileID: 1000011198274758, guid: 4d26fdc5bd047c748b3c75df77e646ab, type: 3}
-  ArrowEmitter: {fileID: 3681053211839336020}
-  ProjectileSpeed: 1000
-  ProjectileDestroyDelay: 30
+  projectile: {fileID: 1000011198274758, guid: 4d26fdc5bd047c748b3c75df77e646ab, type: 3}
+  arrowEmitter: {fileID: 3681053211839336020}
+  projectileSpeed: 1000
+  projectileDestroyDelay: 30
 --- !u!1 &3681053211839336020
 GameObject:
   m_ObjectHideFlags: 0
@@ -560,8 +560,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e09c0a1506050e4482cf326415173e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerGotHitSound: {fileID: 8300000, guid: 237cfc5385e0ddc498d64ef42eb3e269, type: 3}
-  PlayerDiedSound: {fileID: 8300000, guid: bf3907a4fd5be2e4186ddd143307f7bb, type: 3}
+  playerGotHitSound: {fileID: 8300000, guid: 237cfc5385e0ddc498d64ef42eb3e269, type: 3}
+  playerDiedSound: {fileID: 8300000, guid: bf3907a4fd5be2e4186ddd143307f7bb, type: 3}
 --- !u!114 &2481066987502239242
 MonoBehaviour:
   m_ObjectHideFlags: 0

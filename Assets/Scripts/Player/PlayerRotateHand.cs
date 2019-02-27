@@ -6,53 +6,35 @@ public class PlayerRotateHand : MonoBehaviour
 {
 
     private SpriteRenderer spriteRenderer;
-    private Vector3 MousePosition;
+    private Vector3 mousePosition;
 
-    private float HorizontalDirection;
-    private int HandDirection;
+    private float horizontalDirection;
+    private int handDirection;
 
-    // Use this for initialization
+
     void Start ()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
-	
-	// Update is called once per frame
+
 	void Update ()
     {
         HandFollowCursor();
 
-        MousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        if (transform.position.x < MousePosition.x)
+        if (transform.position.x < mousePosition.x)
         {
             spriteRenderer.flipY = false;
 
         }
-        else if (transform.position.x > MousePosition.x)
+        else if (transform.position.x > mousePosition.x)
         {
             spriteRenderer.flipY = true;
 
         }
 
     }
-
-
-    //private void HandFollowCursor()
-    //{
-    //    // convert mouse position into world coordinates
-    //    Vector2 MouseWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-    //    Vector2 Direction = ((MouseWorldPosition - (Vector2)transform.position)).normalized;
-
-    //    if(transform.parent.localScale.Equals( new Vector3(1,1,0)))
-    //    {
-    //        transform.right = Direction;
-    //    }
-    //    else
-    //    {
-    //        transform.right = -Direction;
-    //    }
-    //}
 
     private void HandFollowCursor()
     {

@@ -13,7 +13,7 @@ public class EnemyDeath : MonoBehaviour
     private EnemyData enemyData;
     private RelicData relicData;
     private EnemyGotShot enemyGotShot;
-    private GameObject BloodSplat;
+    private GameObject bloodSplat;
 
     private Animator animator;
     private Rigidbody2D rigidbody2d;
@@ -21,14 +21,14 @@ public class EnemyDeath : MonoBehaviour
     private AudioSource audioSource;
 
     [SerializeField]
-    private  AudioClip DeathCry;
+    private  AudioClip deathCry;
 
     [SerializeField]
-    private float HealthDropRate = 0.05f;
+    private float healthDropRate = 0.05f;
     [SerializeField]
-    private float MaxHealthDropRate = 0.02f;
+    private float maxHealthDropRate = 0.02f;
     [SerializeField]
-    private float DamageDropRate = 0.01f;
+    private float damageDropRate = 0.01f;
 
     
 
@@ -59,20 +59,21 @@ public class EnemyDeath : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         audioSource = GetComponent<AudioSource>();
 
-        BloodSplat = Resources.Load("DeathBloodSplat") as GameObject;
+        bloodSplat = Resources.Load("DeathBloodSplat") as GameObject;
     }
 
 
 
     private void Die()
     {
-        Instantiate(BloodSplat, transform.position, Quaternion.identity);
+        Instantiate(bloodSplat, transform.position, Quaternion.identity);
         animator.SetTrigger("Die");
         rigidbody2d.gravityScale = 1;
+        //rigidbody2d.velocity = new Vector2(0, 0);
         spriteRenderer.sortingLayerName = "DeadEnemies";
         Destroy(gameObject, 10.0f);
         gameObject.layer = 14;
-        audioSource.clip = DeathCry;
+        audioSource.clip = deathCry;
         audioSource.Play();
         transform.gameObject.tag = "DeadEnemy";
         enemyGotShot.enabled = false;
@@ -82,7 +83,7 @@ public class EnemyDeath : MonoBehaviour
         {
             float randomNumber;
             randomNumber = UnityEngine.Random.Range(0f, 1f);
-            if (randomNumber < relicData.DropRate && ! RelicFactory.PlayerHasRelic[enemyData.Relic.name])
+            if (randomNumber < relicData.dropRate && ! RelicFactory.PlayerHasRelic[enemyData.Relic.name])
             {
                 DropRelic();
                 return;
@@ -96,21 +97,21 @@ public class EnemyDeath : MonoBehaviour
     {
         float randomNumber;
         randomNumber = UnityEngine.Random.Range(0f, 1f);
-        if (randomNumber < HealthDropRate)
+        if (randomNumber < healthDropRate)
         {
             OnDeathDropPickup?.Invoke(transform.position, "HealthPickup");
             return;
         }
 
         randomNumber = UnityEngine.Random.Range(0f, 1f);
-        if (randomNumber < MaxHealthDropRate)
+        if (randomNumber < maxHealthDropRate)
         {
             OnDeathDropPickup?.Invoke(transform.position, "MaxHealthPickup");
             return;
         }
 
         randomNumber = UnityEngine.Random.Range(0f, 1f);
-        if (randomNumber < DamageDropRate)
+        if (randomNumber < damageDropRate)
         {
             OnDeathDropPickup?.Invoke(transform.position, "DamagePickup");
             return;

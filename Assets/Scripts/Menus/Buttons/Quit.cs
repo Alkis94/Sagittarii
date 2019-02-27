@@ -4,21 +4,21 @@ using UnityEngine.UI;
 public class Quit : MonoBehaviour
 {
     [SerializeField]
-    private Canvas QuitMenu;
+    private Canvas quitMenu;
     [SerializeField]
-    private Button PlayButton;
+    private Button playButton;
 
 
     void Start()
     {
-        QuitMenu.enabled = false;
+        quitMenu.enabled = false;
     }
 
 
     public void QuitPress()
     {
-        QuitMenu.enabled = true;
-        PlayButton.enabled = false;
+        quitMenu.enabled = true;
+        playButton.enabled = false;
         GetComponent<Button>().enabled = false;
     }
 
@@ -29,8 +29,8 @@ public class Quit : MonoBehaviour
 
     public void NoPress()
     {
-        QuitMenu.enabled = false;
-        PlayButton.enabled = true;
+        quitMenu.enabled = false;
+        playButton.enabled = true;
         GetComponent<Button>().enabled = true;
     }
 

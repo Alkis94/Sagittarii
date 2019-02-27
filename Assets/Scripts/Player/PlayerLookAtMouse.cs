@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerLookAtMouse : MonoBehaviour
 {
     private BoxCollider2D boxCollider2d;
-    private Vector3 MousePosition;
+    private Vector3 mousePosition;
 
     private void Start()
     {
@@ -18,13 +18,13 @@ public class PlayerLookAtMouse : MonoBehaviour
         {
             if (!GameState.GamePaused)
             {
-                MousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-                if (transform.position.x < (MousePosition.x - 0.1f) && transform.eulerAngles == new Vector3(0, 180, 0))
+                if (transform.position.x < (mousePosition.x - 0.1f) && transform.eulerAngles == new Vector3(0, 180, 0))
                 {
                     transform.localRotation = Quaternion.Euler(0, 0, 0);
                 }
-                else if (transform.position.x > (MousePosition.x + 0.1f) && transform.eulerAngles == Vector3.zero)
+                else if (transform.position.x > (mousePosition.x + 0.1f) && transform.eulerAngles == Vector3.zero)
                 {
                     transform.localRotation = Quaternion.Euler(0, 180f, 0);
                 }

@@ -4,16 +4,16 @@ using UnityEngine.UI;
 public class TimeCountEndless: MonoBehaviour
 {
 
-    private float TimePassed;
-    private string MinutesPassed = "3";
-    private string SecondsPassed = "0";
-    private Text TimeText;
+    private float timePassed;
+    private string minutesPassed = "3";
+    private string secondsPassed = "0";
+    private Text timeText;
 
 
     // Use this for initialization
     void Start()
     {
-        TimeText = GetComponent<Text>();
+        timeText = GetComponent<Text>();
     }
 
     // Update is called once per frame
@@ -25,9 +25,9 @@ public class TimeCountEndless: MonoBehaviour
 
     private void TimeCount()
     {
-        TimePassed += Time.deltaTime;
-        MinutesPassed = Mathf.Floor(TimePassed / 60).ToString("00");
-        SecondsPassed = Mathf.Floor(TimePassed % 60).ToString("00");
-        TimeText.text = "Time : " + MinutesPassed + ":" + SecondsPassed;
+        timePassed += Time.deltaTime;
+        minutesPassed = Mathf.Floor(timePassed / 60).ToString("00");
+        secondsPassed = Mathf.Floor(timePassed % 60).ToString("00");
+        timeText.text = "Time : " + minutesPassed + ":" + secondsPassed;
     }
 }

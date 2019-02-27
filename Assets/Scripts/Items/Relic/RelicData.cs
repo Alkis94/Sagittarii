@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class RelicData : MonoBehaviour
 {
-    public float DropRate;
+    public float dropRate;
 }

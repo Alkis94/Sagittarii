@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class ProjectilePlayerTrigger : MonoBehaviour
 {
-
-    public AudioClip ArrowImpact;
-    public AudioClip ArrowGroundImpact;
+    [SerializeField]
+    private AudioClip arrowImpact;
+    [SerializeField]
+    private AudioClip arrowGroundImpact;
 
     private Collider2D collider2d;
     private AudioSource audioSource;
 
     [SerializeField]
-    private float ImpactDestroyDelay;
+    private float impactDestroyDelay = 30;
     private Rigidbody2D rigidbody2d;
     private SpriteRenderer enemySpriteRenderer;
     private EnemyGotShot enemyGotShot;
@@ -49,7 +50,7 @@ public class ProjectilePlayerTrigger : MonoBehaviour
             if (other.tag == "Enemy")
             {
                 transform.parent = other.transform.parent;
-                audioSource.clip = ArrowImpact;
+                audioSource.clip = arrowImpact;
                 audioSource.Play();
                 enemySpriteRenderer = other.GetComponentInParent<SpriteRenderer>();
                 enemyGotShot = other.GetComponent<EnemyGotShot>();
@@ -57,9 +58,9 @@ public class ProjectilePlayerTrigger : MonoBehaviour
             }
             else
             {
-                audioSource.clip = ArrowGroundImpact;
+                audioSource.clip = arrowGroundImpact;
                 audioSource.Play();
-                Destroy(gameObject, ImpactDestroyDelay);
+                Destroy(gameObject, impactDestroyDelay);
             }
         }
     }

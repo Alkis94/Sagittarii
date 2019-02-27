@@ -8,9 +8,10 @@ public class PlayerCollision : MonoBehaviour
     private AudioSource audioSource;
     private Animator animator;
 
-
-    public AudioClip PlayerGotHitSound;
-    public AudioClip PlayerDiedSound;
+    [SerializeField]
+    private AudioClip playerGotHitSound;
+    [SerializeField]
+    private AudioClip playerDiedSound;
 
 
     public static event Action OnDeath = delegate { };
@@ -18,7 +19,7 @@ public class PlayerCollision : MonoBehaviour
     public static event Action OnPlayerGotTrident = delegate { };
     
 
-    private bool PlayerNotDead = true;
+    private bool playerNotDead = true;
 
     private void Start()
     {
@@ -28,7 +29,7 @@ public class PlayerCollision : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "EnemyProjectile" && PlayerNotDead)
+        if (other.tag == "EnemyProjectile" && playerNotDead)
         {
             PlayerGotHit();
         }
@@ -47,17 +48,17 @@ public class PlayerCollision : MonoBehaviour
 
     private void PlayerGotHit()
     {
-        PlayerStats.ChangePlayerCurrentHealth(PlayerStats.CurrentHealth - 10);
+        PlayerStats.CurrentHealth -= 10;
 
         if (PlayerStats.CurrentHealth < 1)
         {
-            PlayerNotDead = false;
+            playerNotDead = false;
             Die();
             OnDeath?.Invoke();
         }
         else
         {
-            audioSource.clip = PlayerGotHitSound;
+            audioSource.clip = playerGotHitSound;
             audioSource.Play();
         }
     }
@@ -68,7 +69,7 @@ public class PlayerCollision : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
-        audioSource.clip = PlayerDiedSound;
+        audioSource.clip = playerDiedSound;
         audioSource.Play();
         animator.SetTrigger("PlayerDied");
         Invoke("PlayerDiedDelayedMenu", 3);

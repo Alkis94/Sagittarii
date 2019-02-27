@@ -4,7 +4,7 @@ public class ProjectileArrowMovement : MonoBehaviour
 {
 
     private Rigidbody2D rigidbody2d;
-    private float ArrowAngle;
+    private float arrowAngle;
 
  
 
@@ -26,8 +26,8 @@ public class ProjectileArrowMovement : MonoBehaviour
     void Update()
     {
         Vector2 v = rigidbody2d.velocity;
-        ArrowAngle = Mathf.Atan2(v.y, v.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.AngleAxis(ArrowAngle, Vector3.forward);
+        arrowAngle = Mathf.Atan2(v.y, v.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.AngleAxis(arrowAngle, Vector3.forward);
     }
 
     private void DisableComponent()

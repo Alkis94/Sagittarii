@@ -9,7 +9,7 @@ public class Item : MonoBehaviour
     protected SpriteRenderer spriteRenderer;
 
     [SerializeField]
-    private int DespawnDelay = 30;
+    private int despawnDelay = 30;
 
     void Start()
     {
@@ -17,7 +17,7 @@ public class Item : MonoBehaviour
         rigidbody2d = GetComponent<Rigidbody2D>();
         boxCollider2D = GetComponent<BoxCollider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        Destroy(gameObject, DespawnDelay);
+        Destroy(gameObject, despawnDelay);
     }
 
     public void Initialize(Vector3 deadEnemyPosition)

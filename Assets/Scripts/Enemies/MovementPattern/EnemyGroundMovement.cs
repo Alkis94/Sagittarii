@@ -7,12 +7,10 @@ public class EnemyGroundMovement : MonoBehaviour
     private BoxCollider2D boxCollider2d;
     private Raycaster raycaster;
     private Vector2 movement = new Vector2(1, 0);
-    private CollisionTracker collisionTracker;
 
     private void Awake()
     {
         boxCollider2d = GetComponent<BoxCollider2D>();
-        collisionTracker = GetComponent<CollisionTracker>();
     }
 
     private void Start()
@@ -23,11 +21,14 @@ public class EnemyGroundMovement : MonoBehaviour
 
     public void Move(float speed)
     {
-        transform.Translate(speed * movement * Time.deltaTime);
+        if(rigidbody2d.velocity.y == 0)
+        {
+            rigidbody2d.velocity = new Vector2(transform.right.x * speed, rigidbody2d.velocity.y);
+        }
         raycaster.UpdateRaycastOrigins();
     }
 
-    public void ChangeDirection()
+    public void ChangeHorizontalDirection()
     {
         transform.localRotation = transform.right.x > 0 ? Quaternion.Euler(0, 180, 0) : Quaternion.Euler(0, 0, 0);
     }

@@ -11,9 +11,9 @@ public class UIManager : MonoBehaviour
 
 
 
-    public TextMeshProUGUI HealthText;
-    public TextMeshProUGUI AmmoText;
-    public TextMeshProUGUI GoldText;
+    public TextMeshProUGUI healthText;
+    public TextMeshProUGUI ammoText;
+    public TextMeshProUGUI goldText;
     public Image healthImage;
 
     private float imageFillAmountNew;
@@ -50,9 +50,9 @@ public class UIManager : MonoBehaviour
     private void Start ()
     {
         AudioListener.pause = false;
-        HealthText.text =  PlayerStats.CurrentHealth + "/" + PlayerStats.MaximumHealth;
-        AmmoText.text = PlayerStats.Ammo.ToString();
-        GoldText.text = PlayerStats.Gold.ToString();
+        healthText.text =  PlayerStats.CurrentHealth + "/" + PlayerStats.MaximumHealth;
+        ammoText.text = PlayerStats.ammo.ToString();
+        goldText.text = PlayerStats.gold.ToString();
     }
 
 
@@ -67,7 +67,7 @@ public class UIManager : MonoBehaviour
         int health;
         health = 0 > PlayerStats.CurrentHealth ? 0 : PlayerStats.CurrentHealth;
         health = PlayerStats.MaximumHealth < health ? PlayerStats.MaximumHealth : health;
-        HealthText.text = health + "/" + PlayerStats.MaximumHealth;
+        healthText.text = health + "/" + PlayerStats.MaximumHealth;
     }
 
     private void UpdateHealthBar()
@@ -105,12 +105,12 @@ public class UIManager : MonoBehaviour
 
     private void UpdateAmmo()
     {
-        AmmoText.text = PlayerStats.Ammo.ToString();
+        ammoText.text = PlayerStats.ammo.ToString();
     }
 
     private void UpdateGold(Vector3 enemyPosition)
     {
-        GoldText.text = PlayerStats.Gold.ToString();
+        goldText.text = PlayerStats.gold.ToString();
     }
 
     //public void PressMute()

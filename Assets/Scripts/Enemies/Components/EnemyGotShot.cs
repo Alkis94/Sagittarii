@@ -19,10 +19,10 @@ public class EnemyGotShot : MonoBehaviour
     {
         if (other.tag == "Arrow")
         {
-            enemyData.Health -= PlayerStats.Damage;
-            if (enemyData.Health <= 0)
+            enemyData.health -= PlayerStats.damage;
+            if (enemyData.health <= 0)
             {
-                PlayerStats.Gold += enemyData.GoldGiven;
+                PlayerStats.gold += enemyData.goldGiven;
                 OnDeathNotify?.Invoke(transform.position);
                 OnDeath?.Invoke();
                 Destroy(gameObject);

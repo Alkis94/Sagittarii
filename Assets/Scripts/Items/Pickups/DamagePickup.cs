@@ -8,8 +8,7 @@ public class DamagePickup : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
-            PlayerStats.Damage += Random.Range(0, 6);
-            //Debug.Log("Player Damage : " + PlayerStats.Damage);
+            PlayerStats.damage += Random.Range(0, 6);
         }
     }
 

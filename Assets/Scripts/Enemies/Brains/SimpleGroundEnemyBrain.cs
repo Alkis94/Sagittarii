@@ -5,7 +5,7 @@ public class SimpleGroundEnemyBrain : EnemyBrain
 {
     private AudioSource audioSource;
     [SerializeField]
-    private AudioClip AttackSound;
+    private AudioClip attackSound;
 
 
     private Animator animator;
@@ -13,15 +13,18 @@ public class SimpleGroundEnemyBrain : EnemyBrain
     private CollisionTracker collisionTracker;
     private Rigidbody2D rigidbody2d;
 
-    private int HorizontalDirection = 1;
-
+    private int horizontalDirection = 1;
     private int animatorVelocityY_ID;
     private int animatorIsGrounded_ID;
-    //private bool jumped = false;
+
+    //This timer will help enemies that get stuck somewhere not to change directions too rapidly
+    private float cannotChangeDirectionTime = 0f;
+
 
     protected override void Awake()
     {
         base.Awake();
+
         enemyGroundMovement = GetComponent<EnemyGroundMovement>();
         collisionTracker = GetComponent<CollisionTracker>();
     }
@@ -42,13 +45,13 @@ public class SimpleGroundEnemyBrain : EnemyBrain
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
         rigidbody2d = GetComponent<Rigidbody2D>();
-        audioSource.clip = AttackSound;
 
+        audioSource.clip = attackSound;
         animatorIsGrounded_ID = Animator.StringToHash("IsGrounded");
 
-        InvokeRepeating("StartAttackAnimation", enemyData.DelayBeforeFirstAttack, enemyData.AttackFrequency);  
+        InvokeRepeating("StartAttackAnimation", enemyData.delayBeforeFirstAttack, enemyData.attackFrequency);  
         
-        if(enemyData.JumpingBehaviour)
+        if(enemyData.jumpingBehaviour)
         {
             animatorVelocityY_ID = Animator.StringToHash("VelocityY");
             StartCoroutine(UpdateVelocityYForAnimator());
@@ -57,19 +60,27 @@ public class SimpleGroundEnemyBrain : EnemyBrain
 
     private void Update()
     {
-        if (enemyData.Health > 0)
+        if (enemyData.health > 0)
         {
             collisionTracker.collisions.Reset();
-            collisionTracker.TrackHorizontalCollisions(HorizontalDirection);
+            collisionTracker.TrackHorizontalCollisions(horizontalDirection);
             collisionTracker.TrackVerticalCollisions(rigidbody2d.velocity.y);
-            enemyGroundMovement.Move(enemyData.Speed);
             HandleWalkingAnimation();
 
 
-            if (collisionTracker.collisions.left || collisionTracker.collisions.right || collisionTracker.CloseToGroundEdge())
+            if ((collisionTracker.collisions.left || collisionTracker.collisions.right || collisionTracker.CloseToGroundEdge(horizontalDirection)) && Time.time > cannotChangeDirectionTime)
             {
-                ChangeDirection();
+                cannotChangeDirectionTime = Time.time + 0.1f;
+                ChangeHorizontalDirection();
             }
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (enemyData.health > 0)
+        {
+            enemyGroundMovement.Move(enemyData.speed);
         }
     }
 
@@ -90,14 +101,14 @@ public class SimpleGroundEnemyBrain : EnemyBrain
         //Gets called from animation
         if (collisionTracker.collisions.below)
         {
-            enemyGroundMovement.Jump(HorizontalDirection);
+            enemyGroundMovement.Jump(horizontalDirection);
         }
     }
 
-    protected override void ChangeDirection()
+    protected override void ChangeHorizontalDirection()
     {
-        HorizontalDirection *= -1;
-        enemyGroundMovement.ChangeDirection();
+        horizontalDirection *= -1;
+        enemyGroundMovement.ChangeHorizontalDirection();
     }
 
     private void HandleWalkingAnimation()

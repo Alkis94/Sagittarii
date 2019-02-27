@@ -9,18 +9,18 @@ public class PerimetricalAttack : AttackPatern
 
     public override void Attack(EnemyData enemyData)
     {
-        if (enemyData.AttackIsDirectionDependant)
+        if (enemyData.attackIsDirectionDependant)
         {
             foreach (float rotation in enemyData.projectileRotations)
             {
-                ProjectileFactory.CreateProjectile(transform.position, projectile, enemyData.ProjectileSpawnPositionOffset * transform.right.x, enemyData.ProjectileSpeed * transform.right.x, enemyData.ProjectileDestroyDelay, rotation);
+                ProjectileFactory.CreateProjectile(transform.position, projectile, enemyData.projectileSpawnPositionOffset * transform.right.x, enemyData.projectileSpeed * transform.right.x, enemyData.projectileDestroyDelay, rotation);
             }
         }
         else
         {
             foreach (float rotation in enemyData.projectileRotations)
             {
-                ProjectileFactory.CreateProjectile(transform.position, projectile, enemyData.ProjectileSpawnPositionOffset, enemyData.ProjectileSpeed, enemyData.ProjectileDestroyDelay, rotation);
+                ProjectileFactory.CreateProjectile(transform.position, projectile, enemyData.projectileSpawnPositionOffset, enemyData.projectileSpeed, enemyData.projectileDestroyDelay, rotation);
             }
         }
 

@@ -16,7 +16,7 @@ public class CollisionTracker : MonoBehaviour
 
     public void TrackHorizontalCollisions(int horizontalDirection)
     {
-        int directionX = horizontalDirection;
+        int directionX = (int) Mathf.Sign(horizontalDirection);
         float rayLength =  3*Raycaster.skinWidth;
 
         for (int i = 0; i < raycaster.horizontalRayCount; i++)
@@ -35,15 +35,15 @@ public class CollisionTracker : MonoBehaviour
         }
     }
 
-    public void TrackVerticalCollisions(float VelocityY)
+    public void TrackVerticalCollisions(float velocityY)
     {
-        float directionY = VelocityY > 0? 1 : -1;
+
+        int directionY = velocityY > 0 ? 1 : -1;
         float rayLength = 3*Raycaster.skinWidth;
 
         for (int i = 0; i < raycaster.verticalRayCount; i++)
         {
-
-            Vector2 rayOrigin = (directionY == -1) ? raycaster.raycastOrigins.bottomLeft : raycaster.raycastOrigins.topLeft;
+            Vector2 rayOrigin = (directionY == -1) ? raycaster.raycastOrigins.bottomLeft  : raycaster.raycastOrigins.topLeft;
             rayOrigin += Vector2.right * (raycaster.verticalRaySpacing * i);
             RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLength, collisionMask);
 
@@ -57,24 +57,24 @@ public class CollisionTracker : MonoBehaviour
         }
     }
 
-    public bool CloseToGroundEdge()
+    public bool CloseToGroundEdge(float velocityX)
     {
-        float directionY = -1;
-        float rayLength = 3 * Raycaster.skinWidth;
+        float rayLength = 2 * Raycaster.skinWidth;
 
         Vector2 rayOrigin = raycaster.raycastOrigins.bottomLeft;
-        RaycastHit2D FirstRayHit = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLength, collisionMask);
-        //Debug.DrawRay(rayOrigin, Vector2.up * directionY, Color.red);
+        RaycastHit2D FirstRayHit = Physics2D.Raycast(rayOrigin, -Vector2.up, rayLength, collisionMask);
+        //Debug.DrawRay(rayOrigin, -Vector2.up, Color.red);
 
-        rayOrigin += Vector2.right * (raycaster.verticalRaySpacing * (raycaster.verticalRayCount - 1));
-        RaycastHit2D LastRayHit = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLength, collisionMask);
-        //Debug.DrawRay(rayOrigin, Vector2.up * directionY, Color.red);
 
-        if (FirstRayHit.distance > LastRayHit.distance)
+        rayOrigin = raycaster.raycastOrigins.bottomRight;
+        RaycastHit2D LastRayHit = Physics2D.Raycast(rayOrigin, -Vector2.up, rayLength, collisionMask);
+        //Debug.DrawRay(rayOrigin, -Vector2.up, Color.red);
+
+        if (FirstRayHit.distance > LastRayHit.distance && velocityX > 0)
         {
             return true;
         }
-        else if (FirstRayHit.distance < LastRayHit.distance)
+        else if (FirstRayHit.distance < LastRayHit.distance && velocityX < 0)
         {
             return true;
         }

@@ -14,12 +14,13 @@ GameObject:
   - component: {fileID: 50000010521095874}
   - component: {fileID: 5748276765900345886}
   - component: {fileID: 82000010996421224}
-  - component: {fileID: 114102173702660592}
+  - component: {fileID: 8807614830393089069}
   - component: {fileID: 4756669890819866909}
   - component: {fileID: 114882405034766000}
-  - component: {fileID: 114028072639366578}
   - component: {fileID: 114187245435547046}
   - component: {fileID: 8399196991502044193}
+  - component: {fileID: 6615757428522510224}
+  - component: {fileID: 7970961987154039791}
   m_Layer: 12
   m_Name: Crow
   m_TagString: Enemy
@@ -252,7 +253,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!114 &114102173702660592
+--- !u!114 &8807614830393089069
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -261,26 +262,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000010732799478}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f3050e6466b8984ba6fffabc648d3c5, type: 3}
+  m_Script: {fileID: 11500000, guid: 4c8bb0c45dc87a14694d1169df99ec05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health: 10
-  Speed: 2
-  ChangeDirectionFrequency: 0
-  DelayBeforeFirstAttack: 1
-  GoldGiven: 0
-  ChangingDirections: 0
-  AttackIsDirectionDependant: 0
-  JumpingBehaviour: 0
-  projectileRotations:
-  - 225
-  - 270
-  - 315
-  ProjectileSpeed: 2
-  ProjectileDestroyDelay: 20
-  AttackFrequency: 3
-  ProjectileSpawnPositionOffset: {x: 0, y: 0, z: 0}
-  Relic: {fileID: 1000013710975054, guid: 365e22df0c2b211459a2f3969e7c5fa1, type: 3}
+  health: 0
+  speed: 0
+  changeDirectionFrequency: 0
+  delayBeforeFirstAttack: 0
+  goldGiven: 0
+  changingDirections: 0
+  attackIsDirectionDependant: 0
+  jumpingBehaviour: 0
+  projectileRotations: []
+  projectileSpeed: 0
+  projectileDestroyDelay: 0
+  attackFrequency: 0
+  projectileSpawnPositionOffset: {x: 0, y: 0, z: 0}
+  Relic: {fileID: 0}
 --- !u!114 &4756669890819866909
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -305,22 +303,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4f62bf9e9524d544bad0e40d5e12c46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DeathCry: {fileID: 8300000, guid: fd573892d50e6464daa6bc4440d9bb29, type: 3}
-  HealthDropRate: 0.05
-  MaxHealthDropRate: 0.025
-  DamageDropRate: 0.01
---- !u!114 &114028072639366578
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1000010732799478}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01e2923fc207e634cbbdf4dc6043672c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  deathCry: {fileID: 8300000, guid: fd573892d50e6464daa6bc4440d9bb29, type: 3}
+  healthDropRate: 0.05
+  maxHealthDropRate: 0.02
+  damageDropRate: 0.01
 --- !u!114 &114187245435547046
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -346,6 +332,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 085f3595429d9ab438aed4e4cef52d98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6615757428522510224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000010732799478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a3d2e2c8f175b346ba2070fe0e1fe40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collisionMask:
+    serializedVersion: 2
+    m_Bits: 256
+--- !u!114 &7970961987154039791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000010732799478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50d83c5b7f39abc40b253d2fbc6beaee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  horizontalRayCount: 0
+  verticalRayCount: 0
+  horizontalRaySpacing: 0
+  verticalRaySpacing: 0
 --- !u!1 &8325591403499743333
 GameObject:
   m_ObjectHideFlags: 0

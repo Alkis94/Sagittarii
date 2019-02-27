@@ -10,7 +10,7 @@ public abstract class  EnemyBrain : MonoBehaviour
     protected AttackPatern attackPatern;
     protected SpriteRenderer spriteRenderer;
    
-    protected float Speed;
+    protected float speed;
 
     protected virtual void OnEnable()
     {
@@ -32,24 +32,22 @@ public abstract class  EnemyBrain : MonoBehaviour
 
     protected virtual void Start()
     {
-        Speed = enemyData.Speed;
-
-        if (enemyData.ChangingDirections)
+        if (enemyData.changingDirections)
         {
-            InvokeRepeating("ChangeDirection", enemyData.ChangeDirectionFrequency, enemyData.ChangeDirectionFrequency);
+            InvokeRepeating("ChangeHorizontalDirection", enemyData.changeDirectionFrequency, enemyData.changeDirectionFrequency);
         }
 
         StartFacingRandomDirection();
     }
 
-    protected abstract void ChangeDirection();
+    protected abstract void ChangeHorizontalDirection();
 
     protected void StartFacingRandomDirection()
     {
         float random = Random.Range(0f, 1f);
         if (random < 0.5f)
         {
-            ChangeDirection();
+            ChangeHorizontalDirection();
         }
     }
 }
