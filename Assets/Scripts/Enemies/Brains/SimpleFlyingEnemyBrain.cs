@@ -36,7 +36,6 @@ public class SimpleFlyingEnemyBrain : EnemyBrain
         raycaster = GetComponent<Raycaster>();
 
         InvokeRepeating("Attack", enemyData.delayBeforeFirstAttack, enemyData.attackFrequency);
-        
     }
 
 
@@ -45,15 +44,16 @@ public class SimpleFlyingEnemyBrain : EnemyBrain
         UpdateCollisionTracker();
         raycaster.UpdateRaycastOrigins();
 
-        if (collisionTracker.collisions.left || collisionTracker.collisions.right)
+        if (collisionTracker.collisions.left || collisionTracker.collisions.right && Time.time > cannotChangeDirectionTime)
         {
-            Debug.Log("Should Change Horizontal Direction");
             ChangeHorizontalDirection();
+            cannotChangeDirectionTime = Time.time + 0.05f;
         }
 
-        if (collisionTracker.collisions.above || collisionTracker.collisions.below)
+        if (collisionTracker.collisions.above || collisionTracker.collisions.below && Time.time > cannotChangeDirectionTime)
         {
             verticalDirection *= -1;
+            cannotChangeDirectionTime = Time.time + 0.05f;
         }
     }
 

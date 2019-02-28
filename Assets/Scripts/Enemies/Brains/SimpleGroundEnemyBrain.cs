@@ -17,8 +17,7 @@ public class SimpleGroundEnemyBrain : EnemyBrain
     private int animatorVelocityY_ID;
     private int animatorIsGrounded_ID;
 
-    //This timer will help enemies that get stuck somewhere not to change directions too rapidly
-    private float cannotChangeDirectionTime = 0f;
+    
 
 
     protected override void Awake()
