@@ -1,22 +1,35 @@
 ﻿using System;
 using UnityEngine;
 
-public static class PlayerStats
+public class PlayerStats : MonoBehaviour
 {
-    private static int currentHealth = 100;
-    private static int maximumHealth = 100;
-    public static int damage = 10;
-    public static int ammo = 500;
-    public static int gold = 0;
+    private  int currentHealth = 100;
+    private  int maximumHealth = 100;
+    public  int damage = 10;
+    public  int ammo = 500;
+    [HideInInspector]
+    private int gold = 0;
 
-    public static event Action OnPlayerHealthChanged = delegate { };
+    public static event Action<int,int> OnPlayerHealthChanged = delegate { };
+    public static event Action<int> OnPlayerGoldChanged = delegate { };
 
-    static PlayerStats()
+    private void OnEnable()
     {
-        currentHealth = MaximumHealth;
+        EnemyGotShot.OnEnemyDeathGiveGold += UpdateGold;
     }
 
-    public static int CurrentHealth
+    private void OnDisable()
+    {
+        EnemyGotShot.OnEnemyDeathGiveGold -= UpdateGold;
+    }
+
+    private void Start()
+    {
+        OnPlayerHealthChanged?.Invoke(currentHealth, maximumHealth);
+        OnPlayerGoldChanged?.Invoke(gold);
+    }
+
+    public  int CurrentHealth
     {
         get
         {
@@ -37,11 +50,11 @@ public static class PlayerStats
                 currentHealth = MaximumHealth;
             }
 
-            OnPlayerHealthChanged?.Invoke();
+            OnPlayerHealthChanged?.Invoke(currentHealth,maximumHealth);
         }
     }
 
-    public static int MaximumHealth
+    public  int MaximumHealth
     {
         get
         {
@@ -51,8 +64,28 @@ public static class PlayerStats
         set
         {
             maximumHealth = value;
-            OnPlayerHealthChanged?.Invoke();
+            OnPlayerHealthChanged?.Invoke(currentHealth, maximumHealth);
         }
+    }
+
+    public int Gold
+    {
+        get
+        {
+            return gold;
+        }
+
+        set
+        {
+            gold = value;
+            OnPlayerGoldChanged?.Invoke(gold);
+        }
+    }
+
+
+    private void UpdateGold(int goldGiven)
+    {
+        Gold += goldGiven;
     }
 }
 

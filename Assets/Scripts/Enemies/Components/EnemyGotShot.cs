@@ -4,7 +4,7 @@ using UnityEngine;
 public class EnemyGotShot : MonoBehaviour
 {
 
-    public static event Action<Vector3> OnDeathNotify = delegate { };
+    public static event Action<int> OnEnemyDeathGiveGold = delegate { };
     public event Action OnDeath = delegate { };
     private EnemyData enemyData;
 
@@ -19,11 +19,10 @@ public class EnemyGotShot : MonoBehaviour
     {
         if (other.tag == "Arrow")
         {
-            enemyData.health -= PlayerStats.damage;
+            enemyData.health -= other.GetComponent<Projectile>().Damage;
             if (enemyData.health <= 0)
             {
-                PlayerStats.gold += enemyData.goldGiven;
-                OnDeathNotify?.Invoke(transform.position);
+                OnEnemyDeathGiveGold?.Invoke(enemyData.goldGiven);
                 OnDeath?.Invoke();
                 Destroy(gameObject);
             }

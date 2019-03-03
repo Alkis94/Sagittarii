@@ -7,6 +7,7 @@ public class PlayerCollision : MonoBehaviour
 {
     private AudioSource audioSource;
     private Animator animator;
+    private PlayerStats playerStats;
 
     [SerializeField]
     private AudioClip playerGotHitSound;
@@ -25,6 +26,7 @@ public class PlayerCollision : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
         animator = GetComponent<Animator>();
+        playerStats = GetComponent<PlayerStats>();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -48,9 +50,9 @@ public class PlayerCollision : MonoBehaviour
 
     private void PlayerGotHit()
     {
-        PlayerStats.CurrentHealth -= 10;
+        playerStats.CurrentHealth -= 10;
 
-        if (PlayerStats.CurrentHealth < 1)
+        if (playerStats.CurrentHealth < 1)
         {
             playerNotDead = false;
             Die();

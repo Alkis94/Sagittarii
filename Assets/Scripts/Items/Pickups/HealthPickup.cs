@@ -8,8 +8,7 @@ public class HealthPickup : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
-            PlayerStats.CurrentHealth += 10;
-            //PlayerStats.ChangePlayerCurrentHealth(PlayerStats.currentHealth + 10);
+            collision.GetComponent<PlayerStats>().CurrentHealth += 10;
         }
     }
 }

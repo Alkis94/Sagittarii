@@ -9,8 +9,8 @@ public class MaxHealthPickup : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
-            PlayerStats.MaximumHealth += 10;
-            PlayerStats.CurrentHealth += 10;
+            collision.GetComponent<PlayerStats>().MaximumHealth += 10;
+            collision.GetComponent<PlayerStats>().CurrentHealth += 10;
         }
     }
 

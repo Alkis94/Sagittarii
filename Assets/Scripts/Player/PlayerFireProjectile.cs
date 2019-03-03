@@ -17,8 +17,10 @@ public class PlayerFireProjectile : MonoBehaviour
 
     private Animator animator;
     private Vector3 arrowEmitterPosition;
-    public Action<GameObject,GameObject,float,float,float> FireArrow = delegate {};
-    public static event Action OnPlayerFiredProjectile = delegate { };
+    private PlayerStats playerStats;
+
+    public Action<GameObject,GameObject,float,float,float,int> FireArrow = delegate {};
+    public static event Action<int> OnPlayerFiredProjectile = delegate { };
 
     private float attackHoldAnimationLength = 0.333f;
     private float timePassedHoldingArrow = 0f;
@@ -28,12 +30,14 @@ public class PlayerFireProjectile : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
+        playerStats = GetComponentInParent<PlayerStats>();
         FireArrow = FireArrowSimple;
+        OnPlayerFiredProjectile?.Invoke(playerStats.ammo);
     }
 
     void Update()
     {
-        if (PlayerStats.ammo > 0)
+        if (playerStats.ammo > 0)
         {
             if ((Input.GetButtonDown("Fire1") || Input.GetButton("Fire1")) && animator.GetCurrentAnimatorStateInfo(0).IsName("IdleHands"))
             {
@@ -52,9 +56,9 @@ public class PlayerFireProjectile : MonoBehaviour
                 if (arrowPower > 0.01)
                 {
                     animator.SetTrigger("PlayerAttackRelease");
-                    FireArrow(arrowEmitter,projectile,projectileSpeed,projectileDestroyDelay,arrowPower);
-                    PlayerStats.ammo -= 1;
-                    OnPlayerFiredProjectile.Invoke();
+                    FireArrow(arrowEmitter,projectile,projectileSpeed,projectileDestroyDelay,arrowPower,playerStats.damage);
+                    playerStats.ammo -= 1;
+                    OnPlayerFiredProjectile.Invoke(playerStats.ammo);
                 }
                 else
                 {
@@ -64,9 +68,9 @@ public class PlayerFireProjectile : MonoBehaviour
         }
     }
 
-    private void FireArrowSimple(GameObject arrowEmitter, GameObject projectile, float projectileSpeed, float projectileDestroyDelay, float arrowPower)
+    private void FireArrowSimple(GameObject arrowEmitter, GameObject projectile, float projectileSpeed, float projectileDestroyDelay, float arrowPower , int damage)
     {
-        ProjectileFactory.CreateProjectile(arrowEmitter.transform.position,  projectile, Vector3.zero, projectileSpeed * arrowPower, projectileDestroyDelay, arrowEmitter.transform.rotation);
+        ProjectileFactory.CreateProjectile(arrowEmitter.transform.position,  projectile, Vector3.zero, projectileSpeed * arrowPower, projectileDestroyDelay, damage, arrowEmitter.transform.rotation);
     }
 
 }

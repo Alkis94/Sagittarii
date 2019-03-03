@@ -36,43 +36,40 @@ public class UIManager : MonoBehaviour
     private void OnEnable()
     {
         PlayerStats.OnPlayerHealthChanged += UpdateHealth;
+        PlayerStats.OnPlayerGoldChanged += UpdateGold;
         PlayerFireProjectile.OnPlayerFiredProjectile += UpdateAmmo;
-        EnemyGotShot.OnDeathNotify += UpdateGold;
     }
 
     private void OnDisable()
     {
         PlayerStats.OnPlayerHealthChanged -= UpdateHealth;
+        PlayerStats.OnPlayerGoldChanged -= UpdateGold;
         PlayerFireProjectile.OnPlayerFiredProjectile -= UpdateAmmo;
-        EnemyGotShot.OnDeathNotify -= UpdateGold;
     }
 
     private void Start ()
     {
         AudioListener.pause = false;
-        healthText.text =  PlayerStats.CurrentHealth + "/" + PlayerStats.MaximumHealth;
-        ammoText.text = PlayerStats.ammo.ToString();
-        goldText.text = PlayerStats.gold.ToString();
     }
 
 
-    private void UpdateHealth()
+    private void UpdateHealth(int health, int maxHealth)
     {
-        UpdateHealthText();
-        UpdateHealthBar();
+        UpdateHealthText(health,maxHealth);
+        UpdateHealthBar(health, maxHealth);
     }
 
-    private void UpdateHealthText()
+    private void UpdateHealthText(int health,int maxHealth)
     {
-        int health;
-        health = 0 > PlayerStats.CurrentHealth ? 0 : PlayerStats.CurrentHealth;
-        health = PlayerStats.MaximumHealth < health ? PlayerStats.MaximumHealth : health;
-        healthText.text = health + "/" + PlayerStats.MaximumHealth;
+        
+        health = 0 > health ? 0 : health;
+        health = maxHealth < health ? maxHealth : health;
+        healthText.text = health + "/" + maxHealth;
     }
 
-    private void UpdateHealthBar()
+    private void UpdateHealthBar(int health, int maxHealth)
     {
-        imageFillAmountNew = (float)PlayerStats.CurrentHealth / PlayerStats.MaximumHealth;
+        imageFillAmountNew = (float)health / maxHealth;
         if(imageFillAmountNew > healthImage.fillAmount)
         {
             StartCoroutine(FillHealthBar());
@@ -103,14 +100,14 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    private void UpdateAmmo()
+    private void UpdateAmmo(int ammo)
     {
-        ammoText.text = PlayerStats.ammo.ToString();
+        ammoText.text = ammo.ToString();
     }
 
-    private void UpdateGold(Vector3 enemyPosition)
+    private void UpdateGold(int gold)
     {
-        goldText.text = PlayerStats.gold.ToString();
+        goldText.text = gold.ToString();
     }
 
     //public void PressMute()
