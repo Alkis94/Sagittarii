@@ -3,12 +3,12 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
-    private  int currentHealth = 100;
+    private  int currentHealth = 50;
     private  int maximumHealth = 100;
     public  int damage = 10;
     public  int ammo = 500;
     [HideInInspector]
-    private int gold = 0;
+    private int gold = 500;
 
     public static event Action<int,int> OnPlayerHealthChanged = delegate { };
     public static event Action<int> OnPlayerGoldChanged = delegate { };
