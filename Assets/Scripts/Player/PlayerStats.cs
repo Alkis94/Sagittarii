@@ -3,15 +3,22 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
-    private  int currentHealth = 50;
+    [SerializeField]
+    private  int currentHealth = 58;
+    [SerializeField]
     private  int maximumHealth = 100;
+    [SerializeField]
+    private int ammo = 500;
+    [SerializeField]
+    private int gold = 20;
+
+    public float speed = 8f;
     public  int damage = 10;
-    public  int ammo = 500;
-    [HideInInspector]
-    private int gold = 500;
+    
 
     public static event Action<int,int> OnPlayerHealthChanged = delegate { };
     public static event Action<int> OnPlayerGoldChanged = delegate { };
+    public static event Action<int> OnPlayerAmmoChanged = delegate { };
 
     private void OnEnable()
     {
@@ -27,6 +34,7 @@ public class PlayerStats : MonoBehaviour
     {
         OnPlayerHealthChanged?.Invoke(currentHealth, maximumHealth);
         OnPlayerGoldChanged?.Invoke(gold);
+        OnPlayerAmmoChanged?.Invoke(ammo);
     }
 
     public  int CurrentHealth
@@ -65,6 +73,20 @@ public class PlayerStats : MonoBehaviour
         {
             maximumHealth = value;
             OnPlayerHealthChanged?.Invoke(currentHealth, maximumHealth);
+        }
+    }
+
+    public int Ammo
+    {
+        get
+        {
+            return ammo;
+        }
+
+        set
+        {
+            ammo = value;
+            OnPlayerAmmoChanged?.Invoke(ammo);
         }
     }
 

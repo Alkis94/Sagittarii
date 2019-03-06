@@ -22841,6 +22841,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5060117036905097974, guid: 805986100c30b064b9956aac9ee45593,
+        type: 3}
+      propertyPath: currentHealth
+      value: 59
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 805986100c30b064b9956aac9ee45593, type: 3}
 --- !u!4 &1620129087 stripped
@@ -23065,16 +23070,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8093999655748445332, guid: c07ab5ad65d30714690bc2ee1d0c5ff1,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2308883355022674448, guid: c07ab5ad65d30714690bc2ee1d0c5ff1,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnMaxClick
-      objectReference: {fileID: 0}
     - target: {fileID: 1483261844448628570, guid: c07ab5ad65d30714690bc2ee1d0c5ff1,
         type: 3}
       propertyPath: m_havePropertiesChanged
@@ -23120,5 +23115,55 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 906980902}
+    - target: {fileID: 3079388001159999137, guid: c07ab5ad65d30714690bc2ee1d0c5ff1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7648352042671504316, guid: c07ab5ad65d30714690bc2ee1d0c5ff1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 951539223293611061, guid: c07ab5ad65d30714690bc2ee1d0c5ff1,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 951539223293611061, guid: c07ab5ad65d30714690bc2ee1d0c5ff1,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6327961949650014916, guid: c07ab5ad65d30714690bc2ee1d0c5ff1,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6327961949650014916, guid: c07ab5ad65d30714690bc2ee1d0c5ff1,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3357355606822021962, guid: c07ab5ad65d30714690bc2ee1d0c5ff1,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3357355606822021962, guid: c07ab5ad65d30714690bc2ee1d0c5ff1,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7967629276958364456, guid: c07ab5ad65d30714690bc2ee1d0c5ff1,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7967629276958364456, guid: c07ab5ad65d30714690bc2ee1d0c5ff1,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c07ab5ad65d30714690bc2ee1d0c5ff1, type: 3}

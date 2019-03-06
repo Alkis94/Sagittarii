@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
    // public bool drawDebugRaycasts = true;	//Should the environment checks be visualized
 
 	[Header("Movement Properties")]
-	public float speed = 8f;				//Player speed
+
 	public float coyoteDuration = .05f;		//How long the player can jump after falling
 	public float maxFallSpeed = -25f;		//Max speed player can fall
 
@@ -31,6 +31,7 @@ public class PlayerMovement : MonoBehaviour
     private PlayerInput input;                     //The current inputs for the player
     private BoxCollider2D bodyCollider;             //The collider component
     private Rigidbody2D rigidBody;					//The rigidbody component
+    private PlayerStats playerStats;
 	
 	float jumpTime;							//Variable to hold jump duration
 	float coyoteTime;						//Variable to hold coyote duration
@@ -50,6 +51,7 @@ public class PlayerMovement : MonoBehaviour
 		rigidBody = GetComponent<Rigidbody2D>();
 		bodyCollider = GetComponent<BoxCollider2D>();
         animator = GetComponent<Animator>();
+        playerStats = GetComponent<PlayerStats>();
 
         animatorVelocityX_ID = Animator.StringToHash("VelocityX");
         animatorVelocityY_ID = Animator.StringToHash("VelocityY");
@@ -72,6 +74,8 @@ public class PlayerMovement : MonoBehaviour
 		GroundMovement();		
 		MidAirMovement();
     }
+
+    
 
 	void PhysicsCheck()
 	{
@@ -103,7 +107,7 @@ public class PlayerMovement : MonoBehaviour
 	{
 
 		//Calculate the desired velocity based on inputs
-		float xVelocity = speed * input.horizontal;
+		float xVelocity = playerStats.speed * input.horizontal;
 
 		//Apply the desired velocity 
 		rigidBody.velocity = new Vector2(xVelocity, rigidBody.velocity.y);

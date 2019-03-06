@@ -20,7 +20,7 @@ public class PlayerFireProjectile : MonoBehaviour
     private PlayerStats playerStats;
 
     public Action<GameObject,GameObject,float,float,float,int> FireArrow = delegate {};
-    public static event Action<int> OnPlayerFiredProjectile = delegate { };
+    
 
     private float attackHoldAnimationLength = 0.333f;
     private float timePassedHoldingArrow = 0f;
@@ -29,15 +29,14 @@ public class PlayerFireProjectile : MonoBehaviour
 
     void Start()
     {
-        animator = GetComponent<Animator>();
         playerStats = GetComponentInParent<PlayerStats>();
+        animator = GetComponent<Animator>();
         FireArrow = FireArrowSimple;
-        OnPlayerFiredProjectile?.Invoke(playerStats.ammo);
     }
 
     void Update()
     {
-        if (playerStats.ammo > 0)
+        if (playerStats.Ammo > 0)
         {
             if ((Input.GetButtonDown("Fire1") || Input.GetButton("Fire1")) && animator.GetCurrentAnimatorStateInfo(0).IsName("IdleHands"))
             {
@@ -47,7 +46,6 @@ public class PlayerFireProjectile : MonoBehaviour
             else if (Input.GetButton("Fire1") && animator.GetCurrentAnimatorStateInfo(0).IsName("PlayerAttackHold"))
             {
                 timePassedHoldingArrow += Time.deltaTime;
-                arrowPower += Time.deltaTime;
             }
             else if (Input.GetButtonUp("Fire1") && animator.GetCurrentAnimatorStateInfo(0).IsName("PlayerAttackHold"))
             {
@@ -57,8 +55,7 @@ public class PlayerFireProjectile : MonoBehaviour
                 {
                     animator.SetTrigger("PlayerAttackRelease");
                     FireArrow(arrowEmitter,projectile,projectileSpeed,projectileDestroyDelay,arrowPower,playerStats.damage);
-                    playerStats.ammo -= 1;
-                    OnPlayerFiredProjectile.Invoke(playerStats.ammo);
+                    playerStats.Ammo -= 1;
                 }
                 else
                 {

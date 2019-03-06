@@ -304,11 +304,12 @@ GameObject:
   - component: {fileID: 5953550548956530663}
   - component: {fileID: 861896868}
   - component: {fileID: 1905537675866282385}
+  - component: {fileID: 5060117036905097974}
   - component: {fileID: 696266295396060517}
   - component: {fileID: 2481066987502239242}
   - component: {fileID: 7907791811425724120}
   - component: {fileID: 7528320261464877073}
-  - component: {fileID: 5060117036905097974}
+  - component: {fileID: 597346900823652045}
   m_Layer: 10
   m_Name: Archer
   m_TagString: Player
@@ -549,6 +550,22 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6112859251357942033}
   m_Enabled: 1
+--- !u!114 &5060117036905097974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6112859251357942033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d4eb3fd47a2eeb41ac685f5d6504b86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentHealth: 59
+  maximumHealth: 100
+  damage: 10
+  ammo: 500
 --- !u!114 &696266295396060517
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -616,7 +633,7 @@ MonoBehaviour:
     m_Bits: 256
   isOnGround: 0
   isJumping: 0
---- !u!114 &5060117036905097974
+--- !u!114 &597346900823652045
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -625,9 +642,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 6112859251357942033}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d4eb3fd47a2eeb41ac685f5d6504b86, type: 3}
+  m_Script: {fileID: 11500000, guid: 20054ebd54caa604e8f0e5cc530440c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
-  ammo: 500
-  gold: 0
+  townController: {fileID: 9100000, guid: 1db6bbe010ce0bd4cb23bb849c238784, type: 2}
+  bodyController: {fileID: 9100000, guid: 546e00a83c62e944688ff499c2be6efc, type: 2}

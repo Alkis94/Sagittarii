@@ -50,8 +50,17 @@ public class ShopOrb : MonoBehaviour
     {
         if (healAmount < missingHealth)
         {
-            healAmount += 10;
-            healCost += 10;
+            if(healAmount < missingHealth - 10)
+            {
+                healAmount += 10;
+                healCost += 10;
+            }
+            else
+            {
+                healAmount += missingHealth - healAmount;
+                healCost += missingHealth - healCost;
+            }
+            
             healAmountText.text = healAmount.ToString();
             healCostText.text = healCost.ToString();
         }
@@ -63,6 +72,13 @@ public class ShopOrb : MonoBehaviour
         {
             healAmount -= 10;
             healCost -= 10;
+
+            //make sure the healAmount/Cost doesn't go below 0
+            if(healAmount < 0)
+            {
+                healAmount = 0;
+                healCost = 0;
+            }
             healAmountText.text = healAmount.ToString();
             healCostText.text = healCost.ToString();
         }

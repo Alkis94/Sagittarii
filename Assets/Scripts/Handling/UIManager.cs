@@ -37,14 +37,14 @@ public class UIManager : MonoBehaviour
     {
         PlayerStats.OnPlayerHealthChanged += UpdateHealth;
         PlayerStats.OnPlayerGoldChanged += UpdateGold;
-        PlayerFireProjectile.OnPlayerFiredProjectile += UpdateAmmo;
+        PlayerStats.OnPlayerAmmoChanged += UpdateAmmo;
     }
 
     private void OnDisable()
     {
         PlayerStats.OnPlayerHealthChanged -= UpdateHealth;
         PlayerStats.OnPlayerGoldChanged -= UpdateGold;
-        PlayerFireProjectile.OnPlayerFiredProjectile -= UpdateAmmo;
+        PlayerStats.OnPlayerAmmoChanged -= UpdateAmmo;
     }
 
     private void Start ()
