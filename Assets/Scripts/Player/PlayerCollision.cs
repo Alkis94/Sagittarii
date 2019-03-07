@@ -5,15 +5,9 @@ using Factories;
 
 public class PlayerCollision : MonoBehaviour
 {
-    private AudioSource audioSource;
+    private PlayerAudio playerAudio;
     private Animator animator;
     private PlayerStats playerStats;
-
-    [SerializeField]
-    private AudioClip playerGotHitSound;
-    [SerializeField]
-    private AudioClip playerDiedSound;
-
 
     public static event Action OnDeath = delegate { };
     public static event Action OnPlayerGotBatWings = delegate { };
@@ -24,7 +18,7 @@ public class PlayerCollision : MonoBehaviour
 
     private void Start()
     {
-        audioSource = GetComponent<AudioSource>();
+        playerAudio = GetComponent<PlayerAudio>();
         animator = GetComponent<Animator>();
         playerStats = GetComponent<PlayerStats>();
     }
@@ -60,8 +54,7 @@ public class PlayerCollision : MonoBehaviour
         }
         else
         {
-            audioSource.clip = playerGotHitSound;
-            audioSource.Play();
+            playerAudio.PlayGotHitSound();
         }
     }
 
@@ -71,8 +64,7 @@ public class PlayerCollision : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
-        audioSource.clip = playerDiedSound;
-        audioSource.Play();
+        playerAudio.PlayDeathSound();
         animator.SetTrigger("PlayerDied");
         Invoke("PlayerDiedDelayedMenu", 3);
     }

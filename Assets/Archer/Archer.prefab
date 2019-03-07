@@ -310,6 +310,7 @@ GameObject:
   - component: {fileID: 7907791811425724120}
   - component: {fileID: 7528320261464877073}
   - component: {fileID: 597346900823652045}
+  - component: {fileID: 5399449951423691859}
   m_Layer: 10
   m_Name: Archer
   m_TagString: Player
@@ -564,8 +565,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHealth: 59
   maximumHealth: 100
-  damage: 10
   ammo: 500
+  gold: 20
+  speed: 8
+  damage: 10
 --- !u!114 &696266295396060517
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -578,8 +581,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e09c0a1506050e4482cf326415173e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerGotHitSound: {fileID: 8300000, guid: 237cfc5385e0ddc498d64ef42eb3e269, type: 3}
-  playerDiedSound: {fileID: 8300000, guid: bf3907a4fd5be2e4186ddd143307f7bb, type: 3}
 --- !u!114 &2481066987502239242
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -619,7 +620,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 149c257af29df004a863a18474d6f1ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 8
   coyoteDuration: 0.05
   maxFallSpeed: -25
   jumpForce: 6.3
@@ -632,6 +632,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   isOnGround: 0
+  isOnAir: 0
   isJumping: 0
 --- !u!114 &597346900823652045
 MonoBehaviour:
@@ -647,3 +648,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   townController: {fileID: 9100000, guid: 1db6bbe010ce0bd4cb23bb849c238784, type: 2}
   bodyController: {fileID: 9100000, guid: 546e00a83c62e944688ff499c2be6efc, type: 2}
+--- !u!114 &5399449951423691859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6112859251357942033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c20b1d071fa9d74cb2fcc20cdf6fc58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerGroundImpactSound: {fileID: 8300000, guid: 862219243afbbcc41821ac7616d7728b,
+    type: 3}
+  playerDeathSound: {fileID: 8300000, guid: bf3907a4fd5be2e4186ddd143307f7bb, type: 3}
+  playerJumpSound: {fileID: 8300000, guid: 51dcd922a0fbbff4eafca92345c169bd, type: 3}
+  playerGotHitSound: {fileID: 8300000, guid: 237cfc5385e0ddc498d64ef42eb3e269, type: 3}
+  playerSteps:
+  - {fileID: 8300000, guid: 27eb3595acb8bcb4786e385c706a47c9, type: 3}
+  - {fileID: 8300000, guid: 02d0cb01323f1794fadbd3c0fb418670, type: 3}
+  - {fileID: 8300000, guid: 66b3af8697cc0f7489a6458ab81b21ea, type: 3}
+  - {fileID: 8300000, guid: e8e6e76bd707a474a83f9829975d6df1, type: 3}

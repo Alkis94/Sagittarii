@@ -25,6 +25,7 @@ public class PlayerMovement : MonoBehaviour
 
 	[Header ("Status Flags")]
 	public bool isOnGround;					//Is the player on the ground?
+    public bool isFalling;                  //Is the player falling?
 	public bool isJumping;					//Is player jumping?
 
     private Animator animator;
@@ -32,6 +33,7 @@ public class PlayerMovement : MonoBehaviour
     private BoxCollider2D bodyCollider;             //The collider component
     private Rigidbody2D rigidBody;					//The rigidbody component
     private PlayerStats playerStats;
+    private PlayerAudio playerAudio;
 	
 	float jumpTime;							//Variable to hold jump duration
 	float coyoteTime;						//Variable to hold coyote duration
@@ -52,6 +54,7 @@ public class PlayerMovement : MonoBehaviour
 		bodyCollider = GetComponent<BoxCollider2D>();
         animator = GetComponent<Animator>();
         playerStats = GetComponent<PlayerStats>();
+        playerAudio = GetComponent<PlayerAudio>();
 
         animatorVelocityX_ID = Animator.StringToHash("VelocityX");
         animatorVelocityY_ID = Animator.StringToHash("VelocityY");
@@ -98,6 +101,11 @@ public class PlayerMovement : MonoBehaviour
         if (leftCheck || rightCheck)
         {
             isOnGround = true;
+            if(isFalling)
+            {
+                isFalling = false;
+                playerAudio.PlayGroundImpactSound();
+            }
         }
         
             
@@ -136,6 +144,7 @@ public class PlayerMovement : MonoBehaviour
 
 			//...add the jump force to the rigidbody...
 			rigidBody.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
+            playerAudio.PlayJumpSound();
 		}
 		//Otherwise, if currently within the jump time window...
 		else if (isJumping)
@@ -156,5 +165,10 @@ public class PlayerMovement : MonoBehaviour
 		//If player is falling to fast, reduce the Y velocity to the max
 		if (rigidBody.velocity.y < maxFallSpeed)
 			rigidBody.velocity = new Vector2(rigidBody.velocity.x, maxFallSpeed);
+
+        if(rigidBody.velocity.y < 0)
+        {
+            isFalling = true;
+        }
 	}
 }
