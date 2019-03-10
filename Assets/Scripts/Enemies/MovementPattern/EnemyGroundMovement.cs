@@ -10,13 +10,14 @@ public class EnemyGroundMovement : MonoBehaviour
 
     private void Awake()
     {
+        rigidbody2d = GetComponent<Rigidbody2D>();
+        raycaster = GetComponent<Raycaster>();
         boxCollider2d = GetComponent<BoxCollider2D>();
     }
 
     private void Start()
     {
-        rigidbody2d = GetComponent<Rigidbody2D>();
-        raycaster = GetComponent<Raycaster>();
+        
     }
 
     public void Move(float speed)

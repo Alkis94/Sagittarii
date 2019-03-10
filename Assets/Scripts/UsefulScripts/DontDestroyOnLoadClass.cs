@@ -4,8 +4,21 @@ using UnityEngine;
 
 public class DontDestroyOnLoadClass : MonoBehaviour
 {
-    private void Awake()
+    private static DontDestroyOnLoadClass instance = null;
+
+    void Awake()
     {
+        // First we check if there are any other instances conflicting
+        if (instance != null && instance != this)
+        {
+            // If that is the case, we destroy other instances
+            Destroy(instance.gameObject);
+        }
+
+        // Here we save our singleton instance
+        instance = this;
+
         DontDestroyOnLoad(gameObject);
     }
+
 }

@@ -4,5 +4,8 @@ using UnityEngine;
 
 public abstract class AttackPatern : MonoBehaviour
 {
-    abstract public void Attack(EnemyData enemyData);
+    [SerializeField]
+    protected AttackData attackData;
+
+    abstract public void Attack();
 }

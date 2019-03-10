@@ -23,11 +23,11 @@ public class EnemyDeath : MonoBehaviour
     [SerializeField]
     private  AudioClip deathCry;
 
-    [SerializeField]
+    //[SerializeField]
     private float healthDropRate = 0.05f;
-    [SerializeField]
-    private float maxHealthDropRate = 0.02f;
-    [SerializeField]
+    //[SerializeField]
+    private float maxHealthDropRate = 0.01f;
+    //[SerializeField]
     private float damageDropRate = 0.01f;
 
     
@@ -69,7 +69,6 @@ public class EnemyDeath : MonoBehaviour
         Instantiate(bloodSplat, transform.position, Quaternion.identity);
         animator.SetTrigger("Die");
         rigidbody2d.gravityScale = 1;
-        //rigidbody2d.velocity = new Vector2(0, 0);
         spriteRenderer.sortingLayerName = "DeadEnemies";
         Destroy(gameObject, 10.0f);
         gameObject.layer = 14;

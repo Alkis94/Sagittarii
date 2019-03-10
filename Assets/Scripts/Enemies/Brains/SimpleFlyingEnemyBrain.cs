@@ -35,7 +35,7 @@ public class SimpleFlyingEnemyBrain : EnemyBrain
         rigidbody2d = GetComponent<Rigidbody2D>();
         raycaster = GetComponent<Raycaster>();
 
-        InvokeRepeating("Attack", enemyData.delayBeforeFirstAttack, enemyData.attackFrequency);
+        InvokeRepeating("Attack", enemyData.delayBeforeFirstAttack, enemyData.attackFrequencies[0]);
     }
 
 
@@ -88,6 +88,6 @@ public class SimpleFlyingEnemyBrain : EnemyBrain
 
     private void Attack()
     {
-        attackPatern.Attack(enemyData);
+        attackPatern.Attack();
     }
 }

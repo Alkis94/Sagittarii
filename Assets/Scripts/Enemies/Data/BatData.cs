@@ -11,17 +11,11 @@ public class BatData : EnemyData
         speed = 1;
         delayBeforeFirstAttack = 1;
         changeDirectionFrequency = 3;
+        attackFrequencies.Add(4);
 
         //behaviour bools
         changingDirections = true;
-        attackIsDirectionDependant = false;
         jumpingBehaviour = false;
-
-        //attack stats
-        projectileSpeed = 5;
-        projectileDestroyDelay = 15f;
-        attackFrequency = 3;
-        projectileSpawnPositionOffset = new Vector3(0, 0, 0);
     }
 
     protected override void Start()

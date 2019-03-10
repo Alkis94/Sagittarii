@@ -15,8 +15,7 @@ namespace Factories
         static MenuFactory()
         {
             PauseMenu = Resources.Load("Menus/PauseMenu") as GameObject;
-            VictoryMenu = Resources.Load("Menus/VictoryMenu") as GameObject;
-            DefeatMenu = Resources.Load("Menus/DefeatMenu") as GameObject;
+            DefeatMenu = Resources.Load("Menus/DefeatMenuDev") as GameObject;
         }
 
         public static GameObject CreateMenuAndPause(GameObject Menu)

@@ -48,7 +48,7 @@ public class SimpleGroundEnemyBrain : EnemyBrain
         audioSource.clip = attackSound;
         animatorIsGrounded_ID = Animator.StringToHash("IsGrounded");
 
-        InvokeRepeating("StartAttackAnimation", enemyData.delayBeforeFirstAttack, enemyData.attackFrequency);  
+        InvokeRepeating("StartAttackAnimation", enemyData.delayBeforeFirstAttack, enemyData.attackFrequencies[0]);  
         
         if(enemyData.jumpingBehaviour)
         {
@@ -92,7 +92,7 @@ public class SimpleGroundEnemyBrain : EnemyBrain
     private void CallAttack()
     {
         //Gets called from animation
-        attackPatern.Attack(enemyData);
+        attackPatern.Attack();
     }
 
     private void CallJump()

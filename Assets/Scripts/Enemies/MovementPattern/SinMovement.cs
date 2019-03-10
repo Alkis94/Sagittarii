@@ -8,9 +8,14 @@ public class SinMovement : MovementPattern
     private float verticalDirection = 0;
     private Rigidbody2D rigidbody2d;
 
-    private void Start()
+    private void Awake()
     {
         rigidbody2d = GetComponent<Rigidbody2D>();
+    }
+
+    private void Start()
+    {
+
     }
 
     public override void Move(float speed, int brainVerticalDirection)

@@ -225,7 +225,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!61 &3457750228986333724
 BoxCollider2D:
@@ -269,15 +269,10 @@ MonoBehaviour:
   speed: 0
   changeDirectionFrequency: 0
   delayBeforeFirstAttack: 0
+  attackFrequencies: []
   goldGiven: 0
   changingDirections: 0
-  attackIsDirectionDependant: 0
   jumpingBehaviour: 0
-  projectileRotations: []
-  projectileSpeed: 0
-  projectileDestroyDelay: 0
-  attackFrequency: 0
-  projectileSpawnPositionOffset: {x: 0, y: 0, z: 0}
   Relic: {fileID: 0}
 --- !u!114 &2046918722190791161
 MonoBehaviour:
@@ -305,9 +300,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deathCry: {fileID: 8300000, guid: 6b4f050e74182454f8824328041ec75c, type: 3}
-  healthDropRate: 0.05
-  maxHealthDropRate: 0.02
-  damageDropRate: 0.01
 --- !u!114 &3063393326953432483
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -324,7 +316,6 @@ MonoBehaviour:
   verticalRayCount: 0
   horizontalRaySpacing: 0
   verticalRaySpacing: 0
-  BoxCollider: {fileID: 0}
 --- !u!114 &6725544850637037678
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -337,7 +328,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a538059451f55a4c98844bd632a0d32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectile: {fileID: 1000012292187914, guid: b774a9ee4dfc3f549a062b3fc69de24a, type: 3}
+  attackData: {fileID: 11400000, guid: 1bfbdf3c518a1424eac527ccb8e58d3c, type: 2}
+  projectileRotations:
+  - 0
 --- !u!114 &7444346519752997670
 MonoBehaviour:
   m_ObjectHideFlags: 0

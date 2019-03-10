@@ -5,25 +5,26 @@ using Factories;
 
 public class PerimetricalAttack : AttackPatern
 {
-    public GameObject projectile;
-
     [SerializeField]
-    private int damage = 10;
+    private List<float> projectileRotations;
 
-    public override void Attack(EnemyData enemyData)
+    public override void Attack()
     {
-        if (enemyData.attackIsDirectionDependant)
+        if (attackData.attackIsDirectionDependant)
         {
-            foreach (float rotation in enemyData.projectileRotations)
+            foreach (float rotation in projectileRotations)
             {
-                ProjectileFactory.CreateProjectile(transform.position, projectile, enemyData.projectileSpawnPositionOffset * transform.right.x, enemyData.projectileSpeed * transform.right.x, enemyData.projectileDestroyDelay, damage, rotation);
+                ProjectileFactory.CreateProjectile(transform.position, attackData.projectile,
+                    attackData.projectileSpawnPositionOffset * transform.right.x, attackData.projectileSpeed * transform.right.x,
+                    attackData.projectileDestroyDelay, attackData.damage, rotation);
             }
         }
         else
         {
-            foreach (float rotation in enemyData.projectileRotations)
+            foreach (float rotation in projectileRotations)
             {
-                ProjectileFactory.CreateProjectile(transform.position, projectile, enemyData.projectileSpawnPositionOffset, enemyData.projectileSpeed, enemyData.projectileDestroyDelay, damage, rotation);
+                ProjectileFactory.CreateProjectile(transform.position, attackData.projectile, attackData.projectileSpawnPositionOffset,
+                    attackData.projectileSpeed, attackData.projectileDestroyDelay, attackData.damage, rotation);
             }
         }
 

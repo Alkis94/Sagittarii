@@ -4,33 +4,13 @@ using System.Collections.Generic;
 
 public class PickUpFactory : MonoBehaviour
 {
-    //   # # # # # # # # # # # # 
-    //   #                     #
-    //   #  SINGLETON CLASS    #
-    //   #                     #
-    //   # # # # # # # # # # # # 
-
-
-    private static PickUpFactory instance = null;
-
     [SerializeField]
     private List<GameObject> pickupsList;
     private Dictionary<string, GameObject> pickupsDictionery;
 
     public ParticleSystem DeathBloodSplatPrefab;
 
-    void Awake()
-    {
-        // First we check if there are any other instances conflicting
-        if (instance != null && instance != this)
-        {
-            // If that is the case, we destroy other instances
-            Destroy(gameObject);
-        }
 
-        // Here we save our singleton instance
-        instance = this;
-    }
 
     private void OnEnable()
     {

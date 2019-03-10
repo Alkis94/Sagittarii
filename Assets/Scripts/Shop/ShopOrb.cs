@@ -42,6 +42,11 @@ public class ShopOrb : MonoBehaviour
     {
         healAmount = missingHealth;
         healCost = missingHealth;
+        if(healAmount > playerStats.Gold)
+        {
+            healAmount = playerStats.Gold;
+            healCost = playerStats.Gold;
+        }
         healAmountText.text = healAmount.ToString();
         healCostText.text = healCost.ToString();
     }

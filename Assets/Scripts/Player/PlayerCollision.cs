@@ -27,7 +27,8 @@ public class PlayerCollision : MonoBehaviour
     {
         if (other.tag == "EnemyProjectile" && playerNotDead)
         {
-            PlayerGotHit();
+            int damage = other.GetComponent<Projectile>().Damage;
+            PlayerGotHit(damage);
         }
         if (other.tag == "BatWingsPickup")
         {
@@ -42,9 +43,9 @@ public class PlayerCollision : MonoBehaviour
 
     }
 
-    private void PlayerGotHit()
+    private void PlayerGotHit(int damage)
     {
-        playerStats.CurrentHealth -= 10;
+        playerStats.CurrentHealth -= damage;
 
         if (playerStats.CurrentHealth < 1)
         {

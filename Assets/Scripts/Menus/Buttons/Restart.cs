@@ -8,7 +8,6 @@ public class Restart : MonoBehaviour
     {
         var thisScene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(thisScene.name);
-        Destroy(transform.parent.gameObject);
         GameState.UnpauseGame();
     }
 

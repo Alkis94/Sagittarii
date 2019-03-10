@@ -3,12 +3,7 @@ using UnityEngine;
 
 public class TargetedAttack : AttackPatern
 {
-    public GameObject projectile;
-
-    [SerializeField]
-    private int damage = 10;
-
-    public override void Attack(EnemyData enemyData)
+    public override void Attack()
     {    
         Vector3 difference;
         float projectileRotation;
@@ -16,6 +11,6 @@ public class TargetedAttack : AttackPatern
         difference.Normalize();
         projectileRotation = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
 
-        ProjectileFactory.CreateProjectile(transform.position,projectile, enemyData.projectileSpawnPositionOffset, enemyData.projectileSpeed, enemyData.projectileDestroyDelay, damage, projectileRotation);
+        ProjectileFactory.CreateProjectile(transform.position,attackData.projectile, attackData.projectileSpawnPositionOffset, attackData.projectileSpeed, attackData.projectileDestroyDelay, attackData.damage, projectileRotation);
     }
 }

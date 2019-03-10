@@ -269,15 +269,10 @@ MonoBehaviour:
   speed: 0
   changeDirectionFrequency: 0
   delayBeforeFirstAttack: 0
+  attackFrequencies: []
   goldGiven: 0
   changingDirections: 0
-  attackIsDirectionDependant: 0
   jumpingBehaviour: 0
-  projectileRotations: []
-  projectileSpeed: 0
-  projectileDestroyDelay: 0
-  attackFrequency: 0
-  projectileSpawnPositionOffset: {x: 0, y: 0, z: 0}
   Relic: {fileID: 0}
 --- !u!114 &6026461623799748943
 MonoBehaviour:
@@ -315,7 +310,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39167807d403afe4594881dea294c92e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectile: {fileID: 1000012292187914, guid: a8f9a03eddae3cb42ae4953a603f96de, type: 3}
+  attackData: {fileID: 11400000, guid: 3e42a00a36545dc4abf5e383a2291d96, type: 2}
 --- !u!114 &5623888009569000007
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -329,9 +324,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deathCry: {fileID: 8300000, guid: a0e1fe8dabe199041938412484e900f6, type: 3}
-  healthDropRate: 0.05
-  maxHealthDropRate: 0.02
-  damageDropRate: 0.01
 --- !u!114 &3349374942961215064
 MonoBehaviour:
   m_ObjectHideFlags: 0

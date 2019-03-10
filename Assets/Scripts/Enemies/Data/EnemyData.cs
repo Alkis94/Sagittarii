@@ -5,27 +5,17 @@ using UnityEngine;
 public abstract  class EnemyData : MonoBehaviour
 {
     [Header("Enemy Stats")]
-    public int health;
-    public float speed;
+    public int health = 10;
+    public float speed = 2;
     public float changeDirectionFrequency = 0;
-    public float delayBeforeFirstAttack;
+    public float delayBeforeFirstAttack = 3;
+    public List<float> attackFrequencies;
     [HideInInspector]
     public int goldGiven;
 
-    
-
     [Header("Behaviour Bools")]
-    public bool changingDirections;
-    public bool attackIsDirectionDependant;
-    public bool jumpingBehaviour;
-
-
-    [Header("Attack Stats")]
-    public List<float> projectileRotations;
-    public float projectileSpeed;
-    public float projectileDestroyDelay;
-    public float attackFrequency;
-    public Vector3 projectileSpawnPositionOffset;
+    public bool changingDirections = false;
+    public bool jumpingBehaviour = false;
 
     [Header("Relic Drop")]
     public GameObject Relic;
