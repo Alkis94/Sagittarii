@@ -45,8 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdb558317fe5b1d4ea7dab5d846de404, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upRightCorner: {fileID: 8276756701537815776}
-  bottomLeftCorner: {fileID: 3519180743996992789}
+  corner1: {fileID: 8276756701537815776}
+  corner2: {fileID: 3519180743996992789}
 --- !u!1 &1967951494348049784
 GameObject:
   m_ObjectHideFlags: 0
@@ -57,7 +57,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8276756701537815776}
   m_Layer: 0
-  m_Name: flyingSpawnPointUpRight
+  m_Name: Corner1
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -87,7 +87,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3519180743996992789}
   m_Layer: 0
-  m_Name: flyingSpawnPointBotLeft
+  m_Name: Corner2
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0

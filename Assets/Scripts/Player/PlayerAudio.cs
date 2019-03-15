@@ -21,37 +21,41 @@ public class PlayerAudio : MonoBehaviour
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        audioSource.priority = 0;
     }
 
-    public void PlayGroundImpactSound ()
+    public void PlayGroundImpactSound()
     {
-        audioSource.clip = playerGroundImpactSound;
-        audioSource.Play();
+        if (!audioSource.isPlaying)
+        {
+            audioSource.clip = playerGroundImpactSound;
+            audioSource.Play();
+        }
     }
 
     public void PlayGotHitSound()
     {
-        audioSource.clip = playerGotHitSound;
-        audioSource.Play();
+        audioSource.PlayOneShot(playerGotHitSound);
     }
 
     public void PlayDeathSound()
     {
-        audioSource.clip = playerDeathSound;
-        audioSource.Play();
+        audioSource.PlayOneShot(playerDeathSound);
     }
 
     public void PlayJumpSound()
     {
-        audioSource.clip = playerJumpSound;
-        audioSource.Play();
+        audioSource.PlayOneShot(playerJumpSound);
     }
 
     //Gets called from animation event
     public void PlayRandomStepSound()
     {
-        audioSource.clip = playerSteps[Random.Range(0, playerSteps.Count)];
-        audioSource.Play();
+        if (!audioSource.isPlaying)
+        {
+            audioSource.clip = playerSteps[Random.Range(0, playerSteps.Count)];
+            audioSource.Play();
+        }
     }
 
 

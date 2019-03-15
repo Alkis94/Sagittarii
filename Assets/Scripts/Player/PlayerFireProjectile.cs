@@ -23,6 +23,7 @@ public class PlayerFireProjectile : MonoBehaviour
     
 
     private float attackHoldAnimationLength = 0.333f;
+    private float attackHoldAnimationSpeed;
     private float timePassedHoldingArrow = 0f;
     private float arrowPower;
 
@@ -46,10 +47,12 @@ public class PlayerFireProjectile : MonoBehaviour
             else if (Input.GetButton("Fire1") && animator.GetCurrentAnimatorStateInfo(0).IsName("PlayerAttackHold"))
             {
                 timePassedHoldingArrow += Time.deltaTime;
+                attackHoldAnimationSpeed = animator.GetCurrentAnimatorStateInfo(0).speedMultiplier;
+
             }
             else if (Input.GetButtonUp("Fire1") && animator.GetCurrentAnimatorStateInfo(0).IsName("PlayerAttackHold"))
             {
-                arrowPower = timePassedHoldingArrow / attackHoldAnimationLength;
+                arrowPower = timePassedHoldingArrow * attackHoldAnimationSpeed / attackHoldAnimationLength;
                 arrowPower = arrowPower > 1 ? 1 : arrowPower;
                 if (arrowPower > 0.01)
                 {

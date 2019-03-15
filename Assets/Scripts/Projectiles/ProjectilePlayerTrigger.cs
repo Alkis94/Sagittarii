@@ -84,19 +84,18 @@ public class ProjectilePlayerTrigger : MonoBehaviour
             if((enemySpriteRenderer.bounds.ClosestPoint(transform.position).x - transform.position.x) != 0)
             {
                 signX =  Mathf.Sign(enemySpriteRenderer.bounds.ClosestPoint(transform.position).x - transform.position.x);
-                transform.position = enemySpriteRenderer.bounds.ClosestPoint(transform.position) + new Vector3(0.1f * signX, 0, 0);
+                transform.position = enemySpriteRenderer.bounds.ClosestPoint(transform.position) + new Vector3(0.5f * signX, 0, 0);
             }
 
 
             if ((enemySpriteRenderer.bounds.ClosestPoint(transform.position).y - transform.position.y) != 0)
             {
                 signY =  Mathf.Sign(enemySpriteRenderer.bounds.ClosestPoint(transform.position).y - transform.position.y);
-                transform.position = enemySpriteRenderer.bounds.ClosestPoint(transform.position) + new Vector3(0, 0.1f * signY, 0);
+                transform.position = enemySpriteRenderer.bounds.ClosestPoint(transform.position) + new Vector3(0, 0.5f * signY, 0);
             }
 
             yield return null;
         }
     }
-
 
 }
