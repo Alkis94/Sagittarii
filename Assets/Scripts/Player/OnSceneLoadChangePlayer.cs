@@ -14,7 +14,8 @@ public class OnSceneLoadChangePlayer : MonoBehaviour
     private RuntimeAnimatorController bodyController;
 
     private float currentPlayerSpeed;
-    private  const float playerTownSpeed = 5f;
+    [SerializeField]
+    private float playerTownSpeed = 6f;
 
 
 

@@ -5,11 +5,14 @@
 using Factories;
 using UnityEngine;
 
+
 //We first ensure this script runs before all other player scripts to prevent laggy
 //inputs
 [DefaultExecutionOrder(-100)]
 public class PlayerInput : MonoBehaviour
 {
+
+    public GameObject Map;
 
 	[HideInInspector] public float horizontal;		//Float that stores horizontal input
 	[HideInInspector] public bool jumpHeld;			//Bool that stores jump pressed
@@ -38,6 +41,11 @@ public class PlayerInput : MonoBehaviour
         else if (Input.GetButtonDown("Cancel") && GameState.GamePaused)
         {
             MenuFactory.DestroyMenuAndUnpause();
+        }
+
+        if(Input.GetKeyDown(KeyCode.M))
+        {
+            Map.SetActive(!Map.activeInHierarchy);
         }
 
         ClearInput();
