@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MapCreator : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class MapCreator : MonoBehaviour
     private Vector2 DownLeftCorner;
     private Vector2 UpRightCorner;
     private Vector2 StartingRoom;
+    [SerializeField]
     private RectTransform MapBackground;
 
     [SerializeField]
@@ -24,18 +26,21 @@ public class MapCreator : MonoBehaviour
     private GameObject horizontalRoad;
     [SerializeField]
     private GameObject verticalRoad;
+    [SerializeField]
+    private GameObject bossRoom;
 
     void Start()
     {
         unexploredRoomArrayCoordinates = new List<Vector2Int>();
-        MapBackground = GetComponent<RectTransform>();
         DownLeftCorner = new Vector2(-145f, -75f);
         UpRightCorner = new Vector2(135f, 65f);
         StartingRoom = new Vector2(-5f, 5f);
 
-        CreateRoad(15,new Vector2Int(13,7));
+        CreatePathToBoss();
         CreateRandomSmallPaths();
+        map[13, 7] = (int)RoomType.exploredRoom;
         RenderMap();
+        SceneManager.LoadScene(Random.Range(2, 7));
     }
 
 
@@ -132,6 +137,14 @@ public class MapCreator : MonoBehaviour
         }
     }
 
+    private void CreatePathToBoss()
+    {
+        CreateRoad(15, new Vector2Int(13, 7));
+        Vector2Int bossRoomCoordinates = unexploredRoomArrayCoordinates[unexploredRoomArrayCoordinates.Count - 1];
+        unexploredRoomArrayCoordinates.RemoveAt(unexploredRoomArrayCoordinates.Count - 1);
+        map[bossRoomCoordinates.x, bossRoomCoordinates.y] = (int)RoomType.bossRoom;
+    }
+
 
     private bool HasSpaceForRoomWest(Vector2Int room)
     {
@@ -219,9 +232,15 @@ public class MapCreator : MonoBehaviour
                         Vector2 mapCoordinates = ConvertArrayCoordinates(i, j);
                         ExtensionMethods.InstantiateAtLocalPosition(verticalRoad, MapBackground, mapCoordinates);
                     }
+                    else if (map[i, j] == (int)RoomType.bossRoom)
+                    {
+                        Vector2 mapCoordinates = ConvertArrayCoordinates(i, j);
+                        ExtensionMethods.InstantiateAtLocalPosition(bossRoom, MapBackground, mapCoordinates);
+                    }
                 }
             }
         }
+        Debug.Log("Map rendered!");
     }
 
     private Vector2 ConvertArrayCoordinates(int x,int y)
@@ -235,7 +254,9 @@ public class MapCreator : MonoBehaviour
         exploredRoom = 1,
         unexploredRoom,
         horizontalRoad,
-        verticalRoad
+        verticalRoad,
+        bossRoom,
+        treasureRoom
     }
 
     public enum Direction

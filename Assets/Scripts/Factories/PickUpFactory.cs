@@ -8,7 +8,7 @@ public class PickUpFactory : MonoBehaviour
     private List<GameObject> pickupsList;
     private Dictionary<string, GameObject> pickupsDictionery;
 
-    public ParticleSystem DeathBloodSplatPrefab;
+    //public ParticleSystem DeathBloodSplatPrefab;
 
 
 
@@ -32,18 +32,6 @@ public class PickUpFactory : MonoBehaviour
             pickupsDictionery.Add(pickupsList[i].name, pickupsList[i]);
         }
     }
-
-    //public void CreateFlyingEnemy(GameObject flyingEnemy,Vector3 screenPosition)
-    //{
-    //    Instantiate(flyingEnemy, screenPosition, Quaternion.identity);
-    //}
-
-    //public T CreateGroundEnemy<T>(Transform spawnPointPosition, int horizontalFactor, GameObject groundEnemyPrefab) where T : IInitializable
-    //{
-    //    var groundEnemy = Instantiate(groundEnemyPrefab).GetComponent<T>();
-    //    groundEnemy.Initialize(spawnPointPosition, horizontalFactor);
-    //    return groundEnemy;
-    //}
 
     public void CreatePickup(Vector3 deadEnemyPosition, string pickup)
     {

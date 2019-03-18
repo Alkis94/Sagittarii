@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class Quit : MonoBehaviour
+public class QuitGame : MonoBehaviour
 {
     [SerializeField]
     private Canvas quitMenu;

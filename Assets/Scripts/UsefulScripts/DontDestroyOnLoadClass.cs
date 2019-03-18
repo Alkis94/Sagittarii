@@ -14,9 +14,11 @@ public class DontDestroyOnLoadClass : MonoBehaviour
             // If that is the case, we destroy other instances
             Destroy(instance.gameObject);
         }
-
-        // Here we save our singleton instance
-        instance = this;
+        else
+        {
+            // Here we save our singleton instance
+            instance = this;
+        }
 
         DontDestroyOnLoad(gameObject);
     }

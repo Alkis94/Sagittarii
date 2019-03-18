@@ -5,9 +5,7 @@ namespace Factories
     public static class MenuFactory
     {
         public static GameObject PauseMenu { get; private set; }
-        public static GameObject VictoryMenu { get; private set; }
         public static GameObject DefeatMenu { get; private set; }
-
         private static GameObject someMenu;
 
 

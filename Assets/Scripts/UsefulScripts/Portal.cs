@@ -8,7 +8,7 @@ public class Portal : MonoBehaviour
     {
         if(collision.tag == "Player")
         {
-            SceneManager.LoadScene(2);
+            GetComponent<MapCreator>().enabled = true;
         }
     }
 
