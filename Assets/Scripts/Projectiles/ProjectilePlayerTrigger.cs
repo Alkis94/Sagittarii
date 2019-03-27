@@ -38,7 +38,7 @@ public class ProjectilePlayerTrigger : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag != "Background" && other.GetType() != typeof(BoxCollider2D))
+        if (other.GetType() != typeof(BoxCollider2D))
         {
             OnCollision?.Invoke();
             collider2d.enabled = false;
@@ -84,14 +84,14 @@ public class ProjectilePlayerTrigger : MonoBehaviour
             if((enemySpriteRenderer.bounds.ClosestPoint(transform.position).x - transform.position.x) != 0)
             {
                 signX =  Mathf.Sign(enemySpriteRenderer.bounds.ClosestPoint(transform.position).x - transform.position.x);
-                transform.position = enemySpriteRenderer.bounds.ClosestPoint(transform.position) + new Vector3(0.5f * signX, 0, 0);
+                transform.position = enemySpriteRenderer.bounds.ClosestPoint(transform.position) + new Vector3(0.25f * signX, 0, 0);
             }
 
 
             if ((enemySpriteRenderer.bounds.ClosestPoint(transform.position).y - transform.position.y) != 0)
             {
                 signY =  Mathf.Sign(enemySpriteRenderer.bounds.ClosestPoint(transform.position).y - transform.position.y);
-                transform.position = enemySpriteRenderer.bounds.ClosestPoint(transform.position) + new Vector3(0, 0.5f * signY, 0);
+                transform.position = enemySpriteRenderer.bounds.ClosestPoint(transform.position) + new Vector3(0, 0.25f * signY, 0);
             }
 
             yield return null;

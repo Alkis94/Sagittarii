@@ -9,25 +9,17 @@ public class MapCreator : MonoBehaviour
     private const int distanceBetweenRooms = 20;
     private const int distanceBetweenRoomAndRoad = 10;
 
-    private int[,] map = new int[29, 15];
+    private int[,] mapArray = new int[29, 15];
+
     private List<Vector2Int> unexploredRoomArrayCoordinates;
 
     private Vector2 DownLeftCorner;
     private Vector2 UpRightCorner;
     private Vector2 StartingRoom;
     [SerializeField]
-    private RectTransform MapBackground;
+    private GameObject map;
 
-    [SerializeField]
-    private GameObject exploredRoom;
-    [SerializeField]
-    private GameObject unexploredRoom;
-    [SerializeField]
-    private GameObject horizontalRoad;
-    [SerializeField]
-    private GameObject verticalRoad;
-    [SerializeField]
-    private GameObject bossRoom;
+    
 
     void Start()
     {
@@ -36,13 +28,20 @@ public class MapCreator : MonoBehaviour
         UpRightCorner = new Vector2(135f, 65f);
         StartingRoom = new Vector2(-5f, 5f);
 
-        CreatePathToBoss();
-        CreateRandomSmallPaths();
-        map[13, 7] = (int)RoomType.exploredRoom;
-        RenderMap();
+        CreateMap();
+
+        map.GetComponent<MapManager>().GetMap(mapArray);
         SceneManager.LoadScene(Random.Range(2, 7));
     }
 
+
+    private void CreateMap()
+    {
+        mapArray[13, 7] = (int)RoomType.exploredRoom;
+        CreatePathToBoss();
+        CreatePathsToTreasure();
+        CreateRandomSmallPaths();
+    }
 
     private void CreateRoad(int roadLength,Vector2Int startCoordinates)
     {
@@ -50,7 +49,7 @@ public class MapCreator : MonoBehaviour
         List<int> availableDirections = new List<int>();
 
         Vector2Int currentCoordinates = startCoordinates;
-        map[currentCoordinates.x, currentCoordinates.y] = (int)RoomType.unexploredRoom;
+        mapArray[currentCoordinates.x, currentCoordinates.y] = (int)RoomType.unexploredRoom;
 
 
         while (i < roadLength)
@@ -82,32 +81,32 @@ public class MapCreator : MonoBehaviour
 
             if (randomDirection == (int)Direction.west)
             {
-                map[currentCoordinates.x - 1, currentCoordinates.y] = (int)RoomType.horizontalRoad;
-                map[currentCoordinates.x - 2, currentCoordinates.y] = (int)RoomType.unexploredRoom;
+                mapArray[currentCoordinates.x - 1, currentCoordinates.y] = (int)RoomType.horizontalRoad;
+                mapArray[currentCoordinates.x - 2, currentCoordinates.y] = (int)RoomType.unexploredRoom;
                 currentCoordinates.x -= 2;
                 unexploredRoomArrayCoordinates.Add(new Vector2Int(currentCoordinates.x, currentCoordinates.y));
                 i++;
             }
             else if (randomDirection == (int)Direction.north)
             {
-                map[currentCoordinates.x, currentCoordinates.y + 1] = (int)RoomType.verticalRoad;
-                map[currentCoordinates.x, currentCoordinates.y + 2] = (int)RoomType.unexploredRoom;
+                mapArray[currentCoordinates.x, currentCoordinates.y + 1] = (int)RoomType.verticalRoad;
+                mapArray[currentCoordinates.x, currentCoordinates.y + 2] = (int)RoomType.unexploredRoom;
                 currentCoordinates.y += 2;
                 unexploredRoomArrayCoordinates.Add(new Vector2Int(currentCoordinates.x, currentCoordinates.y));
                 i++;
             }
             else if (randomDirection == (int)Direction.east)
             {
-                map[currentCoordinates.x + 1, currentCoordinates.y] = (int)RoomType.horizontalRoad;
-                map[currentCoordinates.x + 2, currentCoordinates.y] = (int)RoomType.unexploredRoom;
+                mapArray[currentCoordinates.x + 1, currentCoordinates.y] = (int)RoomType.horizontalRoad;
+                mapArray[currentCoordinates.x + 2, currentCoordinates.y] = (int)RoomType.unexploredRoom;
                 currentCoordinates.x += 2;
                 unexploredRoomArrayCoordinates.Add(new Vector2Int(currentCoordinates.x, currentCoordinates.y));
                 i++;
             }
             else if (randomDirection == (int)Direction.south)
             {
-                map[currentCoordinates.x, currentCoordinates.y - 1] = (int)RoomType.verticalRoad;
-                map[currentCoordinates.x, currentCoordinates.y - 2] = (int)RoomType.unexploredRoom;
+                mapArray[currentCoordinates.x, currentCoordinates.y - 1] = (int)RoomType.verticalRoad;
+                mapArray[currentCoordinates.x, currentCoordinates.y - 2] = (int)RoomType.unexploredRoom;
                 currentCoordinates.y -= 2;
                 unexploredRoomArrayCoordinates.Add(new Vector2Int(currentCoordinates.x, currentCoordinates.y));
                 i++;
@@ -142,7 +141,33 @@ public class MapCreator : MonoBehaviour
         CreateRoad(15, new Vector2Int(13, 7));
         Vector2Int bossRoomCoordinates = unexploredRoomArrayCoordinates[unexploredRoomArrayCoordinates.Count - 1];
         unexploredRoomArrayCoordinates.RemoveAt(unexploredRoomArrayCoordinates.Count - 1);
-        map[bossRoomCoordinates.x, bossRoomCoordinates.y] = (int)RoomType.bossRoom;
+        mapArray[bossRoomCoordinates.x, bossRoomCoordinates.y] = (int)RoomType.bossRoom;
+    }
+
+    private void CreatePathsToTreasure()
+    {
+        int randomAmountOfTreasureRoads = Random.Range(1, 4);
+        int i = 0;
+        while (i < randomAmountOfTreasureRoads)
+        {
+            int randomRoadLength = Random.Range(1, 8);
+            int randomUnexploredRoomID = Random.Range(0, unexploredRoomArrayCoordinates.Count);
+            Vector2Int randomUnexploredRoom = unexploredRoomArrayCoordinates[randomUnexploredRoomID];
+
+
+            if (!HasNoSpaceAroundForRoom(randomUnexploredRoom))
+            {
+                CreateRoad(randomRoadLength, randomUnexploredRoom);
+                Vector2Int treasureRoomCoordinates = unexploredRoomArrayCoordinates[unexploredRoomArrayCoordinates.Count - 1];
+                unexploredRoomArrayCoordinates.RemoveAt(unexploredRoomArrayCoordinates.Count - 1);
+                mapArray[treasureRoomCoordinates.x, treasureRoomCoordinates.y] = (int)RoomType.treasureRoom;
+                i++;
+            }
+
+            
+        }
+
+        
     }
 
 
@@ -150,7 +175,7 @@ public class MapCreator : MonoBehaviour
     {
         if (room.x - 2 >= 0)
         {
-            if (map[room.x - 2, room.y] == 0)
+            if (mapArray[room.x - 2, room.y] == 0)
             {
                 return true;
             }
@@ -160,9 +185,9 @@ public class MapCreator : MonoBehaviour
 
     private bool HasSpaceForRoomEast(Vector2Int room)
     {
-        if (room.x + 2 < map.GetLength(0))
+        if (room.x + 2 < mapArray.GetLength(0))
         {
-            if (map[room.x + 2, room.y] == 0)
+            if (mapArray[room.x + 2, room.y] == 0)
             {
                 return true;
             }
@@ -172,9 +197,9 @@ public class MapCreator : MonoBehaviour
 
     private bool HasSpaceForRoomNorth(Vector2Int room)
     {
-        if (room.y + 2 < map.GetLength(1))
+        if (room.y + 2 < mapArray.GetLength(1))
         {
-            if (map[room.x, room.y + 2] == 0)
+            if (mapArray[room.x, room.y + 2] == 0)
             {
                 return true;
             }
@@ -186,7 +211,7 @@ public class MapCreator : MonoBehaviour
     {
         if (room.y - 2 >= 0)
         {
-            if (map[room.x, room.y - 2] == 0)
+            if (mapArray[room.x, room.y - 2] == 0)
             {
                 return true;
             }
@@ -202,68 +227,5 @@ public class MapCreator : MonoBehaviour
             return true;
         }
         return false;
-    }
-
-    private void RenderMap()
-    {
-        for (int i = 0; i < map.GetLength(0); i++)
-        {
-            for (int j = 0; j < map.GetLength(1); j++)
-            {
-                if (map[i, j] != 0)
-                {
-                    if (map[i, j] == (int)RoomType.exploredRoom)
-                    {
-                        Vector2 mapCoordinates = ConvertArrayCoordinates(i, j);
-                        ExtensionMethods.InstantiateAtLocalPosition(exploredRoom, MapBackground, mapCoordinates);
-                    }
-                    else if (map[i, j] == (int)RoomType.unexploredRoom)
-                    {
-                        Vector2 mapCoordinates = ConvertArrayCoordinates(i, j);
-                        ExtensionMethods.InstantiateAtLocalPosition(unexploredRoom, MapBackground, mapCoordinates);
-                    }
-                    else if (map[i, j] == (int)RoomType.horizontalRoad)
-                    {
-                        Vector2 mapCoordinates = ConvertArrayCoordinates(i, j);
-                        ExtensionMethods.InstantiateAtLocalPosition(horizontalRoad, MapBackground, mapCoordinates);
-                    }
-                    else if (map[i, j] == (int)RoomType.verticalRoad)
-                    {
-                        Vector2 mapCoordinates = ConvertArrayCoordinates(i, j);
-                        ExtensionMethods.InstantiateAtLocalPosition(verticalRoad, MapBackground, mapCoordinates);
-                    }
-                    else if (map[i, j] == (int)RoomType.bossRoom)
-                    {
-                        Vector2 mapCoordinates = ConvertArrayCoordinates(i, j);
-                        ExtensionMethods.InstantiateAtLocalPosition(bossRoom, MapBackground, mapCoordinates);
-                    }
-                }
-            }
-        }
-        Debug.Log("Map rendered!");
-    }
-
-    private Vector2 ConvertArrayCoordinates(int x,int y)
-    {
-        Vector2 mapCoordinates = new Vector2(-145 + (x + 1) * 10, -75 + (y + 1) * 10);
-        return mapCoordinates;
-    }
-
-    public enum RoomType
-    {
-        exploredRoom = 1,
-        unexploredRoom,
-        horizontalRoad,
-        verticalRoad,
-        bossRoom,
-        treasureRoom
-    }
-
-    public enum Direction
-    {
-        west,
-        north,
-        east,
-        south
     }
 }

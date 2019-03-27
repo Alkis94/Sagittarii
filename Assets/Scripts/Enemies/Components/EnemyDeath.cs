@@ -76,7 +76,7 @@ public class EnemyDeath : MonoBehaviour
         audioSource.Play();
         transform.gameObject.tag = "DeadEnemy";
         enemyGotShot.enabled = false;
-
+        transform.parent = null;
 
         if (enemyData.Relic != null)
         {

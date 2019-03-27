@@ -15,13 +15,10 @@ public class ProjectileEnemyTrigger : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag != "Background")
-        {
-            rigidbody2d.velocity = Vector2.zero;
-            rigidbody2d.angularVelocity = 0;
-            rigidbody2d.isKinematic = true;
-            enabled = false;
-            Destroy(gameObject, impactDestroyDelay);
-        }
+        rigidbody2d.velocity = Vector2.zero;
+        rigidbody2d.angularVelocity = 0;
+        rigidbody2d.isKinematic = true;
+        enabled = false;
+        Destroy(gameObject, impactDestroyDelay);
     }
 }

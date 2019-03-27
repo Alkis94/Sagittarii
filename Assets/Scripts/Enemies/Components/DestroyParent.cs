@@ -9,13 +9,11 @@ public class DestroyParent : MonoBehaviour
         GetComponentInChildren<EnemyGotShot>().OnDeath += DestoryThis;
     }
 
-    //private void OnDestroy()
-    //{
-    //    GetComponentInChildren<EnemyGotShot>().OnDeath -= DestoryThis;
-    //}
+
 
     private void DestoryThis()
     {
         Destroy(gameObject, 10f);
+        transform.parent = null;
     }
 }

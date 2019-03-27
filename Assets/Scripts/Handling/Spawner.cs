@@ -1,10 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Spawner : MonoBehaviour
 {
-    
+
+    public event Action OnSpawnerFinished = delegate { };
+
+    private Transform enemiesParent;
+
     private float timeLimit;
     private int amountOfEnemySpawns;
 
@@ -32,6 +37,7 @@ public class Spawner : MonoBehaviour
         groundSpawnPoints = new List<Transform>();
         flyingSpawnPoints = new List<FlyingSpawnPoint>();
         enemiesChosenToSpawn = new List<EnemySpawnInfo>();
+        enemiesParent = GameObject.FindGameObjectWithTag("Enemies").GetComponent<Transform>();
 
         foreach (GameObject groundSpawnPoint in GameObject.FindGameObjectsWithTag("GroundSpawnPoint"))
         {
@@ -48,13 +54,12 @@ public class Spawner : MonoBehaviour
 
     void Start()
     {
-        amountOfEnemySpawns = Random.Range(minAmountOfEnemySpawns, maxAmountOfEnemySpawns + 1);
+        amountOfEnemySpawns = UnityEngine.Random.Range(minAmountOfEnemySpawns, maxAmountOfEnemySpawns + 1);
 
         for (int i = 0; i < amountOfEnemySpawns; i++)
         {
-            int randomNumber = Random.Range(0, enemySpawnInfos.Count);
+            int randomNumber = UnityEngine.Random.Range(0, enemySpawnInfos.Count);
             enemiesChosenToSpawn.Add(enemySpawnInfos[randomNumber]);
-            Debug.Log("Enemy chosen : " + enemySpawnInfos[randomNumber].enemy.name);
         }
 
         for (int i = 0; i < enemiesChosenToSpawn.Count; i++)
@@ -69,7 +74,7 @@ public class Spawner : MonoBehaviour
             }
         }
 
-        timeLimit = Time.time + Random.Range(minTimeLimit, maxTimeLimit);
+        timeLimit = Time.time + UnityEngine.Random.Range(minTimeLimit, maxTimeLimit);
         StartCoroutine(StopAfterTimeLimit());
     }
 
@@ -81,6 +86,7 @@ public class Spawner : MonoBehaviour
             {
                 Debug.Log("Cororoutines Stopped");
                 StopAllCoroutines();
+                OnSpawnerFinished?.Invoke();
             }
             yield return  null;
         }
@@ -89,28 +95,28 @@ public class Spawner : MonoBehaviour
 
     IEnumerator SpawnGroundEnemy(GameObject enemy,float enemySpawnFrequency)
     {
-        float randomDelay = Random.Range(0f, 10f);
+        float randomDelay = UnityEngine.Random.Range(0f, 10f);
         yield return new WaitForSeconds(randomDelay);
 
         while (true)
         {
-            int randomNumber = Random.Range(0, groundSpawnPoints.Count);
-            Instantiate(enemy, groundSpawnPoints[randomNumber].position,Quaternion.identity);
+            int randomNumber = UnityEngine.Random.Range(0, groundSpawnPoints.Count);
+            Instantiate(enemy, groundSpawnPoints[randomNumber].position,Quaternion.identity, enemiesParent);
             yield return new WaitForSeconds(enemySpawnFrequency);
         }
     }
 
     IEnumerator SpawnFlyingEnemy(GameObject enemy, float enemySpawnFrequency)
     {
-        float randomDelay = Random.Range(0f, 10f);
+        float randomDelay = UnityEngine.Random.Range(0f, 10f);
         yield return new WaitForSeconds(randomDelay);
 
         while (true)
         {
-            int randomNumber = Random.Range(0, flyingSpawnPoints.Count);
-            Vector3 spawnPosition = new Vector3(Random.Range(flyingSpawnPoints[randomNumber].MinBoundX, flyingSpawnPoints[randomNumber].MaxBoundX),
-                                                Random.Range(flyingSpawnPoints[randomNumber].MinBoundY, flyingSpawnPoints[randomNumber].MaxBoundY),0);
-            Instantiate(enemy, spawnPosition,Quaternion.identity);
+            int randomNumber = UnityEngine.Random.Range(0, flyingSpawnPoints.Count);
+            Vector3 spawnPosition = new Vector3(UnityEngine.Random.Range(flyingSpawnPoints[randomNumber].MinBoundX, flyingSpawnPoints[randomNumber].MaxBoundX),
+                                                UnityEngine.Random.Range(flyingSpawnPoints[randomNumber].MinBoundY, flyingSpawnPoints[randomNumber].MaxBoundY),0);
+            Instantiate(enemy, spawnPosition,Quaternion.identity, enemiesParent);
             yield return new WaitForSeconds(enemySpawnFrequency);
         }
     }

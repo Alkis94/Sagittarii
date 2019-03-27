@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 8487099567128758842}
   m_Layer: 9
   m_Name: HealthPickup
-  m_TagString: HealthPickup
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -239,7 +239,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 281c9b9c61211a940af5865e5bb3930a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DespawnDelay: 30
+  despawnDelay: 30
 --- !u!114 &8487099567128758842
 MonoBehaviour:
   m_ObjectHideFlags: 0

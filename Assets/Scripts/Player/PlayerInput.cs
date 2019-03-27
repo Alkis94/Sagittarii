@@ -12,7 +12,7 @@ using UnityEngine;
 public class PlayerInput : MonoBehaviour
 {
 
-    public GameObject Map;
+    public GameObject map;
 
 	[HideInInspector] public float horizontal;		//Float that stores horizontal input
 	[HideInInspector] public bool jumpHeld;			//Bool that stores jump pressed
@@ -45,7 +45,7 @@ public class PlayerInput : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.M))
         {
-            Map.SetActive(!Map.activeInHierarchy);
+            map.SetActive(!map.activeInHierarchy);
         }
 
         ClearInput();
