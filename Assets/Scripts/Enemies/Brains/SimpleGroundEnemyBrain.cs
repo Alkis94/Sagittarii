@@ -10,6 +10,7 @@ public class SimpleGroundEnemyBrain : EnemyBrain
 
     private Animator animator;
     private EnemyGroundMovement enemyGroundMovement;
+    private AttackPattern attackPattern;
     private CollisionTracker collisionTracker;
     private Rigidbody2D rigidbody2d;
 
@@ -23,7 +24,7 @@ public class SimpleGroundEnemyBrain : EnemyBrain
     protected override void Awake()
     {
         base.Awake();
-
+        attackPattern = GetComponent<AttackPattern>();
         enemyGroundMovement = GetComponent<EnemyGroundMovement>();
         collisionTracker = GetComponent<CollisionTracker>();
     }
@@ -92,7 +93,7 @@ public class SimpleGroundEnemyBrain : EnemyBrain
     private void CallAttack()
     {
         //Gets called from animation
-        attackPatern.Attack();
+        attackPattern.Attack();
     }
 
     private void CallJump()

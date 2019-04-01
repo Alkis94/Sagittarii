@@ -27,19 +27,8 @@ public class ProjectilePlayerTrigger : MonoBehaviour
         collider2d = GetComponent<Collider2D>();
     }
 
-    private void OnDestroy()
-    {
-        if (enemyGotShot != null)
-        {
-            enemyGotShot.OnDeath -= StartFollowingRenderer;
-        }
-            
-    }
-
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.GetType() != typeof(BoxCollider2D))
-        {
             OnCollision?.Invoke();
             collider2d.enabled = false;
             rigidbody2d.velocity = Vector2.zero;
@@ -49,12 +38,9 @@ public class ProjectilePlayerTrigger : MonoBehaviour
             
             if (other.tag == "Enemy")
             {
-                transform.parent = other.transform.parent;
+                transform.parent = other.transform;
                 audioSource.clip = arrowImpact;
                 audioSource.Play();
-                enemySpriteRenderer = other.GetComponentInParent<SpriteRenderer>();
-                enemyGotShot = other.GetComponent<EnemyGotShot>();
-                enemyGotShot.OnDeath += StartFollowingRenderer;
             }
             else
             {
@@ -62,7 +48,6 @@ public class ProjectilePlayerTrigger : MonoBehaviour
                 audioSource.Play();
                 Destroy(gameObject, impactDestroyDelay);
             }
-        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -70,32 +55,32 @@ public class ProjectilePlayerTrigger : MonoBehaviour
         Debug.Log("Collision");
     }
 
-    private void StartFollowingRenderer()
-    {
-        StartCoroutine(FollowRenderer());
-    }
+    //private void StartFollowingRenderer()
+    //{
+    //    StartCoroutine(FollowRenderer());
+    //}
 
-    IEnumerator FollowRenderer()
-    {
-        float signX;
-        float signY;
-        while(true)
-        {
-            if((enemySpriteRenderer.bounds.ClosestPoint(transform.position).x - transform.position.x) != 0)
-            {
-                signX =  Mathf.Sign(enemySpriteRenderer.bounds.ClosestPoint(transform.position).x - transform.position.x);
-                transform.position = enemySpriteRenderer.bounds.ClosestPoint(transform.position) + new Vector3(0.25f * signX, 0, 0);
-            }
+    //IEnumerator FollowRenderer()
+    //{
+    //    float signX;
+    //    float signY;
+    //    while(true)
+    //    {
+    //        if((enemySpriteRenderer.bounds.ClosestPoint(transform.position).x - transform.position.x) != 0)
+    //        {
+    //            signX =  Mathf.Sign(enemySpriteRenderer.bounds.ClosestPoint(transform.position).x - transform.position.x);
+    //            transform.position = enemySpriteRenderer.bounds.ClosestPoint(transform.position) + new Vector3(0.25f * signX, 0, 0);
+    //        }
 
 
-            if ((enemySpriteRenderer.bounds.ClosestPoint(transform.position).y - transform.position.y) != 0)
-            {
-                signY =  Mathf.Sign(enemySpriteRenderer.bounds.ClosestPoint(transform.position).y - transform.position.y);
-                transform.position = enemySpriteRenderer.bounds.ClosestPoint(transform.position) + new Vector3(0, 0.25f * signY, 0);
-            }
+    //        if ((enemySpriteRenderer.bounds.ClosestPoint(transform.position).y - transform.position.y) != 0)
+    //        {
+    //            signY =  Mathf.Sign(enemySpriteRenderer.bounds.ClosestPoint(transform.position).y - transform.position.y);
+    //            transform.position = enemySpriteRenderer.bounds.ClosestPoint(transform.position) + new Vector3(0, 0.25f * signY, 0);
+    //        }
 
-            yield return null;
-        }
-    }
+    //        yield return null;
+    //    }
+    //}
 
 }

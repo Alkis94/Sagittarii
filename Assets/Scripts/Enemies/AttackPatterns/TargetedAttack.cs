@@ -1,7 +1,7 @@
 ﻿using Factories;
 using UnityEngine;
 
-public class TargetedAttack : AttackPatern
+public class TargetedAttack : AttackPattern
 {
     public override void Attack()
     {    

@@ -24,7 +24,7 @@ public class EnemyGotShot : MonoBehaviour
             {
                 OnEnemyDeathGiveGold?.Invoke(enemyData.goldGiven);
                 OnDeath?.Invoke();
-                Destroy(gameObject);
+                //Destroy(gameObject);
             }
         }
     }

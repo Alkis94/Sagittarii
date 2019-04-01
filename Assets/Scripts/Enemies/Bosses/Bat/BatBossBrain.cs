@@ -1,22 +1,28 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using StateMachineNamespace;
 
-public class SimpleFlyingEnemyBrain : EnemyBrain
+public class BatBossBrain : AdvancedEnemyBrain
 {
+    
     private Rigidbody2D rigidbody2d;
     private CollisionTracker collisionTracker;
-    private MovementPattern movementPattern;
-    private AttackPattern attackPattern;
     private Raycaster raycaster;
-    private int horizontalDirection = 1;
-    private int verticalDirection = 1;
+
+    public GameObject smallBat;
+    [HideInInspector]
+    public StateMachine<BatBossBrain> stateMachine;
+    [HideInInspector]
+    public int horizontalDirection = 1;
+    [HideInInspector]
+    public int verticalDirection = 1;
+    public float spawnSmallBatFrequency;
 
 
     protected override void Awake()
     {
         base.Awake();
-        movementPattern = GetComponent<MovementPattern>();
-        attackPattern = GetComponent<AttackPattern>();
-
     }
 
     protected override void OnEnable()
@@ -32,12 +38,11 @@ public class SimpleFlyingEnemyBrain : EnemyBrain
     protected override void Start()
     {
         base.Start();
-
-        collisionTracker = GetComponent<CollisionTracker>();
+        collisionTracker = GetComponentInChildren<CollisionTracker>();
         rigidbody2d = GetComponent<Rigidbody2D>();
-        raycaster = GetComponent<Raycaster>();
-
-        InvokeRepeating("Attack", enemyData.delayBeforeFirstAttack, enemyData.attackFrequencies[0]);
+        raycaster = GetComponentInChildren<Raycaster>();
+        stateMachine = new StateMachine<BatBossBrain>(this);
+        stateMachine.ChangeState(BatBossCalmState.Instance);
     }
 
 
@@ -57,14 +62,12 @@ public class SimpleFlyingEnemyBrain : EnemyBrain
             verticalDirection *= -1;
             cannotChangeDirectionTime = Time.time + 0.05f;
         }
+        stateMachine.Update();
     }
 
     private void FixedUpdate()
     {
-        if (enemyData.health > 0)
-        {
-            movementPattern.Move(enemyData.speed, verticalDirection);
-        }
+        stateMachine.FixedUpdate();
     }
 
     private void UpdateCollisionTracker()
@@ -86,10 +89,5 @@ public class SimpleFlyingEnemyBrain : EnemyBrain
 
             transform.localRotation = Quaternion.Euler(0, 0, 0);
         }
-    }
-
-    private void Attack()
-    {
-        attackPattern.Attack();
     }
 }

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1767405963}
   - component: {fileID: 830550925340556122}
   - component: {fileID: 1767405960}
-  - component: {fileID: 5807673407338633498}
+  - component: {fileID: 8172285348222263284}
   - component: {fileID: 6026461623799748943}
   - component: {fileID: 1767405955}
   - component: {fileID: 1767405954}
@@ -253,7 +253,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!114 &5807673407338633498
+--- !u!114 &8172285348222263284
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -262,16 +262,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 1767405952}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1135fa867cdd984d903318f17c9ff57, type: 3}
+  m_Script: {fileID: 11500000, guid: 7f3050e6466b8984ba6fffabc648d3c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
-  speed: 0
-  changeDirectionFrequency: 0
-  delayBeforeFirstAttack: 0
-  attackFrequencies: []
+  health: 10
+  speed: 1
+  changeDirectionFrequency: 5
+  delayBeforeFirstAttack: 3
+  attackFrequencies:
+  - 5
   goldGiven: 0
-  changingDirections: 0
+  changingDirections: 1
   jumpingBehaviour: 0
   Relic: {fileID: 0}
 --- !u!114 &6026461623799748943

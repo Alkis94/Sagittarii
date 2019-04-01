@@ -4,10 +4,9 @@ using UnityEngine;
 
 public abstract class  EnemyBrain : MonoBehaviour
 {
-
-    protected EnemyData enemyData;
+    [HideInInspector]
+    public EnemyData enemyData;
     protected EnemyGotShot enemyGotShot;
-    protected AttackPatern attackPatern;
     protected SpriteRenderer spriteRenderer;
 
     //This timer will help enemies that get stuck somewhere not to change directions too rapidly
@@ -27,9 +26,8 @@ public abstract class  EnemyBrain : MonoBehaviour
 
     protected virtual void Awake()
     {
-        enemyGotShot = GetComponentInChildren<EnemyGotShot>();
+        enemyGotShot = GetComponent<EnemyGotShot>();
         enemyData = GetComponent<EnemyData>();
-        attackPatern = GetComponent<AttackPatern>();
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 

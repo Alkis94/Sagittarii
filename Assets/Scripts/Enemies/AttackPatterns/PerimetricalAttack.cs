@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Factories;
 
-public class PerimetricalAttack : AttackPatern
+public class PerimetricalAttack : AttackPattern
 {
     [SerializeField]
     private List<float> projectileRotations;
