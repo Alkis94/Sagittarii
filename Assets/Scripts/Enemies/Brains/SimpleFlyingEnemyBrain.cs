@@ -32,11 +32,10 @@ public class SimpleFlyingEnemyBrain : EnemyBrain
     protected override void Start()
     {
         base.Start();
-
-        collisionTracker = GetComponent<CollisionTracker>();
+        collisionTracker = GetComponentInChildren<CollisionTracker>();
+        raycaster = GetComponentInChildren<Raycaster>();
         rigidbody2d = GetComponent<Rigidbody2D>();
-        raycaster = GetComponent<Raycaster>();
-
+        
         InvokeRepeating("Attack", enemyData.delayBeforeFirstAttack, enemyData.attackFrequencies[0]);
     }
 

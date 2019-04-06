@@ -6,37 +6,21 @@ using StateMachineNamespace;
 public class BatBossEnragedState : State<BatBossBrain>
 {
     private float nextAttackTime;
-    private static BatBossEnragedState instance;
 
-    private BatBossEnragedState()
+    public BatBossEnragedState(BatBossBrain stateOwner)
     {
-        if (instance != null)
-        {
-            return;
-        }
-        instance = this;
+        this.stateOwner = stateOwner;
     }
 
-    public static BatBossEnragedState Instance
-    {
-        get
-        {
-            if (instance == null)
-            {
-                new BatBossEnragedState();
-            }
-            return instance;
-        }
-    }
-
-    public override void EnterState(BatBossBrain stateOwner)
+    public override void EnterState()
     {
         nextAttackTime = Time.time;
         stateOwner.enemyData.speed += 2;
-        stateOwner.enemyData.changingDirections = false;
+        stateOwner.StopCoroutine(stateOwner.ChangingDirectionsOverTime(0));
+        stateOwner.StartCoroutine(stateOwner.SpawnSmallBats(stateOwner.spawnSmallBatFrequency - 2));
     }
 
-    public override void FixedUpdateState(BatBossBrain stateOwner)
+    public override void FixedUpdateState()
     {
         if (stateOwner.enemyData.health > 0)
         {
@@ -45,24 +29,19 @@ public class BatBossEnragedState : State<BatBossBrain>
 
         if (nextAttackTime < Time.time)
         {
-            stateOwner.StartCoroutine(TripleTargetedAttack(stateOwner));
+            stateOwner.StartCoroutine(stateOwner.MultiTargetedAttack(3));
             nextAttackTime = Time.time + stateOwner.enemyData.attackFrequencies[0];
         }
 
-        if (stateOwner.enemyData.health <= 50)
+        if (stateOwner.enemyData.health <= 100)
         {
-            stateOwner.stateMachine.ChangeState(BatBossFrenzyState.Instance);
+            stateOwner.stateMachine.ChangeState(stateOwner.frenzyState);
         }
     }
 
-
-    IEnumerator TripleTargetedAttack(BatBossBrain stateOwner)
+    public override void ExitState()
     {
-        stateOwner.AttackPatterns[0].Attack();
-        yield return new WaitForSeconds(0.25f);
-        stateOwner.AttackPatterns[0].Attack();
-        yield return new WaitForSeconds(0.25f);
-        stateOwner.AttackPatterns[0].Attack();
+        stateOwner.StopAllCoroutines();
     }
 
 }

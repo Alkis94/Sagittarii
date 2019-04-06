@@ -5,24 +5,40 @@ using StateMachineNamespace;
 
 public class BatBossBrain : AdvancedEnemyBrain
 {
-    
+
+    private AudioSource audioSource;
     private Rigidbody2D rigidbody2d;
     private CollisionTracker collisionTracker;
     private Raycaster raycaster;
 
-    public GameObject smallBat;
+    [HideInInspector]
+    public Animator animator;
     [HideInInspector]
     public StateMachine<BatBossBrain> stateMachine;
+    [HideInInspector]
+    public BatBossWakingState wakingState;
+    [HideInInspector]
+    public BatBossFrenzyState frenzyState;
+    [HideInInspector]
+    public BatBossCalmState calmState;
+    [HideInInspector]
+    public BatBossEnragedState enragedState;
+
+    public GameObject smallBat;
     [HideInInspector]
     public int horizontalDirection = 1;
     [HideInInspector]
     public int verticalDirection = 1;
-    public float spawnSmallBatFrequency;
+    public float spawnSmallBatFrequency = 5.5f;
 
 
     protected override void Awake()
     {
         base.Awake();
+        wakingState = new BatBossWakingState(this);
+        calmState = new BatBossCalmState(this);
+        frenzyState = new BatBossFrenzyState(this);
+        enragedState = new BatBossEnragedState(this);
     }
 
     protected override void OnEnable()
@@ -41,8 +57,11 @@ public class BatBossBrain : AdvancedEnemyBrain
         collisionTracker = GetComponentInChildren<CollisionTracker>();
         rigidbody2d = GetComponent<Rigidbody2D>();
         raycaster = GetComponentInChildren<Raycaster>();
+        animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
+
         stateMachine = new StateMachine<BatBossBrain>(this);
-        stateMachine.ChangeState(BatBossCalmState.Instance);
+        stateMachine.ChangeState(wakingState);
     }
 
 
@@ -90,4 +109,31 @@ public class BatBossBrain : AdvancedEnemyBrain
             transform.localRotation = Quaternion.Euler(0, 0, 0);
         }
     }
+
+   public IEnumerator MultiTargetedAttack(int attackTimes)
+    {
+        for (int i = 0; i < attackTimes; i++)
+        {
+            AttackPatterns[0].Attack();
+            yield return new WaitForSeconds(0.25f);
+        }
+    }
+
+    public IEnumerator SpawnSmallBats(float spawnFrequency)
+    {
+        while (true)
+        {
+            Instantiate(smallBat,transform.position, Quaternion.identity);
+            yield return new WaitForSeconds(spawnFrequency);
+        }
+    }
+
+
+    //Gets called from animation
+    public void CallCirclePerimetricalAttack()
+    {
+        audioSource.Play();
+        AttackPatterns[2].Attack();
+    }
+
 }

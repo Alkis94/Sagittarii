@@ -60,6 +60,7 @@ public class Spawner : MonoBehaviour
         {
             int randomNumber = UnityEngine.Random.Range(0, enemySpawnInfos.Count);
             enemiesChosenToSpawn.Add(enemySpawnInfos[randomNumber]);
+            //Debug.Log("Enemy Chosen: " + enemySpawnInfos[randomNumber].enemy);
         }
 
         for (int i = 0; i < enemiesChosenToSpawn.Count; i++)

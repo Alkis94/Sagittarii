@@ -4,6 +4,7 @@
 
 using Factories;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 //We first ensure this script runs before all other player scripts to prevent laggy
@@ -18,7 +19,9 @@ public class PlayerInput : MonoBehaviour
 	[HideInInspector] public bool jumpHeld;			//Bool that stores jump pressed
 	[HideInInspector] public bool jumpPressed;		//Bool that stores jump held
 
-	bool readyToClear;                              //Bool used to keep input in sync
+	private bool readyToClear;                              //Bool used to keep input in sync
+    private const float teleportCastTime = 3;
+    private float teleportTimeCasted = 0;
 
     void OnEnable()
     {
@@ -41,6 +44,24 @@ public class PlayerInput : MonoBehaviour
         else if (Input.GetButtonDown("Cancel") && GameState.GamePaused)
         {
             MenuFactory.DestroyMenuAndUnpause();
+        }
+
+        if(Input.GetKeyUp(KeyCode.F))
+        {
+            teleportTimeCasted = 0;
+        }
+
+        if(Input.GetKey(KeyCode.F))
+        {
+            teleportTimeCasted += Time.deltaTime;
+            if (teleportCastTime <= teleportTimeCasted)
+            {
+                teleportTimeCasted = 0;
+                if (SceneManager.GetActiveScene().name != "Town")
+                {
+                    SceneManager.LoadScene("Town");
+                }
+            }
         }
 
         if(Input.GetKeyDown(KeyCode.M))

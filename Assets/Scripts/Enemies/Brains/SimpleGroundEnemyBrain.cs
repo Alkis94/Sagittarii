@@ -26,7 +26,7 @@ public class SimpleGroundEnemyBrain : EnemyBrain
         base.Awake();
         attackPattern = GetComponent<AttackPattern>();
         enemyGroundMovement = GetComponent<EnemyGroundMovement>();
-        collisionTracker = GetComponent<CollisionTracker>();
+        collisionTracker = GetComponentInChildren<CollisionTracker>();
     }
 
     protected override void OnEnable()

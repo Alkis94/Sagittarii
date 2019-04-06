@@ -18,6 +18,9 @@ TextureImporter:
     21300026: BatBoss_Sleeping_4
     21300028: BatBoss_Sleeping_5
     21300030: BatBoss_Sleeping_6
+    21300032: BatBoss_Sleeping_7
+    21300034: BatBoss_Sleeping_8
+    21300036: BatBoss_Sleeping_9
   externalObjects: {}
   serializedVersion: 9
   mipmaps:
@@ -36,7 +39,7 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
-  isReadable: 1
+  isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   grayScaleToAlpha: 0
@@ -58,7 +61,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 0
+  spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 20
@@ -149,8 +152,8 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 136
-        height: 126
+        width: 165
+        height: 115
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -158,7 +161,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3d5b8d14fea6d5f4e9c7f6225064b4ef
+      spriteID: 031ceac80cb5d4b4db3a5b7d314ad8a0
       vertices: []
       indices: 
       edges: []
@@ -167,10 +170,10 @@ TextureImporter:
       name: BatBoss_Sleeping_1
       rect:
         serializedVersion: 2
-        x: 137
+        x: 166
         y: 0
-        width: 136
-        height: 126
+        width: 165
+        height: 115
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -178,7 +181,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e2d8600785e94f545ae133113de5a3d3
+      spriteID: 75e10c365fd2ee5419d7729eef5da896
       vertices: []
       indices: 
       edges: []
@@ -187,10 +190,10 @@ TextureImporter:
       name: BatBoss_Sleeping_2
       rect:
         serializedVersion: 2
-        x: 274
+        x: 332
         y: 0
-        width: 136
-        height: 126
+        width: 165
+        height: 115
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -198,7 +201,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4064f6ad3e6bb5046a677916642311c9
+      spriteID: 86704915aa3a7f247b5a00ce1b1d6634
       vertices: []
       indices: 
       edges: []
@@ -207,10 +210,10 @@ TextureImporter:
       name: BatBoss_Sleeping_3
       rect:
         serializedVersion: 2
-        x: 411
+        x: 499
         y: 0
-        width: 136
-        height: 126
+        width: 165
+        height: 115
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -218,7 +221,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fc579e0d632b69b40b179955bec7eba3
+      spriteID: d20b9d5aa804a9f4da3a106326a8cc4f
       vertices: []
       indices: 
       edges: []
@@ -227,10 +230,10 @@ TextureImporter:
       name: BatBoss_Sleeping_4
       rect:
         serializedVersion: 2
-        x: 548
+        x: 664
         y: 0
-        width: 136
-        height: 126
+        width: 165
+        height: 115
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -238,7 +241,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ac10317ed415c4e4f9f968f3f9b7e4cd
+      spriteID: 4c15fe32d9bfd9c409998cb6ad48f80b
       vertices: []
       indices: 
       edges: []
@@ -247,10 +250,10 @@ TextureImporter:
       name: BatBoss_Sleeping_5
       rect:
         serializedVersion: 2
-        x: 685
+        x: 830
         y: 0
-        width: 136
-        height: 126
+        width: 165
+        height: 115
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -258,7 +261,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c4f70742ba0fd994a8ac88fcdaee7327
+      spriteID: 1c0c2e98b0da64c479e751e7d2e0b9f5
       vertices: []
       indices: 
       edges: []
@@ -267,10 +270,10 @@ TextureImporter:
       name: BatBoss_Sleeping_6
       rect:
         serializedVersion: 2
-        x: 822
+        x: 996
         y: 0
-        width: 136
-        height: 126
+        width: 165
+        height: 115
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -278,7 +281,67 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3329b2dc90af9cd44a43cb074b34135a
+      spriteID: 11a329501384b394685194035319dd8d
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BatBoss_Sleeping_7
+      rect:
+        serializedVersion: 2
+        x: 1162
+        y: 0
+        width: 165
+        height: 115
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 64f1d03bc98b965449def28f4094255b
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BatBoss_Sleeping_8
+      rect:
+        serializedVersion: 2
+        x: 1328
+        y: 0
+        width: 165
+        height: 115
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 51c5e24c8a46f514399798ce90fc7a31
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BatBoss_Sleeping_9
+      rect:
+        serializedVersion: 2
+        x: 1494
+        y: 0
+        width: 165
+        height: 115
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff2bad060536c7b47b5768bf86ee0168
       vertices: []
       indices: 
       edges: []

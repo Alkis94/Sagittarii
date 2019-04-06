@@ -11,7 +11,7 @@ public class EnemyGroundMovement : MonoBehaviour
     private void Awake()
     {
         rigidbody2d = GetComponent<Rigidbody2D>();
-        raycaster = GetComponent<Raycaster>();
+        raycaster = GetComponentInChildren<Raycaster>();
         boxCollider2d = GetComponent<BoxCollider2D>();
     }
 

@@ -19,13 +19,16 @@ public class EnemyGotShot : MonoBehaviour
     {
         if (other.tag == "Arrow")
         {
-            enemyData.health -= other.GetComponent<Projectile>().Damage;
-            if (enemyData.health <= 0)
+            if(enemyData.damageable)
             {
-                OnEnemyDeathGiveGold?.Invoke(enemyData.goldGiven);
-                OnDeath?.Invoke();
-                //Destroy(gameObject);
+                enemyData.health -= other.GetComponent<Projectile>().Damage;
+                if (enemyData.health <= 0)
+                {
+                    OnEnemyDeathGiveGold?.Invoke(enemyData.goldGiven);
+                    OnDeath?.Invoke();
+                }
             }
+            
         }
     }
 }

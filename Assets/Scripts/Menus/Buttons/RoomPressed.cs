@@ -22,4 +22,18 @@ public class RoomPressed : MonoBehaviour
         SceneManager.LoadScene(index);
         OnRoomChosen?.Invoke(transform.localPosition);
     }
+
+    public void OnBossRoomPressed()
+    {
+        button.interactable = false;
+        SceneManager.LoadScene(7);
+        OnRoomChosen?.Invoke(transform.localPosition);
+    }
+
+    public void OnTreasureRoomPressed()
+    {
+        button.interactable = false;
+        SceneManager.LoadScene(8);
+        OnRoomChosen?.Invoke(transform.localPosition);
+    }
 }

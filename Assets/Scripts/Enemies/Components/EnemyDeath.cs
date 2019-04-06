@@ -78,6 +78,11 @@ public class EnemyDeath : MonoBehaviour
         enemyGotShot.enabled = false;
         transform.parent = null;
 
+        foreach (Transform trans in GetComponentsInChildren<Transform>(true))
+        {
+            trans.gameObject.layer = 14;
+        }
+
         if (enemyData.Relic != null)
         {
             float randomNumber;

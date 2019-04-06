@@ -17,6 +17,9 @@ public class EnemyData : MonoBehaviour
     public bool changingDirections = false;
     public bool jumpingBehaviour = false;
 
+    [Header("Bools")]
+    public bool damageable = true;
+
     [Header("Relic Drop")]
     public GameObject Relic;
 

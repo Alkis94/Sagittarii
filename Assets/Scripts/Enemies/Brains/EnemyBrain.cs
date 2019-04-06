@@ -35,13 +35,23 @@ public abstract class  EnemyBrain : MonoBehaviour
     {
         if (enemyData.changingDirections)
         {
-            InvokeRepeating("ChangeHorizontalDirection", enemyData.changeDirectionFrequency, enemyData.changeDirectionFrequency);
+            StartCoroutine(ChangingDirectionsOverTime(enemyData.changeDirectionFrequency));
         }
 
         StartFacingRandomDirection();
     }
 
     protected abstract void ChangeHorizontalDirection();
+
+    public IEnumerator ChangingDirectionsOverTime(float changeDirectionFrequency)
+    {
+        while(true)
+        {
+            ChangeHorizontalDirection();
+            yield return new WaitForSeconds(changeDirectionFrequency);
+        }
+    }
+
 
     protected void StartFacingRandomDirection()
     {

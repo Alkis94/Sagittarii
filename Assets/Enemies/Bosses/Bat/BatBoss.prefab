@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 953368123331796617}
   m_LocalRotation: {x: 0, y: 0, z: -0.46174863, w: 0.8870109}
-  m_LocalPosition: {x: -0.76900005, y: -1.1750001, z: 0}
+  m_LocalPosition: {x: -0.76900005, y: -1.175, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5296110209441186542}
@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 1292161362102898180}
   - component: {fileID: 1175849891}
   - component: {fileID: 1511332085}
+  - component: {fileID: 547716015}
   m_Layer: 12
   m_Name: BatBoss
   m_TagString: Enemy
@@ -256,8 +257,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 8300000, guid: 330a7977f82322d4a85333fb49aa0bf6, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -354,15 +355,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f3050e6466b8984ba6fffabc648d3c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  health: 300
   speed: 2
   changeDirectionFrequency: 3
   delayBeforeFirstAttack: 3
   attackFrequencies:
   - 3
+  - 5
   goldGiven: 0
   changingDirections: 1
   jumpingBehaviour: 0
+  damageable: 0
   Relic: {fileID: 0}
 --- !u!114 &6867718439259980287
 MonoBehaviour:
@@ -377,9 +380,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyData: {fileID: 0}
-  smallBat: {fileID: 0}
+  animator: {fileID: 0}
+  smallBat: {fileID: 1767405952, guid: 311a69c7bda174a488b521dd5a36cc10, type: 3}
   horizontalDirection: 1
   verticalDirection: 1
+  spawnSmallBatFrequency: 6
 --- !u!114 &3154934772658238055
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -444,10 +449,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackData: {fileID: 11400000, guid: 100856dff7b8f0f4da39a53950d5a601, type: 2}
   projectileRotations:
-  - 225
-  - 247.5
+  - 0
+  - 90
+  - 180
   - 270
-  - 292.5
+--- !u!114 &547716015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5296110209441186540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a538059451f55a4c98844bd632a0d32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackData: {fileID: 11400000, guid: 100856dff7b8f0f4da39a53950d5a601, type: 2}
+  projectileRotations:
+  - 0
+  - 45
+  - 90
+  - 135
+  - 180
+  - 225
+  - 270
   - 315
 --- !u!1 &5376343802356086213
 GameObject:

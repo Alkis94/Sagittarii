@@ -6,36 +6,19 @@ using StateMachineNamespace;
 public class BatBossCalmState : State<BatBossBrain>
 {
     private float nextAttackTime;
-    private static BatBossCalmState instance;
 
-    private BatBossCalmState()
+    public BatBossCalmState(BatBossBrain stateOwner)
     {
-        if (instance != null)
-        {
-            return;
-        }
-        instance = this;
+        this.stateOwner = stateOwner;
     }
 
-    public static BatBossCalmState Instance
-    {
-        get
-        {
-            if (instance == null)
-            {
-                new BatBossCalmState();
-            }
-            return instance;
-        }
-    }
-
-    public override void EnterState(BatBossBrain stateOwner)
+    public override void EnterState()
     {
         nextAttackTime = Time.time + 1;
-        
+        stateOwner.StartCoroutine(stateOwner.SpawnSmallBats(stateOwner.spawnSmallBatFrequency));
     }
 
-    public override void FixedUpdateState(BatBossBrain stateOwner)
+    public override void FixedUpdateState()
     {
         if (stateOwner.enemyData.health > 0)
         {
@@ -48,11 +31,15 @@ public class BatBossCalmState : State<BatBossBrain>
             nextAttackTime = Time.time + stateOwner.enemyData.attackFrequencies[0];
         }
 
-        if(stateOwner.enemyData.health <= 100)
+        if(stateOwner.enemyData.health <= 200)
         {
-            stateOwner.stateMachine.ChangeState(BatBossEnragedState.Instance);
+            stateOwner.stateMachine.ChangeState(stateOwner.enragedState);
         }
     }
 
-    
+    public override void ExitState()
+    {
+        stateOwner.StopAllCoroutines();
+    }
+
 }

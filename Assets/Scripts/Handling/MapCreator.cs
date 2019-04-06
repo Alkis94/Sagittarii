@@ -16,8 +16,7 @@ public class MapCreator : MonoBehaviour
     private Vector2 DownLeftCorner;
     private Vector2 UpRightCorner;
     private Vector2 StartingRoom;
-    [SerializeField]
-    private GameObject map;
+    private MapManager map;
 
     
 
@@ -29,8 +28,8 @@ public class MapCreator : MonoBehaviour
         StartingRoom = new Vector2(-5f, 5f);
 
         CreateMap();
-
-        map.GetComponent<MapManager>().GetMap(mapArray);
+        map = FindObjectOfType<MapManager>();
+        map.GetMap(mapArray);
         SceneManager.LoadScene(Random.Range(2, 7));
     }
 

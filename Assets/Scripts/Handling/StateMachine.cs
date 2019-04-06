@@ -4,11 +4,9 @@
     {
         public State<T> currentState { get; private set; }
         public State<T> previousState { get; private set; }
-        public T stateMachineOwner;
 
         public StateMachine(T owner)
         {
-            stateMachineOwner = owner;
             currentState = null;
             previousState = null;
         }
@@ -17,7 +15,7 @@
         {
             if (currentState != null)
             {
-                currentState.ExitState(stateMachineOwner);
+                currentState.ExitState();
                 previousState = currentState;
             }
 
@@ -25,44 +23,44 @@
 
             if (newstate != null)
             {
-                currentState.EnterState(stateMachineOwner);
+                currentState.EnterState();
             }
         }
 
         public void Update()
         {
             if (currentState != null)
-                currentState.UpdateState(stateMachineOwner);
+                currentState.UpdateState();
         }
 
         public void FixedUpdate()
         {
             if (currentState != null)
-                currentState.FixedUpdateState(stateMachineOwner);
+                currentState.FixedUpdateState();
         }
 
     }
 
     public abstract class State<T>
     {
-        T stateOwner;
+        protected T stateOwner;
 
-        public virtual void EnterState(T stateOwner)
+        public virtual void EnterState()
         {
 
         }
 
-        public virtual void ExitState(T stateOwner)
+        public virtual void ExitState()
         {
 
         }
 
-        public  virtual  void UpdateState(T stateOwner)
+        public  virtual  void UpdateState()
         {
 
         }
 
-        public virtual void FixedUpdateState(T stateOwner)
+        public virtual void FixedUpdateState()
         {
 
         }

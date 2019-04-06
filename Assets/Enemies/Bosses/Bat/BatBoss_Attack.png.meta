@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 7299eeda2367cd440ab3f05ca6deb5a4
+guid: 833b844109c15e2438160512ee2e7d02
 TextureImporter:
   fileIDToRecycleName:
     21300000: tileset1_0
@@ -11,16 +11,10 @@ TextureImporter:
     21300012: tileset1_6
     21300014: tileset1_7
     21300016: tileset1_8
-    21300018: BatBoss_Dying_0
-    21300020: BatBoss_Dying_1
-    21300022: BatBoss_Dying_2
-    21300024: BatBoss_Dying_3
-    21300026: BatBoss_Dying_4
-    21300028: BatBoss_Dying_5
-    21300030: BatBoss_Dying_6
-    21300032: BatBoss_Dying_7
-    21300034: BatBoss_Dying_8
-    21300036: BatBoss_Dying_9
+    21300018: BatBoss_Attack_0
+    21300020: BatBoss_Attack_1
+    21300022: BatBoss_Attack_2
+    21300024: BatBoss_Attack_3
   externalObjects: {}
   serializedVersion: 9
   mipmaps:
@@ -147,201 +141,81 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: BatBoss_Dying_0
+      name: BatBoss_Attack_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 184
-        height: 141
+        width: 165
+        height: 126
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cc975178e4f0c1d45bef2e38f49b7a76
+      spriteID: fc369260042dc2144ae30f8cd3d8c801
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BatBoss_Dying_1
+      name: BatBoss_Attack_1
       rect:
         serializedVersion: 2
-        x: 185
+        x: 166
         y: 0
-        width: 184
-        height: 141
+        width: 165
+        height: 126
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1dda51a9334323d49b9391a49b0f783c
+      spriteID: 191417c15c2d4164d8e398d8c614cfb4
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BatBoss_Dying_2
+      name: BatBoss_Attack_2
       rect:
         serializedVersion: 2
-        x: 370
+        x: 332
         y: 0
-        width: 184
-        height: 141
+        width: 165
+        height: 126
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c46e5733636abe741835754d500fee63
+      spriteID: 06daf32b67e928a4e9aeb9b974c976a5
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BatBoss_Dying_3
+      name: BatBoss_Attack_3
       rect:
         serializedVersion: 2
-        x: 555
+        x: 498
         y: 0
-        width: 184
-        height: 141
+        width: 165
+        height: 126
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5c504e12cac8810468276943e0bc359c
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BatBoss_Dying_4
-      rect:
-        serializedVersion: 2
-        x: 740
-        y: 0
-        width: 184
-        height: 141
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: dd5603ee832f7e048941477e82a62304
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BatBoss_Dying_5
-      rect:
-        serializedVersion: 2
-        x: 925
-        y: 0
-        width: 184
-        height: 141
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 44e3325bb0b42954b8fff7be1e51c8c2
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BatBoss_Dying_6
-      rect:
-        serializedVersion: 2
-        x: 1110
-        y: 0
-        width: 184
-        height: 141
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 11c57e6435978d64291ae6c1d4ed85b0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BatBoss_Dying_7
-      rect:
-        serializedVersion: 2
-        x: 1295
-        y: 0
-        width: 184
-        height: 141
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3f39fcb53cc5f77449594ff68f2ba915
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BatBoss_Dying_8
-      rect:
-        serializedVersion: 2
-        x: 1480
-        y: 0
-        width: 184
-        height: 141
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: cada4336dd1af3d40bc918bc17fac50f
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BatBoss_Dying_9
-      rect:
-        serializedVersion: 2
-        x: 1665
-        y: 0
-        width: 184
-        height: 141
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: cb6b0393d12ad1743ae8098bb6b4cae6
+      spriteID: 990f668211038ff40bba5262d077b14b
       vertices: []
       indices: 
       edges: []
