@@ -50,37 +50,4 @@ public class ProjectilePlayerTrigger : MonoBehaviour
             }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        Debug.Log("Collision");
-    }
-
-    //private void StartFollowingRenderer()
-    //{
-    //    StartCoroutine(FollowRenderer());
-    //}
-
-    //IEnumerator FollowRenderer()
-    //{
-    //    float signX;
-    //    float signY;
-    //    while(true)
-    //    {
-    //        if((enemySpriteRenderer.bounds.ClosestPoint(transform.position).x - transform.position.x) != 0)
-    //        {
-    //            signX =  Mathf.Sign(enemySpriteRenderer.bounds.ClosestPoint(transform.position).x - transform.position.x);
-    //            transform.position = enemySpriteRenderer.bounds.ClosestPoint(transform.position) + new Vector3(0.25f * signX, 0, 0);
-    //        }
-
-
-    //        if ((enemySpriteRenderer.bounds.ClosestPoint(transform.position).y - transform.position.y) != 0)
-    //        {
-    //            signY =  Mathf.Sign(enemySpriteRenderer.bounds.ClosestPoint(transform.position).y - transform.position.y);
-    //            transform.position = enemySpriteRenderer.bounds.ClosestPoint(transform.position) + new Vector3(0, 0.25f * signY, 0);
-    //        }
-
-    //        yield return null;
-    //    }
-    //}
-
 }

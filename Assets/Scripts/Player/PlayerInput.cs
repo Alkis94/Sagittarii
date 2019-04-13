@@ -19,6 +19,7 @@ public class PlayerInput : MonoBehaviour
 	[HideInInspector] public bool jumpHeld;			//Bool that stores jump pressed
 	[HideInInspector] public bool jumpPressed;		//Bool that stores jump held
 
+    private bool mapAvailable = false;
 	private bool readyToClear;                              //Bool used to keep input in sync
     private const float teleportCastTime = 3;
     private float teleportTimeCasted = 0;
@@ -26,12 +27,16 @@ public class PlayerInput : MonoBehaviour
     void OnEnable()
     {
         PlayerCollision.OnDeath += DisableInput;
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        RoomFinish.OnRoomFinished += RoomFinished;
     }
 
 
     void OnDisable()
     {
         PlayerCollision.OnDeath -= DisableInput;
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+        RoomFinish.OnRoomFinished -= RoomFinished;
     }
 
 
@@ -66,7 +71,10 @@ public class PlayerInput : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.M))
         {
-            map.SetActive(!map.activeInHierarchy);
+            if(mapAvailable)
+            {
+                map.SetActive(!map.activeInHierarchy);
+            }
         }
 
         ClearInput();
@@ -111,4 +119,13 @@ public class PlayerInput : MonoBehaviour
         enabled = false;
     }
 
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        mapAvailable = false;
+    }
+
+    private void RoomFinished()
+    {
+        mapAvailable = true;
+    }
 }

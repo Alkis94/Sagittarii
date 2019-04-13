@@ -29,6 +29,10 @@ public class EnemyDeath : MonoBehaviour
     private float maxHealthDropRate = 0.01f;
     //[SerializeField]
     private float damageDropRate = 0.01f;
+    [SerializeField]
+    private bool hasBlood = true;
+    [SerializeField]
+    private float enemyDestroyDelay = 10f;
 
     
 
@@ -66,11 +70,14 @@ public class EnemyDeath : MonoBehaviour
 
     private void Die()
     {
-        Instantiate(bloodSplat, transform.position, Quaternion.identity);
+        if(hasBlood)
+        {
+            Instantiate(bloodSplat, transform.position, Quaternion.identity);
+        }
         animator.SetTrigger("Die");
+        Destroy(gameObject, enemyDestroyDelay + animator.GetCurrentAnimatorStateInfo(0).length);
         rigidbody2d.gravityScale = 1;
         spriteRenderer.sortingLayerName = "DeadEnemies";
-        Destroy(gameObject, 10.0f);
         gameObject.layer = 14;
         audioSource.clip = deathCry;
         audioSource.Play();

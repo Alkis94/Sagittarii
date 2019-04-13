@@ -30,7 +30,10 @@ public class MapCreator : MonoBehaviour
         CreateMap();
         map = FindObjectOfType<MapManager>();
         map.GetMap(mapArray);
-        SceneManager.LoadScene(Random.Range(2, 7));
+
+        //TO CHANGE THIS
+        int index = Random.Range(4, SceneManager.sceneCountInBuildSettings);
+        SceneManager.LoadScene(index);
     }
 
 

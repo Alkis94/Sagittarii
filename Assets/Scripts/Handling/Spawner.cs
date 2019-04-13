@@ -85,7 +85,6 @@ public class Spawner : MonoBehaviour
         {
             if (Time.time > timeLimit)
             {
-                Debug.Log("Cororoutines Stopped");
                 StopAllCoroutines();
                 OnSpawnerFinished?.Invoke();
             }

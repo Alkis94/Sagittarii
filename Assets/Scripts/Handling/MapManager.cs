@@ -146,6 +146,7 @@ public class MapManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        mapTransform.gameObject.SetActive(false);
         if (scene.name == "Town")
         {
             foreach (Transform child in mapTransform)

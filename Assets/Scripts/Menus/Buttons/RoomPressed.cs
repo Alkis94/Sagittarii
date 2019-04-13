@@ -18,7 +18,7 @@ public class RoomPressed : MonoBehaviour
     public void OnUnExploredRoomPressed()
     {
         button.interactable = false;
-        int index = UnityEngine.Random.Range(2, 7);
+        int index = UnityEngine.Random.Range(4, SceneManager.sceneCountInBuildSettings);
         SceneManager.LoadScene(index);
         OnRoomChosen?.Invoke(transform.localPosition);
     }
@@ -26,14 +26,14 @@ public class RoomPressed : MonoBehaviour
     public void OnBossRoomPressed()
     {
         button.interactable = false;
-        SceneManager.LoadScene(7);
+        SceneManager.LoadScene(3);
         OnRoomChosen?.Invoke(transform.localPosition);
     }
 
     public void OnTreasureRoomPressed()
     {
         button.interactable = false;
-        SceneManager.LoadScene(8);
+        SceneManager.LoadScene(2);
         OnRoomChosen?.Invoke(transform.localPosition);
     }
 }

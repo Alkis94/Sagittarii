@@ -8,10 +8,13 @@ public class EnemyData : MonoBehaviour
     public int health = 10;
     public float speed = 2;
     public float changeDirectionFrequency = 0;
+    [Range(3,float.MaxValue)]
     public float delayBeforeFirstAttack = 3;
     public List<float> attackFrequencies;
     [HideInInspector]
     public int goldGiven;
+    [SerializeField]
+    private int giveSpecificAmountOfGold;
 
     [Header("Behaviour Bools")]
     public bool changingDirections = false;
@@ -23,10 +26,26 @@ public class EnemyData : MonoBehaviour
     [Header("Relic Drop")]
     public GameObject Relic;
 
-    protected virtual void Start()
+    private void Awake()
     {
-        goldGiven = health % 10 == 0? health * 2/10 : (health - (health % 10) + 10) * 2/10;
+        RandomizeDelayBeforeFirstAttack();
     }
 
+    private void Start()
+    {
+        if(giveSpecificAmountOfGold == 0)
+        {
+            goldGiven = health % 10 == 0 ? health * 2 / 10 : (health - (health % 10) + 10) * 2 / 10;
+        }
+        else
+        {
+            goldGiven = giveSpecificAmountOfGold;
+        }
+    }
 
+    private void RandomizeDelayBeforeFirstAttack()
+    {
+        float randomizer = Random.Range(-2.5f, 1);
+        delayBeforeFirstAttack += randomizer;
+    }
 }

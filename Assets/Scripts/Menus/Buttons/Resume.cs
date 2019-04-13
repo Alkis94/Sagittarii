@@ -9,7 +9,6 @@ public class Resume : MonoBehaviour
 
     public void PressResume()
     {
-        Debug.Log("Resume Pressed");
         GameState.UnpauseGame();
         OnResumePressed?.Invoke();
     }

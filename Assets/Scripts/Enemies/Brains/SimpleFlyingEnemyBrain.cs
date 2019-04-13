@@ -36,7 +36,11 @@ public class SimpleFlyingEnemyBrain : EnemyBrain
         raycaster = GetComponentInChildren<Raycaster>();
         rigidbody2d = GetComponent<Rigidbody2D>();
         
-        InvokeRepeating("Attack", enemyData.delayBeforeFirstAttack, enemyData.attackFrequencies[0]);
+        if(attackPattern != null)
+        {
+            InvokeRepeating("Attack", enemyData.delayBeforeFirstAttack, enemyData.attackFrequencies[0]);
+        }
+        
     }
 
 

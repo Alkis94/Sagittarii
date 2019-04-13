@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3441067543415223725}
   - component: {fileID: 1362770365276562283}
   - component: {fileID: 7664949538111815813}
-  - component: {fileID: 6199023497503870166}
+  - component: {fileID: 6866374943478822469}
   m_Layer: 5
   m_Name: QuitButton
   m_TagString: Untagged
@@ -122,8 +122,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6199023497503870166}
-        m_MethodName: PressMainMenu
+      - m_Target: {fileID: 6866374943478822469}
+        m_MethodName: LoadMainMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -135,7 +135,7 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &6199023497503870166
+--- !u!114 &6866374943478822469
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

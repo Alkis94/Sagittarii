@@ -47,8 +47,8 @@ public class OnSceneLoadChangePlayer : MonoBehaviour
             playerStats.speed = currentPlayerSpeed;
             animator.runtimeAnimatorController = bodyController;
             hands.SetActive(true);
-            transform.position = GameObject.FindGameObjectWithTag("PlayerSpawnPoint").transform.position;
         }
+        transform.position = GameObject.FindGameObjectWithTag("PlayerSpawnPoint").transform.position;
     }
 
 }

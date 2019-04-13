@@ -7,6 +7,7 @@ public class RoomFinish : MonoBehaviour
 {
     public static event Action OnRoomFinished = delegate { };
     private Spawner spawner;
+    private AudioSource audioSource;
 
 
     private void Awake()
@@ -20,6 +21,8 @@ public class RoomFinish : MonoBehaviour
 
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+
         if(spawner != null)
         {
             spawner.OnSpawnerFinished += StartCheckingEnemies;
@@ -49,12 +52,19 @@ public class RoomFinish : MonoBehaviour
         {
             if(transform.childCount <= 0)
             {
-                Debug.Log("Room Finished");
+                //Debug.Log("Room Finished");
+                StartCoroutine(PlayFinishSound());
                 OnRoomFinished?.Invoke();
                 break;
             }
             yield return new WaitForFixedUpdate();
         }
+    }
+
+    IEnumerator PlayFinishSound()
+    {
+        yield return new WaitForSeconds(0.5f);
+        audioSource.Play();
     }
 
 }
