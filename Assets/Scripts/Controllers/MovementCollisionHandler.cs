@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
+//Not used right now I think
+
 public class MovementCollisionHandler : MonoBehaviour
 {
 

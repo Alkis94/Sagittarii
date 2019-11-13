@@ -10,6 +10,7 @@ public class PerimetricalAttack : AttackPattern
 
     public override void Attack()
     {
+        base.Attack();
         if (attackData.attackIsDirectionDependant)
         {
             foreach (float rotation in projectileRotations)

@@ -22,7 +22,7 @@ public class FallAndStopMovement : MovementPattern
         StartCoroutine(FallingMovement());
     }
 
-    public override void Move(float speed, int verticalDirection)
+    public override void Move(float speed, int verticalDirection, int horizontalDirection)
     {
         
     }

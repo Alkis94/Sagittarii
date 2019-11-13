@@ -34,6 +34,8 @@ public class EnemyGroundMovement : MonoBehaviour
         transform.localRotation = transform.right.x > 0 ? Quaternion.Euler(0, 180, 0) : Quaternion.Euler(0, 0, 0);
     }
 
+
+    //Can be called from attack animations like an MoveOnAttackPattern, only exception because it can be used for both attacks and movement.
     public void Jump(int HorizontalDirection)
     {
         rigidbody2d.AddForce(new Vector2(4 * HorizontalDirection, 5), ForceMode2D.Impulse);

@@ -8,10 +8,6 @@ public class PickUpFactory : MonoBehaviour
     private List<GameObject> pickupsList;
     private Dictionary<string, GameObject> pickupsDictionery;
 
-    //public ParticleSystem DeathBloodSplatPrefab;
-
-
-
     private void OnEnable()
     {
         EnemyDeath.OnDeathDropPickup += CreatePickup;

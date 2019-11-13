@@ -12,14 +12,10 @@ public class HorizontalMovement : MovementPattern
         rigidbody2d = GetComponent<Rigidbody2D>();
     }
 
-    private void Start()
-    {
-        
-    }
 
-    public override void Move(float speed,int verticalDirection)
+    public override void Move(float speed,int verticalDirection,int horizontalDirection)
     {
-        rigidbody2d.velocity = new Vector2(transform.right.x * speed, 0);
+        rigidbody2d.velocity = new Vector2(transform.right.x * speed * horizontalDirection, 0);
     }
 
 }

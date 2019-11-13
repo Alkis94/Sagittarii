@@ -11,8 +11,6 @@ public class SpiderBrain : EnemyBrain
     private MovementPattern movementPattern;
     private AttackPattern attackPattern;
     private AudioSource audioSource;
-    [SerializeField]
-    private AudioClip attackSound;
 
     protected override void Awake()
     {
@@ -38,22 +36,12 @@ public class SpiderBrain : EnemyBrain
         base.Start();
     }
 
-    private void Update()
-    {
-        //if (animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
-        //{
-        //    attackPattern.Attack(enemyData);
-        //    animator.SetTrigger("Attack");
-        //}
-    }
-
     private void Attack()
     {
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
         {
             attackPattern.Attack();
             animator.SetTrigger("Attack");
-            audioSource.clip = attackSound;
             audioSource.Play();
         }
     }

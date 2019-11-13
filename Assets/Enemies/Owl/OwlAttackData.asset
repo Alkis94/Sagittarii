@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b531d6c97d1fa924f941d92a3a4037a8, type: 3}
-  m_Name: BearAttackData
+  m_Name: OwlAttackData
   m_EditorClassIdentifier: 
-  attackIsDirectionDependant: 1
+  attackIsDirectionDependant: 0
   damage: 30
   projectile: {fileID: 1000012292187914, guid: b774a9ee4dfc3f549a062b3fc69de24a, type: 3}
-  projectileSpeed: 4
+  projectileSpeed: 10
   projectileDestroyDelay: 30
   projectileSpawnPositionOffset: {x: 0, y: 0, z: 0}

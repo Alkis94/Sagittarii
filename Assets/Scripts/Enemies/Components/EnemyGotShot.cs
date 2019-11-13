@@ -4,7 +4,6 @@ using UnityEngine;
 public class EnemyGotShot : MonoBehaviour
 {
 
-    public static event Action<int> OnEnemyDeathGiveGold = delegate { };
     public event Action OnDeath = delegate { };
     private EnemyData enemyData;
 
@@ -24,7 +23,6 @@ public class EnemyGotShot : MonoBehaviour
                 enemyData.health -= other.GetComponent<Projectile>().Damage;
                 if (enemyData.health <= 0)
                 {
-                    OnEnemyDeathGiveGold?.Invoke(enemyData.goldGiven);
                     OnDeath?.Invoke();
                 }
             }

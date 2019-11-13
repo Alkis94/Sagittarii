@@ -19,9 +19,11 @@ public class EnemyDeath : MonoBehaviour
     private Rigidbody2D rigidbody2d;
     private SpriteRenderer spriteRenderer;
     private AudioSource audioSource;
+    private EnemyBrain enemyBrain;
+    private AdvancedEnemyBrain advancedEnemyBrain;
 
     [SerializeField]
-    private  AudioClip deathCry;
+    private AudioClip deathCry;
 
     //[SerializeField]
     private float healthDropRate = 0.05f;
@@ -34,18 +36,18 @@ public class EnemyDeath : MonoBehaviour
     [SerializeField]
     private float enemyDestroyDelay = 10f;
 
-    
+
 
 
     private void OnEnable()
     {
         enemyData = GetComponent<EnemyData>();
 
-        if(enemyData.Relic != null)
+        if (enemyData.Relic != null)
         {
             relicData = enemyData.Relic.GetComponent<RelicData>();
         }
-        
+
         enemyGotShot = GetComponentInChildren<EnemyGotShot>();
         enemyGotShot.OnDeath += Die;
     }
@@ -62,6 +64,8 @@ public class EnemyDeath : MonoBehaviour
         rigidbody2d = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         audioSource = GetComponent<AudioSource>();
+        enemyBrain = GetComponent<EnemyBrain>();
+        advancedEnemyBrain = GetComponent<AdvancedEnemyBrain>();
 
         bloodSplat = Resources.Load("DeathBloodSplat") as GameObject;
     }
@@ -70,10 +74,11 @@ public class EnemyDeath : MonoBehaviour
 
     private void Die()
     {
-        if(hasBlood)
+        if (hasBlood)
         {
             Instantiate(bloodSplat, transform.position, Quaternion.identity);
         }
+
         animator.SetTrigger("Die");
         Destroy(gameObject, enemyDestroyDelay + animator.GetCurrentAnimatorStateInfo(0).length);
         rigidbody2d.gravityScale = 1;
@@ -85,6 +90,15 @@ public class EnemyDeath : MonoBehaviour
         enemyGotShot.enabled = false;
         transform.parent = null;
 
+        if (enemyBrain != null)
+        {
+            enemyBrain.enabled = false;
+        }
+        else
+        {
+            advancedEnemyBrain.enabled = false;
+        }
+
         foreach (Transform trans in GetComponentsInChildren<Transform>(true))
         {
             trans.gameObject.layer = 14;
@@ -94,7 +108,7 @@ public class EnemyDeath : MonoBehaviour
         {
             float randomNumber;
             randomNumber = UnityEngine.Random.Range(0f, 1f);
-            if (randomNumber < relicData.dropRate && ! RelicFactory.PlayerHasRelic[enemyData.Relic.name])
+            if (randomNumber < relicData.dropRate && !RelicFactory.PlayerHasRelic[enemyData.Relic.name])
             {
                 DropRelic();
                 return;
@@ -102,6 +116,7 @@ public class EnemyDeath : MonoBehaviour
         }
 
         DropPickup();
+        DropGold();
     }
 
     private void DropPickup()
@@ -134,5 +149,54 @@ public class EnemyDeath : MonoBehaviour
         OnDeathDropRelic?.Invoke(enemyData.Relic, transform.position);
     }
 
+    private void DropGold()
+    {
+        float randomNumber = UnityEngine.Random.Range(0f, 1f);
+        int finalGoldGiven = enemyData.goldGiven;
+
+        if(randomNumber < 0.01f)
+        {
+            finalGoldGiven = UnityEngine.Random.Range(finalGoldGiven * 5, finalGoldGiven * 10);
+        }
+        else if (randomNumber < 0.3)
+        {
+            finalGoldGiven = UnityEngine.Random.Range(finalGoldGiven * 2, finalGoldGiven * 5);
+        }
+        else  
+        {
+            finalGoldGiven = UnityEngine.Random.Range(finalGoldGiven * 1, finalGoldGiven * 2);
+        }
+
+        randomNumber = UnityEngine.Random.Range(0f, 1f);
+
+        if (randomNumber < 0.01f)
+        {
+            finalGoldGiven += 10;
+        }
+        else if (randomNumber < 0.1)
+        {
+            finalGoldGiven += 5;
+        }
+
+        int GoldCoins = finalGoldGiven / 10;
+        int SilverCoins = (finalGoldGiven - GoldCoins * 10) / 5;
+        int CooperCoins = finalGoldGiven % 5;
+
+        for(int i = 0; i < GoldCoins; i++)
+        {
+            OnDeathDropPickup?.Invoke(transform.position, "Gold");
+        }
+
+        for (int i = 0; i < SilverCoins; i++)
+        {
+            OnDeathDropPickup?.Invoke(transform.position, "Silver");
+        }
+
+        for (int i = 0; i < CooperCoins; i++)
+        {
+            OnDeathDropPickup?.Invoke(transform.position, "Cooper");
+        }
+
+    }
 
 }

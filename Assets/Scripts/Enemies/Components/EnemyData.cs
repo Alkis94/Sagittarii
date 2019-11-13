@@ -35,7 +35,7 @@ public class EnemyData : MonoBehaviour
     {
         if(giveSpecificAmountOfGold == 0)
         {
-            goldGiven = health % 10 == 0 ? health * 2 / 10 : (health - (health % 10) + 10) * 2 / 10;
+            goldGiven = health / 10;
         }
         else
         {

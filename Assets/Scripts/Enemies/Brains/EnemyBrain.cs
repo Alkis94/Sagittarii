@@ -17,11 +17,13 @@ public abstract class  EnemyBrain : MonoBehaviour
     protected virtual void OnEnable()
     {
         enemyGotShot.OnDeath += CancelInvoke;
+        enemyGotShot.OnDeath += StopAllCoroutines;
     }
 
     protected virtual void OnDisable()
     {
         enemyGotShot.OnDeath -= CancelInvoke;
+        enemyGotShot.OnDeath -= StopAllCoroutines;
     }
 
     protected virtual void Awake()

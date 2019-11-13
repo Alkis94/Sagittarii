@@ -20,16 +20,6 @@ public class PlayerStats : MonoBehaviour
     public static event Action<int> OnPlayerGoldChanged = delegate { };
     public static event Action<int> OnPlayerAmmoChanged = delegate { };
 
-    private void OnEnable()
-    {
-        EnemyGotShot.OnEnemyDeathGiveGold += UpdateGold;
-    }
-
-    private void OnDisable()
-    {
-        EnemyGotShot.OnEnemyDeathGiveGold -= UpdateGold;
-    }
-
     private void Start()
     {
         OnPlayerHealthChanged?.Invoke(currentHealth, maximumHealth);
@@ -104,10 +94,5 @@ public class PlayerStats : MonoBehaviour
         }
     }
 
-
-    private void UpdateGold(int goldGiven)
-    {
-        Gold += goldGiven;
-    }
 }
 

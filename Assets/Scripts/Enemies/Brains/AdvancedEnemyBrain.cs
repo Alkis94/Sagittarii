@@ -9,12 +9,14 @@ public abstract class AdvancedEnemyBrain : EnemyBrain
     [HideInInspector]
     public AttackPattern[] AttackPatterns { get; protected set; }
     public MovementPattern[] MovementPatterns { get; protected set; }
+    public MoveOnAttackPattern[] MoveOnAttackPatterns { get; protected set; }
 
     protected override void Awake()
     {
         base.Awake();
         AttackPatterns = GetComponents<AttackPattern>();
         MovementPatterns = GetComponents<MovementPattern>();
+        MoveOnAttackPatterns = GetComponents<MoveOnAttackPattern>();
     }
 
     protected override void OnEnable()

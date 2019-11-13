@@ -6,6 +6,22 @@ public abstract class AttackPattern : MonoBehaviour
 {
     [SerializeField]
     protected AttackData attackData;
+    [SerializeField]
+    protected AudioClip attackSound = null;
+    protected AudioSource audioSource;
 
-    abstract public void Attack();
+    protected void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
+
+
+    public virtual void Attack()
+    {
+        if(attackSound != null)
+        {
+            audioSource.PlayOneShot(attackSound);
+        }
+    }
+
 }

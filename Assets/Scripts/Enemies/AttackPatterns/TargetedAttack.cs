@@ -4,7 +4,8 @@ using UnityEngine;
 public class TargetedAttack : AttackPattern
 {
     public override void Attack()
-    {    
+    {
+        base.Attack();
         Vector3 difference;
         float projectileRotation;
         difference = (GameObject.FindGameObjectWithTag("Player").transform.position - transform.position);

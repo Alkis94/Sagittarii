@@ -4,10 +4,6 @@ using UnityEngine;
 public class SimpleGroundEnemyBrain : EnemyBrain
 {
     private AudioSource audioSource;
-    [SerializeField]
-    private AudioClip attackSound;
-
-
     private Animator animator;
     private EnemyGroundMovement enemyGroundMovement;
     private AttackPattern attackPattern;
@@ -45,10 +41,7 @@ public class SimpleGroundEnemyBrain : EnemyBrain
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
         rigidbody2d = GetComponent<Rigidbody2D>();
-
-        audioSource.clip = attackSound;
         animatorIsGrounded_ID = Animator.StringToHash("IsGrounded");
-
         InvokeRepeating("StartAttackAnimation", enemyData.delayBeforeFirstAttack, enemyData.attackFrequencies[0]);  
         
         if(enemyData.jumpingBehaviour)
@@ -87,7 +80,6 @@ public class SimpleGroundEnemyBrain : EnemyBrain
     private void StartAttackAnimation()
     {
         animator.SetTrigger("Attack");
-        audioSource.Play();
     }
 
     private void CallAttack()
