@@ -1,6 +1,4 @@
-﻿ using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using System;
 using Factories;
 
@@ -24,6 +22,8 @@ public class EnemyDeath : MonoBehaviour
 
     [SerializeField]
     private AudioClip deathCry;
+    [SerializeField]
+    private GameObject criticalCollider;
 
     //[SerializeField]
     private float healthDropRate = 0.05f;
@@ -49,12 +49,14 @@ public class EnemyDeath : MonoBehaviour
         }
 
         enemyGotShot = GetComponentInChildren<EnemyGotShot>();
-        enemyGotShot.OnDeath += Die;
+        enemyGotShot.OnDeath += NormallDeath;
+        enemyGotShot.OnCriticalDeath += CriticalDeath;
     }
 
     private void OnDisable()
     {
-        enemyGotShot.OnDeath -= Die;
+        enemyGotShot.OnDeath -= NormallDeath;
+        enemyGotShot.OnCriticalDeath -= CriticalDeath;
     }
 
 
@@ -70,7 +72,24 @@ public class EnemyDeath : MonoBehaviour
         bloodSplat = Resources.Load("DeathBloodSplat") as GameObject;
     }
 
+    private void CriticalDeath(Transform arrow)
+    {
 
+        if(enemyData.amputation)
+        {
+            criticalCollider.transform.parent = arrow;
+            criticalCollider.GetComponent<SpriteRenderer>().enabled = true;
+        }
+
+        animator.SetTrigger("DieCritical");
+        Die();
+    }
+
+    private void NormallDeath()
+    {
+        animator.SetTrigger("Die");
+        Die();
+    }
 
     private void Die()
     {
@@ -79,7 +98,7 @@ public class EnemyDeath : MonoBehaviour
             Instantiate(bloodSplat, transform.position, Quaternion.identity);
         }
 
-        animator.SetTrigger("Die");
+        
         Destroy(gameObject, enemyDestroyDelay + animator.GetCurrentAnimatorStateInfo(0).length);
         rigidbody2d.gravityScale = 1;
         spriteRenderer.sortingLayerName = "DeadEnemies";

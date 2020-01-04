@@ -211,7 +211,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: fd573892d50e6464daa6bc4440d9bb29, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 8f6dda4fbf2d7694a9d6bef89e0173eb, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -316,8 +316,11 @@ MonoBehaviour:
   attackFrequencies:
   - 3
   goldGiven: 0
+  giveSpecificAmountOfGold: 0
   changingDirections: 0
   jumpingBehaviour: 0
+  damageable: 1
+  amputation: 0
   Relic: {fileID: 0}
 --- !u!114 &1738427374965721060
 MonoBehaviour:
@@ -332,6 +335,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deathCry: {fileID: 8300000, guid: 62526eb89e8d99140a22dc9406f66451, type: 3}
+  hasBlood: 1
+  enemyDestroyDelay: 10
 --- !u!114 &1742235810867922162
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -345,6 +350,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackData: {fileID: 11400000, guid: 3cd4917d78241b64696e699a3856b839, type: 2}
+  attackSound: {fileID: 8300000, guid: 8f6dda4fbf2d7694a9d6bef89e0173eb, type: 3}
   projectileRotations:
   - 0
   - 45
@@ -367,7 +373,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyData: {fileID: 0}
-  attackSound: {fileID: 8300000, guid: 8f6dda4fbf2d7694a9d6bef89e0173eb, type: 3}
 --- !u!114 &7529037502251396081
 MonoBehaviour:
   m_ObjectHideFlags: 0

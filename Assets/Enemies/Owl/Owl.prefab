@@ -251,6 +251,7 @@ MonoBehaviour:
   changingDirections: 0
   jumpingBehaviour: 0
   damageable: 1
+  amputation: 0
   Relic: {fileID: 0}
 --- !u!114 &2882280072731344864
 MonoBehaviour:
@@ -317,6 +318,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackData: {fileID: 11400000, guid: b22811ea17d16104b93e1166f4f91312, type: 2}
+  attackSound: {fileID: 0}
   projectileRotations:
   - 270
 --- !u!114 &1825717709
@@ -480,7 +482,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collisionMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 131328
 --- !u!61 &2093208355767805050
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -15,10 +15,13 @@ TagManager:
   - FlyingSpawnPoint
   - GroundSpawnPoint
   - Map
-  - PlayerSpawnPoint
   - CameraConfiner
   - Spawner
   - Enemies
+  - DoorWest
+  - DoorEast
+  - DoorNorth
+  - DoorSouth
   layers:
   - Default
   - TransparentFX
@@ -37,8 +40,8 @@ TagManager:
   - DeadEnemies
   - CameraConfiner
   - EnemyTrackers
-  - 
-  - 
+  - EnemyConfiner
+  - SceneChangers
   - 
   - 
   - 

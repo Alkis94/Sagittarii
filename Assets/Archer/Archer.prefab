@@ -605,6 +605,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 580a2dbf60fd13b44b0f121971e9983e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  map: {fileID: 0}
   horizontal: 0
   jumpHeld: 0
   jumpPressed: 0
@@ -622,7 +623,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coyoteDuration: 0.05
   maxFallSpeed: -25
-  jumpForce: 6.3
+  jumpForce: 7
   hangingJumpForce: 15
   jumpHoldForce: 1.9
   jumpHoldDuration: 0.1
@@ -632,7 +633,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   isOnGround: 0
-  isOnAir: 0
+  isFalling: 0
   isJumping: 0
 --- !u!114 &597346900823652045
 MonoBehaviour:
@@ -648,6 +649,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   townController: {fileID: 9100000, guid: 1db6bbe010ce0bd4cb23bb849c238784, type: 2}
   bodyController: {fileID: 9100000, guid: 546e00a83c62e944688ff499c2be6efc, type: 2}
+  playerTownSpeed: 6
 --- !u!114 &5399449951423691859
 MonoBehaviour:
   m_ObjectHideFlags: 0

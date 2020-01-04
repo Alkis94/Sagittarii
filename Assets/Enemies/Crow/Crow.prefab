@@ -245,8 +245,11 @@ MonoBehaviour:
   attackFrequencies:
   - 3
   goldGiven: 0
+  giveSpecificAmountOfGold: 0
   changingDirections: 0
   jumpingBehaviour: 0
+  damageable: 1
+  amputation: 0
   Relic: {fileID: 0}
 --- !u!114 &4756669890819866909
 MonoBehaviour:
@@ -274,6 +277,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deathCry: {fileID: 8300000, guid: fd573892d50e6464daa6bc4440d9bb29, type: 3}
+  hasBlood: 1
+  enemyDestroyDelay: 10
 --- !u!114 &114187245435547046
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -287,6 +292,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackData: {fileID: 11400000, guid: 2b7d86e935d7a884a9ace1d088bd865e, type: 2}
+  attackSound: {fileID: 0}
   projectileRotations:
   - 240
   - 270
@@ -404,7 +410,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collisionMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 131328
 --- !u!1 &8325591403499743333
 GameObject:
   m_ObjectHideFlags: 0

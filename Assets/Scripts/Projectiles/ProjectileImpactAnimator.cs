@@ -13,7 +13,6 @@ public class ProjectileImpactAnimator : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-
         animator.SetTrigger("Impact");
     }
 

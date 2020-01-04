@@ -12,7 +12,7 @@ public class ProjectileArrowMovement : MonoBehaviour
 
     private void OnEnable()
     {
-        GetComponent<ProjectilePlayerTrigger>().OnCollision += DisableComponent;
+        GetComponent<PlayerProjectileImpact>().OnCollision += DisableComponent;
     }
 
     void Start()

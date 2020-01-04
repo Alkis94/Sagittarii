@@ -105,7 +105,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &61000010906568542
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -267,3 +267,4 @@ MonoBehaviour:
   arrowImpact: {fileID: 8300000, guid: f60456ae18dd76c42b1bd3878450a8f6, type: 3}
   arrowGroundImpact: {fileID: 8300000, guid: 0cd2aab7afd283444b7f0f8c5e7fa171, type: 3}
   impactDestroyDelay: 30
+  criticalHit: 0

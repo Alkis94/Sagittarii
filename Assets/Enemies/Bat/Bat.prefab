@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: -607018307
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300006, guid: 521a18c046d471f4daaee1bdc91f7e14, type: 3}
+  m_Sprite: {fileID: 21300006, guid: 9bf20f6d183a3ca489cf4571316104fe, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -245,8 +245,11 @@ MonoBehaviour:
   attackFrequencies:
   - 5
   goldGiven: 0
+  giveSpecificAmountOfGold: 0
   changingDirections: 1
   jumpingBehaviour: 0
+  damageable: 1
+  amputation: 0
   Relic: {fileID: 0}
 --- !u!114 &6026461623799748943
 MonoBehaviour:
@@ -273,6 +276,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c47ff9b0ba5071745bf679be2be6d7ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  curveFactor: 1
 --- !u!114 &1767405954
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -286,6 +290,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackData: {fileID: 11400000, guid: 3e42a00a36545dc4abf5e383a2291d96, type: 2}
+  attackSound: {fileID: 0}
 --- !u!114 &5623888009569000007
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -299,6 +304,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deathCry: {fileID: 8300000, guid: a0e1fe8dabe199041938412484e900f6, type: 3}
+  hasBlood: 1
+  enemyDestroyDelay: 10
 --- !u!114 &7817322822323997714
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -464,4 +471,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collisionMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 131328
