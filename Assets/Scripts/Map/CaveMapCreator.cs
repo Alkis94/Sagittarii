@@ -4,9 +4,22 @@ using System.Collections.Generic;
 
 public class CaveMapCreator : MapCreator
 {
-    private Vector2Int startingRoom = new Vector2Int(10, 0);
+    //private Vector2Int startingRoom = new Vector2Int(10, 0);
 
 
+    private static CaveMapCreator instance = null;
+    private void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            instance = this;
+        }
+
+    }
 
     // Use this for initialization
     void Start()
@@ -20,8 +33,10 @@ public class CaveMapCreator : MapCreator
 
     protected override void CreateMap()
     {
-        mapLayout[10, 0] = (int)RoomType.verticalRoad;
-        CreatePathToBoss(15,new Vector2Int(10,1),false);
+        mapLayout[10, 0] = (int)RoomType.exploredRoom;
+        mapRooms[10, 0] = "TestCaveFirstRoom";
+        mapLayout[10, 1] = (int)RoomType.verticalRoad;
+        CreatePathToBoss(15,new Vector2Int(10,2),false);
         CreateRandomPaths();
         CreateRandomSmallPaths();
         AssignRooms();
@@ -40,27 +55,44 @@ public class CaveMapCreator : MapCreator
             {
                 if (mapLayout[i, j] > 2)
                 {
-                    if(mapLayout[i,j - 1] > 0)
+                    if(j > 0)
                     {
-                        north = true;
+                        if (mapLayout[i, j - 1] > 0)
+                        {
+                            north = true;
+                        }
                     }
-                    if (mapLayout[i, j + 1] > 0)
+                    if(j < mapLayout.GetLength(1))
                     {
-                        south = true;
+                        if (mapLayout[i, j + 1] > 0)
+                        {
+                            south = true;
+                        }
                     }
-                    if (mapLayout[i - 1, j] > 0)
+                    if (i > 0)
                     {
-                        west = true;
+                        if (mapLayout[i - 1, j] > 0)
+                        {
+                            west = true;
+                        }
                     }
-                    if(mapLayout[i + 1, j] > 0)
+                    if (i < mapLayout.GetLength(0))
                     {
-                        east = true;
+                        if (mapLayout[i + 1, j] > 0)
+                        {
+                            east = true;
+                        }
                     }
-
                     mapRooms[i, j] = ReturnCorrectRoom(north, south, east, west);
+                    north = false;
+                    south = false;
+                    east = false;
+                    west = false;
                 }
             }
         }
+
+        mapRooms[10, 0] = "TestCaveFirstRoom";
     }
 
     private string ReturnCorrectRoom(bool north,bool south,bool east,bool west)

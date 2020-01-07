@@ -17,12 +17,6 @@ public abstract class MapCreator : MonoBehaviour
     protected abstract void CreateMap();
     public static event Action<int[,], string[,],MapType> OnMapCreated = delegate { };
 
-    //[SerializeField]
-    //protected List<GameObject> rooms;
-    //[SerializeField]
-    //protected Transform mapTransform;
-
-
     protected void CreatePath(int roadLength, Vector2Int startCoordinates, bool directRoadNorth = true, bool directRoadSouth = true, bool directRoadWest = true, bool directRoadEast = true)
     {
         int i = 1;
@@ -142,23 +136,6 @@ public abstract class MapCreator : MonoBehaviour
         }
     }
 
-    //protected void RenderMap()
-    //{
-    //    for (int i = 0; i < mapLayout.GetLength(0); i++)
-    //    {
-    //        for (int j = 0; j < mapLayout.GetLength(1); j++)
-    //        {
-    //            if (mapLayout[i, j] != 0)
-    //            {
-    //                Vector2 mapCoordinates = ConvertArrayCoordinates(i, j);
-    //                ExtensionMethods.InstantiateAtLocalPosition(rooms[mapLayout[i, j]], mapTransform, mapCoordinates);
-    //            }
-    //        }
-    //    }
-    //    //Debug.Log("Rendered Map");
-    //}
-
-
     protected bool HasSpaceForRoomWest(Vector2Int room)
     {
         if (room.x - 2 >= 0)
@@ -224,22 +201,6 @@ public abstract class MapCreator : MonoBehaviour
         Vector2 mapCoordinates = new Vector2(offsetX - 145 + (x + 1) * 20, offsetY + 75 - (y + 1) * 20);
         return mapCoordinates;
     }
-
-    //protected void RenderMap(int offsetX = 0, int offsetY = 0)
-    //{
-    //    for (int i = 0; i < mapLayout.GetLength(0); i++)
-    //    {
-    //        for (int j = 0; j < mapLayout.GetLength(1); j++)
-    //        {
-    //            if (mapLayout[i, j] != 0)
-    //            {
-    //                Vector2 mapCoordinates = ConvertArrayCoordinates(i, j, offsetX, offsetY);
-    //                ExtensionMethods.InstantiateAtLocalPosition(rooms[mapLayout[i, j]], mapTransform, mapCoordinates);
-    //            }
-    //        }
-    //    }
-    //    //Debug.Log("Rendered Map");
-    //}
 
     protected void MapCreated(MapType mapType)
     {

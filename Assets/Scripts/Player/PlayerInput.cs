@@ -5,6 +5,7 @@
 using Factories;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 
 //We first ensure this script runs before all other player scripts to prevent laggy
@@ -23,19 +24,24 @@ public class PlayerInput : MonoBehaviour
     private const float teleportCastTime = 3;
     private float teleportTimeCasted = 0;
 
+    private BoxCollider2D boxCollider2D;
+    [SerializeField]
+    private LayerMask collisionMask;
+
+    private void Awake()
+    {
+        boxCollider2D = GetComponent<BoxCollider2D>();
+    }
+
     void OnEnable()
     {
         PlayerCollision.OnDeath += DisableInput;
-        //SceneManager.sceneLoaded += OnSceneLoaded;
-        //RoomFinish.OnRoomFinished += RoomFinished;
     }
 
 
     void OnDisable()
     {
         PlayerCollision.OnDeath -= DisableInput;
-        //SceneManager.sceneLoaded -= OnSceneLoaded;
-        //RoomFinish.OnRoomFinished -= RoomFinished;
     }
 
 
@@ -55,7 +61,17 @@ public class PlayerInput : MonoBehaviour
             teleportTimeCasted = 0;
         }
 
-        if(Input.GetKey(KeyCode.F))
+        if (Input.GetKeyUp(KeyCode.S))
+        {
+            if(boxCollider2D.IsTouchingLayers(collisionMask))
+            {
+                Debug.Log("Should start coroutine");
+                gameObject.layer = 19; // PlayerNoPlatform Layer
+                StartCoroutine(ReturnToNormalLayer());
+            }
+        }
+
+        if (Input.GetKey(KeyCode.F))
         {
             teleportTimeCasted += Time.deltaTime;
             if (teleportCastTime <= teleportTimeCasted)
@@ -115,13 +131,23 @@ public class PlayerInput : MonoBehaviour
         enabled = false;
     }
 
-    //private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    //{
-    //    mapAvailable = false;
-    //}
-
-    //private void RoomFinished()
-    //{
-    //    mapAvailable = true;
-    //}
+    IEnumerator ReturnToNormalLayer()
+    {
+        Debug.Log("Coroutine Started");
+        float returnDelay = Time.time + .75f;
+        while (true)
+        {
+            //Bugged as fuck
+            jumpPressed = false;
+            jumpHeld = false;
+            //Debug.Log("CoroutineRunning");
+            if (Time.time > returnDelay)
+            {
+                Debug.Log("Coroutine Stopped");
+                gameObject.layer = 10; // Player Layer.
+                yield break;
+            }
+            yield return null;
+        }
+    }
 }

@@ -5,11 +5,11 @@ using System.Collections.Generic;
 public class ForestMapCreator : MapCreator
 {
 
-    private static ForestMapCreator instance = null;
+    
     private List<string> forestRooms = new List<string>();
-    
-    
 
+
+    private static ForestMapCreator instance = null;
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -41,12 +41,18 @@ public class ForestMapCreator : MapCreator
 
     protected override void CreateMap()
     {
-        //mapLayout[10, 0] = (int)RoomType.exploredRoom;
-        //mapLayout[10, 1] = (int)RoomType.verticalRoad;
-        CreatePathToBoss(20, new Vector2Int(0, 0), false, false, false, true);
+        
+        mapLayout[0, 0] = (int)RoomType.horizontalRoad;
+        mapLayout[1, 0] = (int)RoomType.horizontalRoad;
+        mapLayout[2, 0] = (int)RoomType.exploredRoom;
+        mapLayout[3, 0] = (int)RoomType.horizontalRoad;
+        mapLayout[4, 0] = (int)RoomType.exploredRoom;
+        mapLayout[5, 0] = (int)RoomType.horizontalRoad;
+        mapRooms[2, 0] = "TestStartRoom";
+        mapRooms[4, 0] = "TestCaveEntrance";
+        CreatePathToBoss(20, new Vector2Int(6, 0), false, false, false, true);
         int randomNumber;
-        mapRooms[0, 0] = "TestStartRoom";
-        for (int i = 1; i < 40; i++)
+        for (int i = 6; i < 40; i++)
         {
             if(mapLayout[i,0] == (int)RoomType.unexploredRoom)
             {
@@ -54,8 +60,6 @@ public class ForestMapCreator : MapCreator
                 mapRooms[i, 0] = forestRooms[randomNumber];
             }
         }
-
-        mapRooms[2, 0] = "TestCaveDoor";
     }
 
 }

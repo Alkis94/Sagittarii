@@ -8,6 +8,11 @@ public class MapManager2 : MonoBehaviour
 
     private static MapManager2 instance = null;
 
+    private bool caveMapExists = false;
+    private bool forestMapExists = false;
+    private bool currentPlayerLocationInitialized = false;
+
+
 
     private int[,] mapLayout; 
     private string[,] mapRooms;
@@ -16,11 +21,18 @@ public class MapManager2 : MonoBehaviour
     private int[,] caveMapLayout = new int[20, 40];
     private string[,] caveMapRooms = new string[20, 40];
 
+    private readonly Vector2Int forestFirstRoomCoordinates = new Vector2Int(2, 0);
+    private readonly Vector2Int forestCaveDoorRoomCoordinates = new Vector2Int(4, 0);
+    private readonly Vector2Int caveFirstRoomCoordinates = new Vector2Int(10, 0);
+
     private Vector2Int currentMapCoords = new Vector2Int(-1, 0);
     [SerializeField]
     private List<GameObject> rooms;
     [SerializeField]
     private Transform mapTransform;
+    [SerializeField]
+    private GameObject playerCurrentMapLocation;
+    private MapType currentMap = MapType.town;
 
     private void Awake()
     {
@@ -48,42 +60,66 @@ public class MapManager2 : MonoBehaviour
         MapCreator.OnMapCreated -= GetMap;
     }
 
-    // Use this for initialization
-    void Start()
-    {
-
-    }
-
     private void ChangeMap(MapType currentMap,MapType nextMap)
     {
         if (currentMap == MapType.town && nextMap == MapType.forest)
         {
+            this.currentMap = MapType.forest;
             mapLayout = forestMapLayout;
             mapRooms = forestMapRooms;
-            currentMapCoords = Vector2Int.zero;
-            SceneManager.LoadScene(mapRooms[0, 0]);
-            OnRoomChangeRenderMapPart();
+            currentMapCoords = forestFirstRoomCoordinates;
+
+            SceneManager.LoadScene(mapRooms[forestFirstRoomCoordinates.x, forestFirstRoomCoordinates.y]);
+            OnRoomChangeRenderMapPart2(Direction.east);
+            MoveCurrentPlayerPositionAndCenterMap();
+
+            //We put an extra road to connect forest and town, and avoid having a room that collides on the town.
+            Vector3 mapCoordinates = ConvertArrayCoordinates(0, 0);
+            ExtensionMethods.InstantiateAtLocalPosition(rooms[(int)RoomType.horizontalRoad], mapTransform, mapCoordinates);
+
+            //RenderMap();
         }
         else if(currentMap == MapType.forest && nextMap == MapType.town)
         {
+            this.currentMap = MapType.town;
             currentMapCoords = new Vector2Int(-1, 0);
             SceneManager.LoadScene("Town");
         }
         else if (currentMap == MapType.forest && nextMap == MapType.cave)
         {
+            this.currentMap = MapType.cave;
             mapLayout = caveMapLayout;
             mapRooms = caveMapRooms;
-            currentMapCoords = Vector2Int.zero;
-            Debug.Log("Scene name: " +mapRooms[10, 1]);
-            SceneManager.LoadScene(mapRooms[10, 1]);
-            OnRoomChangeRenderMapPart();
+            currentMapCoords = caveFirstRoomCoordinates;
+
+            //We put this road to connect forest and caves. This roads is not inside mapLayout. We do it this way so
+            //no rooms of caves collide with forrest rooms.
+            Vector2 mapCoordinates = new Vector2(-65, -95);
+            ExtensionMethods.InstantiateAtLocalPosition(rooms[(int)RoomType.verticalRoad], mapTransform, mapCoordinates);
+
+            SceneManager.LoadScene(mapRooms[caveFirstRoomCoordinates.x, caveFirstRoomCoordinates.y]);
+            OnRoomChangeRenderMapPart2(Direction.south);
+            MoveCurrentPlayerPositionAndCenterMap();
+
+            //RenderMap();
+            //Debug.Log("Scene name: " +mapRooms[caveFirstRoomCoordinates.x, caveFirstRoomCoordinates.y]);
+        }
+        else if (currentMap == MapType.cave && nextMap == MapType.forest)
+        {
+            this.currentMap = MapType.forest;
+            mapLayout = forestMapLayout;
+            mapRooms = forestMapRooms;
+            currentMapCoords = forestCaveDoorRoomCoordinates;
+            
+            SceneManager.LoadScene(mapRooms[forestCaveDoorRoomCoordinates.x, forestCaveDoorRoomCoordinates.y]);
+            MoveCurrentPlayerPositionAndCenterMap();
         }
     }
 
     private void ChangeRoom(Direction doorPlacement)
     {
-        
         Vector2Int previousMapCoords = currentMapCoords;
+
         if (doorPlacement == Direction.west)
         {
             currentMapCoords = new Vector2Int(currentMapCoords.x - 2, currentMapCoords.y);
@@ -94,138 +130,174 @@ public class MapManager2 : MonoBehaviour
         }
         else if (doorPlacement == Direction.north)
         {
-            currentMapCoords = new Vector2Int(currentMapCoords.x, currentMapCoords.y + 2);
-        }
-        else
-        {
             currentMapCoords = new Vector2Int(currentMapCoords.x, currentMapCoords.y - 2);
+        }
+        else if(doorPlacement == Direction.south)
+        {
+            currentMapCoords = new Vector2Int(currentMapCoords.x, currentMapCoords.y + 2);
         }
 
         if (mapRooms[currentMapCoords.x,currentMapCoords.y] != null)
         {
-            SceneManager.LoadScene(mapRooms[currentMapCoords.x,currentMapCoords.y]);
-            OnRoomChangeRenderMapPart();
+            SceneManager.LoadScene(mapRooms[currentMapCoords.x, currentMapCoords.y]);
+            MoveCurrentPlayerPositionAndCenterMap();
+            OnRoomChangeRenderMapPart2(doorPlacement);
         }
         else
         {
-            currentMapCoords = previousMapCoords; //if we didn't change room for some reason we revert to old current map coords
+            //if we didn't change room for some reason we revert to old current map coords
+            Debug.Log("Room Not Found");
+            currentMapCoords = previousMapCoords; 
+        }
+    }
+
+    private void MoveCurrentPlayerPositionAndCenterMap()
+    {
+        //we change the location of red indication of the player in the map 
+        if (currentPlayerLocationInitialized)
+        {
+            Vector3 mapCoordinates = ConvertArrayCoordinates(currentMapCoords.x, currentMapCoords.y);
+            playerCurrentMapLocation.transform.localPosition = mapCoordinates;
+            mapTransform.localPosition = new Vector3(-mapCoordinates.x, -mapCoordinates.y, 0);
+        }
+        else
+        {
+            Vector2 mapCoordinates = ConvertArrayCoordinates(currentMapCoords.x, currentMapCoords.y);
+            playerCurrentMapLocation = ExtensionMethods.InstantiateAtLocalPosition(playerCurrentMapLocation, mapTransform, mapCoordinates);
+            mapTransform.localPosition = new Vector3(-mapCoordinates.x, -mapCoordinates.y, 0);
+            currentPlayerLocationInitialized = true;
         }
     }
 
     public void GetMap(int[,] mapLayout, string[,] mapRooms,MapType mapType)
     {
-        if(mapType == MapType.forest)
+        if(mapType == MapType.forest && !forestMapExists)
         {
             Array.Copy(mapLayout, 0, forestMapLayout, 0, mapLayout.Length);
             Array.Copy(mapRooms, 0, forestMapRooms, 0, mapRooms.Length);
+            forestMapExists = true;
         }
-        else if (mapType == MapType.cave)
+        else if (mapType == MapType.cave && !caveMapExists)
         {
             Array.Copy(mapLayout, 0, caveMapLayout, 0, mapLayout.Length);
             Array.Copy(mapRooms, 0, caveMapRooms, 0, mapRooms.Length);
-            Debug.Log("Cave Map Copied");
+            caveMapExists = true;
         }
-
-
     }
 
-    private void OnRoomChangeRenderMapPart()
+    
+
+    private void OnRoomChangeRenderMapPart2(Direction renderDirection)
     {
-        Vector2 mapCoordinates;
-        bool west = true, east = true, north = true, south = true;
 
-        if(currentMapCoords.x <= 0)
+        Vector2 mapCoordinates = Vector2.zero;
+        if (renderDirection == Direction.west)
         {
-            west = false;
-        }
-        if (currentMapCoords.x >= mapLayout.GetLength(0) - 1)
-        {
-            east = false;
-        }
-        if (currentMapCoords.y <= 0)
-        {
-            north = false;
-        }
-        if (currentMapCoords.y >= mapLayout.GetLength(1) - 1)
-        {
-            south = false;
-        }
-
-        //Check west if road and render
-        if(west)
-        {
-            if (mapLayout[currentMapCoords.x - 1, currentMapCoords.y] != 0)
+            if (mapLayout[currentMapCoords.x, currentMapCoords.y] != 0)
             {
+                //this check is so we don't go out of array bounds.
+                if(currentMapCoords.x + 1 < mapLayout.GetLength(0))
+                {
+                    //Render road
+                    mapCoordinates = ConvertArrayCoordinates(currentMapCoords.x + 1, currentMapCoords.y);
+                    ExtensionMethods.InstantiateAtLocalPosition(rooms[mapLayout[currentMapCoords.x + 1, currentMapCoords.y]], mapTransform, mapCoordinates);
+                    //we zero them so we don't render them again!
+                    mapLayout[currentMapCoords.x + 1, currentMapCoords.y] = 0;
+                }
+                
                 //Render room
-                mapCoordinates = ConvertArrayCoordinates(currentMapCoords.x - 2, currentMapCoords.y);
-                ExtensionMethods.InstantiateAtLocalPosition(rooms[mapLayout[currentMapCoords.x - 2, currentMapCoords.y]], mapTransform, mapCoordinates);
-                //Render road
-                mapCoordinates = ConvertArrayCoordinates(currentMapCoords.x - 1, currentMapCoords.y);
-                ExtensionMethods.InstantiateAtLocalPosition(rooms[mapLayout[currentMapCoords.x - 1, currentMapCoords.y]], mapTransform, mapCoordinates);
-
+                mapCoordinates = ConvertArrayCoordinates(currentMapCoords.x, currentMapCoords.y);
+                ExtensionMethods.InstantiateAtLocalPosition(rooms[mapLayout[currentMapCoords.x, currentMapCoords.y]], mapTransform, mapCoordinates);
                 //we zero them so we don't render them again!
-                mapLayout[currentMapCoords.x - 2, currentMapCoords.y] = 0;
-                mapLayout[currentMapCoords.x - 1, currentMapCoords.y] = 0;
+                mapLayout[currentMapCoords.x, currentMapCoords.y] = 0;
+                
             }
         }
-        
-        //Check east if road and render
-        if(east)
+        else if (renderDirection == Direction.east)
         {
-            if (mapLayout[currentMapCoords.x + 1, currentMapCoords.y] != 0)
+            if (mapLayout[currentMapCoords.x, currentMapCoords.y] != 0)
             {
-                mapCoordinates = ConvertArrayCoordinates(currentMapCoords.x + 2, currentMapCoords.y);
-                ExtensionMethods.InstantiateAtLocalPosition(rooms[mapLayout[currentMapCoords.x + 2, currentMapCoords.y]], mapTransform, mapCoordinates);
 
-                mapCoordinates = ConvertArrayCoordinates(currentMapCoords.x + 1, currentMapCoords.y);
-                ExtensionMethods.InstantiateAtLocalPosition(rooms[mapLayout[currentMapCoords.x + 1, currentMapCoords.y]], mapTransform, mapCoordinates);
+                if (currentMapCoords.x - 1 >= 0)
+                {
+                    mapCoordinates = ConvertArrayCoordinates(currentMapCoords.x - 1, currentMapCoords.y);
+                    ExtensionMethods.InstantiateAtLocalPosition(rooms[mapLayout[currentMapCoords.x - 1, currentMapCoords.y]], mapTransform, mapCoordinates);
+                    mapLayout[currentMapCoords.x - 1, currentMapCoords.y] = 0;
+                }
 
-                //we zero them so we don't render them again!
-                mapLayout[currentMapCoords.x + 2, currentMapCoords.y] = 0;
-                mapLayout[currentMapCoords.x + 1, currentMapCoords.y] = 0;
+                mapCoordinates = ConvertArrayCoordinates(currentMapCoords.x, currentMapCoords.y);
+                ExtensionMethods.InstantiateAtLocalPosition(rooms[mapLayout[currentMapCoords.x, currentMapCoords.y]], mapTransform, mapCoordinates);
+                mapLayout[currentMapCoords.x, currentMapCoords.y] = 0;
             }
         }
-        
-        //Check north if road and render
-        if(north)
+        else if (renderDirection == Direction.north)
         {
-            if (mapLayout[currentMapCoords.x, currentMapCoords.y - 1] != 0)
+            if (mapLayout[currentMapCoords.x, currentMapCoords.y] != 0)
             {
-                mapCoordinates = ConvertArrayCoordinates(currentMapCoords.x, currentMapCoords.y + 2);
-                ExtensionMethods.InstantiateAtLocalPosition(rooms[mapLayout[currentMapCoords.x, currentMapCoords.y + 2]], mapTransform, mapCoordinates);
+                if (currentMapCoords.y + 1 < mapLayout.GetLength(1))
+                {
+                    mapCoordinates = ConvertArrayCoordinates(currentMapCoords.x, currentMapCoords.y + 1);
+                    ExtensionMethods.InstantiateAtLocalPosition(rooms[mapLayout[currentMapCoords.x, currentMapCoords.y + 1]], mapTransform, mapCoordinates);
+                    mapLayout[currentMapCoords.x, currentMapCoords.y + 1] = 0;
+                }
 
-                mapCoordinates = ConvertArrayCoordinates(currentMapCoords.x, currentMapCoords.y + 1);
-                ExtensionMethods.InstantiateAtLocalPosition(rooms[mapLayout[currentMapCoords.x, currentMapCoords.y + 1]], mapTransform, mapCoordinates);
-
-                //we zero them so we don't render them again!
-                mapLayout[currentMapCoords.x, currentMapCoords.y + 2] = 0;
-                mapLayout[currentMapCoords.x, currentMapCoords.y + 1] = 0;
+                mapCoordinates = ConvertArrayCoordinates(currentMapCoords.x, currentMapCoords.y);
+                ExtensionMethods.InstantiateAtLocalPosition(rooms[mapLayout[currentMapCoords.x, currentMapCoords.y]], mapTransform, mapCoordinates);
+                mapLayout[currentMapCoords.x, currentMapCoords.y] = 0;
             }
         }
-
-        //Check south if road and render
-        if(south)
+        else if (renderDirection == Direction.south)
         {
-            if (mapLayout[currentMapCoords.x, currentMapCoords.y + 1] != 0)
+            if (mapLayout[currentMapCoords.x, currentMapCoords.y] != 0)
             {
-                mapCoordinates = ConvertArrayCoordinates(currentMapCoords.x, currentMapCoords.y - 2);
-                ExtensionMethods.InstantiateAtLocalPosition(rooms[mapLayout[currentMapCoords.x, currentMapCoords.y - 2]], mapTransform, mapCoordinates);
+                if (currentMapCoords.y - 1 >= 0)
+                {
+                    mapCoordinates = ConvertArrayCoordinates(currentMapCoords.x, currentMapCoords.y - 1);
+                    ExtensionMethods.InstantiateAtLocalPosition(rooms[mapLayout[currentMapCoords.x, currentMapCoords.y - 1]], mapTransform, mapCoordinates);
+                    mapLayout[currentMapCoords.x, currentMapCoords.y - 1] = 0;
+                }
 
-                mapCoordinates = ConvertArrayCoordinates(currentMapCoords.x, currentMapCoords.y - 1);
-                ExtensionMethods.InstantiateAtLocalPosition(rooms[mapLayout[currentMapCoords.x, currentMapCoords.y - 1]], mapTransform, mapCoordinates);
-
-                //we zero them so we don't render them again!
-                mapLayout[currentMapCoords.x, currentMapCoords.y - 2] = 0;
-                mapLayout[currentMapCoords.x, currentMapCoords.y - 1] = 0;
+                mapCoordinates = ConvertArrayCoordinates(currentMapCoords.x, currentMapCoords.y);
+                ExtensionMethods.InstantiateAtLocalPosition(rooms[mapLayout[currentMapCoords.x, currentMapCoords.y]], mapTransform, mapCoordinates);
+                mapLayout[currentMapCoords.x, currentMapCoords.y] = 0;
+                
             }
         }
-        
     }
 
     private Vector2 ConvertArrayCoordinates(int x, int y)
     {
-        Vector2 mapCoordinates = new Vector2(-145 + (x + 1) * 20, -75 + (y + 1) * 20);
-        return mapCoordinates;
+        if(currentMap == MapType.forest)
+        {
+            Vector2 mapCoordinates = new Vector2(-145 + x * 20, -75 + y * 20);
+            return mapCoordinates;
+        }
+        else if(currentMap == MapType.cave)
+        {
+            Vector2 mapCoordinates = new Vector2(-265 + x * 20, -115 - y * 20);
+            return mapCoordinates;
+        }
+        else
+        {
+            Debug.Log("Error not correct maptype: Function ConvertArrayCoordinates: MapManager");
+            return Vector2.zero;
+        }
     }
 
+    protected void RenderMap()
+    {
+        for (int i = 0; i < mapLayout.GetLength(0); i++)
+        {
+            for (int j = 0; j < mapLayout.GetLength(1); j++)
+            {
+                if (mapLayout[i, j] != 0)
+                {
+                    Vector2 mapCoordinates = ConvertArrayCoordinates(i, j);
+                    ExtensionMethods.InstantiateAtLocalPosition(rooms[mapLayout[i, j]], mapTransform, mapCoordinates);
+                }
+            }
+        }
+    } 
+
+    
 }
