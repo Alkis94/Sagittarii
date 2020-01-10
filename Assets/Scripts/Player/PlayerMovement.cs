@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+
     private const float skinWidth = .015f;
    // public bool drawDebugRaycasts = true;	//Should the environment checks be visualized
 
@@ -14,9 +15,8 @@ public class PlayerMovement : MonoBehaviour
 
 	[Header("Jump Properties")]
 	public float jumpForce = 1;			//Initial force of jump
-	public float hangingJumpForce = 15f;	//Force of wall hanging jumo
 	public float jumpHoldForce = 1.9f;		//Incremental force when jump is held
-	public float jumpHoldDuration = .1f;	//How long the jump key can be held
+    private float jumpExtraPushLimit = 0;   //Helps limit the times the incremental force can be applied
 
 	[Header("Environment Check Properties")]
 	public float footOffset = - 0.065f;			//X Offset of feet raycast
@@ -46,10 +46,15 @@ public class PlayerMovement : MonoBehaviour
     private int animatorIsGrounded_ID;
 
 
+    private void Awake()
+    {
+        input = GetComponent<PlayerInput>();
+    }
+
     void Start ()
 	{
 		//Get a reference to the required components
-		input = GetComponent<PlayerInput>();
+		
 		rigidBody = GetComponent<Rigidbody2D>();
 		bodyCollider = GetComponent<BoxCollider2D>();
         animator = GetComponent<Animator>();
@@ -112,8 +117,7 @@ public class PlayerMovement : MonoBehaviour
 	}
 
 	void GroundMovement()
-	{
-
+    { 
 		//Calculate the desired velocity based on inputs
 		float xVelocity = playerStats.speed * input.horizontal;
 
@@ -124,7 +128,6 @@ public class PlayerMovement : MonoBehaviour
 		if (isOnGround)
         {
             coyoteTime = Time.time + coyoteDuration;
-      
         }
 	}
 
@@ -135,35 +138,38 @@ public class PlayerMovement : MonoBehaviour
         //the player is on the ground or within the coyote time window...
         if (input.jumpPressed && !isJumping && (isOnGround || coyoteTime > Time.time))
 		{
-			//...The player is no longer on the groud and is jumping...
-			isOnGround = false;
+            //...The player is no longer on the groud and is jumping...
+            input.jumpPressed = false;
+            isOnGround = false;
 			isJumping = true;
-
-			//...record the time the player will stop being able to boost their jump...
-			jumpTime = Time.time + jumpHoldDuration;
 
 			//...add the jump force to the rigidbody...
 			rigidBody.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
             playerAudio.PlayJumpSound();
 		}
-		//Otherwise, if currently within the jump time window...
-		else if (isJumping)
-		{
-           
-			//...and the jump button is held, apply an incremental force to the rigidbody...
-			if (input.jumpHeld)
+        //Otherwise, if currently within the jump time window...
+        else if (isJumping)
+        {
+
+            //...and the jump button is held, apply an incremental force to the rigidbody...
+            if (input.jumpHeld && jumpExtraPushLimit < 5)
             {
+                jumpExtraPushLimit++;
                 rigidBody.AddForce(new Vector2(0f, jumpHoldForce), ForceMode2D.Impulse);
             }
-				
 
-			//...and if jump time is past, set isJumping to false
-			if (jumpTime <= Time.time)
-				isJumping = false;
-		}
 
-		//If player is falling to fast, reduce the Y velocity to the max
-		if (rigidBody.velocity.y < maxFallSpeed)
+            //...and if limit is past, set isJumping to false and reset limit
+            if (!input.jumpHeld || jumpExtraPushLimit >= 5)
+            {
+                isJumping = false;
+                jumpExtraPushLimit = 0;
+            }
+               
+        }
+
+        //If player is falling to fast, reduce the Y velocity to the max
+        if (rigidBody.velocity.y < maxFallSpeed)
 			rigidBody.velocity = new Vector2(rigidBody.velocity.x, maxFallSpeed);
 
         if(rigidBody.velocity.y < 0)

@@ -63,7 +63,7 @@ public class PlayerInput : MonoBehaviour
 
         if (Input.GetKeyUp(KeyCode.S))
         {
-            if(boxCollider2D.IsTouchingLayers(collisionMask))
+            if (boxCollider2D.IsTouchingLayers(collisionMask))
             {
                 Debug.Log("Should start coroutine");
                 gameObject.layer = 19; // PlayerNoPlatform Layer
@@ -133,17 +133,14 @@ public class PlayerInput : MonoBehaviour
 
     IEnumerator ReturnToNormalLayer()
     {
-        Debug.Log("Coroutine Started");
         float returnDelay = Time.time + .75f;
         while (true)
         {
-            //Bugged as fuck
+            //we stop the player from being able to jump while falling, so he doesn't bug jump through the platform.
             jumpPressed = false;
             jumpHeld = false;
-            //Debug.Log("CoroutineRunning");
             if (Time.time > returnDelay)
             {
-                Debug.Log("Coroutine Stopped");
                 gameObject.layer = 10; // Player Layer.
                 yield break;
             }

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 40a6ad7bcbcd555479cee7c396464683
+guid: 3300a42151a1c34459a1593435486fde
 TextureImporter:
   fileIDToRecycleName:
     21300000: tileset1_0
@@ -11,14 +11,12 @@ TextureImporter:
     21300012: tileset1_6
     21300014: tileset1_7
     21300016: tileset1_8
-    21300018: CavesIn_0
-    21300020: CavesIn_1
-    21300022: CavesIn_2
-    21300024: CavesIn_3
-    21300026: CavesIn_4
-    21300028: CavesIn_5
-    21300030: CavesIn_6
-    21300032: CavesIn_7
+    21300018: CavesPillarUpDown_0
+    21300020: CavesPillarUpDown_1
+    21300022: CavesPillarUpDown_2
+    21300024: CavesPillarUpDown_3
+    21300026: CavesPillarUpDown_4
+    21300028: CavesPillarUpDown_5
   externalObjects: {}
   serializedVersion: 9
   mipmaps:
@@ -145,7 +143,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: CavesIn_0
+      name: CavesPillarUpDown_0
       rect:
         serializedVersion: 2
         x: 0
@@ -159,33 +157,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 35157133a2c72e446a5c9d7afa1c4f83
+      spriteID: 8ec8040de67110b4c8ed05390c5893c9
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CavesIn_1
-      rect:
-        serializedVersion: 2
-        x: 20
-        y: 40
-        width: 20
-        height: 20
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3e91da743f754004f8fc4ee87cedda66
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: CavesIn_2
+      name: CavesPillarUpDown_1
       rect:
         serializedVersion: 2
         x: 40
@@ -199,13 +177,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 311c5e530e5c5f348b4254d334129cf0
+      spriteID: 52a78723583fd9d43b3ea7de3e8fe373
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CavesIn_3
+      name: CavesPillarUpDown_2
       rect:
         serializedVersion: 2
         x: 0
@@ -219,13 +197,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d7bc52d68cc8a58458792e7a8b0a7168
+      spriteID: 3b1e0dfd54a338949abeb1400888ffb1
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CavesIn_4
+      name: CavesPillarUpDown_3
       rect:
         serializedVersion: 2
         x: 40
@@ -239,13 +217,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 71b392f5a8ab4ac4699ff788dcf4299f
+      spriteID: 769d1f6022d7dd742bf13f1bbb35217f
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CavesIn_5
+      name: CavesPillarUpDown_4
       rect:
         serializedVersion: 2
         x: 0
@@ -259,33 +237,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 64b8e1113d3c5fa45a6ca395fd5f90e8
+      spriteID: 052e30764f010ee41bee2f9d4d82b154
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CavesIn_6
-      rect:
-        serializedVersion: 2
-        x: 20
-        y: 0
-        width: 20
-        height: 20
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3953606214f56a3429b5dbf1165c6da2
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: CavesIn_7
+      name: CavesPillarUpDown_5
       rect:
         serializedVersion: 2
         x: 40
@@ -299,7 +257,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7564dc5b750daea4ca531a845eb4942f
+      spriteID: 96e6b61d3f29cb9499dc52055cf9c64a
       vertices: []
       indices: 
       edges: []
