@@ -337,7 +337,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 47297040, guid: 625f2d7db47a61a4b98a38b6b70c0312, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 12.298693
+      value: 11.398692
       objectReference: {fileID: 0}
     - target: {fileID: 47297040, guid: 625f2d7db47a61a4b98a38b6b70c0312, type: 3}
       propertyPath: m_LocalPosition.z
@@ -349,7 +349,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 256588279, guid: 625f2d7db47a61a4b98a38b6b70c0312, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 12.298693
+      value: 11.398692
       objectReference: {fileID: 0}
     - target: {fileID: 256588279, guid: 625f2d7db47a61a4b98a38b6b70c0312, type: 3}
       propertyPath: m_LocalPosition.z
@@ -364,8 +364,16 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 839325482, guid: 625f2d7db47a61a4b98a38b6b70c0312, type: 3}
+      propertyPath: m_YDamping
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 839325482, guid: 625f2d7db47a61a4b98a38b6b70c0312, type: 3}
       propertyPath: m_ScreenY
-      value: 0.75
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 839325482, guid: 625f2d7db47a61a4b98a38b6b70c0312, type: 3}
+      propertyPath: m_DeadZoneHeight
+      value: 0.05
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 625f2d7db47a61a4b98a38b6b70c0312, type: 3}
@@ -527,6 +535,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1814911171299523150, guid: 805986100c30b064b9956aac9ee45593,
+        type: 3}
+      propertyPath: m_GravityScale
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5060117036905097974, guid: 805986100c30b064b9956aac9ee45593,
         type: 3}
       propertyPath: currentHealth
@@ -536,6 +549,11 @@ PrefabInstance:
         type: 3}
       propertyPath: gold
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 7528320261464877073, guid: 805986100c30b064b9956aac9ee45593,
+        type: 3}
+      propertyPath: jumpForce
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 7528320261464877073, guid: 805986100c30b064b9956aac9ee45593,
         type: 3}

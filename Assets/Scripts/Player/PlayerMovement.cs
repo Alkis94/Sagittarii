@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
 	public float maxFallSpeed = -25f;		//Max speed player can fall
 
 	[Header("Jump Properties")]
-	public float jumpForce = 1;			//Initial force of jump
+	public float jumpForce = 14;			//Initial force of jump
 	public float jumpHoldForce = 1.9f;		//Incremental force when jump is held
     private float jumpExtraPushLimit = 0;   //Helps limit the times the incremental force can be applied
 
@@ -106,14 +106,13 @@ public class PlayerMovement : MonoBehaviour
         if (leftCheck || rightCheck)
         {
             isOnGround = true;
-            if(isFalling)
+            if (isFalling)
             {
                 isFalling = false;
+                
                 playerAudio.PlayGroundImpactSound();
             }
-        }
-        
-            
+        }    
 	}
 
 	void GroundMovement()
