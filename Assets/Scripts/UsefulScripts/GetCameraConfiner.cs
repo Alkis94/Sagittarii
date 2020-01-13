@@ -7,11 +7,11 @@ using Cinemachine;
 public class GetCameraConfiner : MonoBehaviour
 {
     private PolygonCollider2D cameraConfiner;
-    private CinemachineConfiner cinemachineConfinerComponent;
+    private CinemachineConfiner cinemachineConfiner;
 
     private void Awake()
     {
-        cinemachineConfinerComponent = GetComponent<CinemachineConfiner>();
+        cinemachineConfiner = GetComponent<CinemachineConfiner>();
     }
 
     private void Start()
@@ -35,7 +35,8 @@ public class GetCameraConfiner : MonoBehaviour
         if(tempConfiner != null)
         {
             cameraConfiner = tempConfiner.GetComponent<PolygonCollider2D>();
-            cinemachineConfinerComponent.m_BoundingShape2D = cameraConfiner;
+            cinemachineConfiner.m_BoundingShape2D = cameraConfiner;
+            cinemachineConfiner.InvalidatePathCache();
         }
     }
 

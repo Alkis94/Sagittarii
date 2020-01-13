@@ -69,6 +69,7 @@ public class MapManager2 : MonoBehaviour
             mapRooms = forestMapRooms;
             currentMapCoords = forestFirstRoomCoordinates;
 
+            Debug.Log("First Scene: " + mapRooms[forestFirstRoomCoordinates.x, forestFirstRoomCoordinates.y]);
             SceneManager.LoadScene(mapRooms[forestFirstRoomCoordinates.x, forestFirstRoomCoordinates.y]);
             OnRoomChangeRenderMapPart2(Direction.east);
             MoveCurrentPlayerPositionAndCenterMap();
@@ -102,7 +103,6 @@ public class MapManager2 : MonoBehaviour
             MoveCurrentPlayerPositionAndCenterMap();
 
             //RenderMap();
-            //Debug.Log("Scene name: " +mapRooms[caveFirstRoomCoordinates.x, caveFirstRoomCoordinates.y]);
         }
         else if (currentMap == MapType.cave && nextMap == MapType.forest)
         {

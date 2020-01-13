@@ -26,9 +26,9 @@ public class ForestMapCreator : MapCreator
     // Use this for initialization
     void Start()
     {
-        for (int i = 1; i < 4; i++)
+        for (int i = 1; i < 11; i++)
         {
-            forestRooms.Add("TestRoom" + i.ToString());
+            forestRooms.Add("Forest" + i.ToString());
         }
 
         mapRooms = new string[40, 1];
@@ -48,8 +48,8 @@ public class ForestMapCreator : MapCreator
         mapLayout[3, 0] = (int)RoomType.horizontalRoad;
         mapLayout[4, 0] = (int)RoomType.exploredRoom;
         mapLayout[5, 0] = (int)RoomType.horizontalRoad;
-        mapRooms[2, 0] = "TestStartRoom";
-        mapRooms[4, 0] = "TestCaveEntrance";
+        mapRooms[2, 0] = "ForestFirstRoom";
+        mapRooms[4, 0] = "ForestToCave";
         CreatePathToBoss(20, new Vector2Int(6, 0), false, false, false, true);
         int randomNumber;
         for (int i = 6; i < 40; i++)

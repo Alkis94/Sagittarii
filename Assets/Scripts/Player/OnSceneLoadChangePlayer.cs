@@ -73,20 +73,19 @@ public class OnSceneLoadChangePlayer : MonoBehaviour
     {
         if (lastDoorTakenPlacement == Direction.west)
         {
-            newPlayerPositionOnSceneChange = GameObject.FindGameObjectWithTag("DoorEast").transform.position;
+            newPlayerPositionOnSceneChange = GameObject.FindGameObjectWithTag("PlayerSpawnEast").transform.position;
         }
         else if (lastDoorTakenPlacement == Direction.east)
         {
-            newPlayerPositionOnSceneChange = GameObject.FindGameObjectWithTag("DoorWest").transform.position;
+            newPlayerPositionOnSceneChange = GameObject.FindGameObjectWithTag("PlayerSpawnWest").transform.position;
         }
         else if (lastDoorTakenPlacement == Direction.north)
         {
-            newPlayerPositionOnSceneChange = GameObject.FindGameObjectWithTag("DoorSouth").transform.position;
-            newPlayerPositionOnSceneChange = new Vector3(newPlayerPositionOnSceneChange.x, newPlayerPositionOnSceneChange.y + 2, newPlayerPositionOnSceneChange.z);
+            newPlayerPositionOnSceneChange = GameObject.FindGameObjectWithTag("PlayerSpawnSouth").transform.position;
         }
         else if (lastDoorTakenPlacement == Direction.south)
         {
-            newPlayerPositionOnSceneChange = GameObject.FindGameObjectWithTag("DoorNorth").transform.position;
+            newPlayerPositionOnSceneChange = GameObject.FindGameObjectWithTag("PlayerSpawnNorth").transform.position;
         }
     }
 

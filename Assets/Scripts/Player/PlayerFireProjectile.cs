@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using Factories;
 using System;
+using UnityEngine.SceneManagement;
 
 
 public class PlayerFireProjectile : MonoBehaviour
@@ -27,11 +28,20 @@ public class PlayerFireProjectile : MonoBehaviour
     private float timePassedHoldingArrow = 0f;
     private float arrowPower;
 
+    private void OnEnable()
+    {
+        animator = GetComponent<Animator>();
+        SceneManager.sceneLoaded += ResetAnimator;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded += ResetAnimator;
+    }
 
     void Start()
     {
         playerStats = GetComponentInParent<PlayerStats>();
-        animator = GetComponent<Animator>();
         FireArrow = FireArrowSimple;
     }
 
@@ -71,6 +81,11 @@ public class PlayerFireProjectile : MonoBehaviour
     private void FireArrowSimple(GameObject arrowEmitter, GameObject projectile, float projectileSpeed, float projectileDestroyDelay, float arrowPower , int damage)
     {
         ProjectileFactory.CreateProjectile(arrowEmitter.transform.position,  projectile, Vector3.zero, projectileSpeed * arrowPower, projectileDestroyDelay, damage, arrowEmitter.transform.rotation);
+    }
+
+    private void ResetAnimator(Scene whatever, LoadSceneMode mode)
+    {
+        animator.SetTrigger("ResetHands");
     }
 
 }

@@ -34,7 +34,7 @@ public class CaveMapCreator : MapCreator
     protected override void CreateMap()
     {
         mapLayout[10, 0] = (int)RoomType.exploredRoom;
-        mapRooms[10, 0] = "TestCaveFirstRoom";
+        mapRooms[10, 0] = "CaveFirstRoom";
         mapLayout[10, 1] = (int)RoomType.verticalRoad;
         CreatePathToBoss(15,new Vector2Int(10,2),false);
         CreateRandomPaths();
@@ -92,70 +92,70 @@ public class CaveMapCreator : MapCreator
             }
         }
 
-        mapRooms[10, 0] = "TestCaveFirstRoom";
+        mapRooms[10, 0] = "CaveFirstRoom";
     }
 
     private string ReturnCorrectRoom(bool north,bool south,bool east,bool west)
     {
         if(north && south && east && west)
         {
-            return "TestCaveAllFour";
+            return "CaveAllFour";
         }
         else if (north && south && !east && west)
         {
-            return "TestCaveNoEast";
+            return "CaveNoEast";
         }
         else if (north && south && east && !west)
         {
-            return "TestCaveNoWest";
+            return "CaveNoWest";
         }
         else if (!north && south && east && west)
         {
-            return "TestCaveNoNorth";
+            return "CaveNoNorth";
         }
         else if (north && !south && east && west)
         {
-            return "TestCaveNoSouth";
+            return "CaveNoSouth";
         }
         else if (north && !south && !east && !west)
         {
-            return "TestCaveNorth";
+            return "CaveNorth";
         }
         else if (!north && south && !east && !west)
         {
-            return "TestCaveSouth";
+            return "CaveSouth";
         }
         else if (!north && !south && !east && west)
         {
-            return "TestCaveWest";
+            return "CaveWest";
         }
         if (!north && !south && east && !west)
         {
-            return "TestCaveEast";
+            return "CaveEast";
         }
         else if (north && !south && east && !west)
         {
-            return "TestCaveNorthEast";
+            return "CaveNorthEast";
         }
         else if (north && south && !east && !west)
         {
-            return "TestCaveNorthSouth";
+            return "CaveNorthSouth";
         }
         else if (north && !south && !east && west)
         {
-            return "TestCaveNorthWest";
+            return "CaveNorthWest";
         }
         else if (!north && south && east && !west)
         {
-            return "TestCaveSouthEast";
+            return "CaveSouthEast";
         }
         else if (!north && south && !east && west)
         {
-            return "TestCaveSouthWest";
+            return "CaveSouthWest";
         }
         else if (!north && !south && east && west)
         {
-            return "TestCaveEastWest";
+            return "CaveEastWest";
         }
         else
         {

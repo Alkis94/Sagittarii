@@ -89,7 +89,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collisionMask:
     serializedVersion: 2
-    m_Bits: 131328
+    m_Bits: 1179904
 --- !u!1 &2778422067885702636
 GameObject:
   m_ObjectHideFlags: 0
@@ -424,6 +424,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deathCry: {fileID: 8300000, guid: 6453350a75ca85c40acf284ab12054a3, type: 3}
+  criticalCollider: {fileID: 0}
   hasBlood: 1
   enemyDestroyDelay: 10
 --- !u!114 &6757743525015241999
