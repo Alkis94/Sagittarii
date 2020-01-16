@@ -28,15 +28,19 @@ public class PlayerFireProjectile : MonoBehaviour
     private float timePassedHoldingArrow = 0f;
     private float arrowPower;
 
-    private void OnEnable()
+    private void Awake()
     {
         animator = GetComponent<Animator>();
+    }
+
+    private void OnEnable()
+    {
         SceneManager.sceneLoaded += ResetAnimator;
     }
 
     private void OnDisable()
     {
-        SceneManager.sceneLoaded += ResetAnimator;
+        SceneManager.sceneLoaded -= ResetAnimator;
     }
 
     void Start()
@@ -83,9 +87,12 @@ public class PlayerFireProjectile : MonoBehaviour
         ProjectileFactory.CreateProjectile(arrowEmitter.transform.position,  projectile, Vector3.zero, projectileSpeed * arrowPower, projectileDestroyDelay, damage, arrowEmitter.transform.rotation);
     }
 
-    private void ResetAnimator(Scene whatever, LoadSceneMode mode)
+    private void ResetAnimator(Scene scene, LoadSceneMode mode)
     {
-        animator.SetTrigger("ResetHands");
+        if(scene.name != "Town")
+        {
+            animator.SetTrigger("ResetHands");
+        }
     }
 
 }

@@ -19,6 +19,9 @@ public class EnemyDeath : MonoBehaviour
     private AudioSource audioSource;
     private EnemyBrain enemyBrain;
     private AdvancedEnemyBrain advancedEnemyBrain;
+    private Transform arrow;
+    
+
 
     [SerializeField]
     private AudioClip deathCry;
@@ -33,11 +36,9 @@ public class EnemyDeath : MonoBehaviour
     private float damageDropRate = 0.01f;
     [SerializeField]
     private bool hasBlood = true;
+    bool criticalDeath = false;
     [SerializeField]
-    private float enemyDestroyDelay = 10f;
-
-
-
+    //private float enemyDestroyDelay = 10f;
 
     private void OnEnable()
     {
@@ -49,13 +50,13 @@ public class EnemyDeath : MonoBehaviour
         }
 
         enemyGotShot = GetComponentInChildren<EnemyGotShot>();
-        enemyGotShot.OnDeath += NormallDeath;
+        enemyGotShot.OnDeath += Die;
         enemyGotShot.OnCriticalDeath += CriticalDeath;
     }
 
     private void OnDisable()
     {
-        enemyGotShot.OnDeath -= NormallDeath;
+        enemyGotShot.OnDeath -= Die;
         enemyGotShot.OnCriticalDeath -= CriticalDeath;
     }
 
@@ -74,22 +75,10 @@ public class EnemyDeath : MonoBehaviour
 
     private void CriticalDeath(Transform arrow)
     {
-
-        if(enemyData.amputation)
-        {
-            criticalCollider.transform.parent = arrow;
-            criticalCollider.GetComponent<SpriteRenderer>().enabled = true;
-        }
-
-        animator.SetTrigger("DieCritical");
-        Die();
+        criticalDeath = true;
+        this.arrow = arrow;
     }
-
-    private void NormallDeath()
-    {
-        animator.SetTrigger("Die");
-        Die();
-    }
+  
 
     private void Die()
     {
@@ -98,8 +87,22 @@ public class EnemyDeath : MonoBehaviour
             Instantiate(bloodSplat, transform.position, Quaternion.identity);
         }
 
-        
-        Destroy(gameObject, enemyDestroyDelay + animator.GetCurrentAnimatorStateInfo(0).length);
+        if(criticalDeath)
+        {
+            if (enemyData.amputation)
+            {
+                criticalCollider.transform.parent = arrow;
+                criticalCollider.GetComponent<SpriteRenderer>().enabled = true;
+            }
+
+            animator.SetTrigger("DieCritical");
+        }
+        else
+        {
+            animator.SetTrigger("Die");
+        }
+
+        //Destroy(gameObject, enemyDestroyDelay + animator.GetCurrentAnimatorStateInfo(0).length);
         rigidbody2d.gravityScale = 1;
         spriteRenderer.sortingLayerName = "DeadEnemies";
         gameObject.layer = 14;

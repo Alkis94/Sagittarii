@@ -48,6 +48,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
+        //Debug.Log(MapType.cave);
         input = GetComponent<PlayerInput>();
     }
 

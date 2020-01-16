@@ -4,10 +4,9 @@ using System.Collections.Generic;
 
 public class CaveMapCreator : MapCreator
 {
-    //private Vector2Int startingRoom = new Vector2Int(10, 0);
-
-
     private static CaveMapCreator instance = null;
+    private Vector2Int bossRoomCoordinates;
+
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -20,6 +19,7 @@ public class CaveMapCreator : MapCreator
         }
 
     }
+
 
     // Use this for initialization
     void Start()
@@ -36,7 +36,7 @@ public class CaveMapCreator : MapCreator
         mapLayout[10, 0] = (int)RoomType.exploredRoom;
         mapRooms[10, 0] = "CaveFirstRoom";
         mapLayout[10, 1] = (int)RoomType.verticalRoad;
-        CreatePathToBoss(15,new Vector2Int(10,2),false);
+        bossRoomCoordinates = CreatePathToBoss(15,new Vector2Int(10,2),false);
         CreateRandomPaths();
         CreateRandomSmallPaths();
         AssignRooms();
@@ -53,37 +53,11 @@ public class CaveMapCreator : MapCreator
         {
             for (int j = 0; j < mapLayout.GetLength(1); j++)
             {
+                //mapLayout[i, j] > 2 check means that inside the mapLayout there is a room, not a road or no room.
                 if (mapLayout[i, j] > 2)
                 {
-                    if(j > 0)
-                    {
-                        if (mapLayout[i, j - 1] > 0)
-                        {
-                            north = true;
-                        }
-                    }
-                    if(j < mapLayout.GetLength(1))
-                    {
-                        if (mapLayout[i, j + 1] > 0)
-                        {
-                            south = true;
-                        }
-                    }
-                    if (i > 0)
-                    {
-                        if (mapLayout[i - 1, j] > 0)
-                        {
-                            west = true;
-                        }
-                    }
-                    if (i < mapLayout.GetLength(0))
-                    {
-                        if (mapLayout[i + 1, j] > 0)
-                        {
-                            east = true;
-                        }
-                    }
-                    mapRooms[i, j] = ReturnCorrectRoom(north, south, east, west);
+                    FindConnectedRoadDirections(ref north,ref south,ref east,ref west, i, j);
+                    mapRooms[i, j] = ReturnCorrectRoom(north, south, east, west, MapType.cave);
                     north = false;
                     south = false;
                     east = false;
@@ -91,83 +65,18 @@ public class CaveMapCreator : MapCreator
                 }
             }
         }
-
         mapRooms[10, 0] = "CaveFirstRoom";
+        AssignBossRoom();
     }
 
-    private string ReturnCorrectRoom(bool north,bool south,bool east,bool west)
+    private void AssignBossRoom()
     {
-        if(north && south && east && west)
-        {
-            return "CaveAllFour";
-        }
-        else if (north && south && !east && west)
-        {
-            return "CaveNoEast";
-        }
-        else if (north && south && east && !west)
-        {
-            return "CaveNoWest";
-        }
-        else if (!north && south && east && west)
-        {
-            return "CaveNoNorth";
-        }
-        else if (north && !south && east && west)
-        {
-            return "CaveNoSouth";
-        }
-        else if (north && !south && !east && !west)
-        {
-            return "CaveNorth";
-        }
-        else if (!north && south && !east && !west)
-        {
-            return "CaveSouth";
-        }
-        else if (!north && !south && !east && west)
-        {
-            return "CaveWest";
-        }
-        if (!north && !south && east && !west)
-        {
-            return "CaveEast";
-        }
-        else if (north && !south && east && !west)
-        {
-            return "CaveNorthEast";
-        }
-        else if (north && south && !east && !west)
-        {
-            return "CaveNorthSouth";
-        }
-        else if (north && !south && !east && west)
-        {
-            return "CaveNorthWest";
-        }
-        else if (!north && south && east && !west)
-        {
-            return "CaveSouthEast";
-        }
-        else if (!north && south && !east && west)
-        {
-            return "CaveSouthWest";
-        }
-        else if (!north && !south && east && west)
-        {
-            return "CaveEastWest";
-        }
-        else
-        {
-            return "NoRoomError";
-        }
+        bool north = false;
+        bool south = false;
+        bool east = false;
+        bool west = false;
+        FindConnectedRoadDirections(ref north, ref south, ref east, ref west, bossRoomCoordinates.x, bossRoomCoordinates.y);
+        mapRooms[bossRoomCoordinates.x, bossRoomCoordinates.y] = ReturnCorrectRoom(north, south, east, west,MapType.cave);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.tag == "Player")
-        {
-            
-        }
-    }
 }

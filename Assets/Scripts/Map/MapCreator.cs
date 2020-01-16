@@ -109,12 +109,13 @@ public abstract class MapCreator : MonoBehaviour
         }
     }
 
-    protected void CreatePathToBoss(int pathSize, Vector2Int pathStartingRoom, bool directRoadNorth = true, bool directRoadSouth = true, bool directRoadWest = true, bool directRoadEast = true)
+    protected Vector2Int CreatePathToBoss(int pathSize, Vector2Int pathStartingRoom, bool directRoadNorth = true, bool directRoadSouth = true, bool directRoadWest = true, bool directRoadEast = true)
     {
         CreatePath(pathSize, pathStartingRoom, directRoadNorth, directRoadSouth, directRoadWest, directRoadEast);
         Vector2Int bossRoomCoordinates = unexploredRoomArrayCoordinates[unexploredRoomArrayCoordinates.Count - 1];
         unexploredRoomArrayCoordinates.RemoveAt(unexploredRoomArrayCoordinates.Count - 1);
         mapLayout[bossRoomCoordinates.x, bossRoomCoordinates.y] = (int)RoomType.bossRoom;
+        return bossRoomCoordinates;
     }
 
     protected void CreateRandomPaths()
@@ -133,6 +134,145 @@ public abstract class MapCreator : MonoBehaviour
                 CreatePath(randomRoadLength, randomUnexploredRoom);
                 i++;
             }
+        }
+    }
+
+    protected void FindConnectedRoadDirections(ref bool north, ref bool south, ref bool east, ref bool west, int coordinatesX, int coordinatesY)
+    {
+        if (coordinatesY > 0)
+        {
+            if (mapLayout[coordinatesX, coordinatesY - 1] > 0)
+            {
+                north = true;
+            }
+        }
+        if (coordinatesY < mapLayout.GetLength(1))
+        {
+            if (mapLayout[coordinatesX, coordinatesY + 1] > 0)
+            {
+                south = true;
+            }
+        }
+        if (coordinatesX > 0)
+        {
+            if (mapLayout[coordinatesX - 1, coordinatesY] > 0)
+            {
+                west = true;
+            }
+        }
+        if (coordinatesX < mapLayout.GetLength(0))
+        {
+            if (mapLayout[coordinatesX + 1, coordinatesY] > 0)
+            {
+                east = true;
+            }
+        }
+    }
+
+    protected string ReturnCorrectRoom(bool north, bool south, bool east, bool west, MapType mapType)
+    {
+        string roomPrefix = "";
+
+        if (mapType == MapType.cave)
+        {
+            roomPrefix = "Cave";
+        }
+
+
+        if (north && south && east && west)
+        {
+            return roomPrefix + "AllFour";
+        }
+        else if (north && south && !east && west)
+        {
+            return roomPrefix + "NoEast";
+        }
+        else if (north && south && east && !west)
+        {
+            return roomPrefix + "NoWest";
+        }
+        else if (!north && south && east && west)
+        {
+            return roomPrefix + "NoNorth";
+        }
+        else if (north && !south && east && west)
+        {
+            return roomPrefix + "NoSouth";
+        }
+        else if (north && !south && !east && !west)
+        {
+            return roomPrefix + "North";
+        }
+        else if (!north && south && !east && !west)
+        {
+            return roomPrefix + "South";
+        }
+        else if (!north && !south && !east && west)
+        {
+            return roomPrefix + "West";
+        }
+        if (!north && !south && east && !west)
+        {
+            return roomPrefix + "East";
+        }
+        else if (north && !south && east && !west)
+        {
+            return roomPrefix + "NorthEast";
+        }
+        else if (north && south && !east && !west)
+        {
+            return roomPrefix + "NorthSouth";
+        }
+        else if (north && !south && !east && west)
+        {
+            return roomPrefix + "NorthWest";
+        }
+        else if (!north && south && east && !west)
+        {
+            return roomPrefix + "SouthEast";
+        }
+        else if (!north && south && !east && west)
+        {
+            return roomPrefix + "SouthWest";
+        }
+        else if (!north && !south && east && west)
+        {
+            return roomPrefix + "EastWest";
+        }
+        else
+        {
+            return "NoRoomError";
+        }
+    }
+
+    protected string ReturnCorrectBossRoom(bool north, bool south, bool east, bool west, MapType mapType)
+    {
+        string roomPrefix = "";
+
+        if (mapType == MapType.cave)
+        {
+            roomPrefix = "Cave";
+        }
+
+        if (north)
+        {
+            return roomPrefix + "BossNorth";
+        }
+        else if (south)
+        {
+            return roomPrefix + "BossSouth";
+        }
+        else if (east)
+        {
+            return roomPrefix + "BossEast";
+        }
+        else if (west)
+        {
+            return roomPrefix + "BossWest";
+        }
+        else
+        {
+            return "Error boss room not found!";
         }
     }
 

@@ -4,8 +4,8 @@ using UnityEngine;
 public class EnemyGotShot : MonoBehaviour
 {
 
-    public event Action OnDeath = delegate { };
     public event Action<Transform> OnCriticalDeath = delegate { };
+    public event Action OnDeath = delegate { };
     private EnemyData enemyData;
     private CircleCollider2D circleCollider2D;
 
@@ -21,23 +21,27 @@ public class EnemyGotShot : MonoBehaviour
         {
             if (enemyData.damageable)
             {
+                bool criticalHit = false;
 
                 if (other.GetComponent<PlayerProjectileImpact>().criticalHit)
                 {
                     enemyData.health -= other.GetComponent<Projectile>().Damage * 3;
-                    if (enemyData.health <= 0)
-                    {
-                        OnCriticalDeath?.Invoke(other.transform);
-                    }
+                    criticalHit = true;
                 }
                 else
                 {
                     enemyData.health -= other.GetComponent<Projectile>().Damage;
-                    if (enemyData.health <= 0)
-                    {
-                        OnDeath?.Invoke();
-                    }
                 }
+
+                if (enemyData.health <= 0)
+                {
+                    if(criticalHit)
+                    {
+                        OnCriticalDeath?.Invoke(other.transform);
+                    }
+                    OnDeath?.Invoke();
+                }
+
             }
 
         }

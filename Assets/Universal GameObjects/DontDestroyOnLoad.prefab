@@ -34,7 +34,9 @@ MonoBehaviour:
   - {fileID: 9018862760716893072, guid: ff02910f1bf0dad4ab83f3d172d4fee9, type: 3}
   - {fileID: 9018862760716893072, guid: a044dc4baec8ee746ae869a24802096d, type: 3}
   mapTransform: {fileID: 243823774985630816}
-  playerCurrentMapLocation: {fileID: 9018862760716893072, guid: 4efb2f40a68fe454ba4782029c988f6c,
+  playerCurrentMapLocationPrefab: {fileID: 9018862760716893072, guid: 4efb2f40a68fe454ba4782029c988f6c,
+    type: 3}
+  townIcon: {fileID: 9018862760716893072, guid: ade00e2a112bc824aa548aae28d6470a,
     type: 3}
 --- !u!1 &1484116343011580
 GameObject:
@@ -710,22 +712,32 @@ PrefabInstance:
     - target: {fileID: 3288257240236220838, guid: 0f25f370f7d653749b16b4e24b59369f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.000025091418
+      value: -1.4
       objectReference: {fileID: 0}
     - target: {fileID: 3288257240236220838, guid: 0f25f370f7d653749b16b4e24b59369f,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.000018569255
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3288257240236220838, guid: 0f25f370f7d653749b16b4e24b59369f,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 302.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3288257240236220838, guid: 0f25f370f7d653749b16b4e24b59369f,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 166
       objectReference: {fileID: 0}
     - target: {fileID: 2373524327448788508, guid: 0f25f370f7d653749b16b4e24b59369f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.000024785713
+      value: -2.5
       objectReference: {fileID: 0}
     - target: {fileID: 2373524327448788508, guid: 0f25f370f7d653749b16b4e24b59369f,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.0000061964283
+      value: 6.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0f25f370f7d653749b16b4e24b59369f, type: 3}
