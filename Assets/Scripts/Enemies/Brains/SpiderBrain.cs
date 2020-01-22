@@ -11,6 +11,8 @@ public class SpiderBrain : EnemyBrain
     private MovementPattern movementPattern;
     private AttackPattern attackPattern;
     private AudioSource audioSource;
+    [SerializeField]
+    private GameObject web;
 
     protected override void Awake()
     {
@@ -21,6 +23,7 @@ public class SpiderBrain : EnemyBrain
     protected override void OnEnable()
     {
         base.OnEnable();
+        Instantiate(web, transform.position, Quaternion.identity);
     }
 
     protected override void OnDisable()
@@ -30,6 +33,7 @@ public class SpiderBrain : EnemyBrain
 
     protected override void Start()
     {
+        
         audioSource = GetComponent<AudioSource>();
         animator = GetComponent<Animator>();
         InvokeRepeating("Attack", enemyData.delayBeforeFirstAttack, enemyData.attackFrequencies[0]);

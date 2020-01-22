@@ -3,19 +3,21 @@ using System.Collections;
 
 public class EnemiesSerializer : MonoBehaviour
 {
-
+    [HideInInspector]
     public MapType mapType;
-    public string sceneKey;
+    [HideInInspector]
+    public string roomKey;
 
-    private void Awake()
+    private void Start()
     {
         int i = 0;
-        foreach(GameObject gameObject in transform)
+        foreach(Transform child in transform)
         {
-            EnemyLoader enemyLoader = gameObject.GetComponent<EnemyLoader>();
+            EnemyLoader enemyLoader = child.GetComponent<EnemyLoader>();
             enemyLoader.enemyKey = i;
             enemyLoader.mapType = mapType;
-            enemyLoader.sceneKey = sceneKey;
+            enemyLoader.roomKey = roomKey;
+            enemyLoader.LoadEnemy();
             i += 1;
         }
     }

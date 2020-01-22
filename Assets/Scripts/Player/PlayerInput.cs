@@ -6,6 +6,7 @@ using Factories;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using System;
 
 
 //We first ensure this script runs before all other player scripts to prevent laggy
@@ -13,6 +14,7 @@ using System.Collections;
 [DefaultExecutionOrder(-100)]
 public class PlayerInput : MonoBehaviour
 {
+    public static event Action DoorEntered = delegate { };
 
     public GameObject map;
 
@@ -21,8 +23,8 @@ public class PlayerInput : MonoBehaviour
 	[HideInInspector] public bool jumpPressed;		//Bool that stores jump held
 
 	private bool readyToClear;                              //Bool used to keep input in sync
-    private const float teleportCastTime = 3;
-    private float teleportTimeCasted = 0;
+    //private const float teleportCastTime = 3;
+    //private float teleportTimeCasted = 0;
 
     private BoxCollider2D boxCollider2D;
     [SerializeField]
@@ -56,10 +58,23 @@ public class PlayerInput : MonoBehaviour
             MenuFactory.DestroyMenuAndUnpause();
         }
 
-        if(Input.GetKeyUp(KeyCode.F))
-        {
-            teleportTimeCasted = 0;
-        }
+        //if(Input.GetKeyUp(KeyCode.F))
+        //{
+        //    teleportTimeCasted = 0;
+        //}
+
+        //if (Input.GetKey(KeyCode.F))
+        //{
+        //    teleportTimeCasted += Time.deltaTime;
+        //    if (teleportCastTime <= teleportTimeCasted)
+        //    {
+        //        teleportTimeCasted = 0;
+        //        if (SceneManager.GetActiveScene().name != "Town")
+        //        {
+        //            SceneManager.LoadScene("Town");
+        //        }
+        //    }
+        //}
 
         if (Input.GetKeyUp(KeyCode.S))
         {
@@ -70,20 +85,13 @@ public class PlayerInput : MonoBehaviour
             }
         }
 
-        if (Input.GetKey(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.W))
         {
-            teleportTimeCasted += Time.deltaTime;
-            if (teleportCastTime <= teleportTimeCasted)
-            {
-                teleportTimeCasted = 0;
-                if (SceneManager.GetActiveScene().name != "Town")
-                {
-                    SceneManager.LoadScene("Town");
-                }
-            }
+            DoorEntered?.Invoke();
         }
 
-        if (Input.GetKeyDown(KeyCode.M))
+
+            if (Input.GetKeyDown(KeyCode.M))
         {
             map.SetActive(!map.activeInHierarchy);
         }

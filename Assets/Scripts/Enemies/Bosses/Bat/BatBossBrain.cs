@@ -92,7 +92,7 @@ public class BatBossBrain : AdvancedEnemyBrain
     private void UpdateCollisionTracker()
     {
         collisionTracker.collisions.Reset();
-        collisionTracker.TrackHorizontalCollisions(horizontalDirection);
+        collisionTracker.TrackHorizontalCollisions();
         collisionTracker.TrackVerticalCollisions(rigidbody2d.velocity.y);
     }
 

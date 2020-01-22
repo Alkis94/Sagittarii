@@ -262,6 +262,7 @@ GameObject:
   - component: {fileID: 3054776419552895604}
   - component: {fileID: 3054776419552895605}
   - component: {fileID: 3054776419552895606}
+  - component: {fileID: 519184866756575959}
   m_Layer: 12
   m_Name: Bear
   m_TagString: Enemy
@@ -365,7 +366,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.4
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -374,7 +375,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 50
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -523,7 +524,6 @@ MonoBehaviour:
   deathCry: {fileID: 8300000, guid: 6b4f050e74182454f8824328041ec75c, type: 3}
   criticalCollider: {fileID: 3054776419035273200}
   hasBlood: 1
-  enemyDestroyDelay: 10
 --- !u!114 &3054776419552895604
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -564,3 +564,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7aca9d8ff8ab559438987759caa9d2d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &519184866756575959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3054776419552895565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2964bbbfeb949f346a27dfc029e23b14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deadEnemySprite: {fileID: 21300020, guid: a29038ef1f8bb1c4f855cc5838695478, type: 3}
+  criticalDeathEnemySprite: {fileID: 21300016, guid: cf4a6e4ce5949a14489278c3c260782e,
+    type: 3}
+  enemyKey: 0
+  roomKey: 
+  mapType: 0

@@ -9,8 +9,9 @@ public class SimpleGroundEnemyBrain : EnemyBrain
     private AttackPattern attackPattern;
     private CollisionTracker collisionTracker;
     private Rigidbody2D rigidbody2d;
+    private EnemyLoader enemyLoader;
 
-    private int horizontalDirection = 1;
+    //private int horizontalDirection = 1;
     private int animatorVelocityY_ID;
     private int animatorIsGrounded_ID;
 
@@ -56,12 +57,12 @@ public class SimpleGroundEnemyBrain : EnemyBrain
         if (enemyData.health > 0)
         {
             collisionTracker.collisions.Reset();
-            collisionTracker.TrackHorizontalCollisions(horizontalDirection);
+            collisionTracker.TrackHorizontalCollisions();
             collisionTracker.TrackVerticalCollisions(rigidbody2d.velocity.y);
             HandleWalkingAnimation();
 
 
-            if ((collisionTracker.collisions.left || collisionTracker.collisions.right || collisionTracker.CloseToGroundEdge(horizontalDirection)) && Time.time > cannotChangeDirectionTime)
+            if ((collisionTracker.collisions.left || collisionTracker.collisions.right || collisionTracker.CloseToGroundEdge()) && Time.time > cannotChangeDirectionTime)
             {
                 cannotChangeDirectionTime = Time.time + 0.1f;
                 ChangeHorizontalDirection();
@@ -93,13 +94,13 @@ public class SimpleGroundEnemyBrain : EnemyBrain
         //Gets called from animation
         if (collisionTracker.collisions.below)
         {
-            enemyGroundMovement.Jump(horizontalDirection);
+            enemyGroundMovement.Jump();
         }
     }
 
     protected override void ChangeHorizontalDirection()
     {
-        horizontalDirection *= -1;
+        //horizontalDirection *= -1;
         enemyGroundMovement.ChangeHorizontalDirection();
     }
 

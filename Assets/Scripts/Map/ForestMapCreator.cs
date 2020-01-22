@@ -44,9 +44,9 @@ public class ForestMapCreator : MapCreator
         
         mapLayout[0, 0] = (int)RoomType.horizontalRoad;
         mapLayout[1, 0] = (int)RoomType.horizontalRoad;
-        mapLayout[2, 0] = (int)RoomType.exploredRoom;
+        mapLayout[2, 0] = (int)RoomType.normalRoom;
         mapLayout[3, 0] = (int)RoomType.horizontalRoad;
-        mapLayout[4, 0] = (int)RoomType.exploredRoom;
+        mapLayout[4, 0] = (int)RoomType.normalRoom;
         mapLayout[5, 0] = (int)RoomType.horizontalRoad;
         mapRooms[2, 0] = "ForestFirstRoom";
         mapRooms[4, 0] = "ForestToCave";
@@ -54,7 +54,7 @@ public class ForestMapCreator : MapCreator
         int randomNumber;
         for (int i = 6; i < 40; i++)
         {
-            if(mapLayout[i,0] == (int)RoomType.unexploredRoom)
+            if(mapLayout[i,0] == (int)RoomType.normalRoom)
             {
                 randomNumber = Random.Range(0, forestRooms.Count);
                 mapRooms[i, 0] = forestRooms[randomNumber];

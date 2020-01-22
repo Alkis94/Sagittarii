@@ -51,16 +51,20 @@ public class MapManager : MonoBehaviour
 
     private void OnEnable()
     {
+        SceneManager.sceneLoaded += OnSceneLoaded;
         RoomChanger.OnRoomChangerEntered += ChangeRoom;
         MapChanger.OnMapChangerEntered += ChangeMap;
         MapCreator.OnMapCreated += GetMap;
+        Door.DoorEntered += OnDoorEntered;
     }
 
     private void OnDisable()
     {
+        SceneManager.sceneLoaded += OnSceneLoaded;
         RoomChanger.OnRoomChangerEntered -= ChangeRoom;
         MapChanger.OnMapChangerEntered -= ChangeMap;
         MapCreator.OnMapCreated -= GetMap;
+        Door.DoorEntered += OnDoorEntered;
     }
 
     private void Start()
@@ -74,9 +78,14 @@ public class MapManager : MonoBehaviour
         if (nextMap == MapType.town)
         {
             this.currentMap = MapType.town;
-            //currentMapCoords = new Vector2Int(-1, 0);
             SceneManager.LoadScene("Town");
             ResetMap();
+            if(ES3.DirectoryExists(("Levels/")))
+            {
+                Debug.Log("Should Delete Folder");
+                ES3.DeleteDirectory("Levels/");
+                ES3.DeleteDirectory("Levels/");
+            }
         }
         else if (currentMap == MapType.town && nextMap == MapType.forest)
         {
@@ -127,6 +136,7 @@ public class MapManager : MonoBehaviour
 
     private void ChangeRoom(Direction doorPlacement)
     {
+
         Vector2Int previousMapCoords = currentMapCoords;
 
         if (doorPlacement == Direction.west)
@@ -145,7 +155,7 @@ public class MapManager : MonoBehaviour
         {
             currentMapCoords = new Vector2Int(currentMapCoords.x, currentMapCoords.y + 2);
         }
-
+      
         if (mapRooms[currentMapCoords.x, currentMapCoords.y] != null)
         {
             SceneManager.LoadScene(mapRooms[currentMapCoords.x, currentMapCoords.y]);
@@ -154,9 +164,20 @@ public class MapManager : MonoBehaviour
         }
         else
         {
-            //if we didn't change room for some reason we revert to old current map coords
-            Debug.Log("Room Not Found");
+            Debug.LogError("Room Not Found");
             currentMapCoords = previousMapCoords;
+        }
+    }
+
+    private void OnDoorEntered(string levelToLoad)
+    {
+        if (levelToLoad == "LastRoom")
+        {
+            SceneManager.LoadScene(mapRooms[currentMapCoords.x, currentMapCoords.y]);
+        }
+        else
+        {
+            SceneManager.LoadScene(levelToLoad);
         }
     }
 
@@ -323,7 +344,10 @@ public class MapManager : MonoBehaviour
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         EnemiesSerializer enemiesSerializer = FindObjectOfType<EnemiesSerializer>();
-        enemiesSerializer.mapType = currentMap;
-        enemiesSerializer.sceneKey = currentMapCoords.x.ToString() + currentMapCoords.y.ToString();
+        if(enemiesSerializer != null)
+        {
+            enemiesSerializer.mapType = currentMap;
+            enemiesSerializer.roomKey = currentMapCoords.x.ToString() + currentMapCoords.y.ToString();
+        }
     }
 }

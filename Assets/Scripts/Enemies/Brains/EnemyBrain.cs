@@ -16,14 +16,12 @@ public abstract class  EnemyBrain : MonoBehaviour
 
     protected virtual void OnEnable()
     {
-        enemyGotShot.OnDeath += CancelInvoke;
-        enemyGotShot.OnDeath += StopAllCoroutines;
+        enemyGotShot.OnDeath += OnEnemyDiedStopAll;
     }
 
     protected virtual void OnDisable()
     {
-        enemyGotShot.OnDeath -= CancelInvoke;
-        enemyGotShot.OnDeath -= StopAllCoroutines;
+        enemyGotShot.OnDeath -= OnEnemyDiedStopAll;
     }
 
     protected virtual void Awake()
@@ -62,5 +60,11 @@ public abstract class  EnemyBrain : MonoBehaviour
         {
             ChangeHorizontalDirection();
         }
+    }
+
+    protected void OnEnemyDiedStopAll(Transform arrow,bool criticalDeath)
+    {
+        CancelInvoke();
+        StopAllCoroutines();
     }
 }

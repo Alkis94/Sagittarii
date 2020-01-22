@@ -166,6 +166,7 @@ GameObject:
   - component: {fileID: 6757743525015241999}
   - component: {fileID: 6725544850637037678}
   - component: {fileID: 879409717}
+  - component: {fileID: 6205051828286625437}
   m_Layer: 12
   m_Name: Wolf
   m_TagString: Enemy
@@ -289,7 +290,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.25
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -426,7 +427,6 @@ MonoBehaviour:
   deathCry: {fileID: 8300000, guid: 6453350a75ca85c40acf284ab12054a3, type: 3}
   criticalCollider: {fileID: 0}
   hasBlood: 1
-  enemyDestroyDelay: 10
 --- !u!114 &6757743525015241999
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -469,3 +469,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7aca9d8ff8ab559438987759caa9d2d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6205051828286625437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3457750228986333725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2964bbbfeb949f346a27dfc029e23b14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deadEnemySprite: {fileID: 21300012, guid: be6d8a4cbaf5ed744b655cfe74861e9f, type: 3}
+  criticalDeathEnemySprite: {fileID: 0}
+  enemyKey: 0
+  roomKey: 
+  mapType: 0

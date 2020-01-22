@@ -4,14 +4,12 @@ using UnityEngine;
 
 public class PlayerLookAtMouse : MonoBehaviour
 {
-    private BoxCollider2D boxCollider2d;
     private Vector3 mousePosition;
     private PlayerStats playerStats;
 
 
     private void Start()
     {
-        boxCollider2d = GetComponent<BoxCollider2D>();
         playerStats = GetComponent<PlayerStats>();
     }
 

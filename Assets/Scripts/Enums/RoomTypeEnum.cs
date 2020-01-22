@@ -11,8 +11,7 @@
 
     //These type of rooms should be only assigned in even numbers on map arrays
 
-    exploredRoom,
-    unexploredRoom,
+    normalRoom,
     bossRoom,
     treasureRoom,
     challengeRoom

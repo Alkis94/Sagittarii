@@ -14,8 +14,10 @@ public class CollisionTracker : MonoBehaviour
         raycaster = GetComponent<Raycaster>();
     }
 
-    public void TrackHorizontalCollisions(int horizontalDirection)
+    public void TrackHorizontalCollisions()
     {
+        int horizontalDirection = transform.parent.localRotation.y == 0 ? 1 : -1;
+
         int directionX = (int) Mathf.Sign(horizontalDirection);
         float rayLength =  3*Raycaster.skinWidth;
 
@@ -57,9 +59,11 @@ public class CollisionTracker : MonoBehaviour
         }
     }
 
-    public bool CloseToGroundEdge(float velocityX)
+    public bool CloseToGroundEdge()
     {
         float rayLength = 2 * Raycaster.skinWidth;
+
+        int horizontalDirection = transform.parent.localRotation.y == 0 ? 1 : -1;
 
         Vector2 rayOrigin = raycaster.raycastOrigins.bottomLeft;
         RaycastHit2D FirstRayHit = Physics2D.Raycast(rayOrigin, -Vector2.up, rayLength, collisionMask);
@@ -70,11 +74,11 @@ public class CollisionTracker : MonoBehaviour
         RaycastHit2D LastRayHit = Physics2D.Raycast(rayOrigin, -Vector2.up, rayLength, collisionMask);
         //Debug.DrawRay(rayOrigin, -Vector2.up, Color.red);
 
-        if (FirstRayHit.distance > LastRayHit.distance && velocityX > 0)
+        if (FirstRayHit.distance > LastRayHit.distance && horizontalDirection > 0)
         {
             return true;
         }
-        else if (FirstRayHit.distance < LastRayHit.distance && velocityX < 0)
+        else if (FirstRayHit.distance < LastRayHit.distance && horizontalDirection < 0)
         {
             return true;
         }

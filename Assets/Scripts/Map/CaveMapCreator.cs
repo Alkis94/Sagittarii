@@ -33,13 +33,14 @@ public class CaveMapCreator : MapCreator
 
     protected override void CreateMap()
     {
-        mapLayout[10, 0] = (int)RoomType.exploredRoom;
+        mapLayout[10, 0] = (int)RoomType.normalRoom;
         mapRooms[10, 0] = "CaveFirstRoom";
         mapLayout[10, 1] = (int)RoomType.verticalRoad;
         bossRoomCoordinates = CreatePathToBoss(15,new Vector2Int(10,2),false);
         CreateRandomPaths();
         CreateRandomSmallPaths();
         AssignRooms();
+        AssignBossRoom();
     }
 
     private void AssignRooms()
@@ -66,7 +67,6 @@ public class CaveMapCreator : MapCreator
             }
         }
         mapRooms[10, 0] = "CaveFirstRoom";
-        AssignBossRoom();
     }
 
     private void AssignBossRoom()
@@ -76,7 +76,7 @@ public class CaveMapCreator : MapCreator
         bool east = false;
         bool west = false;
         FindConnectedRoadDirections(ref north, ref south, ref east, ref west, bossRoomCoordinates.x, bossRoomCoordinates.y);
-        mapRooms[bossRoomCoordinates.x, bossRoomCoordinates.y] = ReturnCorrectRoom(north, south, east, west,MapType.cave);
+        mapRooms[bossRoomCoordinates.x, bossRoomCoordinates.y] = ReturnCorrectBossRoom(north, south, east, west,MapType.cave);
     }
 
 }

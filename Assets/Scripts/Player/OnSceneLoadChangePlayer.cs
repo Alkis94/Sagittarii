@@ -30,6 +30,7 @@ public class OnSceneLoadChangePlayer : MonoBehaviour
         SceneManager.sceneLoaded += OnSceneLoaded;
         RoomChanger.OnRoomChangerEntered += NextPlayerSpawnPointDirection;
         MapChanger.OnMapChangerEnteredPlayerDirection += NextPlayerSpawnPointDirection;
+        Door.DoorEntered += NextPlayerSpawnPointDirection;
     }
 
     private void OnDisable()
@@ -37,6 +38,7 @@ public class OnSceneLoadChangePlayer : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoaded;
         RoomChanger.OnRoomChangerEntered -= NextPlayerSpawnPointDirection;
         MapChanger.OnMapChangerEnteredPlayerDirection -= NextPlayerSpawnPointDirection;
+        Door.DoorEntered -= NextPlayerSpawnPointDirection;
     }
 
     private void Awake()
@@ -64,10 +66,17 @@ public class OnSceneLoadChangePlayer : MonoBehaviour
         transform.position = newPlayerPositionOnSceneChange;
     }
 
+    private void NextPlayerSpawnPointDirection(string levelToLoad)
+    {
+        this.lastDoorTakenPlacement = Direction.middle;
+    }
+
     private void NextPlayerSpawnPointDirection(Direction lastDoorTakenPlacement)
     {
         this.lastDoorTakenPlacement = lastDoorTakenPlacement;
     }
+
+
 
     private void NextPlayerSpawnPointPosition()
     {
@@ -86,6 +95,14 @@ public class OnSceneLoadChangePlayer : MonoBehaviour
         else if (lastDoorTakenPlacement == Direction.south)
         {
             newPlayerPositionOnSceneChange = GameObject.FindGameObjectWithTag("PlayerSpawnNorth").transform.position;
+        }
+        else if(lastDoorTakenPlacement == Direction.middle)
+        {
+            newPlayerPositionOnSceneChange = GameObject.FindGameObjectWithTag("PlayerSpawn").transform.position;
+        }
+        else
+        {
+            Debug.LogError("Player spawn not found!");
         }
     }
 

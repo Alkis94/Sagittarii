@@ -23,7 +23,7 @@ public abstract class MapCreator : MonoBehaviour
         List<int> availableDirections = new List<int>();
 
         Vector2Int currentCoordinates = startCoordinates;
-        mapLayout[currentCoordinates.x, currentCoordinates.y] = (int)RoomType.unexploredRoom;
+        mapLayout[currentCoordinates.x, currentCoordinates.y] = (int)RoomType.normalRoom;
 
 
         while (i < roadLength)
@@ -56,7 +56,7 @@ public abstract class MapCreator : MonoBehaviour
             if (randomDirection == (int)Direction.west)
             {
                 mapLayout[currentCoordinates.x - 1, currentCoordinates.y] = (int)RoomType.horizontalRoad;
-                mapLayout[currentCoordinates.x - 2, currentCoordinates.y] = (int)RoomType.unexploredRoom;
+                mapLayout[currentCoordinates.x - 2, currentCoordinates.y] = (int)RoomType.normalRoom;
                 currentCoordinates.x -= 2;
                 unexploredRoomArrayCoordinates.Add(new Vector2Int(currentCoordinates.x, currentCoordinates.y));
                 i++;
@@ -64,7 +64,7 @@ public abstract class MapCreator : MonoBehaviour
             else if (randomDirection == (int)Direction.east)
             {
                 mapLayout[currentCoordinates.x + 1, currentCoordinates.y] = (int)RoomType.horizontalRoad;
-                mapLayout[currentCoordinates.x + 2, currentCoordinates.y] = (int)RoomType.unexploredRoom;
+                mapLayout[currentCoordinates.x + 2, currentCoordinates.y] = (int)RoomType.normalRoom;
                 currentCoordinates.x += 2;
                 unexploredRoomArrayCoordinates.Add(new Vector2Int(currentCoordinates.x, currentCoordinates.y));
                 i++;
@@ -72,7 +72,7 @@ public abstract class MapCreator : MonoBehaviour
             else if (randomDirection == (int)Direction.north)
             {
                 mapLayout[currentCoordinates.x, currentCoordinates.y - 1] = (int)RoomType.verticalRoad;
-                mapLayout[currentCoordinates.x, currentCoordinates.y - 2] = (int)RoomType.unexploredRoom;
+                mapLayout[currentCoordinates.x, currentCoordinates.y - 2] = (int)RoomType.normalRoom;
                 currentCoordinates.y -= 2;
                 unexploredRoomArrayCoordinates.Add(new Vector2Int(currentCoordinates.x, currentCoordinates.y));
                 i++;
@@ -80,7 +80,7 @@ public abstract class MapCreator : MonoBehaviour
             else if (randomDirection == (int)Direction.south)
             {
                 mapLayout[currentCoordinates.x, currentCoordinates.y + 1] = (int)RoomType.verticalRoad;
-                mapLayout[currentCoordinates.x, currentCoordinates.y + 2] = (int)RoomType.unexploredRoom;
+                mapLayout[currentCoordinates.x, currentCoordinates.y + 2] = (int)RoomType.normalRoom;
                 currentCoordinates.y += 2;
                 unexploredRoomArrayCoordinates.Add(new Vector2Int(currentCoordinates.x, currentCoordinates.y));
                 i++;

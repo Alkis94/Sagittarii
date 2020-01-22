@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 114187245435547046}
   - component: {fileID: 8399196991502044193}
   - component: {fileID: 913570264}
+  - component: {fileID: 4970816829133603991}
   m_Layer: 12
   m_Name: Crow
   m_TagString: Enemy
@@ -277,8 +278,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deathCry: {fileID: 8300000, guid: fd573892d50e6464daa6bc4440d9bb29, type: 3}
+  criticalCollider: {fileID: 0}
   hasBlood: 1
-  enemyDestroyDelay: 10
 --- !u!114 &114187245435547046
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -321,6 +322,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7aca9d8ff8ab559438987759caa9d2d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4970816829133603991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000010732799478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2964bbbfeb949f346a27dfc029e23b14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deadEnemySprite: {fileID: 21300012, guid: ed0fe686b3cb76a438d629832007d35f, type: 3}
+  enemyKey: 0
+  roomKey: 
+  mapType: 0
 --- !u!1 &3571313259875988556
 GameObject:
   m_ObjectHideFlags: 0

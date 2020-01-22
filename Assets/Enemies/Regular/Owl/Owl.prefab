@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 557983286}
   - component: {fileID: 1825717709}
   - component: {fileID: 2008905374}
+  - component: {fileID: 3745124472492121522}
   m_Layer: 12
   m_Name: Owl
   m_TagString: Enemy
@@ -293,7 +294,6 @@ MonoBehaviour:
   deathCry: {fileID: 8300000, guid: ffc55d030196be04aa0435ae0c067446, type: 3}
   criticalCollider: {fileID: 0}
   hasBlood: 1
-  enemyDestroyDelay: 10
 --- !u!114 &5441298073167055473
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -350,6 +350,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1c0c4da68def28488449c1dffbd659b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3745124472492121522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2882280072731344867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2964bbbfeb949f346a27dfc029e23b14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deadEnemySprite: {fileID: 21300030, guid: 67ca74228843ce54e948670f5cbcf0e0, type: 3}
+  enemyKey: 0
+  roomKey: 
+  mapType: 0
 --- !u!1 &3300107938387818445
 GameObject:
   m_ObjectHideFlags: 0

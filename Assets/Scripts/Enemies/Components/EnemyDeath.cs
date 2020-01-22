@@ -19,7 +19,7 @@ public class EnemyDeath : MonoBehaviour
     private AudioSource audioSource;
     private EnemyBrain enemyBrain;
     private AdvancedEnemyBrain advancedEnemyBrain;
-    private Transform arrow;
+
     
 
 
@@ -36,9 +36,7 @@ public class EnemyDeath : MonoBehaviour
     private float damageDropRate = 0.01f;
     [SerializeField]
     private bool hasBlood = true;
-    bool criticalDeath = false;
-    [SerializeField]
-    //private float enemyDestroyDelay = 10f;
+
 
     private void OnEnable()
     {
@@ -51,13 +49,11 @@ public class EnemyDeath : MonoBehaviour
 
         enemyGotShot = GetComponentInChildren<EnemyGotShot>();
         enemyGotShot.OnDeath += Die;
-        enemyGotShot.OnCriticalDeath += CriticalDeath;
     }
 
     private void OnDisable()
     {
         enemyGotShot.OnDeath -= Die;
-        enemyGotShot.OnCriticalDeath -= CriticalDeath;
     }
 
 
@@ -73,14 +69,7 @@ public class EnemyDeath : MonoBehaviour
         bloodSplat = Resources.Load("DeathBloodSplat") as GameObject;
     }
 
-    private void CriticalDeath(Transform arrow)
-    {
-        criticalDeath = true;
-        this.arrow = arrow;
-    }
-  
-
-    private void Die()
+    private void Die(Transform arrow,bool criticalDeath)
     {
         if (hasBlood)
         {
@@ -102,25 +91,19 @@ public class EnemyDeath : MonoBehaviour
             animator.SetTrigger("Die");
         }
 
-        //Destroy(gameObject, enemyDestroyDelay + animator.GetCurrentAnimatorStateInfo(0).length);
         rigidbody2d.gravityScale = 1;
         spriteRenderer.sortingLayerName = "DeadEnemies";
         gameObject.layer = 14;
         audioSource.clip = deathCry;
         audioSource.Play();
-        transform.gameObject.tag = "DeadEnemy";
         enemyGotShot.enabled = false;
-        transform.parent = null;
 
         if (enemyBrain != null)
         {
             enemyBrain.enabled = false;
         }
-        else
-        {
-            advancedEnemyBrain.enabled = false;
-        }
 
+        //Put child objects to deadEnemies layer too because colliders are child objects.
         foreach (Transform trans in GetComponentsInChildren<Transform>(true))
         {
             trans.gameObject.layer = 14;
