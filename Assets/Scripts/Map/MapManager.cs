@@ -27,7 +27,11 @@ public class MapManager : MonoBehaviour
 
     private Vector2Int currentMapCoords = new Vector2Int(-1, 0);
     [SerializeField]
-    private List<GameObject> rooms;
+    private List<GameObject> forestRooms;
+
+    [SerializeField]
+    private List<List<GameObject>> rooms;
+
     [SerializeField]
     private Transform mapTransform;
     [SerializeField]
@@ -100,7 +104,7 @@ public class MapManager : MonoBehaviour
 
             //We put an extra road to connect forest and town, and avoid having a room that collides on the town.
             Vector3 mapCoordinates = ConvertArrayCoordinates(0, 0);
-            ExtensionMethods.InstantiateAtLocalPosition(rooms[(int)RoomType.horizontalRoad], mapTransform, mapCoordinates);
+            ExtensionMethods.InstantiateAtLocalPosition(forestRooms[(int)RoomType.horizontalRoad], mapTransform, mapCoordinates);
 
             RenderMap();
         }
@@ -114,7 +118,7 @@ public class MapManager : MonoBehaviour
             //We put this road to connect forest and caves. This roads is not inside mapLayout. We do it this way so
             //no rooms of caves collide with forrest rooms.
             Vector2 mapCoordinates = new Vector2(120, -20);
-            ExtensionMethods.InstantiateAtLocalPosition(rooms[(int)RoomType.verticalRoad], mapTransform, mapCoordinates);
+            ExtensionMethods.InstantiateAtLocalPosition(forestRooms[(int)RoomType.verticalRoad], mapTransform, mapCoordinates);
 
             SceneManager.LoadScene(mapRooms[caveFirstRoomCoordinates.x, caveFirstRoomCoordinates.y]);
             OnRoomChangeRenderMapPart2(Direction.south);
@@ -230,14 +234,14 @@ public class MapManager : MonoBehaviour
                 {
                     //Render road
                     mapCoordinates = ConvertArrayCoordinates(currentMapCoords.x + 1, currentMapCoords.y);
-                    ExtensionMethods.InstantiateAtLocalPosition(rooms[mapLayout[currentMapCoords.x + 1, currentMapCoords.y]], mapTransform, mapCoordinates);
+                    ExtensionMethods.InstantiateAtLocalPosition(forestRooms[mapLayout[currentMapCoords.x + 1, currentMapCoords.y]], mapTransform, mapCoordinates);
                     //we zero them so we don't render them again!
                     mapLayout[currentMapCoords.x + 1, currentMapCoords.y] = 0;
                 }
 
                 //Render room
                 mapCoordinates = ConvertArrayCoordinates(currentMapCoords.x, currentMapCoords.y);
-                ExtensionMethods.InstantiateAtLocalPosition(rooms[mapLayout[currentMapCoords.x, currentMapCoords.y]], mapTransform, mapCoordinates);
+                ExtensionMethods.InstantiateAtLocalPosition(forestRooms[mapLayout[currentMapCoords.x, currentMapCoords.y]], mapTransform, mapCoordinates);
                 //we zero them so we don't render them again!
                 mapLayout[currentMapCoords.x, currentMapCoords.y] = 0;
 
@@ -251,12 +255,12 @@ public class MapManager : MonoBehaviour
                 if (currentMapCoords.x - 1 >= 0)
                 {
                     mapCoordinates = ConvertArrayCoordinates(currentMapCoords.x - 1, currentMapCoords.y);
-                    ExtensionMethods.InstantiateAtLocalPosition(rooms[mapLayout[currentMapCoords.x - 1, currentMapCoords.y]], mapTransform, mapCoordinates);
+                    ExtensionMethods.InstantiateAtLocalPosition(forestRooms[mapLayout[currentMapCoords.x - 1, currentMapCoords.y]], mapTransform, mapCoordinates);
                     mapLayout[currentMapCoords.x - 1, currentMapCoords.y] = 0;
                 }
 
                 mapCoordinates = ConvertArrayCoordinates(currentMapCoords.x, currentMapCoords.y);
-                ExtensionMethods.InstantiateAtLocalPosition(rooms[mapLayout[currentMapCoords.x, currentMapCoords.y]], mapTransform, mapCoordinates);
+                ExtensionMethods.InstantiateAtLocalPosition(forestRooms[mapLayout[currentMapCoords.x, currentMapCoords.y]], mapTransform, mapCoordinates);
                 mapLayout[currentMapCoords.x, currentMapCoords.y] = 0;
             }
         }
@@ -267,12 +271,12 @@ public class MapManager : MonoBehaviour
                 if (currentMapCoords.y + 1 < mapLayout.GetLength(1))
                 {
                     mapCoordinates = ConvertArrayCoordinates(currentMapCoords.x, currentMapCoords.y + 1);
-                    ExtensionMethods.InstantiateAtLocalPosition(rooms[mapLayout[currentMapCoords.x, currentMapCoords.y + 1]], mapTransform, mapCoordinates);
+                    ExtensionMethods.InstantiateAtLocalPosition(forestRooms[mapLayout[currentMapCoords.x, currentMapCoords.y + 1]], mapTransform, mapCoordinates);
                     mapLayout[currentMapCoords.x, currentMapCoords.y + 1] = 0;
                 }
 
                 mapCoordinates = ConvertArrayCoordinates(currentMapCoords.x, currentMapCoords.y);
-                ExtensionMethods.InstantiateAtLocalPosition(rooms[mapLayout[currentMapCoords.x, currentMapCoords.y]], mapTransform, mapCoordinates);
+                ExtensionMethods.InstantiateAtLocalPosition(forestRooms[mapLayout[currentMapCoords.x, currentMapCoords.y]], mapTransform, mapCoordinates);
                 mapLayout[currentMapCoords.x, currentMapCoords.y] = 0;
             }
         }
@@ -283,12 +287,12 @@ public class MapManager : MonoBehaviour
                 if (currentMapCoords.y - 1 >= 0)
                 {
                     mapCoordinates = ConvertArrayCoordinates(currentMapCoords.x, currentMapCoords.y - 1);
-                    ExtensionMethods.InstantiateAtLocalPosition(rooms[mapLayout[currentMapCoords.x, currentMapCoords.y - 1]], mapTransform, mapCoordinates);
+                    ExtensionMethods.InstantiateAtLocalPosition(forestRooms[mapLayout[currentMapCoords.x, currentMapCoords.y - 1]], mapTransform, mapCoordinates);
                     mapLayout[currentMapCoords.x, currentMapCoords.y - 1] = 0;
                 }
 
                 mapCoordinates = ConvertArrayCoordinates(currentMapCoords.x, currentMapCoords.y);
-                ExtensionMethods.InstantiateAtLocalPosition(rooms[mapLayout[currentMapCoords.x, currentMapCoords.y]], mapTransform, mapCoordinates);
+                ExtensionMethods.InstantiateAtLocalPosition(forestRooms[mapLayout[currentMapCoords.x, currentMapCoords.y]], mapTransform, mapCoordinates);
                 mapLayout[currentMapCoords.x, currentMapCoords.y] = 0;
 
             }
@@ -335,7 +339,7 @@ public class MapManager : MonoBehaviour
                 if (mapLayout[i, j] != 0)
                 {
                     Vector2 mapCoordinates = ConvertArrayCoordinates(i, j);
-                    ExtensionMethods.InstantiateAtLocalPosition(rooms[mapLayout[i, j]], mapTransform, mapCoordinates);
+                    ExtensionMethods.InstantiateAtLocalPosition(forestRooms[mapLayout[i, j]], mapTransform, mapCoordinates);
                 }
             }
         }
