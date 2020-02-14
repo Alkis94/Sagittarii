@@ -50,13 +50,7 @@ public class OwlHuntAttackState : State<OwlBrain>
         {
             stateOwner.MovementPatterns[1].Move(stateOwner.enemyData.speed, stateOwner.verticalDirection, stateOwner.horizontalDirection);
         }
-        
 
-        if (stateOwner.enemyData.health > 0)
-        {
-            
-            
-        }
     }
 
     public override void ExitState()
