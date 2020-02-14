@@ -1,6 +1,4 @@
-﻿// This script controls the player's movement and physics within the game
-
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -48,7 +46,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
-        //Debug.Log(MapType.cave);
         input = GetComponent<PlayerInput>();
     }
 

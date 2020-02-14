@@ -1,0 +1,102 @@
+﻿using UnityEngine;
+using System.Collections;
+using StateMachineNamespace;
+
+public class PlayerMovement2 : MonoBehaviour
+{
+
+    [HideInInspector]
+    public StateMachine<PlayerMovement2> stateMachine;
+
+    [HideInInspector]
+    public JumpingState jumpingState;
+    [HideInInspector]
+    public OnGroundState onGroundState;
+    [HideInInspector]
+    public FallingState fallingState;
+
+    [HideInInspector]
+    public Animator animator;
+    [HideInInspector]
+    public PlayerInput input;
+    [HideInInspector]
+    public Rigidbody2D rigidBody2d;
+    [HideInInspector]
+    public PlayerStats playerStats;
+    [HideInInspector]
+    public PlayerAudio playerAudio;
+
+    private const float skinWidth = .015f;
+    public LayerMask groundLayer;           //Layer of the ground
+    private const float groundDistance = 0.1f;        //Distance player is considered to be on the ground
+
+    private int animatorVelocityY_ID;
+    private int animatorVelocityX_ID;
+
+
+
+    private void Awake()
+    {
+        input = GetComponent<PlayerInput>();
+        
+    }
+    // Use this for initialization
+    void Start()
+    {
+        rigidBody2d = GetComponent<Rigidbody2D>();
+        playerStats = GetComponent<PlayerStats>();
+        animator = GetComponent<Animator>();
+        playerAudio = GetComponent<PlayerAudio>();
+
+        jumpingState = new JumpingState(this);
+        onGroundState = new OnGroundState(this);
+        fallingState = new FallingState(this);
+        animatorVelocityX_ID = Animator.StringToHash("VelocityX");
+        animatorVelocityY_ID = Animator.StringToHash("VelocityY");
+
+        stateMachine = new StateMachine<PlayerMovement2>(this);
+
+        if(LegOnGround())
+        {
+            stateMachine.ChangeState(onGroundState);
+        }
+        else
+        {
+            stateMachine.ChangeState(fallingState);
+        }
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        animator.SetFloat(animatorVelocityY_ID, rigidBody2d.velocity.y);
+        animator.SetFloat(animatorVelocityX_ID, Mathf.Abs(rigidBody2d.velocity.x));
+        stateMachine.Update();
+    }
+
+    private void FixedUpdate()
+    {
+        stateMachine.FixedUpdate();
+
+        float xVelocity = playerStats.speed * input.horizontal;
+        rigidBody2d.velocity = new Vector2(xVelocity, rigidBody2d.velocity.y);
+    }
+
+    public bool LegOnGround()
+    {
+        Bounds bounds = GetComponent<BoxCollider2D>().bounds;
+        bounds.Expand(skinWidth * -2);
+
+        Vector2 bottomLeftCorner = new Vector2(bounds.min.x, bounds.min.y);
+        Vector2 bottomRightCorner = new Vector2(bounds.max.x, bounds.min.y);
+
+        //Cast rays for the left and right foot
+        RaycastHit2D leftCheck = Physics2D.Raycast(bottomLeftCorner, Vector2.down, groundDistance, groundLayer);
+        Debug.DrawRay(bottomLeftCorner, Vector2.down , Color.red);
+        RaycastHit2D rightCheck = Physics2D.Raycast(bottomRightCorner, Vector2.down, groundDistance, groundLayer);
+        Debug.DrawRay(bottomRightCorner, Vector2.down, Color.red);
+
+        return (leftCheck || rightCheck);
+    }
+}

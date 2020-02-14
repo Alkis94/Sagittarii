@@ -45,6 +45,7 @@
     {
         protected T stateOwner;
 
+       
         public virtual void EnterState()
         {
 
