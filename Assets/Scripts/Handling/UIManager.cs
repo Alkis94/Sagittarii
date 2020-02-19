@@ -10,12 +10,12 @@ public class UIManager : MonoBehaviour
     private static UIManager instance = null;
 
 
-    public TextMeshProUGUI exhaustionText;
+    public TextMeshProUGUI energyText;
     public TextMeshProUGUI healthText;
     public TextMeshProUGUI ammoText;
     public TextMeshProUGUI goldText;
     public Image healthImage;
-    public Image exhaustionImage;
+    public Image energyImage;
 
     
 
@@ -37,7 +37,7 @@ public class UIManager : MonoBehaviour
     private void OnEnable()
     {
         PlayerStats.OnPlayerHealthChanged += UpdateHealth;
-        PlayerStats.OnPlayerExhaustionChanged += UpdateExhaustion;
+        PlayerStats.OnPlayerEnergyChanged += UpdateEnergy;
         PlayerStats.OnPlayerGoldChanged += UpdateGold;
         PlayerStats.OnPlayerAmmoChanged += UpdateAmmo;
     }
@@ -45,7 +45,7 @@ public class UIManager : MonoBehaviour
     private void OnDisable()
     {
         PlayerStats.OnPlayerHealthChanged -= UpdateHealth;
-        PlayerStats.OnPlayerExhaustionChanged -= UpdateExhaustion;
+        PlayerStats.OnPlayerEnergyChanged -= UpdateEnergy;
         PlayerStats.OnPlayerGoldChanged -= UpdateGold;
         PlayerStats.OnPlayerAmmoChanged -= UpdateAmmo;
     }
@@ -62,10 +62,10 @@ public class UIManager : MonoBehaviour
         UpdateBar(health, maxHealth,healthImage);
     }
 
-    private void UpdateExhaustion(int exhaustion, int maxExhastion)
+    private void UpdateEnergy(int exhaustion, int maxExhastion)
     {
-        UpdateText(exhaustion, maxExhastion, exhaustionText);
-        UpdateBar(exhaustion, maxExhastion, exhaustionImage);
+        UpdateText(exhaustion, maxExhastion, energyText);
+        UpdateBar(exhaustion, maxExhastion, energyImage);
     }
 
     private void UpdateText(int current,int max, TextMeshProUGUI text)

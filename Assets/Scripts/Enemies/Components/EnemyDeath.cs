@@ -34,6 +34,8 @@ public class EnemyDeath : MonoBehaviour
     private float maxHealthDropRate = 0.01f;
     //[SerializeField]
     private float damageDropRate = 0.01f;
+    //[SerializeField]
+    private float energyDropRate = 0.1f;
     [SerializeField]
     private bool hasBlood = true;
 
@@ -145,6 +147,13 @@ public class EnemyDeath : MonoBehaviour
         if (randomNumber < damageDropRate)
         {
             OnDeathDropPickup?.Invoke(transform.position, "DamagePickup");
+            return;
+        }
+
+        randomNumber = UnityEngine.Random.Range(0f, 1f);
+        if (randomNumber < energyDropRate)
+        {
+            OnDeathDropPickup?.Invoke(transform.position, "EnergyPickup");
             return;
         }
     }

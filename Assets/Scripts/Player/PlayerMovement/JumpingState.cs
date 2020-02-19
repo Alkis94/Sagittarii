@@ -17,6 +17,7 @@ public class JumpingState : State<PlayerMovement2>
 
     public override void EnterState()
     {
+        Debug.Log("Entered JumpState");
         stateOwner.animator.SetTrigger("PlayerJumped");
         stateOwner.rigidBody2d.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
         stateOwner.playerAudio.PlayJumpSound();

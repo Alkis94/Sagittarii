@@ -8,9 +8,9 @@ public class PlayerStats : MonoBehaviour
     [SerializeField]
     private  int maximumHealth = 100;
     [SerializeField]
-    private int currentExhaustion = 0;
+    private int currentEnergy = 20;
     [SerializeField]
-    private int maximumExhaustion = 20;
+    private int maximumEnergy = 20;
     [SerializeField]
     private int ammo = 500;
     [SerializeField]
@@ -23,7 +23,7 @@ public class PlayerStats : MonoBehaviour
     public static event Action<int,int> OnPlayerHealthChanged = delegate { };
     public static event Action<int> OnPlayerGoldChanged = delegate { };
     public static event Action<int> OnPlayerAmmoChanged = delegate { };
-    public static event Action<int, int> OnPlayerExhaustionChanged = delegate { };
+    public static event Action<int, int> OnPlayerEnergyChanged = delegate { };
     public static event Action PlayerDied = delegate { };
 
     private void Start()
@@ -31,7 +31,7 @@ public class PlayerStats : MonoBehaviour
         OnPlayerHealthChanged?.Invoke(currentHealth, maximumHealth);
         OnPlayerGoldChanged?.Invoke(gold);
         OnPlayerAmmoChanged?.Invoke(ammo);
-        OnPlayerExhaustionChanged?.Invoke(currentExhaustion, maximumExhaustion);
+        OnPlayerEnergyChanged?.Invoke(currentEnergy, maximumEnergy);
     }
 
     public  int CurrentHealth
@@ -78,11 +78,11 @@ public class PlayerStats : MonoBehaviour
         }
     }
 
-    public int CurrentExhaustion
+    public int CurrentEnergy
     {
         get
         {
-            return currentExhaustion;
+            return currentEnergy;
         }
 
         set
@@ -91,15 +91,15 @@ public class PlayerStats : MonoBehaviour
 
             if (newCurrentExhaustion <= MaximumExhaustion)
             {
-                currentExhaustion = newCurrentExhaustion;
+                currentEnergy = newCurrentExhaustion;
             }
 
             if (newCurrentExhaustion > MaximumExhaustion)
             {
-                currentExhaustion = MaximumExhaustion;
+                currentEnergy = MaximumExhaustion;
             }
 
-            OnPlayerExhaustionChanged?.Invoke(currentExhaustion, maximumExhaustion);
+            OnPlayerEnergyChanged?.Invoke(currentEnergy, maximumEnergy);
         }
     }
 
@@ -107,13 +107,13 @@ public class PlayerStats : MonoBehaviour
     {
         get
         {
-            return maximumExhaustion;
+            return maximumEnergy;
         }
 
         set
         {
-            maximumExhaustion = value;
-            OnPlayerExhaustionChanged?.Invoke(currentExhaustion, maximumExhaustion);
+            maximumEnergy = value;
+            OnPlayerEnergyChanged?.Invoke(currentEnergy, maximumEnergy);
         }
     }
 

@@ -57,9 +57,9 @@ public class OnSceneLoadChangePlayer : MonoBehaviour
         }
         else
         {
-            playerStats.CurrentExhaustion += 1;
+            playerStats.CurrentEnergy -= 1;
 
-            if (playerStats.CurrentExhaustion >= playerStats.MaximumExhaustion)
+            if (playerStats.CurrentEnergy <= 0)
             {
                 playerStats.CurrentHealth -= (int)(playerStats.MaximumHealth * 0.05f);
             }
