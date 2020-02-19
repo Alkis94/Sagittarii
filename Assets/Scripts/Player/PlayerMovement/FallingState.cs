@@ -4,8 +4,9 @@ using StateMachineNamespace;
 
 public class FallingState : State<PlayerMovement2>
 {
-    public float maxFallSpeed = -25f;       //Max speed player can fall
-    public float coyoteDuration = .05f;     //How long the player can jump after falling
+    private float maxFallSpeed = -25f;       //Max speed player can fall
+    private float coyoteDuration = .1f;     //How long the player can jump after falling
+    private float canStillJumpTime;
 
     public FallingState(PlayerMovement2 owner)
     {
@@ -14,7 +15,7 @@ public class FallingState : State<PlayerMovement2>
 
     public override void EnterState()
     {
-
+        canStillJumpTime = Time.time + coyoteDuration;
     }
 
     public override void ExitState()
@@ -37,6 +38,11 @@ public class FallingState : State<PlayerMovement2>
         if (stateOwner.LegOnGround())
         {
             stateOwner.stateMachine.ChangeState(stateOwner.onGroundState);
+        }
+
+        if(stateOwner.input.jumpPressed && stateOwner.stateMachine.previousState is OnGroundState && Time.time < canStillJumpTime)
+        {
+            stateOwner.stateMachine.ChangeState(stateOwner.jumpingState);
         }
     }
 }

@@ -8,6 +8,10 @@ public class PlayerStats : MonoBehaviour
     [SerializeField]
     private  int maximumHealth = 100;
     [SerializeField]
+    private int currentExhaustion = 0;
+    [SerializeField]
+    private int maximumExhaustion = 20;
+    [SerializeField]
     private int ammo = 500;
     [SerializeField]
     private int gold = 20;
@@ -19,12 +23,15 @@ public class PlayerStats : MonoBehaviour
     public static event Action<int,int> OnPlayerHealthChanged = delegate { };
     public static event Action<int> OnPlayerGoldChanged = delegate { };
     public static event Action<int> OnPlayerAmmoChanged = delegate { };
+    public static event Action<int, int> OnPlayerExhaustionChanged = delegate { };
+    public static event Action PlayerDied = delegate { };
 
     private void Start()
     {
         OnPlayerHealthChanged?.Invoke(currentHealth, maximumHealth);
         OnPlayerGoldChanged?.Invoke(gold);
         OnPlayerAmmoChanged?.Invoke(ammo);
+        OnPlayerExhaustionChanged?.Invoke(currentExhaustion, maximumExhaustion);
     }
 
     public  int CurrentHealth
@@ -49,6 +56,11 @@ public class PlayerStats : MonoBehaviour
             }
 
             OnPlayerHealthChanged?.Invoke(currentHealth,maximumHealth);
+
+            if(currentHealth <= 0)
+            {
+                PlayerDied?.Invoke();
+            }
         }
     }
 
@@ -63,6 +75,45 @@ public class PlayerStats : MonoBehaviour
         {
             maximumHealth = value;
             OnPlayerHealthChanged?.Invoke(currentHealth, maximumHealth);
+        }
+    }
+
+    public int CurrentExhaustion
+    {
+        get
+        {
+            return currentExhaustion;
+        }
+
+        set
+        {
+            int newCurrentExhaustion = value;
+
+            if (newCurrentExhaustion <= MaximumExhaustion)
+            {
+                currentExhaustion = newCurrentExhaustion;
+            }
+
+            if (newCurrentExhaustion > MaximumExhaustion)
+            {
+                currentExhaustion = MaximumExhaustion;
+            }
+
+            OnPlayerExhaustionChanged?.Invoke(currentExhaustion, maximumExhaustion);
+        }
+    }
+
+    public int MaximumExhaustion
+    {
+        get
+        {
+            return maximumExhaustion;
+        }
+
+        set
+        {
+            maximumExhaustion = value;
+            OnPlayerExhaustionChanged?.Invoke(currentExhaustion, maximumExhaustion);
         }
     }
 

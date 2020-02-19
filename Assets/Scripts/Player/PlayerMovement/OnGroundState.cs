@@ -39,7 +39,7 @@ public class OnGroundState : State<PlayerMovement2>
             stateOwner.stateMachine.ChangeState(stateOwner.fallingState);
         }
 
-        if (stateOwner.input.jumpPressed )
+        if (stateOwner.input.jumpPressed)
         {
             stateOwner.stateMachine.ChangeState(stateOwner.jumpingState);
         }

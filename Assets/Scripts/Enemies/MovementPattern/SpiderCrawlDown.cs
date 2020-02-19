@@ -61,7 +61,6 @@ public class SpiderCrawlDown : MonoBehaviour
 
     private void OnEnemyLoad(bool dead)
     {
-        Debug.Log("Spider Loaded");
         if(dead)
         {
             StopAllCoroutines();

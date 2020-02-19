@@ -37,13 +37,13 @@ public class PlayerInput : MonoBehaviour
 
     void OnEnable()
     {
-        PlayerCollision.OnDeath += DisableInput;
+        PlayerStats.PlayerDied += DisableInput;
     }
 
 
     void OnDisable()
     {
-        PlayerCollision.OnDeath -= DisableInput;
+        PlayerStats.PlayerDied -= DisableInput;
     }
 
 

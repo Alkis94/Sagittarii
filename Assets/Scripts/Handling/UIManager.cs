@@ -10,13 +10,14 @@ public class UIManager : MonoBehaviour
     private static UIManager instance = null;
 
 
-
+    public TextMeshProUGUI exhaustionText;
     public TextMeshProUGUI healthText;
     public TextMeshProUGUI ammoText;
     public TextMeshProUGUI goldText;
     public Image healthImage;
+    public Image exhaustionImage;
 
-    private float imageFillAmountNew;
+    
 
 
     private void Awake()
@@ -36,6 +37,7 @@ public class UIManager : MonoBehaviour
     private void OnEnable()
     {
         PlayerStats.OnPlayerHealthChanged += UpdateHealth;
+        PlayerStats.OnPlayerExhaustionChanged += UpdateExhaustion;
         PlayerStats.OnPlayerGoldChanged += UpdateGold;
         PlayerStats.OnPlayerAmmoChanged += UpdateAmmo;
     }
@@ -43,6 +45,7 @@ public class UIManager : MonoBehaviour
     private void OnDisable()
     {
         PlayerStats.OnPlayerHealthChanged -= UpdateHealth;
+        PlayerStats.OnPlayerExhaustionChanged -= UpdateExhaustion;
         PlayerStats.OnPlayerGoldChanged -= UpdateGold;
         PlayerStats.OnPlayerAmmoChanged -= UpdateAmmo;
     }
@@ -55,47 +58,52 @@ public class UIManager : MonoBehaviour
 
     private void UpdateHealth(int health, int maxHealth)
     {
-        UpdateHealthText(health,maxHealth);
-        UpdateHealthBar(health, maxHealth);
+        UpdateText(health,maxHealth,healthText);
+        UpdateBar(health, maxHealth,healthImage);
     }
 
-    private void UpdateHealthText(int health,int maxHealth)
+    private void UpdateExhaustion(int exhaustion, int maxExhastion)
     {
-        
-        health = 0 > health ? 0 : health;
-        health = maxHealth < health ? maxHealth : health;
-        healthText.text = health + "/" + maxHealth;
+        UpdateText(exhaustion, maxExhastion, exhaustionText);
+        UpdateBar(exhaustion, maxExhastion, exhaustionImage);
     }
 
-    private void UpdateHealthBar(int health, int maxHealth)
+    private void UpdateText(int current,int max, TextMeshProUGUI text)
     {
-        imageFillAmountNew = (float)health / maxHealth;
-        if(imageFillAmountNew > healthImage.fillAmount)
+        current = 0 > current ? 0 : current;
+        current = max < current ? max : current;
+        text.text = current + "/" + max;
+    }
+
+    private void UpdateBar(int current, int max, Image image)
+    {
+        float imageFillAmount = (float)current / max;
+        if(imageFillAmount > image.fillAmount)
         {
-            StartCoroutine(FillHealthBar());
+            StartCoroutine(FillBar(imageFillAmount,image));
         }
         else
         {
-            StartCoroutine(DepleteHealthBar());
+            StartCoroutine(DepleteBar(imageFillAmount,image));
         }
     }
 
-    IEnumerator FillHealthBar()
+    IEnumerator FillBar(float imageFillAmount,Image image)
     {
-        float fillAmountDifference = imageFillAmountNew - healthImage.fillAmount;
-        while(imageFillAmountNew > healthImage.fillAmount)
+        float fillAmountDifference = imageFillAmount - image.fillAmount;
+        while(imageFillAmount > image.fillAmount)
         {
-            healthImage.fillAmount += 0.05f * fillAmountDifference;
+            image.fillAmount += 0.05f * fillAmountDifference;
             yield return null;
         }
     }
 
-    IEnumerator DepleteHealthBar()
+    IEnumerator DepleteBar(float imageFillAmount, Image image)
     {
-        float fillAmountDifference = healthImage.fillAmount - imageFillAmountNew;
-        while (imageFillAmountNew < healthImage.fillAmount)
+        float fillAmountDifference = image.fillAmount - imageFillAmount;
+        while (imageFillAmount < image.fillAmount)
         {
-            healthImage.fillAmount -= 0.05f * fillAmountDifference;
+            image.fillAmount -= 0.05f * fillAmountDifference;
             yield return null;
         }
     }

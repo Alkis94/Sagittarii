@@ -6,26 +6,32 @@ using Factories;
 public class PlayerCollision : MonoBehaviour
 {
     private PlayerAudio playerAudio;
-    private Animator animator;
     private PlayerStats playerStats;
 
-    public static event Action OnDeath = delegate { };
+    
     public static event Action OnPlayerGotBatWings = delegate { };
     public static event Action OnPlayerGotTrident = delegate { };
-    
 
-    private bool playerNotDead = true;
+    void OnEnable()
+    {
+        PlayerStats.PlayerDied += DisableScript;
+    }
+
+
+    void OnDisable()
+    {
+        PlayerStats.PlayerDied -= DisableScript;
+    }
 
     private void Start()
     {
         playerAudio = GetComponent<PlayerAudio>();
-        animator = GetComponent<Animator>();
         playerStats = GetComponent<PlayerStats>();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "EnemyProjectile" && playerNotDead)
+        if (other.tag == "EnemyProjectile")
         {
             int damage = other.GetComponent<Projectile>().Damage;
             PlayerGotHit(damage);
@@ -40,39 +46,18 @@ public class PlayerCollision : MonoBehaviour
             RelicFactory.PlayerHasRelic["Trident"] = true;
             OnPlayerGotTrident?.Invoke();
         }
-
     }
 
     private void PlayerGotHit(int damage)
     {
         playerStats.CurrentHealth -= damage;
-
-        if (playerStats.CurrentHealth < 1)
-        {
-            playerNotDead = false;
-            Die();
-            OnDeath?.Invoke();
-        }
-        else
-        {
-            playerAudio.PlayGotHitSound();
-        }
+        playerAudio.PlayGotHitSound();
     }
 
-    private void Die()
+    private void DisableScript()
     {
-        foreach (Transform child in transform)
-        {
-            Destroy(child.gameObject);
-        }
-        playerAudio.PlayDeathSound();
-        animator.SetTrigger("PlayerDied");
-        Invoke("PlayerDiedDelayedMenu", 3);
+       enabled = false;
     }
-
-    private void PlayerDiedDelayedMenu()
-    {
-        MenuFactory.CreateMenuAndPause(MenuFactory.DefeatMenu);
-    }
+   
 
 }

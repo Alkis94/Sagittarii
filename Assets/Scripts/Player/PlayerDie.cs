@@ -1,0 +1,49 @@
+﻿using UnityEngine;
+using System.Collections;
+using Factories;
+
+public class PlayerDie : MonoBehaviour
+{
+
+    private PlayerAudio playerAudio;
+    private Animator animator;
+    private PlayerStats playerStats;
+
+    void OnEnable()
+    {
+        PlayerStats.PlayerDied += Die;
+    }
+
+
+    void OnDisable()
+    {
+        PlayerStats.PlayerDied -= Die;
+    }
+
+
+    // Use this for initialization
+    private void Start()
+    {
+        playerAudio = GetComponent<PlayerAudio>();
+        animator = GetComponent<Animator>();
+        playerStats = GetComponent<PlayerStats>();
+    }
+
+    
+
+    private void Die()
+    {
+        foreach (Transform child in transform)
+        {
+            Destroy(child.gameObject);
+        }
+        playerAudio.PlayDeathSound();
+        animator.SetTrigger("PlayerDied");
+        Invoke("PlayerDiedDelayedMenu", 3);
+    }
+
+    private void PlayerDiedDelayedMenu()
+    {
+        MenuFactory.CreateMenuAndPause(MenuFactory.DefeatMenu);
+    }
+}

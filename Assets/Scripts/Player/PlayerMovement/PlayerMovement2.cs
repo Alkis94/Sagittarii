@@ -51,6 +51,7 @@ public class PlayerMovement2 : MonoBehaviour
         jumpingState = new JumpingState(this);
         onGroundState = new OnGroundState(this);
         fallingState = new FallingState(this);
+
         animatorVelocityX_ID = Animator.StringToHash("VelocityX");
         animatorVelocityY_ID = Animator.StringToHash("VelocityY");
 

@@ -308,9 +308,9 @@ GameObject:
   - component: {fileID: 696266295396060517}
   - component: {fileID: 2481066987502239242}
   - component: {fileID: 7907791811425724120}
-  - component: {fileID: 7528320261464877073}
   - component: {fileID: 597346900823652045}
   - component: {fileID: 5399449951423691859}
+  - component: {fileID: 18023797051373807}
   m_Layer: 10
   m_Name: Archer
   m_TagString: Player
@@ -565,6 +565,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHealth: 59
   maximumHealth: 100
+  currentExhaustion: 0
+  maximumExhaustion: 20
   ammo: 500
   gold: 20
   speed: 8
@@ -609,32 +611,9 @@ MonoBehaviour:
   horizontal: 0
   jumpHeld: 0
   jumpPressed: 0
---- !u!114 &7528320261464877073
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6112859251357942033}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 149c257af29df004a863a18474d6f1ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  coyoteDuration: 0.05
-  maxFallSpeed: -25
-  jumpForce: 7
-  hangingJumpForce: 15
-  jumpHoldForce: 1.9
-  jumpHoldDuration: 0.1
-  footOffset: 0.4
-  groundDistance: 0.2
-  groundLayer:
+  collisionMask:
     serializedVersion: 2
-    m_Bits: 256
-  isOnGround: 0
-  isFalling: 0
-  isJumping: 0
+    m_Bits: 0
 --- !u!114 &597346900823652045
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -672,3 +651,15 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 02d0cb01323f1794fadbd3c0fb418670, type: 3}
   - {fileID: 8300000, guid: 66b3af8697cc0f7489a6458ab81b21ea, type: 3}
   - {fileID: 8300000, guid: e8e6e76bd707a474a83f9829975d6df1, type: 3}
+--- !u!114 &18023797051373807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6112859251357942033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e547a4499d875f14799257aaa376acb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

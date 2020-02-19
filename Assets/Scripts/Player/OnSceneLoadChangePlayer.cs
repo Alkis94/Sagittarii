@@ -57,6 +57,13 @@ public class OnSceneLoadChangePlayer : MonoBehaviour
         }
         else
         {
+            playerStats.CurrentExhaustion += 1;
+
+            if (playerStats.CurrentExhaustion >= playerStats.MaximumExhaustion)
+            {
+                playerStats.CurrentHealth -= (int)(playerStats.MaximumHealth * 0.05f);
+            }
+
             playerStats.speed = currentPlayerSpeed;
             animator.runtimeAnimatorController = bodyController;
             hands.SetActive(true);
