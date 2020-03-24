@@ -32,6 +32,9 @@ public class PlayerMovement2 : MonoBehaviour
 
     private int animatorVelocityY_ID;
     private int animatorVelocityX_ID;
+    private int animatorTimeStill_ID;
+
+    private float timeStill = 0;
 
 
 
@@ -54,6 +57,7 @@ public class PlayerMovement2 : MonoBehaviour
 
         animatorVelocityX_ID = Animator.StringToHash("VelocityX");
         animatorVelocityY_ID = Animator.StringToHash("VelocityY");
+        animatorTimeStill_ID = Animator.StringToHash("TimeStill");
 
         stateMachine = new StateMachine<PlayerMovement2>(this);
 
@@ -74,6 +78,15 @@ public class PlayerMovement2 : MonoBehaviour
         animator.SetFloat(animatorVelocityY_ID, rigidBody2d.velocity.y);
         animator.SetFloat(animatorVelocityX_ID, Mathf.Abs(rigidBody2d.velocity.x));
         stateMachine.Update();
+        if(rigidBody2d.velocity.x == 0)
+        {
+            timeStill += Time.deltaTime;
+        }
+        else
+        {
+            timeStill = 0;
+        }
+        animator.SetFloat(animatorTimeStill_ID, timeStill);
     }
 
     private void FixedUpdate()

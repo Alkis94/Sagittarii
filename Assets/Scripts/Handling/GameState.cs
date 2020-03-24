@@ -7,6 +7,7 @@ public static class GameState
 
     public static bool GamePaused { get; private set; } = false;
 
+    
     public static void PauseGame()
     {
         GamePaused = true;

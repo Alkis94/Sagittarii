@@ -5,14 +5,18 @@ public class EnemyGotShot : MonoBehaviour
 {
 
     //public event Action<Transform> OnCriticalDeath = delegate { };
-    public event Action<Transform,bool> OnDeath = delegate { };
+    public event Action<bool> OnDeath = delegate { };
     private EnemyData enemyData;
-    private CircleCollider2D circleCollider2D;
+    private EnemyCriticalHit enemyCriticalHit;
+    private bool criticalHit = false;
+    [SerializeField]
+    private GameObject amputationPart;
+    
 
     private void Start()
     {
-        enemyData = GetComponentInParent<EnemyData>();
-        circleCollider2D = GetComponentInChildren<CircleCollider2D>();
+        enemyData = GetComponent<EnemyData>();
+        enemyCriticalHit = GetComponentInChildren<EnemyCriticalHit>();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -21,12 +25,14 @@ public class EnemyGotShot : MonoBehaviour
         {
             if (enemyData.damageable)
             {
-                bool criticalHit = false;
+                if (enemyCriticalHit != null)
+                {
+                    criticalHit = enemyCriticalHit.criticalHit;
+                }
 
-                if (other.GetComponent<PlayerProjectileImpact>().criticalHit)
+                if (criticalHit)
                 {
                     enemyData.health -= other.GetComponent<Projectile>().Damage * 3;
-                    criticalHit = true;
                 }
                 else
                 {
@@ -35,7 +41,14 @@ public class EnemyGotShot : MonoBehaviour
 
                 if (enemyData.health <= 0)
                 {
-                    OnDeath?.Invoke(other.transform,criticalHit);
+                    OnDeath?.Invoke(criticalHit);
+
+                    if(criticalHit && enemyData.amputation)
+                    {
+                        amputationPart.SetActive(true);
+                        amputationPart.GetComponent<Rigidbody2D>().AddForce(other.GetComponent<PlayerProjectileImpact>().velocityOnHit / 2, ForceMode2D.Impulse);
+                    }
+                    
                 }
 
             }

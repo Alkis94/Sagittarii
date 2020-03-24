@@ -322,6 +322,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7aca9d8ff8ab559438987759caa9d2d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  amputationPart: {fileID: 0}
 --- !u!114 &4970816829133603991
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -335,6 +336,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deadEnemySprite: {fileID: 21300012, guid: ed0fe686b3cb76a438d629832007d35f, type: 3}
+  criticalDeathEnemySprite: {fileID: 0}
   enemyKey: 0
   roomKey: 
   mapType: 0
@@ -438,7 +440,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5552581032823562448}
   - component: {fileID: 3590528340147677097}
-  - component: {fileID: 132925482085214636}
   m_Layer: 12
   m_Name: PolygonCollider
   m_TagString: Enemy
@@ -490,15 +491,3 @@ PolygonCollider2D:
       - {x: -0.45225298, y: -0.09312773}
       - {x: 0.3475108, y: -0.01693964}
       - {x: 0.2430259, y: 0.1350894}
---- !u!114 &132925482085214636
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8325591403499743333}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7aca9d8ff8ab559438987759caa9d2d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

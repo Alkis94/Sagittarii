@@ -15,10 +15,10 @@ public class PlayerFireProjectile : MonoBehaviour
     [SerializeField]
     private float projectileDestroyDelay = 30f;
 
-
     private Animator animator;
     private Vector3 arrowEmitterPosition;
     private PlayerStats playerStats;
+    private AudioSource audioSource;
 
     public Action<GameObject,GameObject,float,float,float,int> FireArrow = delegate {};
     
@@ -31,6 +31,7 @@ public class PlayerFireProjectile : MonoBehaviour
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void OnEnable()
@@ -57,6 +58,7 @@ public class PlayerFireProjectile : MonoBehaviour
             {
                 timePassedHoldingArrow = 0;
                 animator.SetTrigger("PlayerAttackHold");
+                audioSource.Play();
             }
             else if (Input.GetButton("Fire1") && animator.GetCurrentAnimatorStateInfo(0).IsName("PlayerAttackHold"))
             {

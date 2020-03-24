@@ -4,21 +4,20 @@ using UnityEngine;
 
 public class PlayerProjectileImpact : MonoBehaviour
 {
+   
+    public event Action OnCollision = delegate { };
+    public Vector2 velocityOnHit = Vector2.zero;
+
     [SerializeField]
     private AudioClip arrowImpact;
     [SerializeField]
-    private AudioClip arrowGroundImpact;
+    private float impactDestroyDelay = 0.1f;
 
     private Collider2D collider2d;
     private AudioSource audioSource;
     private Rigidbody2D rigidbody2d;
 
-    [SerializeField]
-    private float impactDestroyDelay = 30;
-    private int enemyID = 0;
-
-    public bool criticalHit = false;
-    public event Action OnCollision = delegate { };
+    
 
     void Start()
     {
@@ -30,40 +29,15 @@ public class PlayerProjectileImpact : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         OnCollision?.Invoke();
-        criticalHit = false;
-
-        if (other.tag == "Enemy" && enemyID != other.transform.parent.GetInstanceID())
-        {
-
-            enemyID = other.transform.parent.GetInstanceID();
-
-            //CircleCollider are reservered for spots that are critical hits when shot.
-            if (other is CircleCollider2D)
-            {
-                criticalHit = true;
-                rigidbody2d.velocity = new Vector2(rigidbody2d.velocity.x / 2, rigidbody2d.velocity.y / 2);
-            }
-
-            else
-            {
-                transform.parent = other.transform;
-                audioSource.clip = arrowImpact;
-                audioSource.Play();
-                ArrowStuck();
-            }
-            
-        }
-        else if (other.tag != "Enemy")
-        {
-            audioSource.clip = arrowGroundImpact;
-            audioSource.Play();
-            Destroy(gameObject, impactDestroyDelay);
-            ArrowStuck();
-        }
+        audioSource.clip = arrowImpact;
+        audioSource.Play();
+        velocityOnHit = rigidbody2d.velocity;
+        ArrowHit();
+        Destroy(gameObject, impactDestroyDelay);
     }
 
 
-    private void ArrowStuck()
+    private void ArrowHit()
     {
         collider2d.enabled = false;
         rigidbody2d.velocity = Vector2.zero;

@@ -11,6 +11,7 @@ public class EnemyDeath : MonoBehaviour
     private EnemyData enemyData;
     private RelicData relicData;
     private EnemyGotShot enemyGotShot;
+    private EnemyCriticalHit enemyCriticalHit;
     private GameObject bloodSplat;
 
     private Animator animator;
@@ -71,7 +72,7 @@ public class EnemyDeath : MonoBehaviour
         bloodSplat = Resources.Load("DeathBloodSplat") as GameObject;
     }
 
-    private void Die(Transform arrow,bool criticalDeath)
+    private void Die(bool criticalDeath)
     {
         if (hasBlood)
         {
@@ -80,12 +81,6 @@ public class EnemyDeath : MonoBehaviour
 
         if(criticalDeath)
         {
-            if (enemyData.amputation)
-            {
-                criticalCollider.transform.parent = arrow;
-                criticalCollider.GetComponent<SpriteRenderer>().enabled = true;
-            }
-
             animator.SetTrigger("DieCritical");
         }
         else

@@ -113,4 +113,14 @@ public class OnSceneLoadChangePlayer : MonoBehaviour
         }
     }
 
+    private void SavePlayer()
+    {
+        ES3.Save<int>("CurrentHealth", playerStats.CurrentHealth,"Profile" + SaveProfileHandler.SaveID + "/Player");
+        ES3.Save<int>("MaximumHealth", playerStats.MaximumHealth, "Profile" + SaveProfileHandler.SaveID + "/Player");
+        ES3.Save<int>("CurrentEnergy", playerStats.CurrentEnergy, "Profile" + SaveProfileHandler.SaveID + "/Player");
+        ES3.Save<int>("MaximumEnergy", playerStats.MaximumEnergy, "Profile" + SaveProfileHandler.SaveID + "/Player");
+        ES3.Save<int>("Gold", playerStats.Gold, "Profile" + SaveProfileHandler.SaveID + "/Player");
+        ES3.Save<int>("Ammo", playerStats.Ammo, "Profile" + SaveProfileHandler.SaveID + "/Player");
+    }
+
 }

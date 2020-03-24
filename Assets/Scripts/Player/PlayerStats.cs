@@ -26,6 +26,7 @@ public class PlayerStats : MonoBehaviour
     public static event Action<int, int> OnPlayerEnergyChanged = delegate { };
     public static event Action PlayerDied = delegate { };
 
+
     private void Start()
     {
         OnPlayerHealthChanged?.Invoke(currentHealth, maximumHealth);
@@ -89,21 +90,21 @@ public class PlayerStats : MonoBehaviour
         {
             int newCurrentExhaustion = value;
 
-            if (newCurrentExhaustion <= MaximumExhaustion)
+            if (newCurrentExhaustion <= MaximumEnergy)
             {
                 currentEnergy = newCurrentExhaustion;
             }
 
-            if (newCurrentExhaustion > MaximumExhaustion)
+            if (newCurrentExhaustion > MaximumEnergy)
             {
-                currentEnergy = MaximumExhaustion;
+                currentEnergy = MaximumEnergy;
             }
 
             OnPlayerEnergyChanged?.Invoke(currentEnergy, maximumEnergy);
         }
     }
 
-    public int MaximumExhaustion
+    public int MaximumEnergy
     {
         get
         {

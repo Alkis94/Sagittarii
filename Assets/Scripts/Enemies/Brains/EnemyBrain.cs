@@ -64,7 +64,7 @@ public abstract class  EnemyBrain : MonoBehaviour
         }
     }
 
-    protected void OnEnemyDiedStopAll(Transform arrow,bool criticalDeath)
+    protected void OnEnemyDiedStopAll(bool criticalDeath)
     {
         CancelInvoke();
         StopAllCoroutines();

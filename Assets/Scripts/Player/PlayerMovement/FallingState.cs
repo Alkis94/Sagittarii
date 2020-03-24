@@ -15,6 +15,7 @@ public class FallingState : State<PlayerMovement2>
 
     public override void EnterState()
     {
+        //Debug.Log("Entered FallingState");
         canStillJumpTime = Time.time + coyoteDuration;
     }
 
