@@ -1,0 +1,35 @@
+﻿using UnityEngine;
+
+public class EnemyGroundMovement : MonoBehaviour
+{
+
+    private Rigidbody2D rigidbody2d;
+    private Raycaster raycaster;
+
+    private void Awake()
+    {
+        rigidbody2d = GetComponent<Rigidbody2D>();
+        raycaster = GetComponentInChildren<Raycaster>();
+    }
+
+    public void Move(float speed)
+    {
+        if(rigidbody2d.velocity.y == 0)
+        {
+            rigidbody2d.velocity = new Vector2(transform.right.x * speed, rigidbody2d.velocity.y);
+        }
+        raycaster.UpdateRaycastOrigins();
+    }
+
+    public void ChangeHorizontalDirection()
+    {
+        transform.localRotation = transform.localRotation.y == 0 ? Quaternion.Euler(0, 180, 0) : Quaternion.Euler(0, 0, 0);
+    }
+
+    public void Jump(float horizontalForce, float verticalForce)
+    {
+        int horizontalDirection = transform.localRotation.y == 0 ? 1 : -1;
+        rigidbody2d.AddForce(new Vector2(horizontalForce * horizontalDirection, verticalForce), ForceMode2D.Impulse);
+    }
+
+}

@@ -2,15 +2,8 @@
 using System.Collections;
 using StateMachineNamespace;
 
-public class OwlBrain : AdvancedEnemyBrain
+public class OwlBrain : EnemyBrain
 {
-    private AudioSource audioSource;
-    private Rigidbody2D rigidbody2d;
-    private CollisionTracker collisionTracker;
-    private Raycaster raycaster;
-
-    [HideInInspector]
-    public Animator animator;
     [HideInInspector]
     public StateMachine<OwlBrain> stateMachine;
     [HideInInspector]
@@ -45,11 +38,7 @@ public class OwlBrain : AdvancedEnemyBrain
     protected override void Start()
     {
         base.Start();
-        collisionTracker = GetComponentInChildren<CollisionTracker>();
-        rigidbody2d = GetComponent<Rigidbody2D>();
-        raycaster = GetComponentInChildren<Raycaster>();
-        animator = GetComponent<Animator>();
-        audioSource = GetComponent<AudioSource>();
+        MovementPatterns = GetComponents<MovementPattern>();
 
         stateMachine = new StateMachine<OwlBrain>(this);
         stateMachine.ChangeState(wonderState);
@@ -109,13 +98,14 @@ public class OwlBrain : AdvancedEnemyBrain
     }
 
     //Called from Animation
-    public void MoveOnAttack()
+    public void Dive()
     {
-        MoveOnAttackPatterns[0].MoveOnAttack(-8);
+
+        rigidbody2d.AddForce(new Vector2(0, -8), ForceMode2D.Impulse);
     }
 
-    public void MoveBackOnAttack()
+    public void MoveBack()
     {
-        MoveOnAttackPatterns[0].MoveOnAttack(16);
+        rigidbody2d.AddForce(new Vector2(0, 16), ForceMode2D.Impulse);
     }
 }

@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class HealthPickup : MonoBehaviour
 {
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.tag == "Player")
+        if (collision.gameObject.tag == "Player")
         {
-            collision.GetComponent<PlayerStats>().CurrentHealth += 10;
+            collision.gameObject.GetComponent<PlayerStats>().CurrentHealth += 10;
         }
     }
 }

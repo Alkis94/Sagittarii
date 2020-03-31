@@ -3,16 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using StateMachineNamespace;
 
-public class BatBossBrain : AdvancedEnemyBrain
+public class BatBossBrain : EnemyBrain
 {
 
-    private AudioSource audioSource;
-    private Rigidbody2D rigidbody2d;
-    private CollisionTracker collisionTracker;
-    private Raycaster raycaster;
-
-    [HideInInspector]
-    public Animator animator;
     [HideInInspector]
     public StateMachine<BatBossBrain> stateMachine;
     [HideInInspector]

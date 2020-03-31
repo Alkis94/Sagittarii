@@ -8,6 +8,18 @@ public abstract class  EnemyBrain : MonoBehaviour
     public EnemyData enemyData;
     protected EnemyGotShot enemyGotShot;
     protected SpriteRenderer spriteRenderer;
+    protected Rigidbody2D rigidbody2d;
+    protected CollisionTracker collisionTracker;
+    protected Raycaster raycaster;
+    protected AudioSource audioSource;
+
+    [HideInInspector]
+    public Animator animator { get; protected set; }
+    [HideInInspector]
+    public AttackPattern[] AttackPatterns { get; protected set; }
+    [HideInInspector]
+    public MovementPattern[] MovementPatterns { get; protected set; }
+
 
     //This timer will help enemies that get stuck somewhere not to change directions too rapidly
     protected float cannotChangeDirectionTime = 0f;
@@ -31,10 +43,17 @@ public abstract class  EnemyBrain : MonoBehaviour
         enemyGotShot = GetComponent<EnemyGotShot>();
         enemyData = GetComponent<EnemyData>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        AttackPatterns = GetComponents<AttackPattern>();
     }
 
     protected virtual void Start()
     {
+        collisionTracker = GetComponentInChildren<CollisionTracker>();
+        raycaster = GetComponentInChildren<Raycaster>();
+        rigidbody2d = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
+
         if (enemyData.changingDirections)
         {
             StartCoroutine(ChangingDirectionsOverTime(enemyData.changeDirectionFrequency));

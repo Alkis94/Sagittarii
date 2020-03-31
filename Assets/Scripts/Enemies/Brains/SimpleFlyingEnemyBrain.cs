@@ -2,11 +2,7 @@
 
 public class SimpleFlyingEnemyBrain : EnemyBrain
 {
-    private Rigidbody2D rigidbody2d;
-    private CollisionTracker collisionTracker;
-    private MovementPattern movementPattern;
-    private AttackPattern attackPattern;
-    private Raycaster raycaster;
+    
     private int horizontalDirection = 1;
     private int verticalDirection = 1;
 
@@ -14,9 +10,7 @@ public class SimpleFlyingEnemyBrain : EnemyBrain
     protected override void Awake()
     {
         base.Awake();
-        movementPattern = GetComponent<MovementPattern>();
-        attackPattern = GetComponent<AttackPattern>();
-
+        MovementPatterns = GetComponents<MovementPattern>();
     }
 
     protected override void OnEnable()
@@ -32,11 +26,7 @@ public class SimpleFlyingEnemyBrain : EnemyBrain
     protected override void Start()
     {
         base.Start();
-        collisionTracker = GetComponentInChildren<CollisionTracker>();
-        raycaster = GetComponentInChildren<Raycaster>();
-        rigidbody2d = GetComponent<Rigidbody2D>();
-        
-        if(attackPattern != null)
+        if(AttackPatterns[0] != null)
         {
             InvokeRepeating("Attack", enemyData.delayBeforeFirstAttack, enemyData.attackFrequencies[0]);
         }
@@ -58,6 +48,7 @@ public class SimpleFlyingEnemyBrain : EnemyBrain
         if (collisionTracker.collisions.above || collisionTracker.collisions.below && Time.time > cannotChangeDirectionTime)
         {
             verticalDirection *= -1;
+            ChangeHorizontalDirection();
             cannotChangeDirectionTime = Time.time + 0.05f;
         }
     }
@@ -66,7 +57,7 @@ public class SimpleFlyingEnemyBrain : EnemyBrain
     {
         if (enemyData.health > 0)
         {
-            movementPattern.Move(enemyData.speed, verticalDirection);
+            MovementPatterns[0].Move(enemyData.speed,horizontalDirection, verticalDirection);
         }
     }
 
@@ -77,22 +68,25 @@ public class SimpleFlyingEnemyBrain : EnemyBrain
         collisionTracker.TrackVerticalCollisions(rigidbody2d.velocity.y);
     }
 
+
+    //Direction Changing needs more work for flying enemies.
     protected override void ChangeHorizontalDirection()
     {
         horizontalDirection *= -1;
+
         if (horizontalDirection == -1)
         {
-            transform.localRotation = Quaternion.Euler(0, 180, 0);
+            transform.localRotation = Quaternion.Euler(0, 180, -transform.localEulerAngles.z);
         }
         else if (horizontalDirection == 1)
         {
 
-            transform.localRotation = Quaternion.Euler(0, 0, 0);
+            transform.localRotation = Quaternion.Euler(0, 0, transform.localEulerAngles.z);
         }
     }
 
     private void Attack()
     {
-        attackPattern.Attack();
+        AttackPatterns[0].Attack();
     }
 }

@@ -14,7 +14,6 @@ public class OnSceneLoadChangePlayer : MonoBehaviour
     private RuntimeAnimatorController bodyController;
 
     private float currentPlayerSpeed;
-    private Vector3 newPlayerPositionOnSceneChange;
     private Direction lastDoorTakenPlacement;
     [SerializeField]
     private float playerTownSpeed = 6f;
@@ -69,8 +68,7 @@ public class OnSceneLoadChangePlayer : MonoBehaviour
             hands.SetActive(true);
         }
 
-        NextPlayerSpawnPointPosition();
-        transform.position = newPlayerPositionOnSceneChange;
+        transform.position = NextPlayerSpawnPointPosition();
     }
 
     private void NextPlayerSpawnPointDirection(string levelToLoad)
@@ -85,32 +83,39 @@ public class OnSceneLoadChangePlayer : MonoBehaviour
 
 
 
-    private void NextPlayerSpawnPointPosition()
+    private Vector3 NextPlayerSpawnPointPosition()
     {
-        if (lastDoorTakenPlacement == Direction.west)
+        GameObject thisSpawn = GameObject.FindGameObjectWithTag("PlayerSpawnEast");
+        if (lastDoorTakenPlacement == Direction.east && thisSpawn != null)
         {
-            newPlayerPositionOnSceneChange = GameObject.FindGameObjectWithTag("PlayerSpawnEast").transform.position;
+            return thisSpawn.transform.position;
         }
-        else if (lastDoorTakenPlacement == Direction.east)
+
+        thisSpawn = GameObject.FindGameObjectWithTag("PlayerSpawnWest");
+        if (lastDoorTakenPlacement == Direction.west && thisSpawn != null)
         {
-            newPlayerPositionOnSceneChange = GameObject.FindGameObjectWithTag("PlayerSpawnWest").transform.position;
+            return thisSpawn.transform.position;
         }
-        else if (lastDoorTakenPlacement == Direction.north)
+
+        thisSpawn = GameObject.FindGameObjectWithTag("PlayerSpawnNorth");
+        if (lastDoorTakenPlacement == Direction.north && thisSpawn != null)
         {
-            newPlayerPositionOnSceneChange = GameObject.FindGameObjectWithTag("PlayerSpawnSouth").transform.position;
+            return thisSpawn.transform.position;
         }
-        else if (lastDoorTakenPlacement == Direction.south)
+
+        thisSpawn = GameObject.FindGameObjectWithTag("PlayerSpawnSouth");
+        if (lastDoorTakenPlacement == Direction.south && thisSpawn != null)
         {
-            newPlayerPositionOnSceneChange = GameObject.FindGameObjectWithTag("PlayerSpawnNorth").transform.position;
+            return thisSpawn.transform.position;
         }
-        else if(lastDoorTakenPlacement == Direction.middle)
+
+        thisSpawn = GameObject.FindGameObjectWithTag("PlayerSpawnMiddle");
+        if (lastDoorTakenPlacement == Direction.middle && thisSpawn != null)
         {
-            newPlayerPositionOnSceneChange = GameObject.FindGameObjectWithTag("PlayerSpawn").transform.position;
+            return thisSpawn.transform.position;
         }
-        else
-        {
-            Debug.LogError("Player spawn not found!");
-        }
+
+        return transform.position;
     }
 
     private void SavePlayer()
@@ -122,5 +127,40 @@ public class OnSceneLoadChangePlayer : MonoBehaviour
         ES3.Save<int>("Gold", playerStats.Gold, "Profile" + SaveProfileHandler.SaveID + "/Player");
         ES3.Save<int>("Ammo", playerStats.Ammo, "Profile" + SaveProfileHandler.SaveID + "/Player");
     }
+
+    //private Vector3 ReturnAnySpawnPointPosition()
+    //{
+    //    GameObject tmp = GameObject.FindGameObjectWithTag("PlayerSpawnWest");
+    //    if(tmp != null)
+    //    {
+    //        return tmp.transform.position;
+    //    }
+
+    //    tmp = GameObject.FindGameObjectWithTag("PlayerSpawnEast");
+    //    if (tmp != null)
+    //    {
+    //        return tmp.transform.position;
+    //    }
+
+    //    tmp = GameObject.FindGameObjectWithTag("PlayerSpawnNorth");
+    //    if (tmp != null)
+    //    {
+    //        return tmp.transform.position;
+    //    }
+
+    //    tmp = GameObject.FindGameObjectWithTag("PlayerSpawnSouth");
+    //    if (tmp != null)
+    //    {
+    //        return tmp.transform.position;
+    //    }
+
+    //    tmp = GameObject.FindGameObjectWithTag("PlayerSpawn");
+    //    if (tmp != null)
+    //    {
+    //        return tmp.transform.position;
+    //    }
+
+    //    return transform.position;
+    //}
 
 }

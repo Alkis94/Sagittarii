@@ -18,7 +18,7 @@ public class EnemyData : MonoBehaviour
 
     [Header("Behaviour Bools")]
     public bool changingDirections = false;
-    public bool jumpingBehaviour = false;
+
 
 
     [Header("Bools")]

@@ -12,9 +12,9 @@ public class Trident : MonoBehaviour
         ProjectileFactory.CreateProjectile(arrowEmitter.transform.position, projectile, Vector3.zero, projectileSpeed * arrowPower, projectileDestroyDelay, damage, Quaternion.Euler(0, 0, arrowEmitter.transform.rotation.eulerAngles.z - 10));
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.tag == "Player")
+        if(collision.gameObject.tag == "Player")
         {
             collision.gameObject.GetComponentInChildren<PlayerFireProjectile>().FireArrow = FireArrowWithTrident;
         }

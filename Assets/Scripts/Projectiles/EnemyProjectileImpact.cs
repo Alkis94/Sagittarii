@@ -7,6 +7,7 @@ public class EnemyProjectileImpact : MonoBehaviour
     [SerializeField]
     private float impactDestroyDelay = 0;
     private Rigidbody2D rigidbody2d;
+    
 
     void Start()
     {
@@ -19,6 +20,7 @@ public class EnemyProjectileImpact : MonoBehaviour
         rigidbody2d.angularVelocity = 0;
         rigidbody2d.isKinematic = true;
         enabled = false;
+        gameObject.layer = 14;
         Destroy(gameObject, impactDestroyDelay);
     }
 }

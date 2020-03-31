@@ -4,11 +4,11 @@ using System.Collections;
 public class EnergyPickup : MonoBehaviour
 {
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.tag == "Player")
+        if (collision.gameObject.tag == "Player")
         {
-            collision.GetComponent<PlayerStats>().CurrentEnergy += 5;
+            collision.gameObject.GetComponent<PlayerStats>().CurrentEnergy += 5;
         }
     }
 }

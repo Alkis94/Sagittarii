@@ -19,15 +19,14 @@ public class EnemyDeath : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private AudioSource audioSource;
     private EnemyBrain enemyBrain;
-    private AdvancedEnemyBrain advancedEnemyBrain;
+
 
     
 
 
     [SerializeField]
     private AudioClip deathCry;
-    [SerializeField]
-    private GameObject criticalCollider;
+    
 
     //[SerializeField]
     private float healthDropRate = 0.05f;
@@ -67,7 +66,7 @@ public class EnemyDeath : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         audioSource = GetComponent<AudioSource>();
         enemyBrain = GetComponent<EnemyBrain>();
-        advancedEnemyBrain = GetComponent<AdvancedEnemyBrain>();
+   
 
         bloodSplat = Resources.Load("DeathBloodSplat") as GameObject;
     }
@@ -94,6 +93,7 @@ public class EnemyDeath : MonoBehaviour
         audioSource.clip = deathCry;
         audioSource.Play();
         enemyGotShot.enabled = false;
+        transform.localRotation = Quaternion.Euler(0,transform.localEulerAngles.y, 0);
 
         if (enemyBrain != null)
         {

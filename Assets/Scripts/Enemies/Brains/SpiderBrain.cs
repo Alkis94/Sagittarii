@@ -4,13 +4,10 @@ using UnityEngine;
 
 public class SpiderBrain : EnemyBrain
 {
-    private Rigidbody2D rigidbody2d;
-    private CollisionTracker collisionTracker;
-    private Raycaster raycaster;
-    private Animator animator;
+
     private MovementPattern movementPattern;
     private AttackPattern attackPattern;
-    private AudioSource audioSource;
+
     [SerializeField]
     private GameObject web;
 
@@ -34,8 +31,7 @@ public class SpiderBrain : EnemyBrain
     protected override void Start()
     {
         
-        audioSource = GetComponent<AudioSource>();
-        animator = GetComponent<Animator>();
+
         InvokeRepeating("Attack", enemyData.delayBeforeFirstAttack, enemyData.attackFrequencies[0]);
         base.Start();
     }

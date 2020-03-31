@@ -227,7 +227,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300006, guid: b52f75b0da268e840a7d15fdd5d2e8be, type: 3}
+  m_Sprite: {fileID: 21300012, guid: 0e2929673b85eed4090c812673cb0c61, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -395,7 +395,6 @@ MonoBehaviour:
   goldGiven: 0
   giveSpecificAmountOfGold: 0
   changingDirections: 0
-  jumpingBehaviour: 1
   damageable: 1
   amputation: 0
   Relic: {fileID: 0}
@@ -425,7 +424,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deathCry: {fileID: 8300000, guid: 6453350a75ca85c40acf284ab12054a3, type: 3}
-  criticalCollider: {fileID: 0}
   hasBlood: 1
 --- !u!114 &6757743525015241999
 MonoBehaviour:
@@ -469,6 +467,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7aca9d8ff8ab559438987759caa9d2d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  amputationPart: {fileID: 0}
 --- !u!114 &6205051828286625437
 MonoBehaviour:
   m_ObjectHideFlags: 0

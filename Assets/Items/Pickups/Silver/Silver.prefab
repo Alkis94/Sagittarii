@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4730772738287950238}
   - component: {fileID: 114000012713737418}
   - component: {fileID: 82000011482979170}
-  - component: {fileID: 114705004194484662}
+  - component: {fileID: 6397759859061689489}
   m_Layer: 9
   m_Name: Silver
   m_TagString: Untagged
@@ -79,7 +79,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.3, y: 0.4}
+  m_Size: {x: 0.45, y: 0.45}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -123,7 +123,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!61 &4730772738287950238
 BoxCollider2D:
@@ -135,21 +135,21 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.3, y: 0.45}
-    newSize: {x: 0.3, y: 0.4}
+    oldSize: {x: 0.45, y: 0.45}
+    newSize: {x: 0.45, y: 0.45}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.65, y: 0.55}
+  m_Size: {x: 0.45, y: 0.45}
   m_EdgeRadius: 0
 --- !u!114 &114000012713737418
 MonoBehaviour:
@@ -260,7 +260,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!114 &114705004194484662
+--- !u!114 &6397759859061689489
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -269,6 +269,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000013538430894}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 066a611ba236fd94a9253ec3b8f94534, type: 3}
+  m_Script: {fileID: 11500000, guid: 0add2085a0601b04bafbc3084e15bba6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coinValue: 5
