@@ -25,7 +25,7 @@ public class BatBossCalmState : State<BatBossBrain>
 
         if(nextAttackTime < Time.time)
         {
-            stateOwner.AttackPatterns[0].Attack();
+            stateOwner.AttackPatterns[0].Attack(0);
             nextAttackTime = Time.time + stateOwner.enemyData.attackFrequencies[0];
         }
 

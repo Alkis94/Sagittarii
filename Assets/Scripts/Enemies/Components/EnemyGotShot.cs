@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using System.Collections;
 
 public class EnemyGotShot : MonoBehaviour
 {
@@ -7,52 +8,91 @@ public class EnemyGotShot : MonoBehaviour
     //public event Action<Transform> OnCriticalDeath = delegate { };
     public event Action<bool> OnDeath = delegate { };
     private EnemyData enemyData;
-    private EnemyCriticalHit enemyCriticalHit;
-    private bool criticalHit = false;
+    private EnemyWasCriticalHit enemyWasCriticalHit;
+    private EnemyWasHit enemyWasHit;
+    private SpriteRenderer spriteRenderer;
     [SerializeField]
     private GameObject amputationPart;
     
 
-    private void Start()
+    private void Awake()
     {
+        spriteRenderer = GetComponent<SpriteRenderer>();
         enemyData = GetComponent<EnemyData>();
-        enemyCriticalHit = GetComponentInChildren<EnemyCriticalHit>();
+        enemyWasCriticalHit = GetComponentInChildren<EnemyWasCriticalHit>();
+        enemyWasHit = GetComponentInChildren<EnemyWasHit>();
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnEnable()
     {
-        if (other.tag == "Arrow")
+        if (enemyWasCriticalHit != null)
         {
-            if (enemyData.damageable)
+            enemyWasCriticalHit.OnCriticalHit += CriticalHit;
+        }
+
+        enemyWasHit.OnHit += Hit;
+    }
+
+    private void OnDisable()
+    {
+        if (enemyWasCriticalHit != null)
+        {
+            enemyWasCriticalHit.OnCriticalHit -= CriticalHit;
+        }
+
+        enemyWasHit.OnHit -= Hit;
+    }
+
+    private void Hit(int damage)
+    {
+        if (enemyData.damageable)
+        {
+            StartCoroutine(FlashRed());
+            enemyData.health -= damage;
+
+            if (enemyData.health <= 0)
             {
-                if (enemyCriticalHit != null)
-                {
-                    criticalHit = enemyCriticalHit.criticalHit;
-                }
-
-                if (criticalHit)
-                {
-                    enemyData.health -= other.GetComponent<Projectile>().Damage * 3;
-                }
-                else
-                {
-                    enemyData.health -= other.GetComponent<Projectile>().Damage;
-                }
-
-                if (enemyData.health <= 0)
-                {
-                    OnDeath?.Invoke(criticalHit);
-
-                    if(criticalHit && enemyData.amputation)
-                    {
-                        amputationPart.SetActive(true);
-                        amputationPart.GetComponent<Rigidbody2D>().AddForce(other.GetComponent<PlayerProjectileImpact>().velocityOnHit / 2, ForceMode2D.Impulse);
-                    }
-                    
-                }
-
+                OnDeath?.Invoke(false);
             }
 
         }
     }
+
+    private void CriticalHit(int damage,Vector2 projectileVelocityOnHit)
+    {
+        if (enemyData.damageable)
+        {
+            StartCoroutine(FlashDarkRed());
+            enemyData.health -= damage * 3;
+
+            if (enemyData.health <= 0)
+            {
+                OnDeath?.Invoke(true);
+
+                if (enemyData.amputation)
+                {
+                    amputationPart.SetActive(true);
+                    amputationPart.GetComponent<Rigidbody2D>().AddForce(projectileVelocityOnHit / 2, ForceMode2D.Impulse);
+                }
+
+            }
+        }
+    }
+
+    IEnumerator FlashRed()
+    {
+        spriteRenderer.color = new Color(1f, 0.5f, 0.25f, 1f);
+        yield return new WaitForSeconds(0.2f);
+        spriteRenderer.color = new Color(1f, 1f, 1f, 1f);
+    }
+
+    IEnumerator FlashDarkRed()
+    {
+        spriteRenderer.color = new Color(1f, 0f, 0f, 1f);
+        yield return new WaitForSeconds(0.2f);
+        spriteRenderer.color = new Color(1f, 1f, 1f);
+    }
 }
+
+    
+

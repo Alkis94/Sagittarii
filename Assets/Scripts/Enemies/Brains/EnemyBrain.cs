@@ -88,4 +88,15 @@ public abstract class  EnemyBrain : MonoBehaviour
         CancelInvoke();
         StopAllCoroutines();
     }
+
+    //Gets called from animation sometimes!
+    protected void CallMainAttack()
+    {
+        AttackPatterns[0].Attack(0);
+    }
+
+    protected void StartAttackAnimation()
+    {
+        animator.SetTrigger("Attack");
+    }
 }

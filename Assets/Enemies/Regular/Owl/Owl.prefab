@@ -249,7 +249,6 @@ MonoBehaviour:
   goldGiven: 0
   giveSpecificAmountOfGold: 0
   changingDirections: 0
-  jumpingBehaviour: 0
   damageable: 1
   amputation: 0
   Relic: {fileID: 0}
@@ -278,6 +277,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 085f3595429d9ab438aed4e4cef52d98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotation: 0
 --- !u!114 &7634720868630699044
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -317,10 +317,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a538059451f55a4c98844bd632a0d32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackData: {fileID: 11400000, guid: b22811ea17d16104b93e1166f4f91312, type: 2}
+  attackData:
+  - {fileID: 11400000, guid: b22811ea17d16104b93e1166f4f91312, type: 2}
   attackSound: {fileID: 8300000, guid: 492123bdde2a79a4cad3b5f0fe7c0a54, type: 3}
-  projectileRotations:
-  - 270
 --- !u!114 &1825717709
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -334,7 +333,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyData: {fileID: 0}
-  animator: {fileID: 0}
   horizontalDirection: 1
   verticalDirection: 1
 --- !u!114 &3745124472492121522

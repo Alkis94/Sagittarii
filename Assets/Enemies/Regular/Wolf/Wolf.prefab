@@ -449,12 +449,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a538059451f55a4c98844bd632a0d32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackData: {fileID: 11400000, guid: dffcf27635b5c3f4a89acf1891659367, type: 2}
+  attackData:
+  - {fileID: 11400000, guid: dffcf27635b5c3f4a89acf1891659367, type: 2}
   attackSound: {fileID: 8300000, guid: d060f97b5c12bf34f98bc6a78cd0c070, type: 3}
-  projectileRotations:
-  - 10
-  - 0
-  - 350
 --- !u!114 &879409717
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -40,7 +40,7 @@ public class SpiderBrain : EnemyBrain
     {
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
         {
-            attackPattern.Attack();
+            attackPattern.Attack(0);
             animator.SetTrigger("Attack");
             audioSource.Play();
         }

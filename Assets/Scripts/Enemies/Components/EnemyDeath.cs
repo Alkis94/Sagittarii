@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System;
 using Factories;
+using System.Collections;
 
 
 public class EnemyDeath : MonoBehaviour
@@ -11,7 +12,6 @@ public class EnemyDeath : MonoBehaviour
     private EnemyData enemyData;
     private RelicData relicData;
     private EnemyGotShot enemyGotShot;
-    private EnemyCriticalHit enemyCriticalHit;
     private GameObject bloodSplat;
 
     private Animator animator;
@@ -38,6 +38,13 @@ public class EnemyDeath : MonoBehaviour
     private float energyDropRate = 0.1f;
     [SerializeField]
     private bool hasBlood = true;
+    [SerializeField]
+    private bool hasCriticalDeath = false;
+    [SerializeField]
+    private bool hasBeforeDeath = false;
+
+    private bool diedFromCriticalHit = false;
+
 
 
     private void OnEnable()
@@ -50,12 +57,12 @@ public class EnemyDeath : MonoBehaviour
         }
 
         enemyGotShot = GetComponentInChildren<EnemyGotShot>();
-        enemyGotShot.OnDeath += Die;
+        enemyGotShot.OnDeath += ProcessDeath;
     }
 
     private void OnDisable()
     {
-        enemyGotShot.OnDeath -= Die;
+        enemyGotShot.OnDeath -= ProcessDeath;
     }
 
 
@@ -71,29 +78,15 @@ public class EnemyDeath : MonoBehaviour
         bloodSplat = Resources.Load("DeathBloodSplat") as GameObject;
     }
 
-    private void Die(bool criticalDeath)
-    {
-        if (hasBlood)
-        {
-            Instantiate(bloodSplat, transform.position, Quaternion.identity);
-        }
-
-        if(criticalDeath)
-        {
-            animator.SetTrigger("DieCritical");
-        }
-        else
-        {
-            animator.SetTrigger("Die");
-        }
-
-        rigidbody2d.gravityScale = 1;
+    private void ProcessDeath(bool criticalDeath)
+    { 
         spriteRenderer.sortingLayerName = "DeadEnemies";
         gameObject.layer = 14;
         audioSource.clip = deathCry;
         audioSource.Play();
         enemyGotShot.enabled = false;
-        transform.localRotation = Quaternion.Euler(0,transform.localEulerAngles.y, 0);
+        transform.localRotation = Quaternion.Euler(0, transform.localEulerAngles.y, 0);
+        diedFromCriticalHit = criticalDeath;
 
         if (enemyBrain != null)
         {
@@ -105,6 +98,53 @@ public class EnemyDeath : MonoBehaviour
         {
             trans.gameObject.layer = 14;
         }
+
+        if (hasBeforeDeath)
+        {
+            StartCoroutine(BeforeDeath());
+        }
+        else
+        {
+            Die();
+        }
+    }
+
+    IEnumerator BeforeDeath()
+    {
+        animator.SetTrigger("BeforeDeath");
+
+        Color red = new Color(1f, 0f, 0f);
+        Color white = new Color(1f, 1f, 1f);
+
+        for (int i = 0; i < 8; i++)
+        {
+            spriteRenderer.color = red;
+            yield return new WaitForSeconds(0.25f);
+            spriteRenderer.color = white;
+            yield return new WaitForSeconds(0.25f);
+        }
+
+        spriteRenderer.color = white;
+        Die();
+    }
+
+    private void Die()
+    {
+        if (hasBlood)
+        {
+            Instantiate(bloodSplat, transform.position, Quaternion.identity);
+        }
+
+        if(diedFromCriticalHit && hasCriticalDeath)
+        {
+            animator.SetTrigger("DieCritical");
+        }
+        else
+        {
+            animator.SetTrigger("Die");
+        }
+
+        rigidbody2d.gravityScale = 1;
 
         if (enemyData.Relic != null)
         {

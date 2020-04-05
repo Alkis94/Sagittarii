@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b531d6c97d1fa924f941d92a3a4037a8, type: 3}
+  m_Name: BearBossAttackData 1
+  m_EditorClassIdentifier: 
+  projectileAmount: 1
+  attackIsDirectionDependant: 1
+  randomness: 0
+  randomHorizontalFactorMin: 0
+  randomHorizontalFactorMax: 0
+  randomVerticalFactorMin: 0
+  randomVerticalFactorMax: 0
+  damage: 30
+  projectile: {fileID: 1000012292187914, guid: a75dc35dd1f7b4342940fddd001474e8, type: 3}
+  projectileSpeed: 10
+  projectileDestroyDelay: 30
+  projectileRotations:
+  - 0
+  projectileSpawnPositionOffset:
+  - {x: 0, y: 0, z: 0}
+  spawnPositionOffset: {x: 0, y: -1.5, z: 0}

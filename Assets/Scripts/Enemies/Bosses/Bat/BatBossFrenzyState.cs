@@ -37,7 +37,7 @@ public class BatBossFrenzyState : State<BatBossBrain>
 
         if (nextAttackTime2 < Time.time)
         {
-            stateOwner.AttackPatterns[1].Attack();
+            stateOwner.AttackPatterns[1].Attack(0);
             nextAttackTime2 = Time.time + stateOwner.enemyData.attackFrequencies[1];
         }
 

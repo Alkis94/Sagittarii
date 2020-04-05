@@ -11,7 +11,6 @@ public class GroundEnemyBrain : EnemyBrain
     {
         base.Awake();
         enemyGroundMovement = GetComponent<EnemyGroundMovement>();
-        collisionTracker = GetComponentInChildren<CollisionTracker>();
     }
 
     protected override void OnEnable()
@@ -39,7 +38,7 @@ public class GroundEnemyBrain : EnemyBrain
         }
     }
 
-    protected void CheckCollisions()
+    protected virtual void CheckCollisions()
     {
         
         collisionTracker.collisions.Reset();
@@ -51,7 +50,6 @@ public class GroundEnemyBrain : EnemyBrain
         {
             cannotChangeDirectionTime = Time.time + 0.1f;
             ChangeHorizontalDirection();
-            Debug.Log("Should Change direction");
         }
     }
 
@@ -63,23 +61,12 @@ public class GroundEnemyBrain : EnemyBrain
         }
     }
 
-    protected void StartAttackAnimation()
-    {
-        animator.SetTrigger("Attack");
-    }
-
-    protected void CallAttack()
-    {
-        //Gets called from animation
-        AttackPatterns[0].Attack();
-    }
-
     protected override void ChangeHorizontalDirection()
     {
         enemyGroundMovement.ChangeHorizontalDirection();
     }
 
-    protected void HandleWalkingAnimation()
+    protected virtual void HandleWalkingAnimation()
     {
         if (collisionTracker.collisions.below)
         {

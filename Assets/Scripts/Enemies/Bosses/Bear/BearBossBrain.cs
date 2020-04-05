@@ -1,12 +1,25 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BearBossBrain : GroundEnemyBrain
+
+public class BearBossBrain : EnemyBrain
 {
+    private EnemyGroundMovement enemyGroundMovement;
+    private Transform player;
+    [SerializeField]
+    private GameObject teleport;
+
+    private bool ableToMove = true;
+    private int animatorAbleToWalk;
+
+    private Vector3 teleport1 = new Vector3(-7.75f, -4.443924f, 0);
+    private Vector3 teleport2 = new Vector3(6.15f, -4.443924f, 0);
+    private Vector3 teleport3 = new Vector3(20.5f, -4.443924f, 0);
 
     protected override void Awake()
     {
         base.Awake();
+        enemyGroundMovement = GetComponent<EnemyGroundMovement>();
     }
 
     protected override void OnEnable()
@@ -20,19 +33,153 @@ public class BearBossBrain : GroundEnemyBrain
     }
 
     protected override void Start()
-    {
+    { 
         base.Start();
-       
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+        animatorAbleToWalk = Animator.StringToHash("AbleToWalk");
+        StartCoroutine(DoRandomAction());
+        //StartCoroutine(TeleportWhenAvailable());
     }
 
-    protected override void Update()
+    private void Update()
     {
-        base.Update();
+        if (enemyData.health > 0)
+        {
+            CheckCollisions();
+
+            if (transform.position.x < player.position.x - 0.5f && transform.right.x < 0)
+            {
+                ChangeHorizontalDirection();
+            }
+            else if (transform.position.x > player.position.x + 0.5f && transform.right.x > 0)
+            {
+                ChangeHorizontalDirection();
+            }
+        }
     }
 
-    protected override void FixedUpdate()
+    private void FixedUpdate()
     {
-        base.FixedUpdate();
+        if (enemyData.health > 0 && animator.GetCurrentAnimatorStateInfo(0).IsName("BearBossWalking"))
+        {
+            enemyGroundMovement.Move(enemyData.speed);
+        }
     }
 
+
+    protected override void ChangeHorizontalDirection()
+    {
+        enemyGroundMovement.ChangeHorizontalDirection();
+    }
+
+    private void CheckCollisions()
+    {
+        collisionTracker.collisions.Reset();
+        collisionTracker.TrackHorizontalCollisions();
+        collisionTracker.TrackVerticalCollisions(rigidbody2d.velocity.y);
+        
+        if ((collisionTracker.collisions.left || collisionTracker.collisions.right || collisionTracker.CloseToGroundEdge()))
+        {
+            ableToMove = false;
+        }
+        else
+        {
+            ableToMove = true;
+        }
+
+        HandleWalkingAnimation();
+    }
+
+    private void HandleWalkingAnimation()
+    {
+        if (collisionTracker.collisions.below && ableToMove)
+        {
+
+            animator.SetBool(animatorAbleToWalk, true);
+        }
+        else
+        {
+
+            animator.SetBool(animatorAbleToWalk, false);
+        }
+    }
+
+    IEnumerator DoRandomAction()
+    {
+        float randomTime = Random.Range(1, 2);
+        float nextTeleportTime = Random.Range(5, 10) + Time.time;
+        float randomNumber;
+        while (true)
+        {
+            yield return new WaitForSeconds(randomTime);
+
+            if (Time.time > nextTeleportTime)
+            {
+                nextTeleportTime = Random.Range(5, 10) + Time.time;
+                randomTime = Random.Range(0.5f, 1f);
+                BearTeleport();
+            }
+            else
+            {
+                randomNumber = Random.Range(0, 1f);
+                if (randomNumber < 0.3f)
+                {
+                    StartGroundAttack();
+                    randomTime = Random.Range(2, 4);
+                }
+                else
+                {
+                    StartAttackAnimation();
+                    randomTime = Random.Range(1, 2.5f);
+                }
+            }
+        }
+    }
+
+    protected void StartGroundAttack()
+    {
+        animator.SetTrigger("AttackGround");
+        rigidbody2d.velocity = Vector2.zero;
+        rigidbody2d.Impulse(0, Random.Range(25,35));
+    }
+
+    //gets called from GroundStart animation;
+    protected void CallImpulse()
+    {
+        rigidbody2d.velocity = Vector3.zero;
+        rigidbody2d.Impulse(0, -40);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "Ground" && animator.GetCurrentAnimatorStateInfo(0).IsName("BearBossGroundStart"))
+        {
+            animator.SetTrigger("GroundCollision");
+            AttackPatterns[0].Attack(1);
+        }
+    }
+
+    private void BearTeleport()
+    {
+        Instantiate(teleport, transform.position, Quaternion.identity);
+
+        float distance1 = Vector3.Distance(teleport1, player.position);
+        float distance2 = Vector3.Distance(teleport2, player.position);
+        float distance3 = Vector3.Distance(teleport3, player.position);
+
+        if(distance1 < distance2)
+        {
+            if(distance1 < distance3)
+            {
+                transform.position = teleport1;
+            }
+            else
+            {
+                transform.position = teleport3;
+            }
+        }
+        else if (distance2 < distance3) transform.position = teleport2;
+        else transform.position = teleport3;
+    }
+    
 }

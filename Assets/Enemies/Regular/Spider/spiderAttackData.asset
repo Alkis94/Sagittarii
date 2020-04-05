@@ -12,9 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b531d6c97d1fa924f941d92a3a4037a8, type: 3}
   m_Name: spiderAttackData
   m_EditorClassIdentifier: 
+  projectileAmount: 8
   attackIsDirectionDependant: 0
   damage: 8
   projectile: {fileID: 1000012292187914, guid: 26f23755413448548b765ec1585eb90a, type: 3}
   projectileSpeed: 5
   projectileDestroyDelay: 15
-  projectileSpawnPositionOffset: {x: 0, y: 0, z: 0}
+  projectileRotations:
+  - 0
+  - 45
+  - 90
+  - 135
+  - 180
+  - 225
+  - 270
+  - 315
+  projectileSpawnPositionOffset: []
+  spawnPositionOffset: {x: 0, y: 0, z: 0}

@@ -1,10 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using Factories;
+using System;
 
 public class Trident : MonoBehaviour
 {
+    public static event Action OnPlayerGotTrident = delegate { };
+
     private void FireArrowWithTrident(GameObject arrowEmitter,GameObject projectile,float projectileSpeed, float projectileDestroyDelay, float arrowPower, int damage)
     {
         ProjectileFactory.CreateProjectile(arrowEmitter.transform.position, projectile, Vector3.zero, projectileSpeed * arrowPower, projectileDestroyDelay, damage, Quaternion.Euler(0, 0, arrowEmitter.transform.rotation.eulerAngles.z + 10));
@@ -17,6 +18,8 @@ public class Trident : MonoBehaviour
         if(collision.gameObject.tag == "Player")
         {
             collision.gameObject.GetComponentInChildren<PlayerFireProjectile>().FireArrow = FireArrowWithTrident;
+            RelicFactory.PlayerHasRelic["Trident"] = true;
+            OnPlayerGotTrident?.Invoke();
         }
     }
 }

@@ -67,7 +67,6 @@ GameObject:
   - component: {fileID: 1292161362102898180}
   - component: {fileID: 1175849891}
   - component: {fileID: 1511332085}
-  - component: {fileID: 547716015}
   m_Layer: 12
   m_Name: BatBoss
   m_TagString: Enemy
@@ -297,8 +296,8 @@ MonoBehaviour:
   goldGiven: 0
   giveSpecificAmountOfGold: 0
   changingDirections: 1
-  jumpingBehaviour: 0
   damageable: 0
+  amputation: 0
   Relic: {fileID: 0}
 --- !u!114 &6867718439259980287
 MonoBehaviour:
@@ -313,7 +312,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyData: {fileID: 0}
-  animator: {fileID: 0}
   smallBat: {fileID: 1767405952, guid: 311a69c7bda174a488b521dd5a36cc10, type: 3}
   horizontalDirection: 1
   verticalDirection: 1
@@ -332,7 +330,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deathCry: {fileID: 0}
   hasBlood: 1
-  enemyDestroyDelay: 10
 --- !u!114 &1175849890
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -358,6 +355,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7aca9d8ff8ab559438987759caa9d2d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  amputationPart: {fileID: 0}
 --- !u!114 &1175849891
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -370,7 +368,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39167807d403afe4594881dea294c92e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackData: {fileID: 11400000, guid: 740345de48613d347aa01ec8f4ad24a6, type: 2}
+  attackData:
+  - {fileID: 11400000, guid: 740345de48613d347aa01ec8f4ad24a6, type: 2}
   attackSound: {fileID: 0}
 --- !u!114 &1511332085
 MonoBehaviour:
@@ -384,36 +383,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a538059451f55a4c98844bd632a0d32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackData: {fileID: 11400000, guid: 100856dff7b8f0f4da39a53950d5a601, type: 2}
+  attackData:
+  - {fileID: 11400000, guid: 100856dff7b8f0f4da39a53950d5a601, type: 2}
   attackSound: {fileID: 0}
-  projectileRotations:
-  - 0
-  - 90
-  - 180
-  - 270
---- !u!114 &547716015
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5296110209441186540}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a538059451f55a4c98844bd632a0d32, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackData: {fileID: 11400000, guid: 100856dff7b8f0f4da39a53950d5a601, type: 2}
-  attackSound: {fileID: 0}
-  projectileRotations:
-  - 0
-  - 45
-  - 90
-  - 135
-  - 180
-  - 225
-  - 270
-  - 315
 --- !u!1 &5376343802356086213
 GameObject:
   m_ObjectHideFlags: 0

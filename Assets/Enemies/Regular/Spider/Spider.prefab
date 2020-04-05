@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 4721040675297899107}
   - component: {fileID: 3321119795371479868}
   m_Layer: 12
-  m_Name: SpiderRemake
+  m_Name: Spider
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -273,7 +273,6 @@ MonoBehaviour:
   goldGiven: 0
   giveSpecificAmountOfGold: 0
   changingDirections: 0
-  jumpingBehaviour: 0
   damageable: 1
   amputation: 0
   Relic: {fileID: 0}
@@ -290,7 +289,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deathCry: {fileID: 8300000, guid: 62526eb89e8d99140a22dc9406f66451, type: 3}
-  criticalCollider: {fileID: 0}
   hasBlood: 1
 --- !u!114 &1650048298004208460
 MonoBehaviour:
@@ -304,17 +302,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a538059451f55a4c98844bd632a0d32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackData: {fileID: 11400000, guid: 3cd4917d78241b64696e699a3856b839, type: 2}
+  attackData:
+  - {fileID: 11400000, guid: 3cd4917d78241b64696e699a3856b839, type: 2}
   attackSound: {fileID: 8300000, guid: 8f6dda4fbf2d7694a9d6bef89e0173eb, type: 3}
-  projectileRotations:
-  - 0
-  - 45
-  - 90
-  - 135
-  - 180
-  - 225
-  - 270
-  - 315
 --- !u!114 &7887175159084135298
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -355,6 +345,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7aca9d8ff8ab559438987759caa9d2d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  amputationPart: {fileID: 0}
 --- !u!114 &3321119795371479868
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -368,6 +359,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deadEnemySprite: {fileID: 21300022, guid: 029b67000ff7b1345938412ee69ce424, type: 3}
+  criticalDeathEnemySprite: {fileID: 0}
   enemyKey: 0
   roomKey: 
   mapType: 0

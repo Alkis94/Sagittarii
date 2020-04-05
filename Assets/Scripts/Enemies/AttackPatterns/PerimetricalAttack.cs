@@ -5,27 +5,47 @@ using Factories;
 
 public class PerimetricalAttack : AttackPattern
 {
-    [SerializeField]
-    private List<float> projectileRotations;
-
-    public override void Attack()
+    
+    public override void Attack(int index)
     {
-        base.Attack();
-        if (attackData.attackIsDirectionDependant)
+        List<Vector3> extraRandomness = new List<Vector3>();
+        base.Attack(index);
+
+        if(attackData[index].randomness)
         {
-            foreach (float rotation in projectileRotations)
+            for (int i = 0; i < attackData[index].projectileAmount; i++)
             {
-                ProjectileFactory.CreateProjectile(transform.position, attackData.projectile,
-                    attackData.projectileSpawnPositionOffset * transform.right.x, attackData.projectileSpeed * transform.right.x,
-                    attackData.projectileDestroyDelay, attackData.damage, rotation);
+                extraRandomness.Add( new Vector3 (Random.Range(attackData[index].randomHorizontalFactorMin, attackData[index].randomHorizontalFactorMax),
+                                                  Random.Range(attackData[index].randomVerticalFactorMin, attackData[index].randomVerticalFactorMax), 0));
             }
         }
         else
         {
-            foreach (float rotation in projectileRotations)
+            for (int i = 0; i < attackData[index].projectileAmount; i++)
             {
-                ProjectileFactory.CreateProjectile(transform.position, attackData.projectile, attackData.projectileSpawnPositionOffset,
-                    attackData.projectileSpeed, attackData.projectileDestroyDelay, attackData.damage, rotation);
+                extraRandomness.Add(Vector3.zero);
+
+            }
+        }
+            
+
+        if (attackData[index].attackIsDirectionDependant)
+        {
+            for(int i = 0; i < attackData[index].projectileAmount; i++)
+            {
+                ProjectileFactory.CreateProjectile(transform.position, attackData[index].projectile,
+                    new Vector3((attackData[index].spawnPositionOffset.x + attackData[index].projectileSpawnPositionOffset[i].x + extraRandomness[i].x) * transform.right.x,
+                    attackData[index].spawnPositionOffset.y + attackData[index].projectileSpawnPositionOffset[i].y + extraRandomness[i].y, 0),
+                    attackData[index].projectileSpeed * transform.right.x,
+                    attackData[index].projectileDestroyDelay, attackData[index].damage, attackData[index].projectileRotations[i]);
+            }
+        }
+        else
+        {
+            for (int i = 0; i < attackData[index].projectileAmount; i++)
+            {
+                ProjectileFactory.CreateProjectile(transform.position, attackData[index].projectile, attackData[index].spawnPositionOffset + attackData[index].projectileSpawnPositionOffset[i] + extraRandomness[i],
+                    attackData[index].projectileSpeed, attackData[index].projectileDestroyDelay, attackData[index].damage, attackData[index].projectileRotations[i]);
             }
         }
 

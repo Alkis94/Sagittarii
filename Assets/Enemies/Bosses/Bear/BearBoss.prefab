@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6341474734450927547}
   - component: {fileID: 7929498955271098670}
+  - component: {fileID: 2802832396845210537}
   m_Layer: 12
   m_Name: Collider1
   m_TagString: Enemy
@@ -47,6 +48,18 @@ CapsuleCollider2D:
   m_Offset: {x: -0.30213457, y: -0.5244417}
   m_Size: {x: 1.6573294, y: 2.615849}
   m_Direction: 0
+--- !u!114 &2802832396845210537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1444765542052240979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3208f291997f79e4fab4bbda89d1533a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2104410553751144940
 GameObject:
   m_ObjectHideFlags: 0
@@ -57,6 +70,7 @@ GameObject:
   m_Component:
   - component: {fileID: 676928480279079545}
   - component: {fileID: 8834744481344258842}
+  - component: {fileID: 275298765924370576}
   m_Layer: 12
   m_Name: CriticalCollider
   m_TagString: Enemy
@@ -94,6 +108,18 @@ CircleCollider2D:
   m_Offset: {x: -0.037302256, y: -0.028415322}
   serializedVersion: 2
   m_Radius: 0.7380161
+--- !u!114 &275298765924370576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2104410553751144940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3005fc24385a88468af6003d2962f3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5296110209441186540
 GameObject:
   m_ObjectHideFlags: 0
@@ -112,6 +138,7 @@ GameObject:
   - component: {fileID: 1292161362102898180}
   - component: {fileID: 1248024708841591270}
   - component: {fileID: 7381703897808603995}
+  - component: {fileID: 6640498396665001166}
   m_Layer: 12
   m_Name: BearBoss
   m_TagString: Enemy
@@ -332,17 +359,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f3050e6466b8984ba6fffabc648d3c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  health: 1000
   speed: 2
   changeDirectionFrequency: 0
   delayBeforeFirstAttack: 3
-  attackFrequencies:
-  - 3
-  - 5
+  attackFrequencies: []
   goldGiven: 0
   giveSpecificAmountOfGold: 0
   changingDirections: 0
-  damageable: 0
+  damageable: 1
   amputation: 0
   Relic: {fileID: 0}
 --- !u!114 &3154934772658238055
@@ -359,6 +384,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deathCry: {fileID: 0}
   hasBlood: 1
+  hasCriticalDeath: 0
+  hasBeforeDeath: 1
 --- !u!114 &1292161362102898180
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -397,6 +424,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyData: {fileID: 0}
+  teleport: {fileID: 2089284342073273242, guid: 7835795ad097d4b4cb7c1f074be28cfc,
+    type: 3}
+--- !u!114 &6640498396665001166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5296110209441186540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a538059451f55a4c98844bd632a0d32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackData:
+  - {fileID: 11400000, guid: ac889cb4c2044cd4c93053bce535602b, type: 2}
+  - {fileID: 11400000, guid: f67055c150afd9e4d9e5e3e2d7587215, type: 2}
+  attackSound: {fileID: 0}
 --- !u!1 &5376343802356086213
 GameObject:
   m_ObjectHideFlags: 0

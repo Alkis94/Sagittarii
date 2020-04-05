@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class AttackPattern : MonoBehaviour
 {
     [SerializeField]
-    protected AttackData attackData;
+    protected List<AttackData> attackData;
     [SerializeField]
     protected AudioClip attackSound = null;
     protected AudioSource audioSource;
@@ -13,12 +13,21 @@ public abstract class AttackPattern : MonoBehaviour
     protected void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        
     }
 
 
-    public virtual void Attack()
+    public virtual void Attack(int index)
     {
-        if(attackSound != null)
+        if (attackData[index].projectileSpawnPositionOffset.Count == 0)
+        {
+            for (int i = 0; i < attackData[index].projectileAmount; i++)
+            {
+                attackData[index].projectileSpawnPositionOffset.Add(Vector3.zero);
+            }
+        }
+
+        if (attackSound != null)
         {
             audioSource.PlayOneShot(attackSound);
         }

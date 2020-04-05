@@ -11,12 +11,17 @@ public static class ExtensionMethods
         return newObject;
     }
 
-    public static Transform DestroyAllChildren(this Transform transform)
+    public static void DestroyAllChildren(this Transform transform)
     {
         foreach (Transform child in transform)
         {
             GameObject.Destroy(child.gameObject);
         }
-        return transform;
     }
+
+    public static void Impulse(this Rigidbody2D rigidbody2d, float horizontalForce, float verticalForce)
+    {
+        rigidbody2d.AddForce(new Vector2(horizontalForce, verticalForce), ForceMode2D.Impulse);
+    }
+
 }

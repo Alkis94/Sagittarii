@@ -28,7 +28,7 @@ public class SimpleFlyingEnemyBrain : EnemyBrain
         base.Start();
         if(AttackPatterns[0] != null)
         {
-            InvokeRepeating("Attack", enemyData.delayBeforeFirstAttack, enemyData.attackFrequencies[0]);
+            InvokeRepeating("CallMainAttack", enemyData.delayBeforeFirstAttack, enemyData.attackFrequencies[0]);
         }
         
     }
@@ -83,10 +83,5 @@ public class SimpleFlyingEnemyBrain : EnemyBrain
 
             transform.localRotation = Quaternion.Euler(0, 0, transform.localEulerAngles.z);
         }
-    }
-
-    private void Attack()
-    {
-        AttackPatterns[0].Attack();
     }
 }

@@ -10,7 +10,7 @@ public class PlayerCollision : MonoBehaviour
 
     
     public static event Action OnPlayerGotBatWings = delegate { };
-    public static event Action OnPlayerGotTrident = delegate { };
+    //public static event Action OnPlayerGotTrident = delegate { };
 
     void OnEnable()
     {
@@ -36,15 +36,10 @@ public class PlayerCollision : MonoBehaviour
             int damage = other.GetComponent<Projectile>().Damage;
             PlayerGotHit(damage);
         }
-        if (other.tag == "BatWingsPickup")
+
+        if (other.tag == "Spikes")
         {
-            RelicFactory.PlayerHasRelic["BatWings"] = true;
-            OnPlayerGotBatWings?.Invoke();
-        }
-        if (other.tag == "Trident")
-        {
-            RelicFactory.PlayerHasRelic["Trident"] = true;
-            OnPlayerGotTrident?.Invoke();
+            PlayerGotHit(playerStats.MaximumHealth);
         }
     }
 
