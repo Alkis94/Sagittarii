@@ -246,8 +246,8 @@ MonoBehaviour:
   goldGiven: 0
   giveSpecificAmountOfGold: 10
   changingDirections: 1
-  jumpingBehaviour: 0
   damageable: 1
+  amputation: 0
   Relic: {fileID: 0}
 --- !u!114 &6026461623799748943
 MonoBehaviour:
@@ -262,6 +262,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyData: {fileID: 0}
+  hasAttack: 0
 --- !u!114 &1767405955
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -274,6 +275,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c47ff9b0ba5071745bf679be2be6d7ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  curveFactor: 1
 --- !u!114 &5623888009569000007
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -288,7 +290,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deathCry: {fileID: 8300000, guid: e2fa5e13413a57c468a8ec9f9c4320da, type: 3}
   hasBlood: 0
-  enemyDestroyDelay: 0
+  hasCriticalDeath: 0
+  hasBeforeDeath: 0
 --- !u!114 &7817322822323997714
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -301,6 +304,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7aca9d8ff8ab559438987759caa9d2d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gotHitSound: {fileID: 0}
+  amputationPart: {fileID: 0}
 --- !u!1 &1874738022036562592
 GameObject:
   m_ObjectHideFlags: 0
@@ -401,6 +406,7 @@ GameObject:
   m_Component:
   - component: {fileID: 27685356802500115}
   - component: {fileID: 5615961542504976234}
+  - component: {fileID: 6516798374155874826}
   m_Layer: 12
   m_Name: CapsuleCollider
   m_TagString: Enemy
@@ -438,3 +444,15 @@ CapsuleCollider2D:
   m_Offset: {x: 0.022100925, y: 0.0020092726}
   m_Size: {x: 0.3915043, y: 0.50574183}
   m_Direction: 0
+--- !u!114 &6516798374155874826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9129407139932007382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3208f291997f79e4fab4bbda89d1533a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

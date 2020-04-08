@@ -9,15 +9,27 @@ public class UIManager : MonoBehaviour
 
     private static UIManager instance = null;
 
+    [SerializeField]
+    private TextMeshProUGUI energyText;
+    [SerializeField]
+    private TextMeshProUGUI healthText;
+    [SerializeField]
+    private TextMeshProUGUI ammoText;
+    [SerializeField]
+    private TextMeshProUGUI goldText;
+    [SerializeField]
+    private Image healthImage;
+    [SerializeField]
+    private Image energyImage;
+    [SerializeField]
 
-    public TextMeshProUGUI energyText;
-    public TextMeshProUGUI healthText;
-    public TextMeshProUGUI ammoText;
-    public TextMeshProUGUI goldText;
-    public Image healthImage;
-    public Image energyImage;
 
-    
+    private Image bossHealthImage;
+    [SerializeField]
+    private GameObject bossHealthBar;
+
+    private int bossMaxHealth;
+    private int bossCurrentHealth;
 
 
     private void Awake()
@@ -40,6 +52,9 @@ public class UIManager : MonoBehaviour
         PlayerStats.OnPlayerEnergyChanged += UpdateEnergy;
         PlayerStats.OnPlayerGoldChanged += UpdateGold;
         PlayerStats.OnPlayerAmmoChanged += UpdateAmmo;
+
+        BossHealth.BossEngaged += OnBossEnganged;
+        BossHealth.BossDamaged += OnBossDamaged;
     }
 
     private void OnDisable()
@@ -48,6 +63,9 @@ public class UIManager : MonoBehaviour
         PlayerStats.OnPlayerEnergyChanged -= UpdateEnergy;
         PlayerStats.OnPlayerGoldChanged -= UpdateGold;
         PlayerStats.OnPlayerAmmoChanged -= UpdateAmmo;
+
+        BossHealth.BossEngaged -= OnBossEnganged;
+        BossHealth.BossDamaged -= OnBossDamaged;
     }
 
     private void Start ()
@@ -118,17 +136,30 @@ public class UIManager : MonoBehaviour
         goldText.text = gold.ToString();
     }
 
-    //public void PressMute()
-    //{
-    //    if (AudioListener.pause)
-    //    {
-    //        AudioListener.pause = false;
-    //        MuteText.text = "Mute : Off";
-    //    }
-    //    else
-    //    {
-    //        AudioListener.pause = true;
-    //        MuteText.text = "Mute : On";
-    //    }
-    //}
+    private void OnBossEnganged(int health)
+    {
+        bossCurrentHealth += health;
+        bossMaxHealth += health;
+        bossHealthBar.SetActive(true);
+    }
+
+    private void OnBossDamaged(int damage)
+    {
+        bossCurrentHealth -=  damage;
+        UpdateBar(bossCurrentHealth, bossMaxHealth, bossHealthImage);
+        if(bossCurrentHealth <= 0)
+        {
+            bossCurrentHealth = 0;
+            bossMaxHealth = 0;
+            StartCoroutine(OnBossDeathDeactiveBar());
+        }
+    }
+
+    IEnumerator OnBossDeathDeactiveBar()
+    {
+        yield return new WaitForSeconds(2f);
+        bossHealthBar.SetActive(false);
+        bossHealthImage.fillAmount = 1f;
+    }
+
 }

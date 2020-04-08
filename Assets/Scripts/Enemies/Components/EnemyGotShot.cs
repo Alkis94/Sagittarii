@@ -5,14 +5,18 @@ using System.Collections;
 public class EnemyGotShot : MonoBehaviour
 {
 
-    //public event Action<Transform> OnCriticalDeath = delegate { };
-    public event Action<bool> OnDeath = delegate { };
+    public event Action<bool> EnemyDiedAndHow = delegate { };
+   
     private EnemyData enemyData;
     private EnemyWasCriticalHit enemyWasCriticalHit;
     private EnemyWasHit enemyWasHit;
     private SpriteRenderer spriteRenderer;
+    private AudioSource audioSource;
+    [SerializeField]
+    private AudioClip gotHitSound;
     [SerializeField]
     private GameObject amputationPart;
+    private bool LastHitCritical = false;
     
 
     private void Awake()
@@ -21,6 +25,7 @@ public class EnemyGotShot : MonoBehaviour
         enemyData = GetComponent<EnemyData>();
         enemyWasCriticalHit = GetComponentInChildren<EnemyWasCriticalHit>();
         enemyWasHit = GetComponentInChildren<EnemyWasHit>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void OnEnable()
@@ -31,6 +36,7 @@ public class EnemyGotShot : MonoBehaviour
         }
 
         enemyWasHit.OnHit += Hit;
+        enemyData.EnemyDied += EnemyDiedFrom;
     }
 
     private void OnDisable()
@@ -41,20 +47,17 @@ public class EnemyGotShot : MonoBehaviour
         }
 
         enemyWasHit.OnHit -= Hit;
+        enemyData.EnemyDied -= EnemyDiedFrom;
     }
 
     private void Hit(int damage)
     {
         if (enemyData.damageable)
         {
+            LastHitCritical = false;
+            ProcessHit();
             StartCoroutine(FlashRed());
-            enemyData.health -= damage;
-
-            if (enemyData.health <= 0)
-            {
-                OnDeath?.Invoke(false);
-            }
-
+            enemyData.Health -= damage;
         }
     }
 
@@ -62,13 +65,13 @@ public class EnemyGotShot : MonoBehaviour
     {
         if (enemyData.damageable)
         {
+            LastHitCritical = true;
+            ProcessHit();
             StartCoroutine(FlashDarkRed());
-            enemyData.health -= damage * 3;
+            enemyData.Health -= damage * 3;
 
-            if (enemyData.health <= 0)
+            if (enemyData.Health <= 0)
             {
-                OnDeath?.Invoke(true);
-
                 if (enemyData.amputation)
                 {
                     amputationPart.SetActive(true);
@@ -77,6 +80,19 @@ public class EnemyGotShot : MonoBehaviour
 
             }
         }
+    }
+
+    private void ProcessHit()
+    {
+        if(gotHitSound != null)
+        {
+            audioSource.PlayOneShot(gotHitSound);
+        }
+    }
+
+    private void EnemyDiedFrom()
+    {
+        EnemyDiedAndHow?.Invoke(LastHitCritical);
     }
 
     IEnumerator FlashRed()

@@ -32,7 +32,7 @@ public class GroundEnemyBrain : EnemyBrain
 
     protected virtual void Update()
     {
-        if (enemyData.health > 0)
+        if (enemyData.Health > 0)
         {
             CheckCollisions();
         }
@@ -55,7 +55,7 @@ public class GroundEnemyBrain : EnemyBrain
 
     protected virtual void FixedUpdate()
     {
-        if (enemyData.health > 0)
+        if (enemyData.Health > 0)
         {
             enemyGroundMovement.Move(enemyData.speed);
         }

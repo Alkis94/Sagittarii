@@ -19,4 +19,5 @@ public class AttackData : ScriptableObject
     public List<float> projectileRotations;
     public List<Vector3> projectileSpawnPositionOffset;
     public Vector3 spawnPositionOffset = Vector3.zero;
+    public AudioClip attackSound = null;
 }

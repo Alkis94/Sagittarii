@@ -18,7 +18,7 @@ public class PlayerAudio : MonoBehaviour
     private List<AudioClip> playerSteps;
 
 
-    void Start()
+    void Awake()
     {
         audioSource = GetComponent<AudioSource>();
         audioSource.priority = 0;

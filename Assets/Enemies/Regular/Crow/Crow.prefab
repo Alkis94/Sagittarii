@@ -278,6 +278,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deathCry: {fileID: 8300000, guid: fd573892d50e6464daa6bc4440d9bb29, type: 3}
   hasBlood: 1
+  hasCriticalDeath: 0
+  hasBeforeDeath: 0
 --- !u!114 &114187245435547046
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -292,7 +294,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackData:
   - {fileID: 11400000, guid: 2b7d86e935d7a884a9ace1d088bd865e, type: 2}
-  attackSound: {fileID: 0}
 --- !u!114 &8399196991502044193
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -318,6 +319,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7aca9d8ff8ab559438987759caa9d2d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gotHitSound: {fileID: 0}
   amputationPart: {fileID: 0}
 --- !u!114 &4970816829133603991
 MonoBehaviour:
@@ -436,6 +438,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5552581032823562448}
   - component: {fileID: 3590528340147677097}
+  - component: {fileID: 4244090115846140119}
   m_Layer: 12
   m_Name: PolygonCollider
   m_TagString: Enemy
@@ -487,3 +490,15 @@ PolygonCollider2D:
       - {x: -0.45225298, y: -0.09312773}
       - {x: 0.3475108, y: -0.01693964}
       - {x: 0.2430259, y: 0.1350894}
+--- !u!114 &4244090115846140119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8325591403499743333}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3208f291997f79e4fab4bbda89d1533a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

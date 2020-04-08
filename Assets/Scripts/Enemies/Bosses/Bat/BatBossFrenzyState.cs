@@ -24,7 +24,7 @@ public class BatBossFrenzyState : State<BatBossBrain>
 
     public override void FixedUpdateState()
     {
-        if (stateOwner.enemyData.health > 0)
+        if (stateOwner.enemyData.Health > 0)
         {
             stateOwner.MovementPatterns[0].Move(stateOwner.enemyData.speed, stateOwner.verticalDirection);
         }
@@ -41,7 +41,7 @@ public class BatBossFrenzyState : State<BatBossBrain>
             nextAttackTime2 = Time.time + stateOwner.enemyData.attackFrequencies[1];
         }
 
-        if (stateOwner.enemyData.health <= 0)
+        if (stateOwner.enemyData.Health <= 0)
         {
             stateOwner.stateMachine.ChangeState(null);
         }

@@ -100,6 +100,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8715562196784236545}
   - component: {fileID: 890266942}
+  - component: {fileID: 1847706369096611337}
   m_Layer: 12
   m_Name: Collider
   m_TagString: Enemy
@@ -147,6 +148,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.4682932, y: 0.32992136}
   m_EdgeRadius: 0
+--- !u!114 &1847706369096611337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2778422067885702636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3208f291997f79e4fab4bbda89d1533a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3457750228986333725
 GameObject:
   m_ObjectHideFlags: 0
@@ -425,6 +438,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deathCry: {fileID: 8300000, guid: 6453350a75ca85c40acf284ab12054a3, type: 3}
   hasBlood: 1
+  hasCriticalDeath: 0
+  hasBeforeDeath: 0
 --- !u!114 &6757743525015241999
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -451,7 +466,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackData:
   - {fileID: 11400000, guid: dffcf27635b5c3f4a89acf1891659367, type: 2}
-  attackSound: {fileID: 8300000, guid: d060f97b5c12bf34f98bc6a78cd0c070, type: 3}
 --- !u!114 &879409717
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -464,6 +478,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7aca9d8ff8ab559438987759caa9d2d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gotHitSound: {fileID: 0}
   amputationPart: {fileID: 0}
 --- !u!114 &6205051828286625437
 MonoBehaviour:

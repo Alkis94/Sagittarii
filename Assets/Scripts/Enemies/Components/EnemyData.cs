@@ -1,11 +1,15 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyData : MonoBehaviour
 {
+    public event Action EnemyHealthChanged = delegate { };
+    public event Action EnemyDied = delegate { };
+
     [Header("Enemy Stats")]
-    public int health = 10;
+    [SerializeField]
+    private int health = 10;
     public float speed = 2;
     public float changeDirectionFrequency = 0;
     [Range(3,float.MaxValue)]
@@ -28,6 +32,25 @@ public class EnemyData : MonoBehaviour
     [Header("Relic Drop")]
     public GameObject Relic;
 
+    public int Health
+    {
+        get
+        {
+            return health;
+        }
+
+        set
+        {
+            health = value;
+            EnemyHealthChanged?.Invoke();
+
+            if (health <= 0)
+            {
+                EnemyDied?.Invoke();
+            }
+        }
+    }
+
     private void Awake()
     {
         RandomizeDelayBeforeFirstAttack();
@@ -47,7 +70,7 @@ public class EnemyData : MonoBehaviour
 
     private void RandomizeDelayBeforeFirstAttack()
     {
-        float randomizer = Random.Range(-2.5f, 1);
+        float randomizer = UnityEngine.Random.Range(-2.5f, 1);
         delayBeforeFirstAttack += randomizer;
     }
 }

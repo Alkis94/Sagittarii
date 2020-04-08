@@ -29,7 +29,7 @@ public class OwlWonderState: State<OwlBrain>
             stateOwner.stateMachine.ChangeState(stateOwner.huntAttackState);
         }
 
-        if (stateOwner.enemyData.health > 0)
+        if (stateOwner.enemyData.Health > 0)
         {
             stateOwner.MovementPatterns[0].Move(stateOwner.enemyData.speed, stateOwner.verticalDirection);
         }

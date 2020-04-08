@@ -21,7 +21,7 @@ MonoBehaviour:
   randomVerticalFactorMax: 0.5
   damage: 10
   projectile: {fileID: 1000012292187914, guid: 170988b43b11f1c4ca35dd62237b8ffd, type: 3}
-  projectileSpeed: 8
+  projectileSpeed: 10
   projectileDestroyDelay: 30
   projectileRotations:
   - 270
@@ -106,3 +106,4 @@ MonoBehaviour:
   - {x: 19, y: 0, z: 0}
   - {x: 20, y: 0, z: 0}
   spawnPositionOffset: {x: 0, y: 11, z: 0}
+  attackSound: {fileID: 0}

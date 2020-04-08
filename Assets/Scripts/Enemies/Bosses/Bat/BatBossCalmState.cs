@@ -18,7 +18,7 @@ public class BatBossCalmState : State<BatBossBrain>
 
     public override void FixedUpdateState()
     {
-        if (stateOwner.enemyData.health > 0)
+        if (stateOwner.enemyData.Health > 0)
         {
             stateOwner.MovementPatterns[0].Move(stateOwner.enemyData.speed, stateOwner.verticalDirection);
         }
@@ -29,7 +29,7 @@ public class BatBossCalmState : State<BatBossBrain>
             nextAttackTime = Time.time + stateOwner.enemyData.attackFrequencies[0];
         }
 
-        if(stateOwner.enemyData.health <= 200)
+        if(stateOwner.enemyData.Health <= 200)
         {
             stateOwner.stateMachine.ChangeState(stateOwner.enragedState);
         }

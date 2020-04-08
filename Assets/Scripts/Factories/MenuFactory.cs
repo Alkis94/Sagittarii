@@ -6,6 +6,8 @@ namespace Factories
     {
         public static GameObject PauseMenu { get; private set; }
         public static GameObject DefeatMenu { get; private set; }
+        public static GameObject DefeatMenuDev { get; private set; }
+        public static GameObject QuickQuitMenu { get; private set; }
         private static GameObject someMenu;
 
 
@@ -14,11 +16,12 @@ namespace Factories
         {
             PauseMenu = Resources.Load("Menus/PauseMenu") as GameObject;
             DefeatMenu = Resources.Load("Menus/DefeatMenu") as GameObject;
+            DefeatMenuDev = Resources.Load("Menus/DefeatMenuDev") as GameObject;
+            QuickQuitMenu = Resources.Load("Menus/QuickQuitMenu") as GameObject;
         }
 
         public static GameObject CreateMenuAndPause(GameObject Menu)
         {
-
             GameState.PauseGame();
             someMenu = GameObject.Instantiate(Menu);
             someMenu.transform.position = new Vector2(Camera.main.pixelHeight / 2, Camera.main.pixelWidth / 2);

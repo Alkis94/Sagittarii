@@ -1,11 +1,16 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class QuitToMenu : MonoBehaviour
+public class Quit : MonoBehaviour
 {
     private GameObject DontDestroyOnLoadObject;
 
-    public void LoadMainMenu()
+    public void QuitApplication()
+    {
+        Application.Quit();
+    }
+
+    public void QuitToMainMenu()
     {
         DestroyCurrentDontDestroy();
         SceneManager.LoadScene("MainMenu");
@@ -17,5 +22,4 @@ public class QuitToMenu : MonoBehaviour
         DontDestroyOnLoadObject = FindObjectOfType<DontDestroyOnLoadClass>().gameObject;
         Destroy(DontDestroyOnLoadObject);
     }
-
 }

@@ -5,12 +5,12 @@ using UnityEngine;
 public class MaxHealthPickup : MonoBehaviour
 {
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.tag == "Player")
         {
-            collision.gameObject.GetComponent<PlayerStats>().MaximumHealth += 10;
-            collision.gameObject.GetComponent<PlayerStats>().CurrentHealth += 10;
+            collision.GetComponent<PlayerStats>().MaximumHealth += 10;
+            collision.GetComponent<PlayerStats>().CurrentHealth += 10;
         }
     }
 

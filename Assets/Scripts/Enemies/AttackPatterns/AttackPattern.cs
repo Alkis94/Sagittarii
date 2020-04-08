@@ -6,14 +6,11 @@ public abstract class AttackPattern : MonoBehaviour
 {
     [SerializeField]
     protected List<AttackData> attackData;
-    [SerializeField]
-    protected AudioClip attackSound = null;
     protected AudioSource audioSource;
 
     protected void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        
     }
 
 
@@ -27,9 +24,9 @@ public abstract class AttackPattern : MonoBehaviour
             }
         }
 
-        if (attackSound != null)
+        if (attackData[index].attackSound != null)
         {
-            audioSource.PlayOneShot(attackSound);
+            audioSource.PlayOneShot(attackData[index].attackSound);
         }
     }
 

@@ -139,6 +139,8 @@ GameObject:
   - component: {fileID: 1248024708841591270}
   - component: {fileID: 7381703897808603995}
   - component: {fileID: 6640498396665001166}
+  - component: {fileID: 1471221887}
+  - component: {fileID: 5182200612906122127}
   m_Layer: 12
   m_Name: BearBoss
   m_TagString: Enemy
@@ -263,7 +265,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 330a7977f82322d4a85333fb49aa0bf6, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.4
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -272,7 +274,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 100
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -382,7 +384,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4f62bf9e9524d544bad0e40d5e12c46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deathCry: {fileID: 0}
+  deathCry: {fileID: 8300000, guid: 241798ad13f207341ad4464babc1fbe5, type: 3}
   hasBlood: 1
   hasCriticalDeath: 0
   hasBeforeDeath: 1
@@ -398,6 +400,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7aca9d8ff8ab559438987759caa9d2d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gotHitSound: {fileID: 8300000, guid: 2fbfe53a4c6bee34eadfc65f216cb17c, type: 3}
   amputationPart: {fileID: 0}
 --- !u!114 &1248024708841591270
 MonoBehaviour:
@@ -426,6 +429,8 @@ MonoBehaviour:
   enemyData: {fileID: 0}
   teleport: {fileID: 2089284342073273242, guid: 7835795ad097d4b4cb7c1f074be28cfc,
     type: 3}
+  wakeUpSound: {fileID: 8300000, guid: bb44a92bac1e3294c817229e74899bdb, type: 3}
+  groundStompSound: {fileID: 0}
 --- !u!114 &6640498396665001166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -441,7 +446,59 @@ MonoBehaviour:
   attackData:
   - {fileID: 11400000, guid: ac889cb4c2044cd4c93053bce535602b, type: 2}
   - {fileID: 11400000, guid: f67055c150afd9e4d9e5e3e2d7587215, type: 2}
-  attackSound: {fileID: 0}
+--- !u!114 &1471221887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5296110209441186540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 180ecf9b41d478f468eb3e9083753217, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ImpulseDefinition:
+    m_ImpulseChannel: 1
+    m_RawSignal: {fileID: 11400000, guid: 51cc240dfa6a6bd48b2f3ffa5b6aea7d, type: 2}
+    m_AmplitudeGain: 1
+    m_FrequencyGain: 1
+    m_RepeatMode: 0
+    m_Randomize: 1
+    m_TimeEnvelope:
+      m_AttackShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      m_DecayShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      m_AttackTime: 0
+      m_SustainTime: 5
+      m_DecayTime: 0
+      m_ScaleWithImpact: 0
+      m_HoldForever: 0
+    m_ImpactRadius: 100
+    m_DirectionMode: 0
+    m_DissipationMode: 1
+    m_DissipationDistance: 1000
+--- !u!114 &5182200612906122127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5296110209441186540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe2a4d1ca87e2af47a59afa561f3650d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5376343802356086213
 GameObject:
   m_ObjectHideFlags: 0

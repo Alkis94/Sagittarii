@@ -8,21 +8,6 @@ public class PlayerCollision : MonoBehaviour
     private PlayerAudio playerAudio;
     private PlayerStats playerStats;
 
-    
-    public static event Action OnPlayerGotBatWings = delegate { };
-    //public static event Action OnPlayerGotTrident = delegate { };
-
-    void OnEnable()
-    {
-        PlayerStats.PlayerDied += DisableScript;
-    }
-
-
-    void OnDisable()
-    {
-        PlayerStats.PlayerDied -= DisableScript;
-    }
-
     private void Start()
     {
         playerAudio = GetComponent<PlayerAudio>();
@@ -31,15 +16,18 @@ public class PlayerCollision : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "EnemyProjectile")
+        if(playerStats.CurrentHealth > 0)
         {
-            int damage = other.GetComponent<Projectile>().Damage;
-            PlayerGotHit(damage);
-        }
+            if (other.tag == "EnemyProjectile")
+            {
+                int damage = other.GetComponent<Projectile>().Damage;
+                PlayerGotHit(damage);
+            }
 
-        if (other.tag == "Spikes")
-        {
-            PlayerGotHit(playerStats.MaximumHealth);
+            if (other.tag == "Spikes")
+            {
+                PlayerGotHit(playerStats.MaximumHealth);
+            }
         }
     }
 
@@ -48,11 +36,4 @@ public class PlayerCollision : MonoBehaviour
         playerStats.CurrentHealth -= damage;
         playerAudio.PlayGotHitSound();
     }
-
-    private void DisableScript()
-    {
-       enabled = false;
-    }
-   
-
 }

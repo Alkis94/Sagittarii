@@ -41,10 +41,11 @@ public class PlayerDeath : MonoBehaviour
         animator.SetTrigger("PlayerDied");
         Invoke("PlayerDiedDelayedMenu", 3);
         gameObject.layer = 14;
+        enabled = false;
     }
 
     private void PlayerDiedDelayedMenu()
     {
-        MenuFactory.CreateMenuAndPause(MenuFactory.DefeatMenu);
+        MenuFactory.CreateMenuAndPause(MenuFactory.DefeatMenuDev);
     }
 }

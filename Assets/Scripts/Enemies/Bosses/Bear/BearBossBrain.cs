@@ -8,8 +8,13 @@ public class BearBossBrain : EnemyBrain
     private Transform player;
     [SerializeField]
     private GameObject teleport;
+    [SerializeField]
+    private AudioClip wakeUpSound;
+    [SerializeField]
+    private AudioClip groundStompSound;
 
     private bool ableToMove = true;
+    private bool isDoingGroundAttack = false;
     private int animatorAbleToWalk;
 
     private Vector3 teleport1 = new Vector3(-7.75f, -4.443924f, 0);
@@ -38,12 +43,12 @@ public class BearBossBrain : EnemyBrain
         player = GameObject.FindGameObjectWithTag("Player").transform;
         animatorAbleToWalk = Animator.StringToHash("AbleToWalk");
         StartCoroutine(DoRandomAction());
-        //StartCoroutine(TeleportWhenAvailable());
+        audioSource.PlayOneShot(wakeUpSound);
     }
 
     private void Update()
     {
-        if (enemyData.health > 0)
+        if (enemyData.Health > 0)
         {
             CheckCollisions();
 
@@ -60,7 +65,7 @@ public class BearBossBrain : EnemyBrain
 
     private void FixedUpdate()
     {
-        if (enemyData.health > 0 && animator.GetCurrentAnimatorStateInfo(0).IsName("BearBossWalking"))
+        if (enemyData.Health > 0 && animator.GetCurrentAnimatorStateInfo(0).IsName("BearBossWalking"))
         {
             enemyGroundMovement.Move(enemyData.speed);
         }
@@ -106,8 +111,8 @@ public class BearBossBrain : EnemyBrain
 
     IEnumerator DoRandomAction()
     {
-        float randomTime = Random.Range(1, 2);
-        float nextTeleportTime = Random.Range(5, 10) + Time.time;
+        float randomTime = 3;
+        float nextTeleportTime = Random.Range(7.5f, 10) + Time.time;
         float randomNumber;
         while (true)
         {
@@ -115,8 +120,8 @@ public class BearBossBrain : EnemyBrain
 
             if (Time.time > nextTeleportTime)
             {
-                nextTeleportTime = Random.Range(5, 10) + Time.time;
-                randomTime = Random.Range(0.5f, 1f);
+                nextTeleportTime = Random.Range(4f, 6f) + Time.time;
+                randomTime = Random.Range(0.25f, 0.35f);
                 BearTeleport();
             }
             else
@@ -125,12 +130,12 @@ public class BearBossBrain : EnemyBrain
                 if (randomNumber < 0.3f)
                 {
                     StartGroundAttack();
-                    randomTime = Random.Range(2, 4);
+                    randomTime = Random.Range(1f, 2f);
                 }
                 else
                 {
                     StartAttackAnimation();
-                    randomTime = Random.Range(1, 2.5f);
+                    randomTime = Random.Range(1, 2f);
                 }
             }
         }
@@ -141,6 +146,7 @@ public class BearBossBrain : EnemyBrain
         animator.SetTrigger("AttackGround");
         rigidbody2d.velocity = Vector2.zero;
         rigidbody2d.Impulse(0, Random.Range(25,35));
+        isDoingGroundAttack = true;
     }
 
     //gets called from GroundStart animation;
@@ -152,8 +158,10 @@ public class BearBossBrain : EnemyBrain
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Ground" && animator.GetCurrentAnimatorStateInfo(0).IsName("BearBossGroundStart"))
+        if(collision.gameObject.tag == "Ground" && isDoingGroundAttack /*animator.GetCurrentAnimatorStateInfo(0).IsName("BearBossGroundStart")*/)
         {
+            isDoingGroundAttack = false;
+            audioSource.PlayOneShot(groundStompSound);
             animator.SetTrigger("GroundCollision");
             AttackPatterns[0].Attack(1);
         }

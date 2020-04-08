@@ -2,6 +2,7 @@
 using System;
 using Factories;
 using System.Collections;
+using Cinemachine;
 
 
 public class EnemyDeath : MonoBehaviour
@@ -56,13 +57,13 @@ public class EnemyDeath : MonoBehaviour
             relicData = enemyData.Relic.GetComponent<RelicData>();
         }
 
-        enemyGotShot = GetComponentInChildren<EnemyGotShot>();
-        enemyGotShot.OnDeath += ProcessDeath;
+        enemyGotShot = GetComponent<EnemyGotShot>();
+        enemyGotShot.EnemyDiedAndHow += ProcessDeath;
     }
 
     private void OnDisable()
     {
-        enemyGotShot.OnDeath -= ProcessDeath;
+        enemyGotShot.EnemyDiedAndHow -= ProcessDeath;
     }
 
 
@@ -82,8 +83,6 @@ public class EnemyDeath : MonoBehaviour
     { 
         spriteRenderer.sortingLayerName = "DeadEnemies";
         gameObject.layer = 14;
-        audioSource.clip = deathCry;
-        audioSource.Play();
         enemyGotShot.enabled = false;
         transform.localRotation = Quaternion.Euler(0, transform.localEulerAngles.y, 0);
         diedFromCriticalHit = criticalDeath;
@@ -112,19 +111,38 @@ public class EnemyDeath : MonoBehaviour
     IEnumerator BeforeDeath()
     {
         animator.SetTrigger("BeforeDeath");
+        CinemachineImpulseSource impulseSource;
+        impulseSource = GetComponent<CinemachineImpulseSource>();
+        impulseSource.GenerateImpulse();
 
         Color red = new Color(1f, 0f, 0f);
         Color white = new Color(1f, 1f, 1f);
 
-        for (int i = 0; i < 8; i++)
+        //for (int i = 0; i < 8; i++)
+        //{
+        //    spriteRenderer.color = red;
+        //    yield return new WaitForSeconds(0.25f);
+        //    spriteRenderer.color = white;
+        //    yield return new WaitForSeconds(0.25f);
+        //}
+        //spriteRenderer.color = white;
+
+        Vector3 randomVector = new Vector3(UnityEngine.Random.Range(-3f, 3f), UnityEngine.Random.Range(-3f, 3f), 0);
+
+        for (int i = 0; i < 10; i++)
         {
+            Instantiate(bloodSplat, transform.position + randomVector, Quaternion.identity);
+            randomVector = new Vector3(UnityEngine.Random.Range(-3f, 3f), UnityEngine.Random.Range(-3f, 3f), 0);
             spriteRenderer.color = red;
-            yield return new WaitForSeconds(0.25f);
+            yield return new WaitForSeconds(0.2f);
+            Instantiate(bloodSplat, transform.position + randomVector, Quaternion.identity);
+            randomVector = new Vector3(UnityEngine.Random.Range(-3f, 3f), UnityEngine.Random.Range(-3f, 3f), 0);
             spriteRenderer.color = white;
-            yield return new WaitForSeconds(0.25f);
+            yield return new WaitForSeconds(0.2f);
         }
 
         spriteRenderer.color = white;
+
         Die();
     }
 
@@ -144,6 +162,8 @@ public class EnemyDeath : MonoBehaviour
             animator.SetTrigger("Die");
         }
 
+        audioSource.clip = deathCry;
+        audioSource.Play();
         rigidbody2d.gravityScale = 1;
 
         if (enemyData.Relic != null)

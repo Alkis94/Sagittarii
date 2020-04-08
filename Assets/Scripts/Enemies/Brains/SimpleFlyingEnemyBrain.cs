@@ -5,6 +5,8 @@ public class SimpleFlyingEnemyBrain : EnemyBrain
     
     private int horizontalDirection = 1;
     private int verticalDirection = 1;
+    [SerializeField]
+    private bool hasAttack = true;
 
 
     protected override void Awake()
@@ -26,7 +28,7 @@ public class SimpleFlyingEnemyBrain : EnemyBrain
     protected override void Start()
     {
         base.Start();
-        if(AttackPatterns[0] != null)
+        if(hasAttack)
         {
             InvokeRepeating("CallMainAttack", enemyData.delayBeforeFirstAttack, enemyData.attackFrequencies[0]);
         }
@@ -55,7 +57,7 @@ public class SimpleFlyingEnemyBrain : EnemyBrain
 
     private void FixedUpdate()
     {
-        if (enemyData.health > 0)
+        if (enemyData.Health > 0)
         {
             MovementPatterns[0].Move(enemyData.speed,horizontalDirection, verticalDirection);
         }

@@ -14,11 +14,11 @@ public class CoinPickup : MonoBehaviour
         rigidbody2d.AddForce(new Vector2(Random.Range(-2f, 2f), Random.Range(-2f, 2f)), ForceMode2D.Impulse);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.tag == "Player")
         {
-            collision.gameObject.GetComponent<PlayerStats>().Gold += coinValue;
+            collision.GetComponent<PlayerStats>().Gold += coinValue;
         }
     }
 

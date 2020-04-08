@@ -12,4 +12,9 @@ public class Resume : MonoBehaviour
         GameState.UnpauseGame();
         OnResumePressed?.Invoke();
     }
+
+    public void ResumeForMenuFactory()
+    {
+        MenuFactory.DestroyMenuAndUnpause();
+    }
 }

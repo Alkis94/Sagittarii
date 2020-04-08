@@ -14,6 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectileAmount: 1
   attackIsDirectionDependant: 1
+  randomness: 0
+  randomHorizontalFactorMin: 0
+  randomHorizontalFactorMax: 0
+  randomVerticalFactorMin: 0
+  randomVerticalFactorMax: 0
   damage: 10
   projectile: {fileID: 1000012292187914, guid: 170988b43b11f1c4ca35dd62237b8ffd, type: 3}
   projectileSpeed: 4
@@ -22,3 +27,4 @@ MonoBehaviour:
   - 0
   projectileSpawnPositionOffset: []
   spawnPositionOffset: {x: 0, y: 0, z: 0}
+  attackSound: {fileID: 8300000, guid: 9e40a9f54c0c78249b63198a7bef3672, type: 3}

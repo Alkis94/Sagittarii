@@ -58,6 +58,44 @@ public class PlayerInput : MonoBehaviour
             MenuFactory.DestroyMenuAndUnpause();
         }
 
+        // This is used to call QuickQuitMenu so you can test indintual scenes as builds!
+        //Replace the above "Cancel" to use!
+
+        //if (Input.GetButtonDown("Cancel") && !GameState.GamePaused)
+        //{
+        //    MenuFactory.CreateMenuAndPause(MenuFactory.QuickQuitMenu);
+        //}
+        //else if (Input.GetButtonDown("Cancel") && GameState.GamePaused)
+        //{
+        //    MenuFactory.DestroyMenuAndUnpause();
+        //}
+
+
+
+        if (Input.GetKeyUp(KeyCode.S))
+        {
+            if (boxCollider2D.IsTouchingLayers(collisionMask))
+            {
+                gameObject.layer = 19; // PlayerNoPlatform Layer
+                StartCoroutine(ReturnToNormalLayer());
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            DoorEntered?.Invoke();
+        }
+
+
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            map.SetActive(!map.activeInHierarchy);
+        }
+
+        ClearInput();
+		ProcessInputs();
+		horizontal = Mathf.Clamp(horizontal, -1f, 1f);
+
         //if(Input.GetKeyUp(KeyCode.F))
         //{
         //    teleportTimeCasted = 0;
@@ -75,33 +113,9 @@ public class PlayerInput : MonoBehaviour
         //        }
         //    }
         //}
+    }
 
-        if (Input.GetKeyUp(KeyCode.S))
-        {
-            if (boxCollider2D.IsTouchingLayers(collisionMask))
-            {
-                gameObject.layer = 19; // PlayerNoPlatform Layer
-                StartCoroutine(ReturnToNormalLayer());
-            }
-        }
-
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            DoorEntered?.Invoke();
-        }
-
-
-            if (Input.GetKeyDown(KeyCode.M))
-        {
-            map.SetActive(!map.activeInHierarchy);
-        }
-
-        ClearInput();
-		ProcessInputs();
-		horizontal = Mathf.Clamp(horizontal, -1f, 1f);
-	}
-
-	void FixedUpdate()
+    void FixedUpdate()
 	{
 		//In FixedUpdate() we set a flag that lets inputs to be cleared out during the 
 		//next Update(). This ensures that all code gets to use the current inputs

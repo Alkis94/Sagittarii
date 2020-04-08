@@ -28,14 +28,14 @@ public abstract class  EnemyBrain : MonoBehaviour
 
     protected virtual void OnEnable()
     {
-        enemyGotShot.OnDeath += OnEnemyDiedStopAll;
+        enemyData.EnemyDied += OnEnemyDiedStopAll;
     }
 
     protected virtual void OnDisable()
     {
         CancelInvoke();
         StopAllCoroutines();
-        enemyGotShot.OnDeath -= OnEnemyDiedStopAll;
+        enemyData.EnemyDied -= OnEnemyDiedStopAll;
     }
 
     protected virtual void Awake()
@@ -83,7 +83,7 @@ public abstract class  EnemyBrain : MonoBehaviour
         }
     }
 
-    protected void OnEnemyDiedStopAll(bool criticalDeath)
+    protected void OnEnemyDiedStopAll()
     {
         CancelInvoke();
         StopAllCoroutines();
