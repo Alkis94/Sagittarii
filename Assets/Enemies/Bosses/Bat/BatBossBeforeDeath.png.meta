@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 562741a2fa6d0f245a65b1994515402a
+guid: 239ae120399cfd74a825847fad331de3
 TextureImporter:
   fileIDToRecycleName:
     21300000: tileset1_0
@@ -11,11 +11,10 @@ TextureImporter:
     21300012: tileset1_6
     21300014: tileset1_7
     21300016: tileset1_8
-    21300018: BatBossDeath_0
-    21300020: BatBossDeath_1
-    21300022: BatBossDeath_2
-    21300024: BatBossDeath_3
-    21300026: BatBossDeath_4
+    21300018: BatBossBeforeDeath_0
+    21300020: BatBossBeforeDeath_1
+    21300022: BatBossBeforeDeath_2
+    21300024: BatBossBeforeDeath_3
   externalObjects: {}
   serializedVersion: 9
   mipmaps:
@@ -142,101 +141,81 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: BatBossDeath_0
+      name: BatBossBeforeDeath_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 80
-        height: 68
-      alignment: 9
-      pivot: {x: 0.5, y: 0.34}
+        width: 60
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2f819a2835ca8ae46af74ccc59e65df1
+      spriteID: 9e34a768d5a9dbc49a655eea3346b8a8
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BatBossDeath_1
+      name: BatBossBeforeDeath_1
       rect:
         serializedVersion: 2
-        x: 81
+        x: 61
         y: 0
-        width: 80
-        height: 68
+        width: 60
+        height: 60
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4e688f2d0f09d4b4d8cc6c4eb80ccaca
+      spriteID: f85d211705464854cb2527f0573778e1
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BatBossDeath_2
+      name: BatBossBeforeDeath_2
       rect:
         serializedVersion: 2
-        x: 162
+        x: 122
         y: 0
-        width: 80
-        height: 68
+        width: 60
+        height: 60
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 120b8ae7f7772344d954ddee273122b9
+      spriteID: 4ab8c8e2595359d4a842110af1358842
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BatBossDeath_3
+      name: BatBossBeforeDeath_3
       rect:
         serializedVersion: 2
-        x: 243
+        x: 183
         y: 0
-        width: 80
-        height: 68
+        width: 60
+        height: 60
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1e3e7bf1202e206489119bca825162c4
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BatBossDeath_4
-      rect:
-        serializedVersion: 2
-        x: 324
-        y: 0
-        width: 80
-        height: 68
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 989b9768441ccf744a99d78697049234
+      spriteID: 9bf7a0e729eb7784ba41e2ee0df28fb5
       vertices: []
       indices: 
       edges: []

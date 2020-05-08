@@ -28,12 +28,6 @@ public class BossHealth : MonoBehaviour
         BossEngaged?.Invoke(enemyData.Health);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     private void OnBossHealthChanged()
     {
         int damage = previousHealth - enemyData.Health;

@@ -1,11 +1,14 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using Sirenix.OdinInspector;
 
 
 [CreateAssetMenu(fileName = "AttackData", menuName = "AttackData", order = 1)]
 public class AttackData : ScriptableObject
 {
+    public AttackType attackType = AttackType.perimetrical;
     public int projectileAmount = 1;
+    [ShowIf("@ attackType == AttackType.perimetrical")]
     public bool attackIsDirectionDependant = false;
     public bool randomness = false;
     public float randomHorizontalFactorMin = 0;

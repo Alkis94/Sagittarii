@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class AttackPattern : MonoBehaviour
+public class AttackPattern : MonoBehaviour
 {
     [SerializeField]
     protected List<AttackData> attackData;

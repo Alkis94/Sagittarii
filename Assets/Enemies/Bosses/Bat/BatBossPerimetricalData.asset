@@ -12,14 +12,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b531d6c97d1fa924f941d92a3a4037a8, type: 3}
   m_Name: BatBossPerimetricalData
   m_EditorClassIdentifier: 
+  projectileAmount: 4
   attackIsDirectionDependant: 0
+  randomness: 0
+  randomHorizontalFactorMin: 0
+  randomHorizontalFactorMax: 0
+  randomVerticalFactorMin: 0
+  randomVerticalFactorMax: 0
   damage: 10
   projectile: {fileID: 1000012292187914, guid: c05f7a2271bd85d40a102e5570d46005, type: 3}
   projectileSpeed: 2
   projectileDestroyDelay: 30
-  projectileSpawnPositionOffset: {x: 0, y: 0, z: 0}
   projectileRotations:
   - 0
   - 90
   - 180
   - 270
+  projectileSpawnPositionOffset:
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  spawnPositionOffset: {x: 0, y: 0, z: 0}
+  attackSound: {fileID: 0}

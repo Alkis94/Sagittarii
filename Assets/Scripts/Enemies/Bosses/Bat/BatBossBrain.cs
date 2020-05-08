@@ -32,6 +32,7 @@ public class BatBossBrain : EnemyBrain
         calmState = new BatBossCalmState(this);
         frenzyState = new BatBossFrenzyState(this);
         enragedState = new BatBossEnragedState(this);
+        MovementPatterns = GetComponents<MovementPattern>();
     }
 
     protected override void OnEnable()

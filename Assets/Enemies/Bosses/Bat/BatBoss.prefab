@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6341474734450927547}
   - component: {fileID: 7929498955271098670}
+  - component: {fileID: 8126690046613377726}
   m_Layer: 12
   m_Name: Collider1
   m_TagString: Enemy
@@ -24,13 +25,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1444765542052240979}
-  m_LocalRotation: {x: -0, y: -0, z: -0.38287333, w: 0.9238008}
-  m_LocalPosition: {x: -0.593, y: -0.673, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0.39366248, w: 0.919255}
+  m_LocalPosition: {x: -0.607, y: -0.619, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5296110209441186542}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -45.024002}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -46.365}
 --- !u!70 &7929498955271098670
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -47,6 +48,18 @@ CapsuleCollider2D:
   m_Offset: {x: 0.004703381, y: 0.7952776}
   m_Size: {x: 0.5094106, y: 2.5905583}
   m_Direction: 0
+--- !u!114 &8126690046613377726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1444765542052240979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3208f291997f79e4fab4bbda89d1533a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5296110209441186540
 GameObject:
   m_ObjectHideFlags: 0
@@ -67,6 +80,8 @@ GameObject:
   - component: {fileID: 1292161362102898180}
   - component: {fileID: 1175849891}
   - component: {fileID: 1511332085}
+  - component: {fileID: 5034780957142068259}
+  - component: {fileID: 1359579697519719700}
   m_Layer: 12
   m_Name: BatBoss
   m_TagString: Enemy
@@ -132,7 +147,7 @@ SpriteRenderer:
   m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 3.05, y: 3.4}
+  m_Size: {x: 3, y: 3}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -330,6 +345,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deathCry: {fileID: 0}
   hasBlood: 1
+  hasCriticalDeath: 0
+  shakeBeforeDeath: 1
 --- !u!114 &1175849890
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -355,6 +372,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7aca9d8ff8ab559438987759caa9d2d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gotHitSound: {fileID: 0}
   amputationPart: {fileID: 0}
 --- !u!114 &1175849891
 MonoBehaviour:
@@ -370,7 +388,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackData:
   - {fileID: 11400000, guid: 740345de48613d347aa01ec8f4ad24a6, type: 2}
-  attackSound: {fileID: 0}
 --- !u!114 &1511332085
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -385,7 +402,59 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackData:
   - {fileID: 11400000, guid: 100856dff7b8f0f4da39a53950d5a601, type: 2}
-  attackSound: {fileID: 0}
+--- !u!114 &5034780957142068259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5296110209441186540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe2a4d1ca87e2af47a59afa561f3650d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1359579697519719700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5296110209441186540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 180ecf9b41d478f468eb3e9083753217, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ImpulseDefinition:
+    m_ImpulseChannel: 1
+    m_RawSignal: {fileID: 11400000, guid: 51cc240dfa6a6bd48b2f3ffa5b6aea7d, type: 2}
+    m_AmplitudeGain: 1
+    m_FrequencyGain: 1
+    m_RepeatMode: 0
+    m_Randomize: 1
+    m_TimeEnvelope:
+      m_AttackShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      m_DecayShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      m_AttackTime: 0
+      m_SustainTime: 0.2
+      m_DecayTime: 0.7
+      m_ScaleWithImpact: 1
+      m_HoldForever: 0
+    m_ImpactRadius: 100
+    m_DirectionMode: 0
+    m_DissipationMode: 2
+    m_DissipationDistance: 1000
 --- !u!1 &5376343802356086213
 GameObject:
   m_ObjectHideFlags: 0

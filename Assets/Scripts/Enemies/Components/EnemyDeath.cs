@@ -42,7 +42,7 @@ public class EnemyDeath : MonoBehaviour
     [SerializeField]
     private bool hasCriticalDeath = false;
     [SerializeField]
-    private bool hasBeforeDeath = false;
+    private bool shakeBeforeDeath = false;
 
     private bool diedFromCriticalHit = false;
 
@@ -86,6 +86,7 @@ public class EnemyDeath : MonoBehaviour
         enemyGotShot.enabled = false;
         transform.localRotation = Quaternion.Euler(0, transform.localEulerAngles.y, 0);
         diedFromCriticalHit = criticalDeath;
+        rigidbody2d.velocity = Vector2.zero;
 
         if (enemyBrain != null)
         {
@@ -98,7 +99,7 @@ public class EnemyDeath : MonoBehaviour
             trans.gameObject.layer = 14;
         }
 
-        if (hasBeforeDeath)
+        if (shakeBeforeDeath)
         {
             StartCoroutine(BeforeDeath());
         }
@@ -110,7 +111,7 @@ public class EnemyDeath : MonoBehaviour
 
     IEnumerator BeforeDeath()
     {
-        animator.SetTrigger("BeforeDeath");
+        animator.SetTrigger("ShakeBeforeDeath");
         CinemachineImpulseSource impulseSource;
         impulseSource = GetComponent<CinemachineImpulseSource>();
         impulseSource.GenerateImpulse();
