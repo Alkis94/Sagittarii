@@ -138,9 +138,9 @@ GameObject:
   - component: {fileID: 1292161362102898180}
   - component: {fileID: 1248024708841591270}
   - component: {fileID: 7381703897808603995}
-  - component: {fileID: 6640498396665001166}
   - component: {fileID: 1471221887}
   - component: {fileID: 5182200612906122127}
+  - component: {fileID: 1471221881}
   m_Layer: 12
   m_Name: BearBoss
   m_TagString: Enemy
@@ -431,21 +431,6 @@ MonoBehaviour:
     type: 3}
   wakeUpSound: {fileID: 8300000, guid: bb44a92bac1e3294c817229e74899bdb, type: 3}
   groundStompSound: {fileID: 8300000, guid: b8fe5840127e30a4dab94441ea375a9f, type: 3}
---- !u!114 &6640498396665001166
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5296110209441186540}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a538059451f55a4c98844bd632a0d32, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackData:
-  - {fileID: 11400000, guid: ac889cb4c2044cd4c93053bce535602b, type: 2}
-  - {fileID: 11400000, guid: f67055c150afd9e4d9e5e3e2d7587215, type: 2}
 --- !u!114 &1471221887
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -499,6 +484,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe2a4d1ca87e2af47a59afa561f3650d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1471221881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5296110209441186540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7b2e1e9116ec2142be84b31c7584e4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackData:
+  - {fileID: 11400000, guid: ac889cb4c2044cd4c93053bce535602b, type: 2}
+  - {fileID: 11400000, guid: f67055c150afd9e4d9e5e3e2d7587215, type: 2}
 --- !u!1 &5376343802356086213
 GameObject:
   m_ObjectHideFlags: 0

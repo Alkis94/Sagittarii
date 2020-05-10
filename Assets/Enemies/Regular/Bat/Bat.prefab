@@ -16,10 +16,10 @@ GameObject:
   - component: {fileID: 8172285348222263284}
   - component: {fileID: 6026461623799748943}
   - component: {fileID: 1767405955}
-  - component: {fileID: 1767405954}
   - component: {fileID: 5623888009569000007}
   - component: {fileID: 7817322822323997714}
   - component: {fileID: 986562263884696416}
+  - component: {fileID: 744312993}
   m_Layer: 12
   m_Name: Bat
   m_TagString: Enemy
@@ -264,6 +264,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyData: {fileID: 0}
+  hasAttack: 1
 --- !u!114 &1767405955
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -277,20 +278,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   curveFactor: 1
---- !u!114 &1767405954
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1767405952}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39167807d403afe4594881dea294c92e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackData:
-  - {fileID: 11400000, guid: 3e42a00a36545dc4abf5e383a2291d96, type: 2}
 --- !u!114 &5623888009569000007
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -306,7 +293,7 @@ MonoBehaviour:
   deathCry: {fileID: 8300000, guid: a0e1fe8dabe199041938412484e900f6, type: 3}
   hasBlood: 1
   hasCriticalDeath: 0
-  hasBeforeDeath: 0
+  shakeBeforeDeath: 0
 --- !u!114 &7817322822323997714
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -338,6 +325,20 @@ MonoBehaviour:
   enemyKey: 0
   roomKey: 
   mapType: 0
+--- !u!114 &744312993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1767405952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7b2e1e9116ec2142be84b31c7584e4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackData:
+  - {fileID: 11400000, guid: 3e42a00a36545dc4abf5e383a2291d96, type: 2}
 --- !u!1 &735138815173439918
 GameObject:
   m_ObjectHideFlags: 0

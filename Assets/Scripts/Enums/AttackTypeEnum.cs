@@ -1,4 +1,4 @@
-﻿public enum AttackType
+﻿public enum AttackTypeEnum
 {
     perimetrical,
     targeted

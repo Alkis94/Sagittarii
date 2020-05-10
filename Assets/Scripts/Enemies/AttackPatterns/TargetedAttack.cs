@@ -12,7 +12,7 @@ public class TargetedAttack : AttackPattern
         difference.Normalize();
         projectileRotation = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
 
-        ProjectileFactory.CreateProjectile(transform.position,attackData[index].projectile, attackData[index].spawnPositionOffset + attackData[index].projectileSpawnPositionOffset[0], 
-            attackData[index].projectileSpeed, attackData[index].projectileDestroyDelay, attackData[index].damage, projectileRotation);
+        ProjectileFactory.CreateProjectile(transform.position,attackData[index].Projectile, attackData[index].UniversalSpawnPositionOffset + attackData[index].ProjectileSpawnPositionOffset[0], 
+            attackData[index].ProjectileSpeed, attackData[index].ProjectileDestroyDelay, attackData[index].Damage, projectileRotation);
     }
 }

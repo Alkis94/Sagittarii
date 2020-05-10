@@ -171,6 +171,7 @@ GameObject:
   - component: {fileID: 3054776419035273207}
   - component: {fileID: 3054776419035273206}
   - component: {fileID: 4398162064139509257}
+  - component: {fileID: 1911242689}
   m_Layer: 12
   m_Name: CriticalCollider
   m_TagString: Enemy
@@ -220,6 +221,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3005fc24385a88468af6003d2962f3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1911242689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3054776419035273200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3005fc24385a88468af6003d2962f3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3054776419552895565
 GameObject:
   m_ObjectHideFlags: 0
@@ -236,10 +249,10 @@ GameObject:
   - component: {fileID: 3054776419552895564}
   - component: {fileID: 5486470984898563233}
   - component: {fileID: 3054776419552895611}
-  - component: {fileID: 3054776419552895604}
   - component: {fileID: 3054776419552895605}
   - component: {fileID: 3054776419552895606}
   - component: {fileID: 519184866756575959}
+  - component: {fileID: 1911242692}
   m_Layer: 12
   m_Name: Bear
   m_TagString: Enemy
@@ -501,21 +514,7 @@ MonoBehaviour:
   deathCry: {fileID: 8300000, guid: 6b4f050e74182454f8824328041ec75c, type: 3}
   hasBlood: 1
   hasCriticalDeath: 1
-  hasBeforeDeath: 0
---- !u!114 &3054776419552895604
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3054776419552895565}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a538059451f55a4c98844bd632a0d32, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackData:
-  - {fileID: 11400000, guid: 1bfbdf3c518a1424eac527ccb8e58d3c, type: 2}
+  shakeBeforeDeath: 0
 --- !u!114 &3054776419552895605
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -560,6 +559,20 @@ MonoBehaviour:
   enemyKey: 0
   roomKey: 
   mapType: 0
+--- !u!114 &1911242692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3054776419552895565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7b2e1e9116ec2142be84b31c7584e4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackData:
+  - {fileID: 11400000, guid: 1bfbdf3c518a1424eac527ccb8e58d3c, type: 2}
 --- !u!1001 &5846473298679644485
 PrefabInstance:
   m_ObjectHideFlags: 0

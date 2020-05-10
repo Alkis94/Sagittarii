@@ -65,11 +65,11 @@ public class Spawner : MonoBehaviour
 
         for (int i = 0; i < enemiesChosenToSpawn.Count; i++)
         {
-            if (enemiesChosenToSpawn[i].enemyType == EnemyType.Ground)
+            if (enemiesChosenToSpawn[i].enemyType == EnemyType.ground)
             {
                 StartCoroutine(SpawnGroundEnemy(enemiesChosenToSpawn[i].enemy, enemiesChosenToSpawn[i].enemySpawnFrequency));
             }
-            else if (enemiesChosenToSpawn[i].enemyType == EnemyType.Flying)
+            else if (enemiesChosenToSpawn[i].enemyType == EnemyType.flying)
             {
                 StartCoroutine(SpawnFlyingEnemy(enemiesChosenToSpawn[i].enemy, enemiesChosenToSpawn[i].enemySpawnFrequency));
             }

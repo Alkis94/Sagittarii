@@ -1,26 +1,47 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
 using Sirenix.OdinInspector;
+using UnityEngine;
+using UnityEditor;
 
 
 [CreateAssetMenu(fileName = "AttackData", menuName = "AttackData", order = 1)]
 public class AttackData : ScriptableObject
 {
-    public AttackType attackType = AttackType.perimetrical;
-    public int projectileAmount = 1;
-    [ShowIf("@ attackType == AttackType.perimetrical")]
-    public bool attackIsDirectionDependant = false;
-    public bool randomness = false;
-    public float randomHorizontalFactorMin = 0;
-    public float randomHorizontalFactorMax = 0;
-    public float randomVerticalFactorMin = 0;
-    public float randomVerticalFactorMax = 0;
-    public int damage = 10;
-    public GameObject projectile;
-    public float projectileSpeed = 2;
-    public float projectileDestroyDelay = 10f;
-    public List<float> projectileRotations;
-    public List<Vector3> projectileSpawnPositionOffset;
-    public Vector3 spawnPositionOffset = Vector3.zero;
-    public AudioClip attackSound = null;
+
+    //Attack Type
+    [ShowInInspector] public AttackTypeEnum AttackType { get; private set; } = AttackTypeEnum.perimetrical;
+    [ShowIf("@ AttackType == AttackTypeEnum.perimetrical")]
+    [ShowInInspector] public bool AttackIsDirectionDependant { get; private set; } = false;
+
+    //Attack Stats
+    [ShowInInspector] public int ProjectileAmount { get; private set; } = 1;
+    [ShowInInspector] public int ConsecutiveAttacks { get; private set; } = 1;
+    [ShowIf("@ ConsecutiveAttacks > 1")]
+    [ShowInInspector] public float ConsecutiveAttackDelay { get; private set; } = 0;
+    [ShowInInspector] public int Damage { get; private set; } = 10;
+    [ShowInInspector] public float ProjectileSpeed { get; private set; } = 5;
+    [ShowInInspector] public float ProjectileDestroyDelay { get; private set; } = 10f;
+    [ShowInInspector] public List<float> ProjectileRotations { get; private set; }
+    [ShowInInspector] public List<Vector3> ProjectileSpawnPositionOffset { get; private set; }
+    [ShowInInspector] public Vector3 UniversalSpawnPositionOffset { get; private set; } 
+
+    //Parts
+    [ShowInInspector] public GameObject Projectile { get; private set; }
+    [ShowInInspector] public AudioClip AttackSound { get; private set; } = null;
+    
+
+    //randomness
+    [ShowInInspector] public bool Randomness { get; private set; } = false;
+    [ShowIf("@ Randomness")]
+    [ShowInInspector] public float RandomHorizontalFactorMin { get; private set; } = 0;
+    [ShowIf("@ Randomness")]
+    [ShowInInspector] public float RandomHorizontalFactorMax { get; private set; } = 0;
+    [ShowIf("@ Randomness")]
+    [ShowInInspector] public float RandomVerticalFactorMin { get; private set; } = 0;
+    [ShowIf("@ Randomness")]
+    [ShowInInspector] public float RandomVerticalFactorMax { get; private set; } = 0;
+    [ShowIf("@ Randomness")]
+    [ShowInInspector] public float RandomRotationFactorMin { get; private set; } = 0;
+    [ShowIf("@ Randomness")]
+    [ShowInInspector] public float RandomRotationFactorMax { get; private set; } = 0;
 }

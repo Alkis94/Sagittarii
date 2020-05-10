@@ -18,9 +18,9 @@ GameObject:
   - component: {fileID: 1654654146056201865}
   - component: {fileID: 7634720868630699044}
   - component: {fileID: 5441298073167055473}
-  - component: {fileID: 557983286}
   - component: {fileID: 1825717709}
   - component: {fileID: 3745124472492121522}
+  - component: {fileID: 1227161212}
   m_Layer: 12
   m_Name: Owl
   m_TagString: Enemy
@@ -142,7 +142,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: ffc55d030196be04aa0435ae0c067446, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 492123bdde2a79a4cad3b5f0fe7c0a54, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.3
   m_Pitch: 1
@@ -245,7 +245,7 @@ MonoBehaviour:
   changeDirectionFrequency: 5
   delayBeforeFirstAttack: 3
   attackFrequencies:
-  - 5
+  - 2
   goldGiven: 0
   giveSpecificAmountOfGold: 0
   changingDirections: 0
@@ -293,7 +293,7 @@ MonoBehaviour:
   deathCry: {fileID: 8300000, guid: ffc55d030196be04aa0435ae0c067446, type: 3}
   hasBlood: 1
   hasCriticalDeath: 0
-  hasBeforeDeath: 0
+  shakeBeforeDeath: 0
 --- !u!114 &5441298073167055473
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -308,20 +308,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gotHitSound: {fileID: 0}
   amputationPart: {fileID: 0}
---- !u!114 &557983286
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2882280072731344867}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a538059451f55a4c98844bd632a0d32, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackData:
-  - {fileID: 11400000, guid: b22811ea17d16104b93e1166f4f91312, type: 2}
 --- !u!114 &1825717709
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -354,6 +340,20 @@ MonoBehaviour:
   enemyKey: 0
   roomKey: 
   mapType: 0
+--- !u!114 &1227161212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2882280072731344867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7b2e1e9116ec2142be84b31c7584e4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackData:
+  - {fileID: 11400000, guid: b22811ea17d16104b93e1166f4f91312, type: 2}
 --- !u!1 &3300107938387818445
 GameObject:
   m_ObjectHideFlags: 0
