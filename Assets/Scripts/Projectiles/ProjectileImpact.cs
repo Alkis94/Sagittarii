@@ -1,48 +1,50 @@
 ﻿using System;
-using System.Collections;
 using UnityEngine;
+using System.Collections;
 
-public class PlayerProjectileImpact : MonoBehaviour
+public class ProjectileImpact : MonoBehaviour
 {
-   
+
     public event Action OnCollision = delegate { };
+    [HideInInspector]
     public Vector2 velocityOnHit = Vector2.zero;
 
     [SerializeField]
-    private AudioClip arrowImpact;
+    private AudioClip impact;
     [SerializeField]
-    private float impactDestroyDelay = 0.1f;
+    private float impactDestroyDelay = 0;
 
-    private Collider2D collider2d;
     private AudioSource audioSource;
     private Rigidbody2D rigidbody2d;
-
-    
 
     void Start()
     {
         rigidbody2d = GetComponent<Rigidbody2D>();
         audioSource = GetComponent<AudioSource>();
-        collider2d = GetComponent<Collider2D>();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         OnCollision?.Invoke();
-        audioSource.clip = arrowImpact;
-        audioSource.Play();
+
+        if(impact != null)
+        {
+            audioSource.clip = impact;
+            audioSource.Play();
+        }
+        
         velocityOnHit = rigidbody2d.velocity;
-        ArrowHit();
+        StopProjectile();
         Destroy(gameObject, impactDestroyDelay);
     }
 
-
-    private void ArrowHit()
+    private void StopProjectile()
     {
-        collider2d.enabled = false;
+        gameObject.layer = 14;
         rigidbody2d.velocity = Vector2.zero;
         rigidbody2d.angularVelocity = 0;
         rigidbody2d.isKinematic = true;
         enabled = false;
     }
+
 }

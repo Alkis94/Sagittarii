@@ -11,14 +11,15 @@ GameObject:
   - component: {fileID: 4000013503014194}
   - component: {fileID: 212000010209713682}
   - component: {fileID: 50000010627488690}
+  - component: {fileID: 95610278197972456}
   - component: {fileID: 61000010906568542}
   - component: {fileID: 82000013208893430}
   - component: {fileID: 1965399130761235180}
-  - component: {fileID: 7720205732415259823}
-  - component: {fileID: 8771146020374718273}
+  - component: {fileID: 8567265056696599361}
+  - component: {fileID: 4745054986638837137}
   m_Layer: 11
-  m_Name: Arrow
-  m_TagString: Arrow
+  m_Name: IceArrow
+  m_TagString: PlayerProjectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -74,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 1935560207
   m_SortingLayer: -2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 6d1f8ed2eb7906b41ad7345a9445baea, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 36edbbc9be4f6f4419a6baaa9b09d028, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -106,6 +107,25 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!95 &95610278197972456
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000011198274758}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6c602699f554462418228ec4b65da2b5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!61 &61000010906568542
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -119,18 +139,18 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.1096033, y: 0}
+  m_Offset: {x: 0.3, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.7, y: 0.15}
+    oldSize: {x: 0.9, y: 0.35}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.125788, y: 0.1}
+  m_Size: {x: 0.2, y: 0.25}
   m_EdgeRadius: 0
 --- !u!82 &82000013208893430
 AudioSource:
@@ -142,9 +162,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 1e2dae7e580acf440bb8973d1fb24d09, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 24c9331b8db19384081c704e3445e2fe, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -240,7 +260,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f1211ab3f74e3345a3e27d51008ca56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7720205732415259823
+--- !u!114 &8567265056696599361
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -249,10 +269,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000011198274758}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6423f1bb87994349a18de49fe064bfa, type: 3}
+  m_Script: {fileID: 11500000, guid: 29555ea420295cb44a635004c69f2b22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &8771146020374718273
+  velocityOnHit: {x: 0, y: 0}
+  impact: {fileID: 8300000, guid: 665b1f3b57f673247aaaa094072382c9, type: 3}
+  impactDestroyDelay: 0.3
+--- !u!114 &4745054986638837137
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -261,10 +284,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000011198274758}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7cd8a8cafa762a409240ce8c4ad303c, type: 3}
+  m_Script: {fileID: 11500000, guid: 2dcfb23501b394b4084b9bdae1f590e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arrowImpact: {fileID: 8300000, guid: f60456ae18dd76c42b1bd3878450a8f6, type: 3}
-  arrowGroundImpact: {fileID: 8300000, guid: 0cd2aab7afd283444b7f0f8c5e7fa171, type: 3}
-  impactDestroyDelay: 30
-  criticalHit: 0
+  hasImpactAnimation: 1
+  hasTravelAnimation: 0

@@ -7,9 +7,9 @@ public class EnemyWasCriticalHit : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Arrow")
+        if (collision.tag == "PlayerProjectile")
         {
-            OnCriticalHit?.Invoke(collision.GetComponent<Projectile>().Damage, collision.GetComponent<PlayerProjectileImpact>().velocityOnHit);
+            OnCriticalHit?.Invoke(collision.GetComponent<ProjectileDataInitializer>().Damage, collision.GetComponent<ProjectileImpact>().velocityOnHit);
         }
     }
 }

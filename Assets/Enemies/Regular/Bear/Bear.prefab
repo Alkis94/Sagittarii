@@ -171,7 +171,6 @@ GameObject:
   - component: {fileID: 3054776419035273207}
   - component: {fileID: 3054776419035273206}
   - component: {fileID: 4398162064139509257}
-  - component: {fileID: 1911242689}
   m_Layer: 12
   m_Name: CriticalCollider
   m_TagString: Enemy
@@ -221,18 +220,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3005fc24385a88468af6003d2962f3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1911242689
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3054776419035273200}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3005fc24385a88468af6003d2962f3d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &3054776419552895565
 GameObject:
   m_ObjectHideFlags: 0
@@ -252,7 +239,7 @@ GameObject:
   - component: {fileID: 3054776419552895605}
   - component: {fileID: 3054776419552895606}
   - component: {fileID: 519184866756575959}
-  - component: {fileID: 1911242692}
+  - component: {fileID: 4566916770378122861}
   m_Layer: 12
   m_Name: Bear
   m_TagString: Enemy
@@ -498,6 +485,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50f29edbf0272db409bbb9a0b135aefa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasAttack: 1
   enemyData: {fileID: 0}
 --- !u!114 &3054776419552895611
 MonoBehaviour:
@@ -559,7 +547,7 @@ MonoBehaviour:
   enemyKey: 0
   roomKey: 
   mapType: 0
---- !u!114 &1911242692
+--- !u!114 &4566916770378122861
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -568,7 +556,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3054776419552895565}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7b2e1e9116ec2142be84b31c7584e4e, type: 3}
+  m_Script: {fileID: 11500000, guid: 959e2411369e94c4695319a2c5b834bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   attackData:

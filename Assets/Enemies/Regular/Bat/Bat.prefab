@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 5623888009569000007}
   - component: {fileID: 7817322822323997714}
   - component: {fileID: 986562263884696416}
-  - component: {fileID: 744312993}
+  - component: {fileID: 7165892758833424683}
   m_Layer: 12
   m_Name: Bat
   m_TagString: Enemy
@@ -263,8 +263,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc23ffc019ed47e4aa0077b115d21db4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyData: {fileID: 0}
   hasAttack: 1
+  enemyData: {fileID: 0}
 --- !u!114 &1767405955
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -325,7 +325,7 @@ MonoBehaviour:
   enemyKey: 0
   roomKey: 
   mapType: 0
---- !u!114 &744312993
+--- !u!114 &7165892758833424683
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -334,7 +334,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1767405952}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7b2e1e9116ec2142be84b31c7584e4e, type: 3}
+  m_Script: {fileID: 11500000, guid: 959e2411369e94c4695319a2c5b834bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   attackData:

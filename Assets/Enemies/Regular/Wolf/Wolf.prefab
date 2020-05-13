@@ -177,9 +177,9 @@ GameObject:
   - component: {fileID: 2046918722190791161}
   - component: {fileID: 3457750228986333712}
   - component: {fileID: 6757743525015241999}
-  - component: {fileID: 6725544850637037678}
   - component: {fileID: 879409717}
   - component: {fileID: 6205051828286625437}
+  - component: {fileID: 2062515885578635173}
   m_Layer: 12
   m_Name: Wolf
   m_TagString: Enemy
@@ -439,7 +439,7 @@ MonoBehaviour:
   deathCry: {fileID: 8300000, guid: 6453350a75ca85c40acf284ab12054a3, type: 3}
   hasBlood: 1
   hasCriticalDeath: 0
-  hasBeforeDeath: 0
+  shakeBeforeDeath: 0
 --- !u!114 &6757743525015241999
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -452,20 +452,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a3d02f176d3ecb4d9cd3164a4d203d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &6725544850637037678
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3457750228986333725}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a538059451f55a4c98844bd632a0d32, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackData:
-  - {fileID: 11400000, guid: dffcf27635b5c3f4a89acf1891659367, type: 2}
 --- !u!114 &879409717
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -497,3 +483,17 @@ MonoBehaviour:
   enemyKey: 0
   roomKey: 
   mapType: 0
+--- !u!114 &2062515885578635173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3457750228986333725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 959e2411369e94c4695319a2c5b834bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackData:
+  - {fileID: 11400000, guid: dffcf27635b5c3f4a89acf1891659367, type: 2}

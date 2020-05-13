@@ -163,7 +163,7 @@ public class BearBossBrain : EnemyBrain
             isDoingGroundAttack = false;
             audioSource.PlayOneShot(groundStompSound);
             animator.SetTrigger("GroundCollision");
-            AttackPatterns[0].Attack(1);
+            AttackPatterns.Attack(1);
         }
     }
 

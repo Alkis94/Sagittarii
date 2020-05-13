@@ -6,25 +6,16 @@ using Factories;
 public class AttackPattern : MonoBehaviour
 {
     [SerializeField]
-    protected List<AttackData> attackData;
-    protected AudioSource audioSource;
+    private List<AttackData> attackData;
+    private AudioSource audioSource;
 
-    protected void Start()
+    private void Start()
     {
         audioSource = GetComponent<AudioSource>();
     }
 
-
-    public virtual void Attack(int index)
+    public void Attack(int index)
     {
-        if (attackData[index].ProjectileSpawnPositionOffset.Count == 0)
-        {
-            for (int i = 0; i < attackData[index].ProjectileAmount; i++)
-            {
-                attackData[index].ProjectileSpawnPositionOffset.Add(Vector3.zero);
-            }
-        }
-
         if (attackData[index].AttackSound != null)
         {
             audioSource.PlayOneShot(attackData[index].AttackSound);
@@ -62,7 +53,7 @@ public class AttackPattern : MonoBehaviour
                     new Vector3((attackData[index].UniversalSpawnPositionOffset.x + attackData[index].ProjectileSpawnPositionOffset[i].x + positionRandomness[i].x) * transform.right.x,
                     attackData[index].UniversalSpawnPositionOffset.y + attackData[index].ProjectileSpawnPositionOffset[i].y + positionRandomness[i].y, 0),
                     attackData[index].ProjectileSpeed * transform.right.x,
-                    attackData[index].ProjectileDestroyDelay, attackData[index].Damage, attackData[index].ProjectileRotations[i] + rotationnRandomness[i]);
+                    attackData[index].ProjectileDestroyDelay, attackData[index].Damage, attackData[index].ProjectileRotations[i] + rotationnRandomness[i], attackData[index].projectileMovementType);
                 }
                 yield return new WaitForSeconds(attackData[index].ConsecutiveAttackDelay);
             }
@@ -74,7 +65,7 @@ public class AttackPattern : MonoBehaviour
                 for (int i = 0; i < attackData[index].ProjectileAmount; i++)
                 {
                     ProjectileFactory.CreateProjectile(transform.position, attackData[index].Projectile, attackData[index].UniversalSpawnPositionOffset + attackData[index].ProjectileSpawnPositionOffset[i] + positionRandomness[i],
-                    attackData[index].ProjectileSpeed, attackData[index].ProjectileDestroyDelay, attackData[index].Damage, attackData[index].ProjectileRotations[i] + rotationnRandomness[i]);
+                    attackData[index].ProjectileSpeed, attackData[index].ProjectileDestroyDelay, attackData[index].Damage, attackData[index].ProjectileRotations[i] + rotationnRandomness[i], attackData[index].projectileMovementType);
                 }
                 yield return new WaitForSeconds(attackData[index].ConsecutiveAttackDelay);
             }
@@ -97,7 +88,7 @@ public class AttackPattern : MonoBehaviour
             for (int i = 0; i < attackData[index].ProjectileAmount; i++)
             {
                 ProjectileFactory.CreateProjectile(transform.position, attackData[index].Projectile, attackData[index].UniversalSpawnPositionOffset + attackData[index].ProjectileSpawnPositionOffset[i] + positionRandomness[i],
-                attackData[index].ProjectileSpeed, attackData[index].ProjectileDestroyDelay, attackData[index].Damage, attackData[index].ProjectileRotations[i] + projectileRotation + rotationnRandomness[i]);
+                attackData[index].ProjectileSpeed, attackData[index].ProjectileDestroyDelay, attackData[index].Damage, attackData[index].ProjectileRotations[i] + projectileRotation + rotationnRandomness[i], attackData[index].projectileMovementType);
             }
             yield return new WaitForSeconds(attackData[index].ConsecutiveAttackDelay);
         }

@@ -108,7 +108,7 @@ public class BatBossBrain : EnemyBrain
     {
         for (int i = 0; i < attackTimes; i++)
         {
-            AttackPatterns[0].Attack(0);
+            AttackPatterns.Attack(0);
             yield return new WaitForSeconds(0.25f);
         }
     }
@@ -127,7 +127,7 @@ public class BatBossBrain : EnemyBrain
     public void CallCirclePerimetricalAttack()
     {
         audioSource.Play();
-        AttackPatterns[2].Attack(0);
+        AttackPatterns.Attack(3);
     }
 
 }

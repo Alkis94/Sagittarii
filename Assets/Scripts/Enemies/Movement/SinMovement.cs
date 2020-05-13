@@ -18,7 +18,7 @@ public class SinMovement : MovementPattern
         timePassed += Time.deltaTime;
         verticalDirection = Mathf.Sin(timePassed * curveFactor);
         float velocityX = transform.right.x * speed;
-        float velocityY = transform.up.y * speed * verticalDirection * brainVerticalDirection; // Why 2 vertical directions?
+        float velocityY = transform.right.x * speed * verticalDirection * brainVerticalDirection; // Why 2 vertical directions?
         rigidbody2d.velocity = new Vector2(velocityX, velocityY);
     }
 }

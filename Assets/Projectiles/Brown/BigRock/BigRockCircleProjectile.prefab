@@ -14,8 +14,7 @@ GameObject:
   - component: {fileID: 50000010810412982}
   - component: {fileID: 6661106271222609378}
   - component: {fileID: 114515642773749994}
-  - component: {fileID: 1347826763514464308}
-  - component: {fileID: 4464454744644392146}
+  - component: {fileID: 5579213713814028487}
   - component: {fileID: 1632851930220782374}
   m_Layer: 13
   m_Name: BigRockCircleProjectile
@@ -154,7 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f1211ab3f74e3345a3e27d51008ca56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1347826763514464308
+--- !u!114 &5579213713814028487
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -163,21 +162,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000012292187914}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b74cbf2379a11764d8d880256490fe5e, type: 3}
+  m_Script: {fileID: 11500000, guid: 29555ea420295cb44a635004c69f2b22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &4464454744644392146
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1000012292187914}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a47a34547fd613f449a00da978b0c8a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  velocityOnHit: {x: 0, y: 0}
+  impact: {fileID: 0}
   impactDestroyDelay: 0.4
 --- !u!114 &1632851930220782374
 MonoBehaviour:

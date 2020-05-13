@@ -4,17 +4,17 @@ namespace Factories
 {
     public static class ProjectileFactory 
     {
-        public static Projectile CreateProjectile(Vector3 projectilePosition, GameObject projectile, Vector3 spawnPositionOffset, float projectileSpeed, float projectileDestroyDelay, int damage, float projectileRotationZ)
+        public static ProjectileDataInitializer CreateProjectile(Vector3 projectilePosition, GameObject projectile, Vector3 spawnPositionOffset, float projectileSpeed, float projectileDestroyDelay, int damage, float projectileRotationZ, ProjectileMovementTypeEnum movementTypeEnum)
         {
-            var someProjectile = Object.Instantiate(projectile).GetComponent<Projectile>();
-            someProjectile.Initialize(projectilePosition,  spawnPositionOffset, projectileSpeed, projectileDestroyDelay, damage, projectileRotationZ);
+            var someProjectile = Object.Instantiate(projectile).GetComponent<ProjectileDataInitializer>();
+            someProjectile.Initialize(projectilePosition,  spawnPositionOffset, projectileSpeed, projectileDestroyDelay, damage, projectileRotationZ, movementTypeEnum);
             return someProjectile;
         }
 
-        public static Projectile CreateProjectile(Vector3 projectilePosition, GameObject projectile, Vector3 spawnPositionOffset, float projectileSpeed, float projectileDestroyDelay, int damage, Quaternion projectileRotation)
+        public static ProjectileDataInitializer CreateProjectile(Vector3 projectilePosition, GameObject projectile, Vector3 spawnPositionOffset, float projectileSpeed, float projectileDestroyDelay, int damage, Quaternion projectileRotation, ProjectileMovementTypeEnum movementTypeEnum)
         {
-            var someProjectile = Object.Instantiate(projectile).GetComponent<Projectile>();
-            someProjectile.Initialize(projectilePosition, spawnPositionOffset, projectileSpeed, projectileDestroyDelay, damage, projectileRotation);
+            var someProjectile = Object.Instantiate(projectile).GetComponent<ProjectileDataInitializer>();
+            someProjectile.Initialize(projectilePosition, spawnPositionOffset, projectileSpeed, projectileDestroyDelay, damage, projectileRotation, movementTypeEnum);
             return someProjectile;
         }
     }

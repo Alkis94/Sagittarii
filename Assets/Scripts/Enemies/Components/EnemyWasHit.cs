@@ -7,9 +7,9 @@ public class EnemyWasHit : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Arrow")
+        if (collision.tag == "PlayerProjectile")
         {
-            OnHit?.Invoke(collision.GetComponent<Projectile>().Damage);
+            OnHit?.Invoke(collision.GetComponent<ProjectileDataInitializer>().Damage);
         }
     }
 }

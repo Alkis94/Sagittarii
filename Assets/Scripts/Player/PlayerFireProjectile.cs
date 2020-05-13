@@ -86,7 +86,7 @@ public class PlayerFireProjectile : MonoBehaviour
 
     private void FireArrowSimple(GameObject arrowEmitter, GameObject projectile, float projectileSpeed, float projectileDestroyDelay, float arrowPower , int damage)
     {
-        ProjectileFactory.CreateProjectile(arrowEmitter.transform.position,  projectile, Vector3.zero, projectileSpeed * arrowPower, projectileDestroyDelay, damage, arrowEmitter.transform.rotation);
+        ProjectileFactory.CreateProjectile(arrowEmitter.transform.position,  projectile, Vector3.zero, projectileSpeed * arrowPower, projectileDestroyDelay, damage, arrowEmitter.transform.rotation, ProjectileMovementTypeEnum.arrow);
     }
 
     private void ResetAnimator(Scene scene, LoadSceneMode mode)

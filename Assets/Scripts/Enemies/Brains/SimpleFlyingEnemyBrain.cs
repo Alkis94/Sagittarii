@@ -5,8 +5,7 @@ public class SimpleFlyingEnemyBrain : EnemyBrain
     
     private int horizontalDirection = 1;
     private int verticalDirection = 1;
-    [SerializeField]
-    private bool hasAttack = true;
+    
 
 
     protected override void Awake()
@@ -82,7 +81,6 @@ public class SimpleFlyingEnemyBrain : EnemyBrain
         }
         else if (horizontalDirection == 1)
         {
-
             transform.localRotation = Quaternion.Euler(0, 0, transform.localEulerAngles.z);
         }
     }

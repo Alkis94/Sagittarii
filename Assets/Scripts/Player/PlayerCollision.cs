@@ -20,7 +20,7 @@ public class PlayerCollision : MonoBehaviour
         {
             if (other.tag == "EnemyProjectile")
             {
-                int damage = other.GetComponent<Projectile>().Damage;
+                int damage = other.GetComponent<ProjectileDataInitializer>().Damage;
                 PlayerGotHit(damage);
             }
 

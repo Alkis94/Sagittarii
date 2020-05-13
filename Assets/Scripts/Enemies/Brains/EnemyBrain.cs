@@ -4,6 +4,9 @@ using UnityEngine;
 
 public abstract class  EnemyBrain : MonoBehaviour
 {
+    [SerializeField]
+    protected bool hasAttack = true;
+
     [HideInInspector]
     public EnemyData enemyData;
     protected EnemyGotShot enemyGotShot;
@@ -16,7 +19,7 @@ public abstract class  EnemyBrain : MonoBehaviour
     [HideInInspector]
     public Animator animator { get; protected set; }
     [HideInInspector]
-    public AttackPattern[] AttackPatterns { get; protected set; }
+    public AttackPattern AttackPatterns { get; protected set; }
     [HideInInspector]
     public MovementPattern[] MovementPatterns { get; protected set; }
 
@@ -43,7 +46,7 @@ public abstract class  EnemyBrain : MonoBehaviour
         enemyGotShot = GetComponent<EnemyGotShot>();
         enemyData = GetComponent<EnemyData>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        AttackPatterns = GetComponents<AttackPattern>();
+        AttackPatterns = GetComponent<AttackPattern>();
     }
 
     protected virtual void Start()
@@ -92,7 +95,7 @@ public abstract class  EnemyBrain : MonoBehaviour
     //Gets called from animation sometimes!
     protected void CallMainAttack()
     {
-        AttackPatterns[0].Attack(0);
+        AttackPatterns.Attack(0);
     }
 
     protected void StartAttackAnimation()

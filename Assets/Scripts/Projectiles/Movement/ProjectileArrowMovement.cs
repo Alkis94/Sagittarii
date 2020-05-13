@@ -2,31 +2,29 @@
 
 public class ProjectileArrowMovement : MonoBehaviour
 {
-
     private Rigidbody2D rigidbody2d;
-    private float arrowAngle;
-
- 
-
-    private Projectile projectile;
 
     private void OnEnable()
     {
-        GetComponent<PlayerProjectileImpact>().OnCollision += DisableComponent;
+        GetComponent<ProjectileImpact>().OnCollision += DisableComponent;
+    }
+
+    private void OnDisable()
+    {
+        GetComponent<ProjectileImpact>().OnCollision -= DisableComponent;
     }
 
     void Start()
     {
-        projectile = GetComponent<Projectile>();
+        float speed = GetComponent<ProjectileDataInitializer>().Speed;
         rigidbody2d = GetComponent<Rigidbody2D>();
-        rigidbody2d.AddForce(transform.right * projectile.Speed);
+        rigidbody2d.AddForce(transform.right * speed);
     }
-
 
     void Update()
     {
-        Vector2 v = rigidbody2d.velocity;
-        arrowAngle = Mathf.Atan2(v.y, v.x) * Mathf.Rad2Deg;
+        Vector2 velocity = rigidbody2d.velocity;
+        float arrowAngle = Mathf.Atan2(velocity.y, velocity.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(arrowAngle, Vector3.forward);
     }
 
