@@ -38,14 +38,12 @@ public class ProjectileFunctionMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
         transform.position = originalPosition + RotatedFunctionPoint();
     }
 
     private Vector3 RotatedFunctionPoint()
     {
         t += Time.deltaTime * speed;
-        //float ft = Mathf.Sin(t);
         float ft = SomeFunction(t);
         float nextX = t * Mathf.Cos(theta) - ft * Mathf.Sin(theta);
         float nextY = t * Mathf.Sin(theta) + ft * Mathf.Cos(theta);

@@ -17,5 +17,13 @@ namespace Factories
             someProjectile.Initialize(projectilePosition, spawnPositionOffset, projectileSpeed, projectileDestroyDelay, damage, projectileRotation, movementTypeEnum);
             return someProjectile;
         }
+
+        public static ProjectileDataInitializer CreateProjectile(AttackInfo attackInfo)
+        {
+            var someProjectile = Object.Instantiate(attackInfo.projectile).GetComponent<ProjectileDataInitializer>();
+            someProjectile.Initialize(attackInfo.spawnPosition, attackInfo.spawnPositionOffset, attackInfo.speed, attackInfo.destroyDelay, attackInfo.damage, attackInfo.rotation, attackInfo.movementTypeEnum);
+            return someProjectile;
+        }
     }
 }
+
