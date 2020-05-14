@@ -18,7 +18,8 @@ public class ProjectileArrowMovement : MonoBehaviour
     {
         float speed = GetComponent<ProjectileDataInitializer>().Speed;
         rigidbody2d = GetComponent<Rigidbody2D>();
-        rigidbody2d.AddForce(transform.right * speed);
+        rigidbody2d.gravityScale = 1;
+        rigidbody2d.AddForce(transform.right * speed * 100);
     }
 
     void Update()

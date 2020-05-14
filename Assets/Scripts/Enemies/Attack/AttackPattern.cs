@@ -86,10 +86,11 @@ public class AttackPattern : MonoBehaviour
         }
         else
         {
-            attackInfo.rotation = CalculateTargetedRotation() + rotationRandomness;
+            attackInfo.rotation = CalculateTargetedRotation() + attackData[index].ProjectileRotations[i] + rotationRandomness;
         }
 
-        attackInfo.movementTypeEnum = attackData[index].projectileMovementType;
+        attackInfo.movementTypeEnum = attackData[index].ProjectileMovementType;
+        attackInfo.functionMovementType = attackData[index].FunctionMovementType;
         return attackInfo;
     }
 
@@ -120,4 +121,5 @@ public struct AttackInfo
     public int damage;
     public float rotation;
     public ProjectileMovementTypeEnum movementTypeEnum;
+    public FunctionMovementTypeEnum functionMovementType;
 }

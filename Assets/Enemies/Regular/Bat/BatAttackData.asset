@@ -22,21 +22,24 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: projectileMovementType
+    - Name: ProjectileMovementType
       Entry: 3
-      Data: 3
+      Data: 4
+    - Name: FunctionMovementType
+      Entry: 3
+      Data: 4
     - Name: AttackType
       Entry: 3
-      Data: 1
+      Data: 0
     - Name: AttackIsDirectionDependant
       Entry: 5
       Data: false
     - Name: ProjectileAmount
       Entry: 3
-      Data: 1
+      Data: 2
     - Name: ConsecutiveAttacks
       Entry: 3
-      Data: 50
+      Data: 30
     - Name: ConsecutiveAttackDelay
       Entry: 4
       Data: 0.15
@@ -57,7 +60,7 @@ MonoBehaviour:
       Data: 1
     - Name: 
       Entry: 4
-      Data: 0
+      Data: 270
     - Name: 
       Entry: 13
       Data: 
@@ -115,7 +118,7 @@ MonoBehaviour:
       Data: 
     - Name: Randomness
       Entry: 5
-      Data: true
+      Data: false
     - Name: RandomHorizontalFactorMin
       Entry: 4
       Data: 0
@@ -130,7 +133,7 @@ MonoBehaviour:
       Data: 0
     - Name: RandomRotationFactorMin
       Entry: 4
-      Data: -30
+      Data: 0
     - Name: RandomRotationFactorMax
       Entry: 4
-      Data: 30
+      Data: 0

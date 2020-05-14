@@ -6,6 +6,7 @@ public class ProjectileDataInitializer : MonoBehaviour
     public float DestroyDelay { private set; get; }
     public float Speed { private set; get; }
     public int Damage { private set; get; }
+    public FunctionMovementTypeEnum FunctionMovementType { get; private set; }
 
 
     private void Start()
@@ -31,6 +32,18 @@ public class ProjectileDataInitializer : MonoBehaviour
         Speed = projectileSpeed;
         DestroyDelay = projectileDestroyDelay;
         Damage = damage;
+       
+    }
+
+    public void Initialize(Vector3 parentPosition, Vector3 spawnPositionOffset, float projectileSpeed, float projectileDestroyDelay, int damage, float projectileRotation, ProjectileMovementTypeEnum movementTypeEnum, FunctionMovementTypeEnum functionMovementType)
+    {
+        AddMovementComponent(movementTypeEnum);
+        transform.position = parentPosition + spawnPositionOffset;
+        transform.rotation = Quaternion.Euler(0f, 0f, projectileRotation);
+        Speed = projectileSpeed;
+        DestroyDelay = projectileDestroyDelay;
+        Damage = damage;
+        FunctionMovementType = functionMovementType;
     }
 
     private void AddMovementComponent(ProjectileMovementTypeEnum movementTypeEnum)
@@ -45,6 +58,12 @@ public class ProjectileDataInitializer : MonoBehaviour
                 break;
             case ProjectileMovementTypeEnum.sin:
                 ProjectileSinMovement projectileSinMovement = gameObject.AddComponent<ProjectileSinMovement>() as ProjectileSinMovement;
+                break;
+            case ProjectileMovementTypeEnum.circle:
+                ProjectileCircleMovement projectileCircleMovement = gameObject.AddComponent<ProjectileCircleMovement>() as ProjectileCircleMovement;
+                break;
+            case ProjectileMovementTypeEnum.spiral:
+                ProjectileSpiralMovement projectileSpiralMovement = gameObject.AddComponent<ProjectileSpiralMovement>() as ProjectileSpiralMovement;
                 break;
             case ProjectileMovementTypeEnum.function:
                 ProjectileFunctionMovement projectileFunctionMovement = gameObject.AddComponent<ProjectileFunctionMovement>() as ProjectileFunctionMovement;

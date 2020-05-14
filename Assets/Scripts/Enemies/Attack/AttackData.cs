@@ -9,7 +9,10 @@ public class AttackData : SerializedScriptableObject
 {
 
     //Attack Type
-    [OdinSerialize] public ProjectileMovementTypeEnum projectileMovementType { get; private set; } = ProjectileMovementTypeEnum.straight;
+    [OdinSerialize] public ProjectileMovementTypeEnum ProjectileMovementType { get; private set; } = ProjectileMovementTypeEnum.function;
+    [ShowIf("@ ProjectileMovementType == ProjectileMovementTypeEnum.function")]
+    [OdinSerialize] public FunctionMovementTypeEnum FunctionMovementType { get; private set; } = FunctionMovementTypeEnum.straight;
+
     [OdinSerialize] public AttackTypeEnum AttackType { get; private set; } = AttackTypeEnum.perimetrical;
     [ShowIf("@ AttackType == AttackTypeEnum.perimetrical")]
     [OdinSerialize] public bool AttackIsDirectionDependant { get; private set; } = false;
