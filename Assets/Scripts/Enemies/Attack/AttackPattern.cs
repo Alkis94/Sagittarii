@@ -9,13 +9,9 @@ public class AttackPattern : MonoBehaviour
     private List<AttackData> attackData;
     private AudioSource audioSource;
 
-    private void Start()
-    {
-        audioSource = GetComponent<AudioSource>();
-    }
-
     private void OnEnable()
     {
+        audioSource = GetComponent<AudioSource>();
         GetComponent<EnemyData>().EnemyDied += StopCoroutines;
     }
 

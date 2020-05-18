@@ -127,7 +127,7 @@ public class BearBossBrain : EnemyBrain
             else
             {
                 randomNumber = Random.Range(0, 1f);
-                if (randomNumber < 0.4f)
+                if (randomNumber < 0.3f)
                 {
                     StartGroundAttack();
                     randomTime = Random.Range(1f, 2f);

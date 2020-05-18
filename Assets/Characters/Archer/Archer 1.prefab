@@ -48,7 +48,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: c562cd910234aaa4c9c61c35cbbc69e5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -133,7 +133,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: c562cd910234aaa4c9c61c35cbbc69e5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -305,7 +305,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectile: {fileID: 1000011198274758, guid: 7286360133900744eb191a4b124d4e14, type: 3}
   arrowEmitter: {fileID: 3681053211839336020}
-  projectileSpeed: 1200
+  projectileSpeed: 12
   projectileDestroyDelay: 30
 --- !u!1 &3681053211839336020
 GameObject:
@@ -448,7 +448,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: c562cd910234aaa4c9c61c35cbbc69e5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -513,7 +513,7 @@ Rigidbody2D:
   m_Mass: 2
   m_LinearDrag: 0
   m_AngularDrag: 0
-  m_GravityScale: 1
+  m_GravityScale: 3
   m_Material: {fileID: 0}
   m_Interpolate: 1
   m_SleepingMode: 1
@@ -781,3 +781,6 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 1048832
+  bouncyBallLayer:
+    serializedVersion: 2
+    m_Bits: 2097152

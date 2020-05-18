@@ -76,10 +76,9 @@ GameObject:
   - component: {fileID: 6322348383030942069}
   - component: {fileID: 6867718439259980287}
   - component: {fileID: 3154934772658238055}
+  - component: {fileID: 5014629230105752360}
   - component: {fileID: 1175849890}
   - component: {fileID: 1292161362102898180}
-  - component: {fileID: 1175849891}
-  - component: {fileID: 1511332085}
   - component: {fileID: 5034780957142068259}
   - component: {fileID: 1359579697519719700}
   m_Layer: 12
@@ -306,12 +305,13 @@ MonoBehaviour:
   changeDirectionFrequency: 3
   delayBeforeFirstAttack: 3
   attackFrequencies:
+  - 5
   - 3
   - 5
   goldGiven: 0
   giveSpecificAmountOfGold: 0
   changingDirections: 1
-  damageable: 0
+  damageable: 1
   amputation: 0
   Relic: {fileID: 0}
 --- !u!114 &6867718439259980287
@@ -326,6 +326,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fca6e7a329b045c409938c8cd34b5e3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasAttack: 1
   enemyData: {fileID: 0}
   smallBat: {fileID: 1767405952, guid: 311a69c7bda174a488b521dd5a36cc10, type: 3}
   horizontalDirection: 1
@@ -347,6 +348,21 @@ MonoBehaviour:
   hasBlood: 1
   hasCriticalDeath: 0
   shakeBeforeDeath: 1
+--- !u!114 &5014629230105752360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5296110209441186540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 959e2411369e94c4695319a2c5b834bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackData:
+  - {fileID: 11400000, guid: 740345de48613d347aa01ec8f4ad24a6, type: 2}
+  - {fileID: 11400000, guid: 100856dff7b8f0f4da39a53950d5a601, type: 2}
 --- !u!114 &1175849890
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -374,34 +390,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gotHitSound: {fileID: 0}
   amputationPart: {fileID: 0}
---- !u!114 &1175849891
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5296110209441186540}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39167807d403afe4594881dea294c92e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackData:
-  - {fileID: 11400000, guid: 740345de48613d347aa01ec8f4ad24a6, type: 2}
---- !u!114 &1511332085
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5296110209441186540}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a538059451f55a4c98844bd632a0d32, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackData:
-  - {fileID: 11400000, guid: 100856dff7b8f0f4da39a53950d5a601, type: 2}
 --- !u!114 &5034780957142068259
 MonoBehaviour:
   m_ObjectHideFlags: 0

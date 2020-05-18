@@ -14,8 +14,6 @@ using System;
 [DefaultExecutionOrder(-100)]
 public class PlayerInput : MonoBehaviour
 {
-    public static event Action DoorEntered = delegate { };
-
     public GameObject map;
 
 	[HideInInspector] public float horizontal;		//Float that stores horizontal input
@@ -49,14 +47,36 @@ public class PlayerInput : MonoBehaviour
 
     void Update()
 	{
+
         if (Input.GetButtonDown("Cancel") && !GameState.GamePaused)
         {
             MenuFactory.CreateMenuAndPause(MenuFactory.PauseMenu);
         }
+
         else if (Input.GetButtonDown("Cancel") && GameState.GamePaused)
         {
             MenuFactory.DestroyMenuAndUnpause();
         }
+
+        
+        if (Input.GetKeyUp(KeyCode.S))
+        {
+            if (boxCollider2D.IsTouchingLayers(collisionMask))
+            {
+                gameObject.layer = 19; // PlayerNoPlatform Layer
+                StartCoroutine(ReturnToNormalLayer());
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            map.SetActive(!map.activeInHierarchy);
+        }
+
+        ClearInput();
+		ProcessInputs();
+		horizontal = Mathf.Clamp(horizontal, -1f, 1f);
+
 
         // This is used to call QuickQuitMenu so you can test indintual scenes as builds!
         //Replace the above "Cancel" to use!
@@ -69,32 +89,6 @@ public class PlayerInput : MonoBehaviour
         //{
         //    MenuFactory.DestroyMenuAndUnpause();
         //}
-
-
-
-        if (Input.GetKeyUp(KeyCode.S))
-        {
-            if (boxCollider2D.IsTouchingLayers(collisionMask))
-            {
-                gameObject.layer = 19; // PlayerNoPlatform Layer
-                StartCoroutine(ReturnToNormalLayer());
-            }
-        }
-
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            DoorEntered?.Invoke();
-        }
-
-
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            map.SetActive(!map.activeInHierarchy);
-        }
-
-        ClearInput();
-		ProcessInputs();
-		horizontal = Mathf.Clamp(horizontal, -1f, 1f);
 
         //if(Input.GetKeyUp(KeyCode.F))
         //{

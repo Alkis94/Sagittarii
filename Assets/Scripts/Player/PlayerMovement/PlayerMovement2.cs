@@ -27,8 +27,12 @@ public class PlayerMovement2 : MonoBehaviour
     public PlayerAudio playerAudio;
 
     private const float skinWidth = .015f;
-    public LayerMask groundLayer;           //Layer of the ground
+    [SerializeField]
+    private LayerMask groundLayer;          
     private const float groundDistance = 0.1f;        //Distance player is considered to be on the ground
+    [SerializeField]
+    private LayerMask bouncyBallLayer;
+
 
     private int animatorVelocityY_ID;
     private int animatorVelocityX_ID;
@@ -110,6 +114,21 @@ public class PlayerMovement2 : MonoBehaviour
         Debug.DrawRay(bottomLeftCorner, Vector2.down , Color.red);
         RaycastHit2D rightCheck = Physics2D.Raycast(bottomRightCorner, Vector2.down, groundDistance, groundLayer);
         Debug.DrawRay(bottomRightCorner, Vector2.down, Color.red);
+
+        return (leftCheck || rightCheck);
+    }
+
+    public bool LegOnBouncyBall()
+    {
+        Bounds bounds = GetComponent<BoxCollider2D>().bounds;
+        bounds.Expand(skinWidth * -2);
+
+        Vector2 bottomLeftCorner = new Vector2(bounds.min.x, bounds.min.y);
+        Vector2 bottomRightCorner = new Vector2(bounds.max.x, bounds.min.y);
+
+        //Cast rays for the left and right foot
+        RaycastHit2D leftCheck = Physics2D.Raycast(bottomLeftCorner, Vector2.down, groundDistance, bouncyBallLayer);
+        RaycastHit2D rightCheck = Physics2D.Raycast(bottomRightCorner, Vector2.down, groundDistance, bouncyBallLayer);
 
         return (leftCheck || rightCheck);
     }

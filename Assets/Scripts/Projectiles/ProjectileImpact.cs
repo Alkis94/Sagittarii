@@ -9,18 +9,24 @@ public class ProjectileImpact : MonoBehaviour
     [HideInInspector]
     public Vector2 velocityOnHit = Vector2.zero;
 
-    [SerializeField]
-    private AudioClip impact;
-    [SerializeField]
-    private float impactDestroyDelay = 0;
-
     private AudioSource audioSource;
     private Rigidbody2D rigidbody2d;
+    [SerializeField]
+    private AudioClip impact;
+    private float destroyDelay = 1;
+    [SerializeField]
+    private float impactDestroyDelay = 0;
+    [SerializeField]
+    private bool bulletSplits;
+
+    
 
     void Start()
     {
+        destroyDelay = GetComponent<ProjectileDataInitializer>().DestroyDelay;
         rigidbody2d = GetComponent<Rigidbody2D>();
         audioSource = GetComponent<AudioSource>();
+        StartCoroutine(DestroyAndSplit());
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -35,6 +41,12 @@ public class ProjectileImpact : MonoBehaviour
         
         velocityOnHit = rigidbody2d.velocity;
         StopProjectile();
+
+        if (bulletSplits)
+        {
+            GetComponent<AttackPattern>().Attack(0);
+        }
+
         Destroy(gameObject, impactDestroyDelay);
     }
 
@@ -45,6 +57,16 @@ public class ProjectileImpact : MonoBehaviour
         rigidbody2d.angularVelocity = 0;
         rigidbody2d.isKinematic = true;
         enabled = false;
+    }
+
+    IEnumerator DestroyAndSplit()
+    {
+        yield return new WaitForSeconds(destroyDelay);
+        if(bulletSplits)
+        {
+            GetComponent<AttackPattern>().Attack(0);
+        }
+        Destroy(gameObject);
     }
 
 }

@@ -9,10 +9,6 @@ public class BatBossBrain : EnemyBrain
     [HideInInspector]
     public StateMachine<BatBossBrain> stateMachine;
     [HideInInspector]
-    public BatBossWakingState wakingState;
-    [HideInInspector]
-    public BatBossFrenzyState frenzyState;
-    [HideInInspector]
     public BatBossCalmState calmState;
     [HideInInspector]
     public BatBossEnragedState enragedState;
@@ -28,9 +24,7 @@ public class BatBossBrain : EnemyBrain
     protected override void Awake()
     {
         base.Awake();
-        wakingState = new BatBossWakingState(this);
         calmState = new BatBossCalmState(this);
-        frenzyState = new BatBossFrenzyState(this);
         enragedState = new BatBossEnragedState(this);
         MovementPatterns = GetComponents<MovementPattern>();
     }
@@ -55,7 +49,7 @@ public class BatBossBrain : EnemyBrain
         audioSource = GetComponent<AudioSource>();
 
         stateMachine = new StateMachine<BatBossBrain>(this);
-        stateMachine.ChangeState(wakingState);
+        stateMachine.ChangeState(calmState);
     }
 
 
@@ -80,6 +74,11 @@ public class BatBossBrain : EnemyBrain
 
     private void FixedUpdate()
     {
+        if (enemyData.Health > 0)
+        {
+            MovementPatterns[0].Move(enemyData.speed, verticalDirection);
+        }
+
         stateMachine.FixedUpdate();
     }
 
@@ -104,21 +103,21 @@ public class BatBossBrain : EnemyBrain
         }
     }
 
-   public IEnumerator MultiTargetedAttack(int attackTimes)
-    {
-        for (int i = 0; i < attackTimes; i++)
-        {
-            AttackPatterns.Attack(0);
-            yield return new WaitForSeconds(0.25f);
-        }
-    }
-
     public IEnumerator SpawnSmallBats(float spawnFrequency)
     {
         while (true)
         {
-            Instantiate(smallBat,transform.position, Quaternion.identity);
+            Instantiate(smallBat,transform.position, Quaternion.identity,transform.parent);
             yield return new WaitForSeconds(spawnFrequency);
+        }
+    }
+
+    public IEnumerator StartAttacking(float attackFrequency,int index)
+    {
+        while(true)
+        {
+            AttackPatterns.Attack(index);
+            yield return new WaitForSeconds(attackFrequency);
         }
     }
 

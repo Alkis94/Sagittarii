@@ -48,17 +48,11 @@ public class RoomFinish : MonoBehaviour
         {
             if(transform.childCount <= 0)
             {
-                StartCoroutine(PlayFinishSound());
                 OnRoomFinished?.Invoke();
                 break;
             }
             yield return new WaitForFixedUpdate();
         }
-    }
-
-    IEnumerator PlayFinishSound()
-    {
-        yield return new WaitForSeconds(0.5f);
     }
 
 }

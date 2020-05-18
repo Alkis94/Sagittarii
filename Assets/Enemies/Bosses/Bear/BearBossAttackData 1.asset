@@ -15,18 +15,26 @@ MonoBehaviour:
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects: []
+    ReferencedUnityObjects:
+    - {fileID: 1000012292187914, guid: a75dc35dd1f7b4342940fddd001474e8, type: 3}
+    - {fileID: 8300000, guid: 86d4022d10805964cbfc9f79c626504e, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
+    - Name: ProjectileMovementType
+      Entry: 3
+      Data: 0
+    - Name: FunctionMovementType
+      Entry: 3
+      Data: 0
     - Name: AttackType
       Entry: 3
       Data: 0
     - Name: AttackIsDirectionDependant
       Entry: 5
-      Data: false
+      Data: true
     - Name: ProjectileAmount
       Entry: 3
       Data: 1
@@ -38,13 +46,13 @@ MonoBehaviour:
       Data: 0
     - Name: Damage
       Entry: 3
-      Data: 10
+      Data: 50
     - Name: ProjectileSpeed
       Entry: 4
-      Data: 5
+      Data: 9
     - Name: ProjectileDestroyDelay
       Entry: 4
-      Data: 10
+      Data: 15
     - Name: ProjectileRotations
       Entry: 7
       Data: 0|System.Collections.Generic.List`1[[System.Single, mscorlib]], mscorlib
@@ -96,7 +104,7 @@ MonoBehaviour:
       Data: 0
     - Name: 
       Entry: 4
-      Data: 0
+      Data: -1
     - Name: 
       Entry: 4
       Data: 0
@@ -104,11 +112,11 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: Projectile
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 0
     - Name: AttackSound
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 1
     - Name: Randomness
       Entry: 5
       Data: false

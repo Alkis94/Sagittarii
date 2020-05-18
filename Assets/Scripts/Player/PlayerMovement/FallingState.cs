@@ -45,5 +45,10 @@ public class FallingState : State<PlayerMovement2>
         {
             stateOwner.stateMachine.ChangeState(stateOwner.jumpingState);
         }
+
+        if (stateOwner.input.jumpPressed && stateOwner.LegOnBouncyBall())
+        {
+            stateOwner.stateMachine.ChangeState(stateOwner.jumpingState);
+        }
     }
 }

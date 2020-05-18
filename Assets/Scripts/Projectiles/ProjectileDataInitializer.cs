@@ -8,12 +8,6 @@ public class ProjectileDataInitializer : MonoBehaviour
     public int Damage { private set; get; }
     public FunctionMovementTypeEnum FunctionMovementType { get; private set; }
 
-
-    private void Start()
-    {
-        Destroy(gameObject, DestroyDelay);
-    }
-
     public void Initialize(Vector3 parentPosition,Vector3 spawnPositionOffset,float projectileSpeed,float projectileDestroyDelay,int damage,float projectileRotation, ProjectileMovementTypeEnum movementTypeEnum)
     {
         AddMovementComponent(movementTypeEnum);

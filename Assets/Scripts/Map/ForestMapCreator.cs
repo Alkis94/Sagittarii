@@ -26,7 +26,7 @@ public class ForestMapCreator : MapCreator
     // Use this for initialization
     void Start()
     {
-        for (int i = 1; i < 11; i++)
+        for (int i = 1; i < 10; i++)
         {
             forestRooms.Add("Forest" + i.ToString());
         }

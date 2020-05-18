@@ -83,25 +83,25 @@ public class OnSceneLoadChangePlayer : MonoBehaviour
 
     private Vector3 NextPlayerSpawnPointPosition()
     {
-        GameObject thisSpawn = GameObject.FindGameObjectWithTag("PlayerSpawnEast");
+        GameObject thisSpawn = GameObject.FindGameObjectWithTag("PlayerSpawnWest");
         if (lastDoorTakenPlacement == Direction.east && thisSpawn != null)
         {
             return thisSpawn.transform.position;
         }
 
-        thisSpawn = GameObject.FindGameObjectWithTag("PlayerSpawnWest");
+        thisSpawn = GameObject.FindGameObjectWithTag("PlayerSpawnEast");
         if (lastDoorTakenPlacement == Direction.west && thisSpawn != null)
         {
             return thisSpawn.transform.position;
         }
 
-        thisSpawn = GameObject.FindGameObjectWithTag("PlayerSpawnNorth");
+        thisSpawn = GameObject.FindGameObjectWithTag("PlayerSpawnSouth");
         if (lastDoorTakenPlacement == Direction.north && thisSpawn != null)
         {
             return thisSpawn.transform.position;
         }
 
-        thisSpawn = GameObject.FindGameObjectWithTag("PlayerSpawnSouth");
+        thisSpawn = GameObject.FindGameObjectWithTag("PlayerSpawnNorth");
         if (lastDoorTakenPlacement == Direction.south && thisSpawn != null)
         {
             return thisSpawn.transform.position;

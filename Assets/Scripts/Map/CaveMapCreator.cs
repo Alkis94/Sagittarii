@@ -34,13 +34,13 @@ public class CaveMapCreator : MapCreator
     protected override void CreateMap()
     {
         mapLayout[10, 0] = (int)RoomType.normalRoom;
-        mapRooms[10, 0] = "CaveFirstRoom";
         mapLayout[10, 1] = (int)RoomType.verticalRoad;
         bossRoomCoordinates = CreatePathToBoss(15,new Vector2Int(10,2),false);
         CreateRandomPaths();
         CreateRandomSmallPaths();
         AssignRooms();
         AssignBossRoom();
+        mapRooms[10, 0] = "CaveToForest";
     }
 
     private void AssignRooms()
@@ -66,7 +66,6 @@ public class CaveMapCreator : MapCreator
                 }
             }
         }
-        mapRooms[10, 0] = "CaveFirstRoom";
     }
 
     private void AssignBossRoom()

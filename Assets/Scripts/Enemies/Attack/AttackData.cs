@@ -9,9 +9,9 @@ public class AttackData : SerializedScriptableObject
 {
 
     //Attack Type
-    [OdinSerialize] public ProjectileMovementTypeEnum ProjectileMovementType { get; private set; } = ProjectileMovementTypeEnum.function;
+    [OdinSerialize] public ProjectileMovementTypeEnum ProjectileMovementType { get; private set; } = ProjectileMovementTypeEnum.straight;
     [ShowIf("@ ProjectileMovementType == ProjectileMovementTypeEnum.function")]
-    [OdinSerialize] public FunctionMovementTypeEnum FunctionMovementType { get; private set; } = FunctionMovementTypeEnum.straight;
+    [OdinSerialize] public FunctionMovementTypeEnum FunctionMovementType { get; private set; } = FunctionMovementTypeEnum.sin;
 
     [OdinSerialize] public AttackTypeEnum AttackType { get; private set; } = AttackTypeEnum.perimetrical;
     [ShowIf("@ AttackType == AttackTypeEnum.perimetrical")]

@@ -166,6 +166,7 @@ public class EnemyDeath : MonoBehaviour
         audioSource.clip = deathCry;
         audioSource.Play();
         rigidbody2d.gravityScale = 1;
+        transform.parent = null;
 
         if (enemyData.Relic != null)
         {

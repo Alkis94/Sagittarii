@@ -181,63 +181,63 @@ public abstract class MapCreator : MonoBehaviour
 
         if (north && south && east && west)
         {
-            return roomPrefix + "AllFour";
+            return roomPrefix + "NSWE";
         }
         else if (north && south && !east && west)
         {
-            return roomPrefix + "NoEast";
+            return roomPrefix + "NSW";
         }
         else if (north && south && east && !west)
         {
-            return roomPrefix + "NoWest";
+            return roomPrefix + "NSE";
         }
         else if (!north && south && east && west)
         {
-            return roomPrefix + "NoNorth";
+            return roomPrefix + "SWE";
         }
         else if (north && !south && east && west)
         {
-            return roomPrefix + "NoSouth";
+            return roomPrefix + "NWE";
         }
         else if (north && !south && !east && !west)
         {
-            return roomPrefix + "North";
+            return roomPrefix + "N";
         }
         else if (!north && south && !east && !west)
         {
-            return roomPrefix + "South";
+            return roomPrefix + "S";
         }
         else if (!north && !south && !east && west)
         {
-            return roomPrefix + "West";
+            return roomPrefix + "W";
         }
         if (!north && !south && east && !west)
         {
-            return roomPrefix + "East";
+            return roomPrefix + "E";
         }
         else if (north && !south && east && !west)
         {
-            return roomPrefix + "NorthEast";
+            return roomPrefix + "NE";
         }
         else if (north && south && !east && !west)
         {
-            return roomPrefix + "NorthSouth";
+            return roomPrefix + "NS";
         }
         else if (north && !south && !east && west)
         {
-            return roomPrefix + "NorthWest";
+            return roomPrefix + "NW";
         }
         else if (!north && south && east && !west)
         {
-            return roomPrefix + "SouthEast";
+            return roomPrefix + "SE";
         }
         else if (!north && south && !east && west)
         {
-            return roomPrefix + "SouthWest";
+            return roomPrefix + "SW";
         }
         else if (!north && !south && east && west)
         {
-            return roomPrefix + "EastWest";
+            return roomPrefix + "WE";
         }
         else
         {
@@ -249,26 +249,31 @@ public abstract class MapCreator : MonoBehaviour
     {
         string roomPrefix = "";
 
-        if (mapType == MapType.cave)
+        switch(mapType)
         {
-            roomPrefix = "Cave";
+            case MapType.cave:
+                roomPrefix = "Cave";
+                break;
+            default:
+                //Debug.LogError("Map type not found! Check MapCreator!");
+                break;
         }
 
         if (north)
         {
-            return roomPrefix + "BossNorth";
+            return roomPrefix + "BossDoorN";
         }
         else if (south)
         {
-            return roomPrefix + "BossSouth";
+            return roomPrefix + "BossDoorS";
         }
         else if (east)
         {
-            return roomPrefix + "BossEast";
+            return roomPrefix + "BossDoorE";
         }
         else if (west)
         {
-            return roomPrefix + "BossWest";
+            return roomPrefix + "BossDoorW";
         }
         else
         {

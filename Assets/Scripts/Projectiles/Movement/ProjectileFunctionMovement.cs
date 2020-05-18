@@ -42,9 +42,6 @@ public class ProjectileFunctionMovement : MonoBehaviour
     {
         switch(functionMovementType)
         {
-            case FunctionMovementTypeEnum.straight:
-                SomeFunction = StraightFunction;
-                break;
             case FunctionMovementTypeEnum.sin:
                 SomeFunction = Mathf.Sin;
                 break;
@@ -75,11 +72,6 @@ public class ProjectileFunctionMovement : MonoBehaviour
         float nextX = t * Mathf.Cos(theta) - ft * Mathf.Sin(theta);
         float nextY = t * Mathf.Sin(theta) + ft * Mathf.Cos(theta);
         return new Vector3(nextX, nextY, 0);
-    }
-
-    private float StraightFunction(float t)
-    {
-        return 0;
     }
 
     private float Square(float t)
