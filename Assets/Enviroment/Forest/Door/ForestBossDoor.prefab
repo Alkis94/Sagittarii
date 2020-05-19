@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 297317692280176372}
   - component: {fileID: 8024046488873831897}
   m_Layer: 0
-  m_Name: CaveBossDoor
+  m_Name: ForestBossDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -72,7 +72,7 @@ SpriteRenderer:
   m_SortingLayerID: 2067085647
   m_SortingLayer: -3
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300018, guid: 624be60db6885e841a1aa291688ff2bf, type: 3}
+  m_Sprite: {fileID: 21300018, guid: 20830eaecaf79ea4d92c5e93929e50c0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -93,7 +93,7 @@ Animator:
   m_GameObject: {fileID: 297317692280176373}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: dea042b105eed8f418f0c5a319b1d8ea, type: 2}
+  m_Controller: {fileID: 9100000, guid: 1ebe7683b7d63bf419a411d7a3739147, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -115,18 +115,18 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -1.1376674}
+  m_Offset: {x: 0.033427715, y: -1.3647947}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 3.25, y: 4.6}
+    oldSize: {x: 12.3, y: 5.5}
     newSize: {x: 3.25, y: 4.6}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.25, y: 2.324665}
+  m_Size: {x: 4.4979677, y: 2.7789197}
   m_EdgeRadius: 0
 --- !u!114 &8024046488873831897
 MonoBehaviour:
@@ -140,7 +140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1b3193554cb54949a23832aa13aa659, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelToLoad: CaveBoss
+  levelToLoad: ForestBoss
   isOpen: 0
   changeDoorStateOnStart: 0
 --- !u!1 &6929576640272162107
@@ -167,7 +167,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6929576640272162107}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.29, z: 0}
+  m_LocalPosition: {x: 0, y: -1.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 297317692280176374}

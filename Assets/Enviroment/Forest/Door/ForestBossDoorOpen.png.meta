@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c2c5cb8262da7ad42abb2a16e1896ee8
+guid: 495324c92fb6fcc49a4390a05ac8625e
 TextureImporter:
   fileIDToRecycleName:
     21300000: tileset1_0
@@ -11,12 +11,14 @@ TextureImporter:
     21300012: tileset1_6
     21300014: tileset1_7
     21300016: tileset1_8
-    21300018: CaveBossDoorOpen2_0
-    21300020: CaveBossDoorOpen2_1
-    21300022: CaveBossDoorOpen2_2
-    21300024: CaveBossDoorOpen2_3
-    21300026: CaveBossDoorOpen2_4
-    21300028: CaveBossDoorOpen2_5
+    21300018: ForestBossDoorOpen_0
+    21300020: ForestBossDoorOpen_1
+    21300022: ForestBossDoorOpen_2
+    21300024: ForestBossDoorOpen_3
+    21300026: ForestBossDoorOpen_4
+    21300028: ForestBossDoorOpen_5
+    21300030: ForestBossDoorOpen_6
+    21300032: ForestBossDoorOpen_7
   externalObjects: {}
   serializedVersion: 9
   mipmaps:
@@ -143,13 +145,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: CaveBossDoorOpen2_0
+      name: ForestBossDoorOpen_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 65
-        height: 92
+        width: 246
+        height: 110
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -157,19 +159,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5221dbb286c997649aab3bc1949bf762
+      spriteID: 190d153dacad77e4691b2ce5e2a9f6c1
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CaveBossDoorOpen2_1
+      name: ForestBossDoorOpen_1
       rect:
         serializedVersion: 2
-        x: 66
+        x: 247
         y: 0
-        width: 65
-        height: 92
+        width: 246
+        height: 110
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -177,19 +179,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6f4082be5ca4c4b41968df4412f33891
+      spriteID: 5796986841163c64aa3dcfeb0d7d6fd4
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CaveBossDoorOpen2_2
+      name: ForestBossDoorOpen_2
       rect:
         serializedVersion: 2
-        x: 132
+        x: 494
         y: 0
-        width: 65
-        height: 92
+        width: 246
+        height: 110
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -197,19 +199,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5f7cc2939f5f8f04dba705c7917b812d
+      spriteID: 1fc9fab0384ebec499e65c48ee22bc0c
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CaveBossDoorOpen2_3
+      name: ForestBossDoorOpen_3
       rect:
         serializedVersion: 2
-        x: 198
+        x: 741
         y: 0
-        width: 65
-        height: 92
+        width: 246
+        height: 110
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -217,19 +219,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a859de5178e635043b600eac41fb3e69
+      spriteID: 3e3f0437f9b8f8f4a8112f5f0d1ec4e9
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CaveBossDoorOpen2_4
+      name: ForestBossDoorOpen_4
       rect:
         serializedVersion: 2
-        x: 264
+        x: 988
         y: 0
-        width: 65
-        height: 92
+        width: 246
+        height: 110
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -237,19 +239,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7703b46672dbe6e4797e366b0cdd8e18
+      spriteID: ac9b61bb751785044b94d95e8c80b03b
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CaveBossDoorOpen2_5
+      name: ForestBossDoorOpen_5
       rect:
         serializedVersion: 2
-        x: 330
+        x: 1235
         y: 0
-        width: 65
-        height: 92
+        width: 246
+        height: 110
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -257,7 +259,47 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 01db2c46b3ef7bb4da7b8dcab6669925
+      spriteID: 5d2ba7bc42ccfb043953cc3e58fd2516
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ForestBossDoorOpen_6
+      rect:
+        serializedVersion: 2
+        x: 1482
+        y: 0
+        width: 246
+        height: 110
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8149986e153bd82439accd4a16725ef6
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ForestBossDoorOpen_7
+      rect:
+        serializedVersion: 2
+        x: 1729
+        y: 0
+        width: 246
+        height: 110
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ec43b43e872b1a468e6fc033a86714b
       vertices: []
       indices: 
       edges: []

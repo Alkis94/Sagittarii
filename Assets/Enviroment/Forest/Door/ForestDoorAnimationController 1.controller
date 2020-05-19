@@ -6,7 +6,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: DoorController
+  m_Name: ForestDoorAnimationController 1
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: isOpen
@@ -14,19 +14,19 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Open
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Close
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -191,7 +191,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: CaveDoorOpening
+  m_Name: DoorOpening
   m_Speed: 0.5
   m_CycleOffset: 0
   m_Transitions:
@@ -205,7 +205,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 7cdcc5faea0f9354dbc98a1dc1546cce, type: 2}
+  m_Motion: {fileID: 7400000, guid: 4b89bff27c6212f45af993aad3221d05, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -218,7 +218,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: CaveDoorClose
+  m_Name: DoorClose
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -232,7 +232,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 43ff5dd2bd0aea1499f6538b60829924, type: 2}
+  m_Motion: {fileID: 7400000, guid: 56c7ad47513b3b2419bf72a872b51e1c, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -245,7 +245,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: CaveDoorClosing
+  m_Name: DoorClosing
   m_Speed: 0.5
   m_CycleOffset: 0
   m_Transitions:
@@ -259,7 +259,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: c1f1606f6609b144c83b2557d14f0c26, type: 2}
+  m_Motion: {fileID: 7400000, guid: 1a3e08821653aa941ac54c66b3931837, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -272,7 +272,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: CaveDoorOpen
+  m_Name: DoorOpen
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -286,7 +286,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 737c0b7be4852f044afbccc0b0e52b51, type: 2}
+  m_Motion: {fileID: 7400000, guid: 096fd68cf9ec6aa4ea052bf4fe62d912, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

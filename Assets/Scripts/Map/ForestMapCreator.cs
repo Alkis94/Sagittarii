@@ -59,7 +59,12 @@ public class ForestMapCreator : MapCreator
                 randomNumber = Random.Range(0, forestRooms.Count);
                 mapRooms[i, 0] = forestRooms[randomNumber];
             }
+            else if(mapLayout[i, 0] == (int)RoomType.bossRoom)
+            {
+                mapRooms[i, 0] = "ForestBossDoor";
+            }
         }
     }
+            
 
 }

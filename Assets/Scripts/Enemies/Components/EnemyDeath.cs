@@ -32,11 +32,11 @@ public class EnemyDeath : MonoBehaviour
     //[SerializeField]
     private float healthDropRate = 0.05f;
     //[SerializeField]
-    private float maxHealthDropRate = 0.01f;
+    private float maxHealthDropRate = 0.005f;
     //[SerializeField]
-    private float damageDropRate = 0.01f;
+    private float damageDropRate = 0.001f;
     //[SerializeField]
-    private float energyDropRate = 0.1f;
+    private float energyDropRate = 0.01f;
     [SerializeField]
     private bool hasBlood = true;
     [SerializeField]
@@ -118,16 +118,6 @@ public class EnemyDeath : MonoBehaviour
 
         Color red = new Color(1f, 0f, 0f);
         Color white = new Color(1f, 1f, 1f);
-
-        //for (int i = 0; i < 8; i++)
-        //{
-        //    spriteRenderer.color = red;
-        //    yield return new WaitForSeconds(0.25f);
-        //    spriteRenderer.color = white;
-        //    yield return new WaitForSeconds(0.25f);
-        //}
-        //spriteRenderer.color = white;
-
         Vector3 randomVector = new Vector3(UnityEngine.Random.Range(-3f, 3f), UnityEngine.Random.Range(-3f, 3f), 0);
 
         for (int i = 0; i < 10; i++)
@@ -223,51 +213,35 @@ public class EnemyDeath : MonoBehaviour
     private void DropGold()
     {
         float randomNumber = UnityEngine.Random.Range(0f, 1f);
-        int finalGoldGiven = enemyData.goldGiven;
-
-        if(randomNumber < 0.01f)
+        if (randomNumber < enemyData.goldDropChance)
         {
-            finalGoldGiven = UnityEngine.Random.Range(finalGoldGiven * 5, finalGoldGiven * 10);
-        }
-        else if (randomNumber < 0.3)
-        {
-            finalGoldGiven = UnityEngine.Random.Range(finalGoldGiven * 2, finalGoldGiven * 5);
-        }
-        else  
-        {
-            finalGoldGiven = UnityEngine.Random.Range(finalGoldGiven * 1, finalGoldGiven * 2);
-        }
+            int minGoldGiven = enemyData.minGoldGiven / 5;
+            int maxGoldGiven = enemyData.maxGoldGiven / 5;
+            int finalGoldGiven = UnityEngine.Random.Range(minGoldGiven, maxGoldGiven + 1) * 5;
 
-        randomNumber = UnityEngine.Random.Range(0f, 1f);
 
-        if (randomNumber < 0.01f)
-        {
-            finalGoldGiven += 10;
+
+            Debug.Log("Should Drop Gold : " + finalGoldGiven);
+
+            int GoldCoins = finalGoldGiven / 20;
+            int SilverCoins = (finalGoldGiven - GoldCoins * 20) / 10;
+            int CooperCoins = (finalGoldGiven - (GoldCoins * 20 + SilverCoins * 10)) / 5;
+
+            for (int i = 0; i < GoldCoins; i++)
+            {
+                OnDeathDropPickup?.Invoke(transform.position, "Gold");
+            }
+
+            for (int i = 0; i < SilverCoins; i++)
+            {
+                OnDeathDropPickup?.Invoke(transform.position, "Silver");
+            }
+
+            for (int i = 0; i < CooperCoins; i++)
+            {
+                OnDeathDropPickup?.Invoke(transform.position, "Cooper");
+            }
         }
-        else if (randomNumber < 0.1)
-        {
-            finalGoldGiven += 5;
-        }
-
-        int GoldCoins = finalGoldGiven / 10;
-        int SilverCoins = (finalGoldGiven - GoldCoins * 10) / 5;
-        int CooperCoins = finalGoldGiven % 5;
-
-        for(int i = 0; i < GoldCoins; i++)
-        {
-            OnDeathDropPickup?.Invoke(transform.position, "Gold");
-        }
-
-        for (int i = 0; i < SilverCoins; i++)
-        {
-            OnDeathDropPickup?.Invoke(transform.position, "Silver");
-        }
-
-        for (int i = 0; i < CooperCoins; i++)
-        {
-            OnDeathDropPickup?.Invoke(transform.position, "Cooper");
-        }
-
     }
 
 }
