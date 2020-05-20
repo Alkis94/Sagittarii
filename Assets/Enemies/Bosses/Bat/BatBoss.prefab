@@ -305,11 +305,8 @@ MonoBehaviour:
   changeDirectionFrequency: 3
   delayBeforeFirstAttack: 3
   attackFrequencies:
-  - 5
-  - 3
-  - 5
-  goldGiven: 0
-  giveSpecificAmountOfGold: 0
+  - 4
+  - 8
   changingDirections: 1
   damageable: 1
   amputation: 0
@@ -344,7 +341,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4f62bf9e9524d544bad0e40d5e12c46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deathCry: {fileID: 0}
+  deathCry: {fileID: 8300000, guid: acf7a3d9e312ff3449d8a3e6cbedde21, type: 3}
   hasBlood: 1
   hasCriticalDeath: 0
   shakeBeforeDeath: 1

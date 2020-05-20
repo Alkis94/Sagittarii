@@ -36,7 +36,7 @@ public class EnemyDeath : MonoBehaviour
     //[SerializeField]
     private float damageDropRate = 0.001f;
     //[SerializeField]
-    private float energyDropRate = 0.01f;
+    private float energyDropRate = 0.025f;
     [SerializeField]
     private bool hasBlood = true;
     [SerializeField]
@@ -218,10 +218,6 @@ public class EnemyDeath : MonoBehaviour
             int minGoldGiven = enemyData.minGoldGiven / 5;
             int maxGoldGiven = enemyData.maxGoldGiven / 5;
             int finalGoldGiven = UnityEngine.Random.Range(minGoldGiven, maxGoldGiven + 1) * 5;
-
-
-
-            Debug.Log("Should Drop Gold : " + finalGoldGiven);
 
             int GoldCoins = finalGoldGiven / 20;
             int SilverCoins = (finalGoldGiven - GoldCoins * 20) / 10;

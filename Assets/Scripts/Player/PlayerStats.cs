@@ -90,12 +90,15 @@ public class PlayerStats : MonoBehaviour
         {
             int newCurrentExhaustion = value;
 
-            if (newCurrentExhaustion <= MaximumEnergy)
+            if (newCurrentExhaustion < 0)
+            {
+                currentEnergy = 0;
+            }
+            else if (newCurrentExhaustion <= MaximumEnergy)
             {
                 currentEnergy = newCurrentExhaustion;
             }
-
-            if (newCurrentExhaustion > MaximumEnergy)
+            else if (newCurrentExhaustion > MaximumEnergy)
             {
                 currentEnergy = MaximumEnergy;
             }
