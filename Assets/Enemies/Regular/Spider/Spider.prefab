@@ -308,18 +308,64 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f3050e6466b8984ba6fffabc648d3c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
-  speed: 2
-  changeDirectionFrequency: 0
-  delayBeforeFirstAttack: 3
-  attackFrequencies:
-  - 3
-  goldGiven: 0
-  giveSpecificAmountOfGold: 0
-  changingDirections: 0
-  damageable: 1
-  amputation: 0
-  Relic: {fileID: 0}
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects:
+    - {fileID: 11400000, guid: 3cd4917d78241b64696e699a3856b839, type: 2}
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: speed
+      Entry: 4
+      Data: 2
+    - Name: delayBeforeFirstAttack
+      Entry: 4
+      Data: 3
+    - Name: attackData
+      Entry: 7
+      Data: 0|System.Collections.Generic.List`1[[AttackData, Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 10
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: changingDirections
+      Entry: 5
+      Data: false
+    - Name: changeDirectionFrequency
+      Entry: 4
+      Data: 0
+    - Name: damageable
+      Entry: 5
+      Data: true
+    - Name: amputation
+      Entry: 5
+      Data: false
+    - Name: minGoldGiven
+      Entry: 3
+      Data: 5
+    - Name: maxGoldGiven
+      Entry: 3
+      Data: 15
+    - Name: goldDropChance
+      Entry: 4
+      Data: 0.1
+    - Name: Relic
+      Entry: 6
+      Data: 
+    - Name: health
+      Entry: 3
+      Data: 10
 --- !u!114 &1651605479553341530
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -348,6 +394,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bcfbf9bb7b03ac47a59af87183252a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasAttack: 1
   enemyData: {fileID: 0}
   web: {fileID: 5111895986864084250, guid: 718a1141f7ea7f64ab14622a07d8b4d1, type: 3}
 --- !u!114 &7401401717359768655
@@ -407,5 +454,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 959e2411369e94c4695319a2c5b834bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackData:
-  - {fileID: 11400000, guid: 3cd4917d78241b64696e699a3856b839, type: 2}

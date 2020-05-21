@@ -76,7 +76,7 @@ public class EnemyLoader : MonoBehaviour
         }
     }
 
-    private void SaveOnDeath(bool criticalDeath)
+    private void SaveOnDeath(bool criticalDeath,Vector2 projectileVelocityOnHit)
     {
         dead = true;
         this.criticalDeath = criticalDeath;

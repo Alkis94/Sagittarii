@@ -95,7 +95,7 @@ public abstract class  EnemyBrain : MonoBehaviour
     //Gets called from animation sometimes!
     protected void CallMainAttack()
     {
-        AttackPatterns.Attack(0);
+        AttackPatterns.Attack(enemyData.attackData[0]);
     }
 
     protected void StartAttackAnimation()

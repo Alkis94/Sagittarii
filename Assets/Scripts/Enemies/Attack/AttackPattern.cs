@@ -5,13 +5,18 @@ using Factories;
 
 public class AttackPattern : MonoBehaviour
 {
-    [SerializeField]
-    private List<AttackData> attackData;
+    //[SerializeField]
+    //private List<AttackData> attackData;
     private AudioSource audioSource;
+
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     private void OnEnable()
     {
-        audioSource = GetComponent<AudioSource>();
+        
         GetComponent<EnemyData>().EnemyDied += StopCoroutines;
     }
 
@@ -20,73 +25,73 @@ public class AttackPattern : MonoBehaviour
         GetComponent<EnemyData>().EnemyDied -= StopCoroutines;
     }
 
-    public void Attack(int index)
+    public void Attack(AttackData attackData)
     {
-        if (attackData[index].AttackSound != null)
+        if (attackData.AttackSound != null)
         {
-            audioSource.PlayOneShot(attackData[index].AttackSound);
+            audioSource.PlayOneShot(attackData.AttackSound);
         }
 
-        StartCoroutine(StartAttacking(index));
+        StartCoroutine(StartAttacking(attackData));
     }
 
-    IEnumerator StartAttacking(int index)
+    IEnumerator StartAttacking(AttackData attackData)
     {
-        for (int j = 0; j < attackData[index].ConsecutiveAttacks; j++)
+        for (int j = 0; j < attackData.ConsecutiveAttacks; j++)
         {
-            for (int i = 0; i < attackData[index].ProjectileAmount; i++)
+            for (int i = 0; i < attackData.ProjectileAmount; i++)
             {
                 AttackInfo attackInfo = new AttackInfo();
-                attackInfo = CalculateAttackInfo(index, attackInfo, i, j);
+                attackInfo = CalculateAttackInfo(attackData, attackInfo, i, j);
                 ProjectileFactory.CreateProjectile(attackInfo);
             }
-            yield return new WaitForSeconds(attackData[index].ConsecutiveAttackDelay);
+            yield return new WaitForSeconds(attackData.ConsecutiveAttackDelay);
         }
     }
 
-    private AttackInfo CalculateAttackInfo(int index, AttackInfo attackInfo, int i, int j)
+    private AttackInfo CalculateAttackInfo(AttackData attackData, AttackInfo attackInfo, int i, int j)
     {
 
         Vector3 positionRandomness = Vector3.zero;
         float rotationRandomness = 0f;
 
-        if (attackData[index].Randomness)
+        if (attackData.Randomness)
         {
-            positionRandomness = new Vector3(Random.Range(attackData[index].RandomHorizontalFactorMin, attackData[index].RandomHorizontalFactorMax),
-                                              Random.Range(attackData[index].RandomVerticalFactorMin, attackData[index].RandomVerticalFactorMax), 0);
-            rotationRandomness = Random.Range(attackData[index].RandomRotationFactorMin, attackData[index].RandomRotationFactorMax);
+            positionRandomness = new Vector3(Random.Range(attackData.RandomHorizontalFactorMin, attackData.RandomHorizontalFactorMax),
+                                              Random.Range(attackData.RandomVerticalFactorMin, attackData.RandomVerticalFactorMax), 0);
+            rotationRandomness = Random.Range(attackData.RandomRotationFactorMin, attackData.RandomRotationFactorMax);
         }
 
         attackInfo.spawnPosition = transform.position;
-        attackInfo.projectile = attackData[index].Projectile;
+        attackInfo.projectile = attackData.Projectile;
 
-        if (attackData[index].AttackIsDirectionDependant)
+        if (attackData.AttackIsDirectionDependant)
         {
-            attackInfo.spawnPositionOffset = new Vector3((attackData[index].UniversalSpawnPositionOffset.x + attackData[index].ProjectileSpawnPositionOffset[i].x + positionRandomness.x) * transform.right.x,
-                                                          attackData[index].UniversalSpawnPositionOffset.y + attackData[index].ProjectileSpawnPositionOffset[i].y + positionRandomness.y, 0);
-            attackInfo.speed = attackData[index].ProjectileSpeed * transform.right.x;
+            attackInfo.spawnPositionOffset = new Vector3((attackData.UniversalSpawnPositionOffset.x + attackData.ProjectileSpawnPositionOffset[i].x + positionRandomness.x) * transform.right.x,
+                                                          attackData.UniversalSpawnPositionOffset.y + attackData.ProjectileSpawnPositionOffset[i].y + positionRandomness.y, 0);
+            attackInfo.speed = attackData.ProjectileSpeed * transform.right.x;
         }
         else
         {
-            attackInfo.spawnPositionOffset = new Vector3((attackData[index].UniversalSpawnPositionOffset.x + attackData[index].ProjectileSpawnPositionOffset[i].x + positionRandomness.x),
-                                                          attackData[index].UniversalSpawnPositionOffset.y + attackData[index].ProjectileSpawnPositionOffset[i].y + positionRandomness.y, 0);
-            attackInfo.speed = attackData[index].ProjectileSpeed;
+            attackInfo.spawnPositionOffset = new Vector3((attackData.UniversalSpawnPositionOffset.x + attackData.ProjectileSpawnPositionOffset[i].x + positionRandomness.x),
+                                                          attackData.UniversalSpawnPositionOffset.y + attackData.ProjectileSpawnPositionOffset[i].y + positionRandomness.y, 0);
+            attackInfo.speed = attackData.ProjectileSpeed;
         }
 
-        attackInfo.destroyDelay = attackData[index].ProjectileDestroyDelay;
-        attackInfo.damage = attackData[index].Damage;
+        attackInfo.destroyDelay = attackData.ProjectileDestroyDelay;
+        attackInfo.damage = attackData.Damage;
 
-        if (attackData[index].AttackType == AttackTypeEnum.perimetrical)
+        if (attackData.AttackType == AttackTypeEnum.perimetrical)
         {
-            attackInfo.rotation = attackData[index].ProjectileRotations[i] + rotationRandomness;
+            attackInfo.rotation = attackData.ProjectileRotations[i] + rotationRandomness;
         }
         else
         {
-            attackInfo.rotation = CalculateTargetedRotation() + attackData[index].ProjectileRotations[i] + rotationRandomness;
+            attackInfo.rotation = CalculateTargetedRotation() + attackData.ProjectileRotations[i] + rotationRandomness;
         }
 
-        attackInfo.movementTypeEnum = attackData[index].ProjectileMovementType;
-        attackInfo.functionMovementType = attackData[index].FunctionMovementType;
+        attackInfo.movementTypeEnum = attackData.ProjectileMovementType;
+        attackInfo.functionMovementType = attackData.FunctionMovementType;
         return attackInfo;
     }
 

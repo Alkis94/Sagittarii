@@ -23,6 +23,7 @@ public class AttackData : SerializedScriptableObject
     [OdinSerialize] public int ConsecutiveAttacks { get; private set; } = 1;
     [ShowIf("@ ConsecutiveAttacks > 1")]
     [OdinSerialize] public float ConsecutiveAttackDelay { get; private set; } = 0;
+    [OdinSerialize] public float attackFrequency { get; private set; } = 7;
     [OdinSerialize] public int Damage { get; private set; } = 10;
     [OdinSerialize] public float ProjectileSpeed { get; private set; } = 5;
     [OdinSerialize] public float ProjectileDestroyDelay { get; private set; } = 10f;

@@ -361,17 +361,68 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f3050e6466b8984ba6fffabc648d3c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 1000
-  speed: 2
-  changeDirectionFrequency: 0
-  delayBeforeFirstAttack: 3
-  attackFrequencies: []
-  goldGiven: 0
-  giveSpecificAmountOfGold: 0
-  changingDirections: 0
-  damageable: 1
-  amputation: 0
-  Relic: {fileID: 0}
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects:
+    - {fileID: 11400000, guid: ac889cb4c2044cd4c93053bce535602b, type: 2}
+    - {fileID: 11400000, guid: f67055c150afd9e4d9e5e3e2d7587215, type: 2}
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: speed
+      Entry: 4
+      Data: 2
+    - Name: delayBeforeFirstAttack
+      Entry: 4
+      Data: 2
+    - Name: attackData
+      Entry: 7
+      Data: 0|System.Collections.Generic.List`1[[AttackData, Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 10
+      Data: 0
+    - Name: 
+      Entry: 10
+      Data: 1
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: changingDirections
+      Entry: 5
+      Data: false
+    - Name: changeDirectionFrequency
+      Entry: 4
+      Data: 0
+    - Name: damageable
+      Entry: 5
+      Data: true
+    - Name: amputation
+      Entry: 5
+      Data: false
+    - Name: minGoldGiven
+      Entry: 3
+      Data: 5
+    - Name: maxGoldGiven
+      Entry: 3
+      Data: 15
+    - Name: goldDropChance
+      Entry: 4
+      Data: 0.1
+    - Name: Relic
+      Entry: 6
+      Data: 
+    - Name: health
+      Entry: 3
+      Data: 600
 --- !u!114 &3154934772658238055
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -426,6 +477,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be3afc18ee59c57439c13b29b93e42b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasAttack: 1
   enemyData: {fileID: 0}
   teleport: {fileID: 2089284342073273242, guid: 7835795ad097d4b4cb7c1f074be28cfc,
     type: 3}
@@ -496,9 +548,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 959e2411369e94c4695319a2c5b834bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackData:
-  - {fileID: 11400000, guid: ac889cb4c2044cd4c93053bce535602b, type: 2}
-  - {fileID: 11400000, guid: f67055c150afd9e4d9e5e3e2d7587215, type: 2}
 --- !u!1 &5376343802356086213
 GameObject:
   m_ObjectHideFlags: 0

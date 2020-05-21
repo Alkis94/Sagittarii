@@ -92,19 +92,19 @@ public class OwlBrain : EnemyBrain
 
 
     //Called from Animation
-    public void Attack()
+    public void CallAttack()
     {
-        AttackPatterns.Attack(0);
+        AttackPatterns.Attack(enemyData.attackData[0]);
     }
 
     //Called from Animation
-    public void Dive()
+    public void CallDive()
     {
 
         rigidbody2d.AddForce(new Vector2(0, -8), ForceMode2D.Impulse);
     }
 
-    public void MoveBack()
+    public void CallMoveBack()
     {
         rigidbody2d.AddForce(new Vector2(0, 16), ForceMode2D.Impulse);
     }

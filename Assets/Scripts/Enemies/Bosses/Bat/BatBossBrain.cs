@@ -19,6 +19,8 @@ public class BatBossBrain : EnemyBrain
     [HideInInspector]
     public int verticalDirection = 1;
     public float spawnSmallBatFrequency = 5.5f;
+    [HideInInspector]
+    public float speedBoost = 0;
 
 
     protected override void Awake()
@@ -76,7 +78,7 @@ public class BatBossBrain : EnemyBrain
     {
         if (enemyData.Health > 0)
         {
-            MovementPatterns[0].Move(enemyData.speed, verticalDirection);
+            MovementPatterns[0].Move(enemyData.speed + speedBoost, verticalDirection);
         }
 
         stateMachine.FixedUpdate();
@@ -116,17 +118,9 @@ public class BatBossBrain : EnemyBrain
     {
         while(true)
         {
-            AttackPatterns.Attack(index);
+            AttackPatterns.Attack(enemyData.attackData[index]);
             yield return new WaitForSeconds(attackFrequency);
         }
-    }
-
-
-    //Gets called from animation
-    public void CallCirclePerimetricalAttack()
-    {
-        audioSource.Play();
-        AttackPatterns.Attack(3);
     }
 
 }

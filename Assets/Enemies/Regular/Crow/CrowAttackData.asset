@@ -22,6 +22,12 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
+    - Name: ProjectileMovementType
+      Entry: 3
+      Data: 0
+    - Name: FunctionMovementType
+      Entry: 3
+      Data: 0
     - Name: AttackType
       Entry: 3
       Data: 0
@@ -37,6 +43,9 @@ MonoBehaviour:
     - Name: ConsecutiveAttackDelay
       Entry: 4
       Data: 0
+    - Name: attackFrequency
+      Entry: 4
+      Data: 3
     - Name: Damage
       Entry: 3
       Data: 8
@@ -73,7 +82,37 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 12
-      Data: 1
+      Data: 3
+    - Name: 
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 7
       Data: UnityEngine.Vector3, UnityEngine.CoreModule

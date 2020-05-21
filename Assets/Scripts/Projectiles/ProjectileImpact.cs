@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using System.Collections;
+using Sirenix.OdinInspector;
 
 public class ProjectileImpact : MonoBehaviour
 {
@@ -18,8 +19,11 @@ public class ProjectileImpact : MonoBehaviour
     private float impactDestroyDelay = 0;
     [SerializeField]
     private bool bulletSplits;
+    [ShowIf("@ bulletSplits")]
+    [SerializeField] private AttackData attackData;
 
-    
+
+
 
     void Start()
     {
@@ -44,7 +48,7 @@ public class ProjectileImpact : MonoBehaviour
 
         if (bulletSplits)
         {
-            GetComponent<AttackPattern>().Attack(0);
+            GetComponent<AttackPattern>().Attack(attackData);
         }
 
         Destroy(gameObject, impactDestroyDelay);
@@ -64,7 +68,7 @@ public class ProjectileImpact : MonoBehaviour
         yield return new WaitForSeconds(destroyDelay);
         if(bulletSplits)
         {
-            GetComponent<AttackPattern>().Attack(0);
+            GetComponent<AttackPattern>().Attack(attackData);
         }
         Destroy(gameObject);
     }

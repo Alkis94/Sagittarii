@@ -30,9 +30,7 @@ public class SpiderBrain : EnemyBrain
 
     protected override void Start()
     {
-        
-
-        InvokeRepeating("Attack", enemyData.delayBeforeFirstAttack, enemyData.attackFrequencies[0]);
+        InvokeRepeating("Attack", enemyData.delayBeforeFirstAttack, enemyData.attackData[0].attackFrequency);
         base.Start();
     }
 
@@ -40,7 +38,7 @@ public class SpiderBrain : EnemyBrain
     {
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
         {
-            attackPattern.Attack(0);
+            attackPattern.Attack(enemyData.attackData[0]);
             animator.SetTrigger("Attack");
             audioSource.Play();
         }

@@ -5,36 +5,32 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [ShowOdinSerializedPropertiesInInspector]
-public class EnemyData : MonoBehaviour
+public class EnemyData : SerializedMonoBehaviour
 {
     public event Action EnemyHealthChanged = delegate { };
     public event Action EnemyDied = delegate { };
 
-    [Header("Enemy Stats")]
-    [SerializeField]
-    private int health = 10;
-    public float speed = 2;
-    public float changeDirectionFrequency = 0;
-    [Range(1,float.MaxValue)]
-    public float delayBeforeFirstAttack = 2;
-    public List<float> attackFrequencies;
+    [Title("Enemy Stats")]
+    [OdinSerialize] private int health = 10;
+    [OdinSerialize] public float speed { get; private set; } = 2;
+    
+    [OdinSerialize] public float delayBeforeFirstAttack { get; private set; } = 3;
+    [OdinSerialize] public List<AttackData> attackData { get; private set; }
 
+    [Title("Behaviour Bools")]
+    [OdinSerialize] public bool changingDirections { get; private set; } = false;
+    [ShowIf("@ changingDirections")]
+    [OdinSerialize] public float changeDirectionFrequency { get; private set; } = 0;
+
+    [Title("Bools")]
+    [OdinSerialize] public bool damageable { get; set; } = true;
+    [OdinSerialize] public bool amputation { get; private set; } = false;
+
+    [Title("Drops")]
     [OdinSerialize] public int minGoldGiven { get; private set; } = 5;
     [OdinSerialize] public int maxGoldGiven { get; private set; } = 15;
     [OdinSerialize] public float goldDropChance { get; private set; } = 0.1f;
-
-
-    [Header("Behaviour Bools")]
-    public bool changingDirections = false;
-
-
-
-    [Header("Bools")]
-    public bool damageable = true;
-    public bool amputation = false;
-
-    [Header("Relic Drop")]
-    public GameObject Relic;
+    [OdinSerialize] public GameObject Relic { get; private set; }
 
     public int Health
     {
@@ -62,7 +58,7 @@ public class EnemyData : MonoBehaviour
 
     private void RandomizeDelayBeforeFirstAttack()
     {
-        float randomizer = UnityEngine.Random.Range(-1.5f, 0.5f);
+        float randomizer = UnityEngine.Random.Range(-2.8f, 0.5f);
         delayBeforeFirstAttack += randomizer;
     }
 }

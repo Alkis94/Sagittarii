@@ -29,7 +29,7 @@ public class SimpleFlyingEnemyBrain : EnemyBrain
         base.Start();
         if(hasAttack)
         {
-            InvokeRepeating("CallMainAttack", enemyData.delayBeforeFirstAttack, enemyData.attackFrequencies[0]);
+            InvokeRepeating("CallMainAttack", enemyData.delayBeforeFirstAttack, enemyData.attackData[0].attackFrequency);
         }
         
     }

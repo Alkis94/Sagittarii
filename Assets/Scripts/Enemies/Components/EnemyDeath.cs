@@ -43,8 +43,11 @@ public class EnemyDeath : MonoBehaviour
     private bool hasCriticalDeath = false;
     [SerializeField]
     private bool shakeBeforeDeath = false;
+    [SerializeField]
+    private GameObject amputationPart;
 
     private bool diedFromCriticalHit = false;
+    private Vector2 projectileVelocityOnHit;
 
 
 
@@ -79,13 +82,14 @@ public class EnemyDeath : MonoBehaviour
         bloodSplat = Resources.Load("DeathBloodSplat") as GameObject;
     }
 
-    private void ProcessDeath(bool criticalDeath)
+    private void ProcessDeath(bool criticalDeath,Vector2 projectileVelocityOnHit)
     { 
         spriteRenderer.sortingLayerName = "DeadEnemies";
         gameObject.layer = 14;
         enemyGotShot.enabled = false;
         transform.localRotation = Quaternion.Euler(0, transform.localEulerAngles.y, 0);
         diedFromCriticalHit = criticalDeath;
+        this.projectileVelocityOnHit = projectileVelocityOnHit;
         rigidbody2d.velocity = Vector2.zero;
 
         if (enemyBrain != null)
@@ -147,6 +151,11 @@ public class EnemyDeath : MonoBehaviour
         if(diedFromCriticalHit && hasCriticalDeath)
         {
             animator.SetTrigger("DieCritical");
+            if (enemyData.amputation)
+            {
+                amputationPart.SetActive(true);
+                amputationPart.GetComponent<Rigidbody2D>().AddForce(projectileVelocityOnHit / 2, ForceMode2D.Impulse);
+            }
         }
         else
         {
@@ -156,6 +165,7 @@ public class EnemyDeath : MonoBehaviour
         audioSource.clip = deathCry;
         audioSource.Play();
         rigidbody2d.gravityScale = 1;
+        rigidbody2d.velocity = Vector2.zero;
         transform.parent = null;
 
         if (enemyData.Relic != null)

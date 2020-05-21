@@ -5,7 +5,7 @@ using System.Collections;
 public class EnemyGotShot : MonoBehaviour
 {
 
-    public event Action<bool> EnemyDiedAndHow = delegate { };
+    public event Action<bool,Vector2> EnemyDiedAndHow = delegate { };
    
     private EnemyData enemyData;
     private EnemyWasCriticalHit enemyWasCriticalHit;
@@ -14,9 +14,8 @@ public class EnemyGotShot : MonoBehaviour
     private AudioSource audioSource;
     [SerializeField]
     private AudioClip gotHitSound;
-    [SerializeField]
-    private GameObject amputationPart;
     private bool LastHitCritical = false;
+    private Vector2 projectileVelocityOnHit;
     
 
     private void Awake()
@@ -68,17 +67,8 @@ public class EnemyGotShot : MonoBehaviour
             LastHitCritical = true;
             ProcessHit();
             StartCoroutine(FlashDarkRed());
-            enemyData.Health -= damage * 3;
-
-            if (enemyData.Health <= 0)
-            {
-                if (enemyData.amputation)
-                {
-                    amputationPart.SetActive(true);
-                    amputationPart.GetComponent<Rigidbody2D>().AddForce(projectileVelocityOnHit / 2, ForceMode2D.Impulse);
-                }
-
-            }
+            this.projectileVelocityOnHit = projectileVelocityOnHit;
+            enemyData.Health -= damage * 3;           
         }
     }
 
@@ -92,7 +82,7 @@ public class EnemyGotShot : MonoBehaviour
 
     private void EnemyDiedFrom()
     {
-        EnemyDiedAndHow?.Invoke(LastHitCritical);
+        EnemyDiedAndHow?.Invoke(LastHitCritical,projectileVelocityOnHit);
     }
 
     IEnumerator FlashRed()
