@@ -27,7 +27,7 @@ public class GroundEnemyBrain : EnemyBrain
     {
         base.Start();
         animatorIsGrounded_ID = Animator.StringToHash("IsGrounded");
-        InvokeRepeating("StartAttackAnimation", enemyData.delayBeforeFirstAttack, enemyData.attackData[0].attackFrequency);  
+        InvokeRepeating("StartAttackAnimation", enemyData.DelayBeforeFirstAttack, enemyData.AttackData[0].AttackFrequency);  
     }
 
     protected virtual void Update()
@@ -57,7 +57,7 @@ public class GroundEnemyBrain : EnemyBrain
     {
         if (enemyData.Health > 0)
         {
-            enemyGroundMovement.Move(enemyData.speed);
+            enemyGroundMovement.Move(enemyData.Speed);
         }
     }
 

@@ -8,10 +8,9 @@ using Cinemachine;
 public class EnemyDeath : MonoBehaviour
 {
     public static event Action<Vector3, string> OnDeathDropPickup = delegate { };
-    public static event Action<GameObject, Vector3> OnDeathDropRelic = delegate { };
+    public static event Action<string, Vector3> OnDeathDropRelic = delegate { };
 
     private EnemyData enemyData;
-    private RelicData relicData;
     private EnemyGotShot enemyGotShot;
     private GameObject bloodSplat;
 
@@ -21,21 +20,11 @@ public class EnemyDeath : MonoBehaviour
     private AudioSource audioSource;
     private EnemyBrain enemyBrain;
 
-
-    
-
-
     [SerializeField]
     private AudioClip deathCry;
-    
-
-    //[SerializeField]
     private float healthDropRate = 0.05f;
-    //[SerializeField]
     private float maxHealthDropRate = 0.005f;
-    //[SerializeField]
     private float damageDropRate = 0.001f;
-    //[SerializeField]
     private float energyDropRate = 0.025f;
     [SerializeField]
     private bool hasBlood = true;
@@ -54,12 +43,6 @@ public class EnemyDeath : MonoBehaviour
     private void OnEnable()
     {
         enemyData = GetComponent<EnemyData>();
-
-        if (enemyData.Relic != null)
-        {
-            relicData = enemyData.Relic.GetComponent<RelicData>();
-        }
-
         enemyGotShot = GetComponent<EnemyGotShot>();
         enemyGotShot.EnemyDiedAndHow += ProcessDeath;
     }
@@ -151,7 +134,7 @@ public class EnemyDeath : MonoBehaviour
         if(diedFromCriticalHit && hasCriticalDeath)
         {
             animator.SetTrigger("DieCritical");
-            if (enemyData.amputation)
+            if (enemyData.Amputation)
             {
                 amputationPart.SetActive(true);
                 amputationPart.GetComponent<Rigidbody2D>().AddForce(projectileVelocityOnHit / 2, ForceMode2D.Impulse);
@@ -168,11 +151,11 @@ public class EnemyDeath : MonoBehaviour
         rigidbody2d.velocity = Vector2.zero;
         transform.parent = null;
 
-        if (enemyData.Relic != null)
+        if (enemyData.Relic != "")
         {
             float randomNumber;
             randomNumber = UnityEngine.Random.Range(0f, 1f);
-            if (randomNumber < relicData.dropRate && !RelicFactory.PlayerHasRelic[enemyData.Relic.name])
+            if (randomNumber < enemyData.RelicDropChance)
             {
                 DropRelic();
                 return;
@@ -223,10 +206,10 @@ public class EnemyDeath : MonoBehaviour
     private void DropGold()
     {
         float randomNumber = UnityEngine.Random.Range(0f, 1f);
-        if (randomNumber < enemyData.goldDropChance)
+        if (randomNumber < enemyData.GoldDropChance)
         {
-            int minGoldGiven = enemyData.minGoldGiven / 5;
-            int maxGoldGiven = enemyData.maxGoldGiven / 5;
+            int minGoldGiven = enemyData.MinGoldGiven / 5;
+            int maxGoldGiven = enemyData.MaxGoldGiven / 5;
             int finalGoldGiven = UnityEngine.Random.Range(minGoldGiven, maxGoldGiven + 1) * 5;
 
             int GoldCoins = finalGoldGiven / 20;

@@ -57,9 +57,9 @@ public abstract class  EnemyBrain : MonoBehaviour
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
 
-        if (enemyData.changingDirections)
+        if (enemyData.ChangingDirections)
         {
-            StartCoroutine(ChangingDirectionsOverTime(enemyData.changeDirectionFrequency));
+            StartCoroutine(ChangingDirectionsOverTime(enemyData.ChangeDirectionFrequency));
         }
 
         StartFacingRandomDirection();
@@ -95,7 +95,7 @@ public abstract class  EnemyBrain : MonoBehaviour
     //Gets called from animation sometimes!
     protected void CallMainAttack()
     {
-        AttackPatterns.Attack(enemyData.attackData[0]);
+        AttackPatterns.Attack(enemyData.AttackData[0]);
     }
 
     protected void StartAttackAnimation()

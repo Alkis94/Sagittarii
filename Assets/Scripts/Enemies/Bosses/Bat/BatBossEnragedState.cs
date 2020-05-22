@@ -18,8 +18,8 @@ public class BatBossEnragedState : State<BatBossBrain>
         stateOwner.speedBoost = 4;
         stateOwner.StopCoroutine(stateOwner.ChangingDirectionsOverTime(0));
         stateOwner.StartCoroutine(stateOwner.SpawnSmallBats(stateOwner.spawnSmallBatFrequency - 4));
-        stateOwner.StartCoroutine(stateOwner.StartAttacking(stateOwner.enemyData.attackData[0].attackFrequency - 1, 0));
-        stateOwner.StartCoroutine(stateOwner.StartAttacking(stateOwner.enemyData.attackData[1].attackFrequency, 1));
+        stateOwner.StartCoroutine(stateOwner.StartAttacking(stateOwner.enemyData.AttackData[0].AttackFrequency - 1, 0));
+        stateOwner.StartCoroutine(stateOwner.StartAttacking(stateOwner.enemyData.AttackData[1].AttackFrequency, 1));
     }
 
     public override void ExitState()

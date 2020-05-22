@@ -54,13 +54,9 @@ public class AttackPattern : MonoBehaviour
 
         Vector3 positionRandomness = Vector3.zero;
         float rotationRandomness = 0f;
-
-        if (attackData.Randomness)
-        {
-            positionRandomness = new Vector3(Random.Range(attackData.RandomHorizontalFactorMin, attackData.RandomHorizontalFactorMax),
-                                              Random.Range(attackData.RandomVerticalFactorMin, attackData.RandomVerticalFactorMax), 0);
-            rotationRandomness = Random.Range(attackData.RandomRotationFactorMin, attackData.RandomRotationFactorMax);
-        }
+        positionRandomness = new Vector3(Random.Range(attackData.RandomHorizontalFactorMin, attackData.RandomHorizontalFactorMax),
+                                         Random.Range(attackData.RandomVerticalFactorMin, attackData.RandomVerticalFactorMax), 0);
+        rotationRandomness = Random.Range(attackData.RandomRotationFactorMin, attackData.RandomRotationFactorMax);
 
         attackInfo.spawnPosition = transform.position;
         attackInfo.projectile = attackData.Projectile;

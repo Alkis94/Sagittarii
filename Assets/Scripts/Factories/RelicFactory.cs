@@ -1,26 +1,42 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-namespace Factories
+public class RelicFactory : MonoBehaviour
 {
-    public static class RelicFactory
+    [SerializeField]
+    private List<GameObject> relicsList;
+    private Dictionary<string, GameObject> relicsDictionery;
+
+    private void OnEnable()
     {
+        EnemyDeath.OnDeathDropRelic += CreateItem;
+    }
 
-        static RelicFactory()
+    private void OnDisable()
+    {
+        EnemyDeath.OnDeathDropRelic -= CreateItem;
+    }
+
+    private void Start()
+    {
+        relicsDictionery = new Dictionary<string, GameObject>();
+
+        for (int i = 0; i < relicsList.Count; i++)
         {
-            EnemyDeath.OnDeathDropRelic += CreateItem;
-        }
-
-        public static Dictionary<string, bool> PlayerHasRelic = new Dictionary<string, bool>()
-        {
-            {"Trident",false},
-            {"BatWings",false}
-        };
-
-
-        private static void CreateItem(GameObject relic, Vector3 deadEnemyPosition)
-        {
-            Object.Instantiate(relic, deadEnemyPosition, Quaternion.identity);
+            relicsDictionery.Add(relicsList[i].name, relicsList[i]);
         }
     }
+
+    public static Dictionary<string, bool> PlayerHasRelic = new Dictionary<string, bool>()
+    {
+            {"Trident",false},
+            {"BatWings",false}
+    };
+
+
+    private  void CreateItem(string relic, Vector3 deadEnemyPosition)
+    {
+         Instantiate(relicsDictionery[relic], deadEnemyPosition, Quaternion.identity);
+    }
 }
+

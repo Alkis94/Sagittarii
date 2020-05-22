@@ -43,6 +43,9 @@ MonoBehaviour:
     - Name: ConsecutiveAttackDelay
       Entry: 4
       Data: 0.15
+    - Name: attackFrequency
+      Entry: 4
+      Data: 7
     - Name: Damage
       Entry: 3
       Data: 7
@@ -57,10 +60,7 @@ MonoBehaviour:
       Data: 0|System.Collections.Generic.List`1[[System.Single, mscorlib]], mscorlib
     - Name: 
       Entry: 12
-      Data: 2
-    - Name: 
-      Entry: 4
-      Data: 0
+      Data: 1
     - Name: 
       Entry: 4
       Data: 0
@@ -76,22 +76,7 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 12
-      Data: 2
-    - Name: 
-      Entry: 7
-      Data: UnityEngine.Vector3, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
+      Data: 1
     - Name: 
       Entry: 7
       Data: UnityEngine.Vector3, UnityEngine.CoreModule
@@ -128,15 +113,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: Projectile
-      Entry: 10
-      Data: 0
-    - Name: AttackSound
-      Entry: 6
-      Data: 
     - Name: Randomness
       Entry: 5
-      Data: false
+      Data: true
     - Name: RandomHorizontalFactorMin
       Entry: 4
       Data: 0
@@ -151,7 +130,15 @@ MonoBehaviour:
       Data: 0
     - Name: RandomRotationFactorMin
       Entry: 4
-      Data: -30
+      Data: 0
     - Name: RandomRotationFactorMax
       Entry: 4
-      Data: 30
+      Data: 0
+    - Name: Projectile
+      Entry: 10
+      Data: 0
+    - Name: AttackSound
+      Entry: 6
+      Data: 
+  enemyName: Bat
+  attackID: 0

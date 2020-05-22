@@ -43,8 +43,8 @@ MonoBehaviour:
       Data: 1
     - Name: ConsecutiveAttackDelay
       Entry: 4
-      Data: 0
-    - Name: attackFrequency
+      Data: 0.15
+    - Name: AttackFrequency
       Entry: 4
       Data: 3
     - Name: Damage
@@ -52,7 +52,7 @@ MonoBehaviour:
       Data: 8
     - Name: ProjectileSpeed
       Entry: 4
-      Data: 6
+      Data: 7
     - Name: ProjectileDestroyDelay
       Entry: 4
       Data: 10
@@ -62,6 +62,9 @@ MonoBehaviour:
     - Name: 
       Entry: 12
       Data: 8
+    - Name: 
+      Entry: 4
+      Data: 0
     - Name: 
       Entry: 4
       Data: 45
@@ -83,9 +86,6 @@ MonoBehaviour:
     - Name: 
       Entry: 4
       Data: 315
-    - Name: 
-      Entry: 4
-      Data: 0
     - Name: 
       Entry: 13
       Data: 
@@ -240,15 +240,6 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: Projectile
-      Entry: 10
-      Data: 0
-    - Name: AttackSound
-      Entry: 10
-      Data: 1
-    - Name: Randomness
-      Entry: 5
-      Data: false
     - Name: RandomHorizontalFactorMin
       Entry: 4
       Data: 0
@@ -267,3 +258,11 @@ MonoBehaviour:
     - Name: RandomRotationFactorMax
       Entry: 4
       Data: 0
+    - Name: Projectile
+      Entry: 10
+      Data: 0
+    - Name: AttackSound
+      Entry: 10
+      Data: 1
+  enemyName: Spider
+  attackID: 0

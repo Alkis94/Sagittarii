@@ -51,7 +51,7 @@ public class EnemyGotShot : MonoBehaviour
 
     private void Hit(int damage)
     {
-        if (enemyData.damageable)
+        if (enemyData.Damageable)
         {
             LastHitCritical = false;
             ProcessHit();
@@ -62,7 +62,7 @@ public class EnemyGotShot : MonoBehaviour
 
     private void CriticalHit(int damage,Vector2 projectileVelocityOnHit)
     {
-        if (enemyData.damageable)
+        if (enemyData.Damageable)
         {
             LastHitCritical = true;
             ProcessHit();

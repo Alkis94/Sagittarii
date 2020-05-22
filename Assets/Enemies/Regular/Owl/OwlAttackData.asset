@@ -43,16 +43,16 @@ MonoBehaviour:
       Data: 1
     - Name: ConsecutiveAttackDelay
       Entry: 4
-      Data: 0
-    - Name: attackFrequency
+      Data: 0.15
+    - Name: AttackFrequency
       Entry: 4
-      Data: 5
+      Data: 4
     - Name: Damage
       Entry: 3
       Data: 10
     - Name: ProjectileSpeed
       Entry: 4
-      Data: 9
+      Data: 7
     - Name: ProjectileDestroyDelay
       Entry: 4
       Data: 10
@@ -114,15 +114,6 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: Projectile
-      Entry: 10
-      Data: 0
-    - Name: AttackSound
-      Entry: 10
-      Data: 1
-    - Name: Randomness
-      Entry: 5
-      Data: false
     - Name: RandomHorizontalFactorMin
       Entry: 4
       Data: 0
@@ -141,3 +132,11 @@ MonoBehaviour:
     - Name: RandomRotationFactorMax
       Entry: 4
       Data: 0
+    - Name: Projectile
+      Entry: 10
+      Data: 0
+    - Name: AttackSound
+      Entry: 10
+      Data: 1
+  enemyName: Owl
+  attackID: 0

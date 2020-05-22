@@ -48,7 +48,7 @@ public class OwlHuntAttackState : State<OwlBrain>
         }
         else 
         {
-            stateOwner.MovementPatterns[1].Move(stateOwner.enemyData.speed + 2, stateOwner.verticalDirection, stateOwner.horizontalDirection);
+            stateOwner.MovementPatterns[1].Move(stateOwner.enemyData.Speed + 2, stateOwner.verticalDirection, stateOwner.horizontalDirection);
         }
 
     }

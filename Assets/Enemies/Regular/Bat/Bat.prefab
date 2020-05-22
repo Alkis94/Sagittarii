@@ -249,13 +249,40 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: speed
+    - Name: Speed
       Entry: 4
-      Data: 1
-    - Name: delayBeforeFirstAttack
+      Data: 2
+    - Name: DelayBeforeFirstAttack
       Entry: 4
       Data: 3
-    - Name: attackData
+    - Name: Damageable
+      Entry: 5
+      Data: true
+    - Name: Amputation
+      Entry: 5
+      Data: false
+    - Name: ChangingDirections
+      Entry: 5
+      Data: false
+    - Name: ChangeDirectionFrequency
+      Entry: 4
+      Data: 0
+    - Name: MinGoldGiven
+      Entry: 3
+      Data: 5
+    - Name: MaxGoldGiven
+      Entry: 3
+      Data: 15
+    - Name: GoldDropChance
+      Entry: 4
+      Data: 0.1
+    - Name: Relic
+      Entry: 6
+      Data: 
+    - Name: RelicDropChance
+      Entry: 4
+      Data: 0.01
+    - Name: AttackData
       Entry: 7
       Data: 0|System.Collections.Generic.List`1[[AttackData, Assembly-CSharp]], mscorlib
     - Name: 
@@ -270,33 +297,10 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: damageable
-      Entry: 5
-      Data: true
-    - Name: amputation
-      Entry: 5
-      Data: false
-    - Name: changingDirections
-      Entry: 5
-      Data: true
-    - Name: changeDirectionFrequency
-      Entry: 4
-      Data: 3
-    - Name: minGoldGiven
-      Entry: 3
-      Data: 5
-    - Name: maxGoldGiven
-      Entry: 3
-      Data: 15
-    - Name: goldDropChance
-      Entry: 4
-      Data: 0.1
-    - Name: Relic
-      Entry: 6
-      Data: 
     - Name: health
       Entry: 3
       Data: 10
+  enemyName: Bat
 --- !u!114 &6026461623799748943
 MonoBehaviour:
   m_ObjectHideFlags: 0

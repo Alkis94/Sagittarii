@@ -31,7 +31,7 @@ MonoBehaviour:
       Data: 0
     - Name: AttackType
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: AttackIsDirectionDependant
       Entry: 5
       Data: true
@@ -43,19 +43,19 @@ MonoBehaviour:
       Data: 1
     - Name: ConsecutiveAttackDelay
       Entry: 4
-      Data: 0
+      Data: 0.15
     - Name: attackFrequency
       Entry: 4
-      Data: 8
+      Data: 7
     - Name: Damage
       Entry: 3
-      Data: 20
+      Data: 7
     - Name: ProjectileSpeed
       Entry: 4
-      Data: 6
+      Data: 7
     - Name: ProjectileDestroyDelay
       Entry: 4
-      Data: 20
+      Data: 10
     - Name: ProjectileRotations
       Entry: 7
       Data: 0|System.Collections.Generic.List`1[[System.Single, mscorlib]], mscorlib
@@ -114,15 +114,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: Projectile
-      Entry: 10
-      Data: 0
-    - Name: AttackSound
-      Entry: 10
-      Data: 1
     - Name: Randomness
       Entry: 5
-      Data: false
+      Data: true
     - Name: RandomHorizontalFactorMin
       Entry: 4
       Data: 0
@@ -141,3 +135,11 @@ MonoBehaviour:
     - Name: RandomRotationFactorMax
       Entry: 4
       Data: 0
+    - Name: Projectile
+      Entry: 10
+      Data: 0
+    - Name: AttackSound
+      Entry: 10
+      Data: 1
+  enemyName: Bear
+  attackID: 0
