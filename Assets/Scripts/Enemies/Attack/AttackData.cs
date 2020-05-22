@@ -33,10 +33,7 @@ public class AttackData : SerializedScriptableObject
     [OdinSerialize] public List<Vector3> ProjectileSpawnPositionOffset { get; private set; }
     [OdinSerialize] public Vector3 UniversalSpawnPositionOffset { get; private set; } 
 
-    //Parts
-    [OdinSerialize] public GameObject Projectile { get; private set; }
-    [OdinSerialize] public AudioClip AttackSound { get; private set; } = null;
-
+    
     //randomness
     [OdinSerialize] public bool Randomness { get; private set; } = false;
     [ShowIf("@ Randomness")]
@@ -51,6 +48,10 @@ public class AttackData : SerializedScriptableObject
     [OdinSerialize] public float RandomRotationFactorMin { get; private set; } = 0;
     [ShowIf("@ Randomness")]
     [OdinSerialize] public float RandomRotationFactorMax { get; private set; } = 0;
+
+    //Parts
+    [OdinSerialize] public GameObject Projectile { get; private set; }
+    [OdinSerialize] public AudioClip AttackSound { get; private set; } = null;
 
     private void OnEnable()
     {

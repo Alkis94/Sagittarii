@@ -17,14 +17,12 @@ public class EnemyData : SerializedMonoBehaviour
     [OdinSerialize] public float delayBeforeFirstAttack { get; private set; } = 3;
     [OdinSerialize] public List<AttackData> attackData { get; private set; }
 
-    [Title("Behaviour Bools")]
-    [OdinSerialize] public bool changingDirections { get; private set; } = false;
-    [ShowIf("@ changingDirections")]
-    [OdinSerialize] public float changeDirectionFrequency { get; private set; } = 0;
-
     [Title("Bools")]
     [OdinSerialize] public bool damageable { get; set; } = true;
     [OdinSerialize] public bool amputation { get; private set; } = false;
+    [OdinSerialize] public bool changingDirections { get; private set; } = false;
+    [ShowIf("@ changingDirections")]
+    [OdinSerialize] public float changeDirectionFrequency { get; private set; } = 0;
 
     [Title("Drops")]
     [OdinSerialize] public int minGoldGiven { get; private set; } = 5;

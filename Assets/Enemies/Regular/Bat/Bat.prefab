@@ -35,7 +35,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1767405952}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.168, y: 1.131, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7486452122482850007}
@@ -270,18 +270,18 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: changingDirections
-      Entry: 5
-      Data: true
-    - Name: changeDirectionFrequency
-      Entry: 4
-      Data: 3
     - Name: damageable
       Entry: 5
       Data: true
     - Name: amputation
       Entry: 5
       Data: false
+    - Name: changingDirections
+      Entry: 5
+      Data: true
+    - Name: changeDirectionFrequency
+      Entry: 4
+      Data: 3
     - Name: minGoldGiven
       Entry: 3
       Data: 5
@@ -340,6 +340,7 @@ MonoBehaviour:
   hasBlood: 1
   hasCriticalDeath: 0
   shakeBeforeDeath: 0
+  amputationPart: {fileID: 0}
 --- !u!114 &7817322822323997714
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -353,7 +354,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gotHitSound: {fileID: 0}
-  amputationPart: {fileID: 0}
 --- !u!114 &986562263884696416
 MonoBehaviour:
   m_ObjectHideFlags: 0
