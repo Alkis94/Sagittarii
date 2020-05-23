@@ -311,13 +311,40 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: speed
-      Entry: 4
-      Data: 3
-    - Name: delayBeforeFirstAttack
+    - Name: Speed
       Entry: 4
       Data: 2
-    - Name: attackData
+    - Name: DelayBeforeFirstAttack
+      Entry: 4
+      Data: 3
+    - Name: Damageable
+      Entry: 5
+      Data: true
+    - Name: Amputation
+      Entry: 5
+      Data: false
+    - Name: ChangingDirections
+      Entry: 5
+      Data: false
+    - Name: ChangeDirectionFrequency
+      Entry: 4
+      Data: 0
+    - Name: MinGoldGiven
+      Entry: 3
+      Data: 5
+    - Name: MaxGoldGiven
+      Entry: 3
+      Data: 15
+    - Name: GoldDropChance
+      Entry: 4
+      Data: 0.1
+    - Name: Relic
+      Entry: 6
+      Data: 
+    - Name: RelicDropChance
+      Entry: 4
+      Data: 0.01
+    - Name: AttackData
       Entry: 7
       Data: 0|System.Collections.Generic.List`1[[AttackData, Assembly-CSharp]], mscorlib
     - Name: 
@@ -335,33 +362,10 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: changingDirections
-      Entry: 5
-      Data: true
-    - Name: changeDirectionFrequency
-      Entry: 4
-      Data: 5
-    - Name: damageable
-      Entry: 5
-      Data: true
-    - Name: amputation
-      Entry: 5
-      Data: false
-    - Name: minGoldGiven
-      Entry: 3
-      Data: 5
-    - Name: maxGoldGiven
-      Entry: 3
-      Data: 15
-    - Name: goldDropChance
-      Entry: 4
-      Data: 0.1
-    - Name: Relic
-      Entry: 6
-      Data: 
     - Name: health
       Entry: 3
       Data: 300
+  enemyName: BatBoss
 --- !u!114 &6867718439259980287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -397,6 +401,7 @@ MonoBehaviour:
   hasBlood: 1
   hasCriticalDeath: 0
   shakeBeforeDeath: 1
+  amputationPart: {fileID: 0}
 --- !u!114 &5014629230105752360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -435,7 +440,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gotHitSound: {fileID: 0}
-  amputationPart: {fileID: 0}
 --- !u!114 &5034780957142068259
 MonoBehaviour:
   m_ObjectHideFlags: 0

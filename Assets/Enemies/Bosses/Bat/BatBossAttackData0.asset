@@ -10,14 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6a1c0d2898bdfe345b949cceb39347ee, type: 3}
-  m_Name: BearBossAttackData 1
+  m_Name: BatBossAttackData0
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 1000012292187914, guid: a75dc35dd1f7b4342940fddd001474e8, type: 3}
-    - {fileID: 8300000, guid: 86d4022d10805964cbfc9f79c626504e, type: 3}
+    - {fileID: 1000012292187914, guid: 17792810ec0e04d488730364560bbc38, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -25,7 +24,7 @@ MonoBehaviour:
     SerializationNodes:
     - Name: ProjectileMovementType
       Entry: 3
-      Data: 0
+      Data: 2
     - Name: FunctionMovementType
       Entry: 3
       Data: 0
@@ -34,37 +33,43 @@ MonoBehaviour:
       Data: 0
     - Name: AttackIsDirectionDependant
       Entry: 5
-      Data: true
+      Data: false
     - Name: ProjectileAmount
       Entry: 3
-      Data: 1
+      Data: 3
     - Name: ConsecutiveAttacks
       Entry: 3
-      Data: 1
+      Data: 10
     - Name: ConsecutiveAttackDelay
       Entry: 4
-      Data: 0
-    - Name: attackFrequency
+      Data: 0.3
+    - Name: AttackFrequency
       Entry: 4
-      Data: 3
+      Data: 7
     - Name: Damage
       Entry: 3
-      Data: 50
+      Data: 10
     - Name: ProjectileSpeed
       Entry: 4
-      Data: 9
+      Data: 7
     - Name: ProjectileDestroyDelay
       Entry: 4
-      Data: 15
+      Data: 10
     - Name: ProjectileRotations
       Entry: 7
       Data: 0|System.Collections.Generic.List`1[[System.Single, mscorlib]], mscorlib
     - Name: 
       Entry: 12
-      Data: 1
+      Data: 3
     - Name: 
       Entry: 4
-      Data: 0
+      Data: 270
+    - Name: 
+      Entry: 4
+      Data: 260
+    - Name: 
+      Entry: 4
+      Data: 250
     - Name: 
       Entry: 13
       Data: 
@@ -77,7 +82,37 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 12
-      Data: 1
+      Data: 3
+    - Name: 
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 7
       Data: UnityEngine.Vector3, UnityEngine.CoreModule
@@ -107,22 +142,13 @@ MonoBehaviour:
       Data: 0
     - Name: 
       Entry: 4
-      Data: -1
+      Data: 0
     - Name: 
       Entry: 4
       Data: 0
     - Name: 
       Entry: 8
       Data: 
-    - Name: Projectile
-      Entry: 10
-      Data: 0
-    - Name: AttackSound
-      Entry: 10
-      Data: 1
-    - Name: Randomness
-      Entry: 5
-      Data: false
     - Name: RandomHorizontalFactorMin
       Entry: 4
       Data: 0
@@ -137,7 +163,15 @@ MonoBehaviour:
       Data: 0
     - Name: RandomRotationFactorMin
       Entry: 4
-      Data: 0
+      Data: -90
     - Name: RandomRotationFactorMax
       Entry: 4
+      Data: 90
+    - Name: Projectile
+      Entry: 10
       Data: 0
+    - Name: AttackSound
+      Entry: 6
+      Data: 
+  enemyName: BatBoss
+  attackID: 0

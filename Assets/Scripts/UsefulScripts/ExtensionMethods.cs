@@ -24,4 +24,35 @@ public static class ExtensionMethods
         rigidbody2d.AddForce(new Vector2(horizontalForce, verticalForce), ForceMode2D.Impulse);
     }
 
+    public static bool StringEndsWith(this string a, string b)
+    {
+        int aCounter = a.Length - 1;
+        int bCounter = b.Length - 1;
+
+        while (aCounter >= 0 && bCounter >= 0 && a[aCounter] == b[bCounter])
+        {
+            aCounter--;
+            bCounter--;
+        }
+
+        return (bCounter < 0);
+    }
+
+    public static bool StringStartsWith(this string a, string b)
+    {
+        int aLength = a.Length;
+        int bLength = b.Length;
+
+        int aCounter = 0;
+        int bCounter = 0;
+
+        while (aCounter < aLength && bCounter < bLength && a[aCounter] == b[bCounter])
+        {
+            aCounter++;
+            bCounter++;
+        }
+
+        return (bCounter == bLength);
+    }
+
 }

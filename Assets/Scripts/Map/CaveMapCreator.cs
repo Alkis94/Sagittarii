@@ -7,6 +7,8 @@ public class CaveMapCreator : MapCreator
     private static CaveMapCreator instance = null;
     private Vector2Int bossRoomCoordinates;
 
+    private List<List<string>> caveRooms;
+
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -17,6 +19,8 @@ public class CaveMapCreator : MapCreator
         {
             instance = this;
         }
+
+        caveRooms = new List<List<string>>();
 
     }
 
@@ -58,7 +62,7 @@ public class CaveMapCreator : MapCreator
                 if (mapLayout[i, j] > 2)
                 {
                     FindConnectedRoadDirections(ref north,ref south,ref east,ref west, i, j);
-                    mapRooms[i, j] = ReturnCorrectRoom(north, south, east, west, MapType.cave);
+                    //mapRooms[i, j] = ReturnCorrectRoomOpenings(north, south, east, west);
                     north = false;
                     south = false;
                     east = false;
@@ -78,4 +82,28 @@ public class CaveMapCreator : MapCreator
         mapRooms[bossRoomCoordinates.x, bossRoomCoordinates.y] = ReturnCorrectBossRoom(north, south, east, west,MapType.cave);
     }
 
+    private void AddCaveMapLists()
+    {
+        caveRooms.Add(RoomTracker.CaveRoomsNSWE);
+        caveRooms.Add(RoomTracker.CaveRoomsNSW);
+        caveRooms.Add(RoomTracker.CaveRoomsNSE);
+        caveRooms.Add(RoomTracker.CaveRoomsNWE);
+        caveRooms.Add(RoomTracker.CaveRoomsSWE);
+        caveRooms.Add(RoomTracker.CaveRoomsNS);
+        caveRooms.Add(RoomTracker.CaveRoomsNW);
+        caveRooms.Add(RoomTracker.CaveRoomsNE);
+        caveRooms.Add(RoomTracker.CaveRoomsSW);
+        caveRooms.Add(RoomTracker.CaveRoomsSE);
+        caveRooms.Add(RoomTracker.CaveRoomsWE);
+        caveRooms.Add(RoomTracker.CaveRoomsN);
+        caveRooms.Add(RoomTracker.CaveRoomsS);
+        caveRooms.Add(RoomTracker.CaveRoomsW);
+        caveRooms.Add(RoomTracker.CaveRoomsE);
+    }
+
+    private string AssignCorrectRoom(int openings)
+    {
+        int randomNumber = Random.Range(0, caveRooms[openings].Count);
+        return caveRooms[openings][randomNumber];
+    }
 }

@@ -1,0 +1,23 @@
+{
+  "ProjectileMovementType" : "Sin",
+  "FunctionMovementType" : "Sin",
+  "AttackType" : "Perimetrical",
+  "AttackIsDirectionDependant" : false,
+  "ProjectileAmount" : 5,
+  "ConsecutiveAttacks" : 10,
+  "ConsecutiveAttackDelay" : 0.3,
+  "AttackFrequency" : 3.5,
+  "Damage" : 7,
+  "ProjectileSpeed" : 5,
+  "ProjectileDestroyDelay" : 10,
+  "ProjectileRotations" : [210,240,270,300,330],
+  "ProjectileSpawnPositionOffset": [ { "x": 0, "y" : 0, "z" : 0 } ],
+  "UniversalSpawnPositionOffset" : { "x": 0, "y" : 0, "z" : 0 },
+  "RandomHorizontalFactorMin" : 0,
+  "RandomHorizontalFactorMax" : 0,
+  "RandomVerticalFactorMin" : 0,
+  "RandomVerticalFactorMax" : 0,
+  "RandomRotationFactorMin" : -90,
+  "RandomRotationFactorMax" : 90
+  
+}

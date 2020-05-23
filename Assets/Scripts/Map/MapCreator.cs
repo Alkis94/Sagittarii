@@ -169,79 +169,72 @@ public abstract class MapCreator : MonoBehaviour
         }
     }
 
-    protected string ReturnCorrectRoom(bool north, bool south, bool east, bool west, MapType mapType)
+    protected int ReturnCorrectRoomOpenings(bool north, bool south, bool east, bool west)
     {
-        string roomPrefix = "";
-
-        if (mapType == MapType.cave)
-        {
-            roomPrefix = "Cave";
-        }
-
-
         if (north && south && east && west)
         {
-            return roomPrefix + "NSWE";
+            return (int)RoomOpenings.NSWE;
         }
         else if (north && south && !east && west)
         {
-            return roomPrefix + "NSW";
+            return (int)RoomOpenings.NSW;
         }
         else if (north && south && east && !west)
         {
-            return roomPrefix + "NSE";
+            return (int)RoomOpenings.NSE;
         }
         else if (!north && south && east && west)
         {
-            return roomPrefix + "SWE";
+            return (int)RoomOpenings.SWE;
         }
         else if (north && !south && east && west)
         {
-            return roomPrefix + "NWE";
+            return (int)RoomOpenings.NWE;
         }
         else if (north && !south && !east && !west)
         {
-            return roomPrefix + "N";
+            return (int)RoomOpenings.N;
         }
         else if (!north && south && !east && !west)
         {
-            return roomPrefix + "S";
+            return (int)RoomOpenings.S;
         }
         else if (!north && !south && !east && west)
         {
-            return roomPrefix + "W";
+            return (int)RoomOpenings.W;
         }
         if (!north && !south && east && !west)
         {
-            return roomPrefix + "E";
+            return (int)RoomOpenings.E;
         }
         else if (north && !south && east && !west)
         {
-            return roomPrefix + "NE";
+            return (int)RoomOpenings.NE;
         }
         else if (north && south && !east && !west)
         {
-            return roomPrefix + "NS";
+            return (int)RoomOpenings.NS;
         }
         else if (north && !south && !east && west)
         {
-            return roomPrefix + "NW";
+            return (int)RoomOpenings.NW;
         }
         else if (!north && south && east && !west)
         {
-            return roomPrefix + "SE";
+            return (int)RoomOpenings.SE;
         }
         else if (!north && south && !east && west)
         {
-            return roomPrefix + "SW";
+            return (int)RoomOpenings.SW;
         }
         else if (!north && !south && east && west)
         {
-            return roomPrefix + "WE";
+            return (int)RoomOpenings.WE;
         }
         else
         {
-            return "NoRoomError";
+            Debug.LogError("ReturnCorrectRoom from MapCreator failed!");
+            return -1;
         }
     }
 
