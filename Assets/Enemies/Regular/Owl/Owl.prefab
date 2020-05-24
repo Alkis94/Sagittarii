@@ -301,7 +301,7 @@ MonoBehaviour:
     - Name: health
       Entry: 3
       Data: 10
-  enemyName: Owl
+  enemyData: {fileID: 11400000, guid: 6eead03b37f0e7041bdfc357ddec89b1, type: 2}
 --- !u!114 &2882280072731344864
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -371,7 +371,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hasAttack: 1
-  enemyData: {fileID: 0}
+  enemyStats: {fileID: 0}
   horizontalDirection: 1
   verticalDirection: 1
 --- !u!114 &3745124472492121522

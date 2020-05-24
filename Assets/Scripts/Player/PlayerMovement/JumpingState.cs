@@ -2,7 +2,7 @@
 using System.Collections;
 using StateMachineNamespace;
 
-public class JumpingState : State<PlayerMovement2>
+public class JumpingState : State<PlayerMovement>
 {
     
     public float jumpForce = 15f;            //Initial force of jump
@@ -13,7 +13,7 @@ public class JumpingState : State<PlayerMovement2>
     private bool jumpHeldContiniously;
  
 
-    public JumpingState(PlayerMovement2 owner)
+    public JumpingState(PlayerMovement owner)
     {
         stateOwner = owner;
     }

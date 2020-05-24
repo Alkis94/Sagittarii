@@ -48,7 +48,7 @@ public class BearBossBrain : EnemyBrain
 
     private void Update()
     {
-        if (enemyData.Health > 0)
+        if (enemyStats.Health > 0)
         {
             CheckCollisions();
 
@@ -65,9 +65,9 @@ public class BearBossBrain : EnemyBrain
 
     private void FixedUpdate()
     {
-        if (enemyData.Health > 0 && animator.GetCurrentAnimatorStateInfo(0).IsName("BearBossWalking"))
+        if (enemyStats.Health > 0 && animator.GetCurrentAnimatorStateInfo(0).IsName("BearBossWalking"))
         {
-            enemyGroundMovement.Move(enemyData.Speed);
+            enemyGroundMovement.Move(enemyStats.Speed);
         }
     }
 
@@ -163,7 +163,7 @@ public class BearBossBrain : EnemyBrain
             isDoingGroundAttack = false;
             audioSource.PlayOneShot(groundStompSound);
             animator.SetTrigger("GroundCollision");
-            AttackPatterns.Attack(enemyData.AttackData[1]);
+            AttackPatterns.Attack(enemyStats.AttackData[1]);
         }
     }
 

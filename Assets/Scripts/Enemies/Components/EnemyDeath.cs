@@ -10,7 +10,7 @@ public class EnemyDeath : MonoBehaviour
     public static event Action<Vector3, string> OnDeathDropPickup = delegate { };
     public static event Action<string, Vector3> OnDeathDropRelic = delegate { };
 
-    private EnemyData enemyData;
+    private EnemyStats enemyStats;
     private EnemyGotShot enemyGotShot;
     private GameObject bloodSplat;
 
@@ -42,7 +42,7 @@ public class EnemyDeath : MonoBehaviour
 
     private void OnEnable()
     {
-        enemyData = GetComponent<EnemyData>();
+        enemyStats = GetComponent<EnemyStats>();
         enemyGotShot = GetComponent<EnemyGotShot>();
         enemyGotShot.EnemyDiedAndHow += ProcessDeath;
     }
@@ -134,7 +134,7 @@ public class EnemyDeath : MonoBehaviour
         if(diedFromCriticalHit && hasCriticalDeath)
         {
             animator.SetTrigger("DieCritical");
-            if (enemyData.Amputation)
+            if (enemyStats.Amputation)
             {
                 amputationPart.SetActive(true);
                 amputationPart.GetComponent<Rigidbody2D>().AddForce(projectileVelocityOnHit / 2, ForceMode2D.Impulse);
@@ -151,11 +151,11 @@ public class EnemyDeath : MonoBehaviour
         rigidbody2d.velocity = Vector2.zero;
         transform.parent = null;
 
-        if (enemyData.Relic != "")
+        if (enemyStats.Relic != "")
         {
             float randomNumber;
             randomNumber = UnityEngine.Random.Range(0f, 1f);
-            if (randomNumber < enemyData.RelicDropChance)
+            if (randomNumber < enemyStats.RelicDropChance)
             {
                 DropRelic();
                 return;
@@ -200,16 +200,16 @@ public class EnemyDeath : MonoBehaviour
 
     private void DropRelic()
     {
-        OnDeathDropRelic?.Invoke(enemyData.Relic, transform.position);
+        OnDeathDropRelic?.Invoke(enemyStats.Relic, transform.position);
     }
 
     private void DropGold()
     {
         float randomNumber = UnityEngine.Random.Range(0f, 1f);
-        if (randomNumber < enemyData.GoldDropChance)
+        if (randomNumber < enemyStats.GoldDropChance)
         {
-            int minGoldGiven = enemyData.MinGoldGiven / 5;
-            int maxGoldGiven = enemyData.MaxGoldGiven / 5;
+            int minGoldGiven = enemyStats.MinGoldGiven / 5;
+            int maxGoldGiven = enemyStats.MaxGoldGiven / 5;
             int finalGoldGiven = UnityEngine.Random.Range(minGoldGiven, maxGoldGiven + 1) * 5;
 
             int GoldCoins = finalGoldGiven / 20;

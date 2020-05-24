@@ -27,12 +27,12 @@ public class GroundEnemyBrain : EnemyBrain
     {
         base.Start();
         animatorIsGrounded_ID = Animator.StringToHash("IsGrounded");
-        InvokeRepeating("StartAttackAnimation", enemyData.DelayBeforeFirstAttack, enemyData.AttackData[0].AttackFrequency);  
+        InvokeRepeating("StartAttackAnimation", enemyStats.DelayBeforeFirstAttack, enemyStats.AttackData[0].AttackFrequency);  
     }
 
     protected virtual void Update()
     {
-        if (enemyData.Health > 0)
+        if (enemyStats.Health > 0)
         {
             CheckCollisions();
         }
@@ -55,9 +55,9 @@ public class GroundEnemyBrain : EnemyBrain
 
     protected virtual void FixedUpdate()
     {
-        if (enemyData.Health > 0)
+        if (enemyStats.Health > 0)
         {
-            enemyGroundMovement.Move(enemyData.Speed);
+            enemyGroundMovement.Move(enemyStats.Speed);
         }
     }
 

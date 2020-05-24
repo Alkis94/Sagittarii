@@ -4,7 +4,7 @@ using System;
 public class BossHealth : MonoBehaviour
 {
 
-    private EnemyData enemyData;
+    private EnemyStats EnemyStats;
     private int previousHealth;
 
     public static event Action<int> BossEngaged = delegate { };
@@ -12,26 +12,26 @@ public class BossHealth : MonoBehaviour
     
     private void OnEnable()
     {
-        enemyData = GetComponent<EnemyData>();
-        enemyData.EnemyHealthChanged += OnBossHealthChanged;
+        EnemyStats = GetComponent<EnemyStats>();
+        EnemyStats.EnemyHealthChanged += OnBossHealthChanged;
     }
 
     private void OnDisable()
     {
-        enemyData.EnemyHealthChanged -= OnBossHealthChanged;
+        EnemyStats.EnemyHealthChanged -= OnBossHealthChanged;
     }
 
     // Use this for initialization
     void Start()
     {
-        previousHealth = enemyData.Health;
-        BossEngaged?.Invoke(enemyData.Health);
+        previousHealth = EnemyStats.Health;
+        BossEngaged?.Invoke(EnemyStats.Health);
     }
 
     private void OnBossHealthChanged()
     {
-        int damage = previousHealth - enemyData.Health;
+        int damage = previousHealth - EnemyStats.Health;
         BossDamaged?.Invoke(damage);
-        previousHealth = enemyData.Health;
+        previousHealth = EnemyStats.Health;
     }
 }

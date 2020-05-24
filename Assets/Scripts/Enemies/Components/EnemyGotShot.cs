@@ -7,7 +7,7 @@ public class EnemyGotShot : MonoBehaviour
 
     public event Action<bool,Vector2> EnemyDiedAndHow = delegate { };
    
-    private EnemyData enemyData;
+    private EnemyStats enemyStats;
     private EnemyWasCriticalHit enemyWasCriticalHit;
     private EnemyWasHit enemyWasHit;
     private SpriteRenderer spriteRenderer;
@@ -21,7 +21,7 @@ public class EnemyGotShot : MonoBehaviour
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        enemyData = GetComponent<EnemyData>();
+        enemyStats = GetComponent<EnemyStats>();
         enemyWasCriticalHit = GetComponentInChildren<EnemyWasCriticalHit>();
         enemyWasHit = GetComponentInChildren<EnemyWasHit>();
         audioSource = GetComponent<AudioSource>();
@@ -35,7 +35,7 @@ public class EnemyGotShot : MonoBehaviour
         }
 
         enemyWasHit.OnHit += Hit;
-        enemyData.EnemyDied += EnemyDiedFrom;
+        enemyStats.EnemyDied += EnemyDiedFrom;
     }
 
     private void OnDisable()
@@ -46,29 +46,29 @@ public class EnemyGotShot : MonoBehaviour
         }
 
         enemyWasHit.OnHit -= Hit;
-        enemyData.EnemyDied -= EnemyDiedFrom;
+        enemyStats.EnemyDied -= EnemyDiedFrom;
     }
 
     private void Hit(int damage)
     {
-        if (enemyData.Damageable)
+        if (enemyStats.Damageable)
         {
             LastHitCritical = false;
             ProcessHit();
             StartCoroutine(FlashRed());
-            enemyData.Health -= damage;
+            enemyStats.Health -= damage;
         }
     }
 
     private void CriticalHit(int damage,Vector2 projectileVelocityOnHit)
     {
-        if (enemyData.Damageable)
+        if (enemyStats.Damageable)
         {
             LastHitCritical = true;
             ProcessHit();
             StartCoroutine(FlashDarkRed());
             this.projectileVelocityOnHit = projectileVelocityOnHit;
-            enemyData.Health -= damage * 3;           
+            enemyStats.Health -= damage * 3;           
         }
     }
 

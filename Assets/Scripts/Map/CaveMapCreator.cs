@@ -31,6 +31,7 @@ public class CaveMapCreator : MapCreator
         mapLayout = new int[20, 40];
         mapRooms = new string[20, 40];
         unexploredRoomArrayCoordinates = new List<Vector2Int>();
+        AddCaveMapLists();
         CreateMap();
         MapCreated(MapType.cave);
     }
@@ -62,7 +63,8 @@ public class CaveMapCreator : MapCreator
                 if (mapLayout[i, j] > 2)
                 {
                     FindConnectedRoadDirections(ref north,ref south,ref east,ref west, i, j);
-                    //mapRooms[i, j] = ReturnCorrectRoomOpenings(north, south, east, west);
+                    int openings = ReturnCorrectRoomOpenings(north, south, east, west);
+                    mapRooms[i, j] = AssignCorrectRoom(openings);
                     north = false;
                     south = false;
                     east = false;

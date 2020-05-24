@@ -2,7 +2,7 @@
 using System.Collections;
 using StateMachineNamespace;
 
-public class OnGroundState : State<PlayerMovement2>
+public class OnGroundState : State<PlayerMovement>
 {
     public float footOffset = -0.065f;          //X Offset of feet raycast
     public float groundDistance = 0;        //Distance player is considered to be on the ground
@@ -11,7 +11,7 @@ public class OnGroundState : State<PlayerMovement2>
 
     
 
-    public OnGroundState(PlayerMovement2 owner)
+    public OnGroundState(PlayerMovement owner)
     {
         stateOwner = owner;
     }

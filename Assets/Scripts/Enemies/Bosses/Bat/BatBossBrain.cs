@@ -76,9 +76,9 @@ public class BatBossBrain : EnemyBrain
 
     private void FixedUpdate()
     {
-        if (enemyData.Health > 0)
+        if (enemyStats.Health > 0)
         {
-            MovementPatterns[0].Move(enemyData.Speed + speedBoost, verticalDirection);
+            MovementPatterns[0].Move(enemyStats.Speed + speedBoost, verticalDirection);
         }
 
         stateMachine.FixedUpdate();
@@ -118,7 +118,7 @@ public class BatBossBrain : EnemyBrain
     {
         while(true)
         {
-            AttackPatterns.Attack(enemyData.AttackData[index]);
+            AttackPatterns.Attack(enemyStats.AttackData[index]);
             yield return new WaitForSeconds(attackFrequency);
         }
     }

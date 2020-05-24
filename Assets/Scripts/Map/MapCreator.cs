@@ -183,13 +183,37 @@ public abstract class MapCreator : MonoBehaviour
         {
             return (int)RoomOpenings.NSE;
         }
+        else if (north && !south && east && west)
+        {
+            return (int)RoomOpenings.NWE;
+        }
         else if (!north && south && east && west)
         {
             return (int)RoomOpenings.SWE;
         }
-        else if (north && !south && east && west)
+        else if (north && south && !east && !west)
         {
-            return (int)RoomOpenings.NWE;
+            return (int)RoomOpenings.NS;
+        }
+        else if (north && !south && !east && west)
+        {
+            return (int)RoomOpenings.NW;
+        }
+        else if (north && !south && east && !west)
+        {
+            return (int)RoomOpenings.NE;
+        }
+        else if (!north && south && !east && west)
+        {
+            return (int)RoomOpenings.SW;
+        }
+        else if (!north && south && east && !west)
+        {
+            return (int)RoomOpenings.SE;
+        }
+        else if (!north && !south && east && west)
+        {
+            return (int)RoomOpenings.WE;
         }
         else if (north && !south && !east && !west)
         {
@@ -206,30 +230,6 @@ public abstract class MapCreator : MonoBehaviour
         if (!north && !south && east && !west)
         {
             return (int)RoomOpenings.E;
-        }
-        else if (north && !south && east && !west)
-        {
-            return (int)RoomOpenings.NE;
-        }
-        else if (north && south && !east && !west)
-        {
-            return (int)RoomOpenings.NS;
-        }
-        else if (north && !south && !east && west)
-        {
-            return (int)RoomOpenings.NW;
-        }
-        else if (!north && south && east && !west)
-        {
-            return (int)RoomOpenings.SE;
-        }
-        else if (!north && south && !east && west)
-        {
-            return (int)RoomOpenings.SW;
-        }
-        else if (!north && !south && east && west)
-        {
-            return (int)RoomOpenings.WE;
         }
         else
         {

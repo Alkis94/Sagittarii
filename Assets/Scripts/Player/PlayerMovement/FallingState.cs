@@ -2,13 +2,13 @@
 using System.Collections;
 using StateMachineNamespace;
 
-public class FallingState : State<PlayerMovement2>
+public class FallingState : State<PlayerMovement>
 {
     private float maxFallSpeed = -25f;       //Max speed player can fall
     private float coyoteDuration = .1f;     //How long the player can jump after falling
     private float canStillJumpTime;
 
-    public FallingState(PlayerMovement2 owner)
+    public FallingState(PlayerMovement owner)
     {
         stateOwner = owner;
     }

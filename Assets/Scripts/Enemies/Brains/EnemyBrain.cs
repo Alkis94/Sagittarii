@@ -8,7 +8,7 @@ public abstract class  EnemyBrain : MonoBehaviour
     protected bool hasAttack = true;
 
     [HideInInspector]
-    public EnemyData enemyData;
+    public EnemyStats enemyStats;
     protected EnemyGotShot enemyGotShot;
     protected SpriteRenderer spriteRenderer;
     protected Rigidbody2D rigidbody2d;
@@ -31,20 +31,20 @@ public abstract class  EnemyBrain : MonoBehaviour
 
     protected virtual void OnEnable()
     {
-        enemyData.EnemyDied += OnEnemyDiedStopAll;
+        enemyStats.EnemyDied += OnEnemyDiedStopAll;
     }
 
     protected virtual void OnDisable()
     {
         CancelInvoke();
         StopAllCoroutines();
-        enemyData.EnemyDied -= OnEnemyDiedStopAll;
+        enemyStats.EnemyDied -= OnEnemyDiedStopAll;
     }
 
     protected virtual void Awake()
     {
         enemyGotShot = GetComponent<EnemyGotShot>();
-        enemyData = GetComponent<EnemyData>();
+        enemyStats = GetComponent<EnemyStats>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         AttackPatterns = GetComponent<AttackPattern>();
     }
@@ -57,9 +57,9 @@ public abstract class  EnemyBrain : MonoBehaviour
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
 
-        if (enemyData.ChangingDirections)
+        if (enemyStats.ChangingDirections)
         {
-            StartCoroutine(ChangingDirectionsOverTime(enemyData.ChangeDirectionFrequency));
+            StartCoroutine(ChangingDirectionsOverTime(enemyStats.ChangeDirectionFrequency));
         }
 
         StartFacingRandomDirection();
@@ -95,7 +95,7 @@ public abstract class  EnemyBrain : MonoBehaviour
     //Gets called from animation sometimes!
     protected void CallMainAttack()
     {
-        AttackPatterns.Attack(enemyData.AttackData[0]);
+        AttackPatterns.Attack(enemyStats.AttackData[0]);
     }
 
     protected void StartAttackAnimation()

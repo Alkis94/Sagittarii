@@ -12,7 +12,6 @@ public class EnemyLoader : MonoBehaviour
     private Sprite deadEnemySprite;
     [SerializeField]
     private Sprite criticalDeathEnemySprite;
-    private EnemyData enemyData;
     private EnemyGotShot enemyGotShot;
 
     private bool dead = false;
@@ -26,7 +25,6 @@ public class EnemyLoader : MonoBehaviour
 
     private void OnEnable()
     {
-        enemyData = GetComponent<EnemyData>();
         enemyGotShot = GetComponent<EnemyGotShot>();
         enemyGotShot.EnemyDiedAndHow += SaveOnDeath;
     }

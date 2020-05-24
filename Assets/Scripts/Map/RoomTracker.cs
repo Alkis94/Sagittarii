@@ -71,7 +71,7 @@ public class RoomTracker
                 }
                 else if (scene.StringStartsWith("CaveRoomNSW"))
                 {
-                    CaveRoomsNSWE.Add(scene);
+                    CaveRoomsNSW.Add(scene);
                 }
                 else if (scene.StringStartsWith("CaveRoomSWE"))
                 {

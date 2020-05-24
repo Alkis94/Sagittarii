@@ -27,6 +27,6 @@ public class BatBossWakingState : State<BatBossBrain>
 
     public override void ExitState()
     {
-        stateOwner.enemyData.Damageable = true;
+        stateOwner.enemyStats.Damageable = true;
     }
 }

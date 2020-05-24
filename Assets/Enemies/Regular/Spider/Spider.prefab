@@ -369,7 +369,7 @@ MonoBehaviour:
     - Name: health
       Entry: 3
       Data: 10
-  enemyName: Spider
+  enemyData: {fileID: 11400000, guid: 551bf28b46bcb494db104637e04a7164, type: 2}
 --- !u!114 &1651605479553341530
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -400,7 +400,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hasAttack: 1
-  enemyData: {fileID: 0}
+  enemyStats: {fileID: 0}
   web: {fileID: 5111895986864084250, guid: 718a1141f7ea7f64ab14622a07d8b4d1, type: 3}
 --- !u!114 &7401401717359768655
 MonoBehaviour:

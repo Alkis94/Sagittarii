@@ -29,7 +29,7 @@ public class SimpleFlyingEnemyBrain : EnemyBrain
         base.Start();
         if(hasAttack)
         {
-            InvokeRepeating("CallMainAttack", enemyData.DelayBeforeFirstAttack, enemyData.AttackData[0].AttackFrequency);
+            InvokeRepeating("CallMainAttack", enemyStats.DelayBeforeFirstAttack, enemyStats.AttackData[0].AttackFrequency);
         }
         
     }
@@ -56,9 +56,9 @@ public class SimpleFlyingEnemyBrain : EnemyBrain
 
     private void FixedUpdate()
     {
-        if (enemyData.Health > 0)
+        if (enemyStats.Health > 0)
         {
-            MovementPatterns[0].Move(enemyData.Speed,horizontalDirection, verticalDirection);
+            MovementPatterns[0].Move(enemyStats.Speed,horizontalDirection, verticalDirection);
         }
     }
 

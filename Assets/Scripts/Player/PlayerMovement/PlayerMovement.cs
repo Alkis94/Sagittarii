@@ -2,11 +2,11 @@
 using System.Collections;
 using StateMachineNamespace;
 
-public class PlayerMovement2 : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
 
     [HideInInspector]
-    public StateMachine<PlayerMovement2> stateMachine;
+    public StateMachine<PlayerMovement> stateMachine;
 
     [HideInInspector]
     public JumpingState jumpingState;
@@ -63,7 +63,7 @@ public class PlayerMovement2 : MonoBehaviour
         animatorVelocityY_ID = Animator.StringToHash("VelocityY");
         animatorTimeStill_ID = Animator.StringToHash("TimeStill");
 
-        stateMachine = new StateMachine<PlayerMovement2>(this);
+        stateMachine = new StateMachine<PlayerMovement>(this);
 
         if(LegOnGround())
         {

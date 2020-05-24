@@ -522,7 +522,7 @@ MonoBehaviour:
     - Name: health
       Entry: 3
       Data: 30
-  enemyName: Bear
+  enemyData: {fileID: 11400000, guid: 40af189957134214dbc836a6213e822b, type: 2}
 --- !u!114 &5486470984898563233
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -536,7 +536,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hasAttack: 1
-  enemyData: {fileID: 0}
+  enemyStats: {fileID: 0}
 --- !u!114 &3054776419552895611
 MonoBehaviour:
   m_ObjectHideFlags: 0

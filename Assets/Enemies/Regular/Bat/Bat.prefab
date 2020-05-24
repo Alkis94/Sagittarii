@@ -300,7 +300,7 @@ MonoBehaviour:
     - Name: health
       Entry: 3
       Data: 10
-  enemyName: Bat
+  enemyData: {fileID: 11400000, guid: e98a4f5f3655f5e4b939709e37a22398, type: 2}
 --- !u!114 &6026461623799748943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -314,7 +314,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hasAttack: 1
-  enemyData: {fileID: 0}
+  enemyStats: {fileID: 0}
 --- !u!114 &1767405955
 MonoBehaviour:
   m_ObjectHideFlags: 0

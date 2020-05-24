@@ -13,12 +13,12 @@ public class BatBossCalmState : State<BatBossBrain>
     public override void EnterState()
     {
         stateOwner.StartCoroutine(stateOwner.SpawnSmallBats(stateOwner.spawnSmallBatFrequency));
-        stateOwner.StartCoroutine(stateOwner.StartAttacking(stateOwner.enemyData.AttackData[0].AttackFrequency, 0));
+        stateOwner.StartCoroutine(stateOwner.StartAttacking(stateOwner.enemyStats.AttackData[0].AttackFrequency, 0));
     }
 
     public override void UpdateState()
     {
-        if(stateOwner.enemyData.Health <= 100)
+        if(stateOwner.enemyStats.Health <= 100)
         {
             stateOwner.stateMachine.ChangeState(stateOwner.enragedState);
         }

@@ -6,22 +6,17 @@ using UnityEngine;
 using System.IO;
 using Newtonsoft.Json;
 
-[ShowOdinSerializedPropertiesInInspector]
-public class EnemyData : SerializedMonoBehaviour
+[CreateAssetMenu(fileName = "EnemyData", menuName = "EnemyData", order = 2)]
+public class EnemyData : SerializedScriptableObject
 {
-    public event Action EnemyHealthChanged = delegate { };
-    public event Action EnemyDied = delegate { };
-
-    
-
     [SerializeField]
     private string enemyName;
 
     [Title("Enemy Stats")]
-    [OdinSerialize] private int health = 10;
+    [OdinSerialize] public int Health { get; private set; } = 10;
     [OdinSerialize] public float Speed { get; private set; } = 2;
     [OdinSerialize] public float DelayBeforeFirstAttack { get; private set; } = 3;
-    
+
 
     [Title("Bools")]
     [OdinSerialize] public bool Damageable { get; set; } = true;
@@ -37,33 +32,9 @@ public class EnemyData : SerializedMonoBehaviour
     [OdinSerialize] public string Relic { get; private set; }
     [OdinSerialize] public float RelicDropChance { get; private set; } = 0.01f;
 
-
-    [Title("Attacks")]
-    [OdinSerialize] public List<AttackData> AttackData { get; private set; }
-
-    public int Health
-    {
-        get
-        {
-            return health;
-        }
-
-        set
-        {
-            health = value;
-            EnemyHealthChanged?.Invoke();
-
-            if (health <= 0)
-            {
-                EnemyDied?.Invoke();
-            }
-        }
-    }
-
-    private void Awake()
+    private void OnEnable()
     {
         LoadFromJSON();
-        RandomizeDelayBeforeFirstAttack();
     }
 
     private void LoadFromJSON()
@@ -73,7 +44,7 @@ public class EnemyData : SerializedMonoBehaviour
         var fileContent = File.ReadAllText(Application.streamingAssetsPath + "/" + enemyName + "/" + enemyName + ".json");
         enemyInfo = JsonConvert.DeserializeObject<EnemyInfo>(fileContent);
 
-        health = enemyInfo.health;
+        Health = enemyInfo.health;
         Speed = enemyInfo.speed;
         DelayBeforeFirstAttack = enemyInfo.delayBeforeFirstAttack;
         Damageable = enemyInfo.damageable;
@@ -85,13 +56,7 @@ public class EnemyData : SerializedMonoBehaviour
         GoldDropChance = enemyInfo.goldDropChance;
         Relic = enemyInfo.relic;
         RelicDropChance = enemyInfo.relicDropChance;
-     
-    }
 
-    private void RandomizeDelayBeforeFirstAttack()
-    {
-        float randomizer = UnityEngine.Random.Range(-2.8f, 0.5f);
-        DelayBeforeFirstAttack += randomizer;
     }
 }
 

@@ -17,12 +17,12 @@ public class AttackPattern : MonoBehaviour
     private void OnEnable()
     {
         
-        GetComponent<EnemyData>().EnemyDied += StopCoroutines;
+        GetComponent<EnemyStats>().EnemyDied += StopCoroutines;
     }
 
     private void OnDisable()
     {
-        GetComponent<EnemyData>().EnemyDied -= StopCoroutines;
+        GetComponent<EnemyStats>().EnemyDied -= StopCoroutines;
     }
 
     public void Attack(AttackData attackData)
