@@ -41,6 +41,8 @@ public class BatBossBrain : EnemyBrain
         base.OnDisable();
     }
 
+    
+
     protected override void Start()
     {
         base.Start();
@@ -59,6 +61,7 @@ public class BatBossBrain : EnemyBrain
     {
         UpdateCollisionTracker();
         raycaster.UpdateRaycastOrigins();
+       
 
         if (collisionTracker.collisions.left || collisionTracker.collisions.right && Time.time > cannotChangeDirectionTime)
         {
@@ -71,11 +74,15 @@ public class BatBossBrain : EnemyBrain
             verticalDirection *= -1;
             cannotChangeDirectionTime = Time.time + 0.05f;
         }
+
         stateMachine.Update();
+
     }
 
     private void FixedUpdate()
     {
+        
+
         if (enemyStats.Health > 0)
         {
             MovementPatterns[0].Move(enemyStats.Speed + speedBoost, verticalDirection);

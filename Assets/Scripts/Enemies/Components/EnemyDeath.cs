@@ -38,20 +38,11 @@ public class EnemyDeath : MonoBehaviour
     private bool diedFromCriticalHit = false;
     private Vector2 projectileVelocityOnHit;
 
-
-
     private void OnEnable()
     {
         enemyStats = GetComponent<EnemyStats>();
         enemyGotShot = GetComponent<EnemyGotShot>();
-        enemyGotShot.EnemyDiedAndHow += ProcessDeath;
     }
-
-    private void OnDisable()
-    {
-        enemyGotShot.EnemyDiedAndHow -= ProcessDeath;
-    }
-
 
     void Start()
     {
@@ -60,12 +51,11 @@ public class EnemyDeath : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         audioSource = GetComponent<AudioSource>();
         enemyBrain = GetComponent<EnemyBrain>();
-   
 
         bloodSplat = Resources.Load("DeathBloodSplat") as GameObject;
     }
 
-    private void ProcessDeath(bool criticalDeath,Vector2 projectileVelocityOnHit)
+    public void ProcessDeath(bool criticalDeath,Vector2 projectileVelocityOnHit)
     { 
         spriteRenderer.sortingLayerName = "DeadEnemies";
         gameObject.layer = 14;

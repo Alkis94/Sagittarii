@@ -8,11 +8,11 @@ public class MapManager : MonoBehaviour
 
     private static MapManager instance = null;
 
+    public static event Action<MapType,string> OnRoomLoaded = delegate { };
+
     private bool caveMapExists = false;
     private bool forestMapExists = false;
     private bool currentPlayerLocationInitialized = false;
-
-
 
     private int[,] mapLayout;
     private string[,] mapRooms;
@@ -347,11 +347,8 @@ public class MapManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        EnemiesSerializer enemiesSerializer = FindObjectOfType<EnemiesSerializer>();
-        if(enemiesSerializer != null)
-        {
-            enemiesSerializer.mapType = currentMap;
-            enemiesSerializer.roomKey = currentMapCoords.x.ToString() + currentMapCoords.y.ToString();
-        }
+        string roomKey = currentMapCoords.x.ToString() + currentMapCoords.y.ToString();
+
+        OnRoomLoaded?.Invoke(currentMap, roomKey);
     }
 }

@@ -36,7 +36,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2882280072731344867}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12.95, y: 3.13, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4619236359197032116}
@@ -386,11 +386,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2964bbbfeb949f346a27dfc029e23b14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deadEnemySprite: {fileID: 21300030, guid: 67ca74228843ce54e948670f5cbcf0e0, type: 3}
-  criticalDeathEnemySprite: {fileID: 0}
   enemyKey: 0
   roomKey: 
   mapType: 0
+  deadEnemySprite: {fileID: 21300030, guid: 67ca74228843ce54e948670f5cbcf0e0, type: 3}
+  criticalDeathEnemySprite: {fileID: 0}
 --- !u!114 &6257899514310587309
 MonoBehaviour:
   m_ObjectHideFlags: 0

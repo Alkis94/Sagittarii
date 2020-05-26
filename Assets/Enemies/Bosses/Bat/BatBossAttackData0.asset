@@ -17,6 +17,7 @@ MonoBehaviour:
     SerializedBytes: 
     ReferencedUnityObjects:
     - {fileID: 1000012292187914, guid: 17792810ec0e04d488730364560bbc38, type: 3}
+    - {fileID: 8300000, guid: bf726ea2800cfa74f835df0e1c61d901, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -36,10 +37,10 @@ MonoBehaviour:
       Data: false
     - Name: ProjectileAmount
       Entry: 3
-      Data: 3
+      Data: 5
     - Name: ConsecutiveAttacks
       Entry: 3
-      Data: 10
+      Data: 20
     - Name: ConsecutiveAttackDelay
       Entry: 4
       Data: 0.3
@@ -48,10 +49,10 @@ MonoBehaviour:
       Data: 7
     - Name: Damage
       Entry: 3
-      Data: 10
+      Data: 7
     - Name: ProjectileSpeed
       Entry: 4
-      Data: 7
+      Data: 5
     - Name: ProjectileDestroyDelay
       Entry: 4
       Data: 10
@@ -60,16 +61,22 @@ MonoBehaviour:
       Data: 0|System.Collections.Generic.List`1[[System.Single, mscorlib]], mscorlib
     - Name: 
       Entry: 12
-      Data: 3
+      Data: 5
+    - Name: 
+      Entry: 4
+      Data: 210
+    - Name: 
+      Entry: 4
+      Data: 240
     - Name: 
       Entry: 4
       Data: 270
     - Name: 
       Entry: 4
-      Data: 260
+      Data: 300
     - Name: 
       Entry: 4
-      Data: 250
+      Data: 330
     - Name: 
       Entry: 13
       Data: 
@@ -82,7 +89,37 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 12
-      Data: 3
+      Data: 5
+    - Name: 
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 7
       Data: UnityEngine.Vector3, UnityEngine.CoreModule
@@ -171,7 +208,7 @@ MonoBehaviour:
       Entry: 10
       Data: 0
     - Name: AttackSound
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 1
   enemyName: BatBoss
   attackID: 0

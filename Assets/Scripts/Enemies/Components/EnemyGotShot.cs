@@ -4,12 +4,7 @@ using System.Collections;
 
 public class EnemyGotShot : MonoBehaviour
 {
-
-    public event Action<bool,Vector2> EnemyDiedAndHow = delegate { };
-   
     private EnemyStats enemyStats;
-    private EnemyWasCriticalHit enemyWasCriticalHit;
-    private EnemyWasHit enemyWasHit;
     private SpriteRenderer spriteRenderer;
     private AudioSource audioSource;
     [SerializeField]
@@ -22,34 +17,20 @@ public class EnemyGotShot : MonoBehaviour
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         enemyStats = GetComponent<EnemyStats>();
-        enemyWasCriticalHit = GetComponentInChildren<EnemyWasCriticalHit>();
-        enemyWasHit = GetComponentInChildren<EnemyWasHit>();
         audioSource = GetComponent<AudioSource>();
     }
 
     private void OnEnable()
     {
-        if (enemyWasCriticalHit != null)
-        {
-            enemyWasCriticalHit.OnCriticalHit += CriticalHit;
-        }
-
-        enemyWasHit.OnHit += Hit;
         enemyStats.EnemyDied += EnemyDiedFrom;
     }
 
     private void OnDisable()
     {
-        if (enemyWasCriticalHit != null)
-        {
-            enemyWasCriticalHit.OnCriticalHit -= CriticalHit;
-        }
-
-        enemyWasHit.OnHit -= Hit;
         enemyStats.EnemyDied -= EnemyDiedFrom;
     }
 
-    private void Hit(int damage)
+    public void Hit(int damage)
     {
         if (enemyStats.Damageable)
         {
@@ -60,7 +41,7 @@ public class EnemyGotShot : MonoBehaviour
         }
     }
 
-    private void CriticalHit(int damage,Vector2 projectileVelocityOnHit)
+    public void CriticalHit(int damage,Vector2 projectileVelocityOnHit)
     {
         if (enemyStats.Damageable)
         {
@@ -82,7 +63,8 @@ public class EnemyGotShot : MonoBehaviour
 
     private void EnemyDiedFrom()
     {
-        EnemyDiedAndHow?.Invoke(LastHitCritical,projectileVelocityOnHit);
+        GetComponent<EnemyLoader>().ChangeEnemyStatusForSave(LastHitCritical);
+        GetComponent<EnemyDeath>().ProcessDeath(LastHitCritical, projectileVelocityOnHit);
     }
 
     IEnumerator FlashRed()

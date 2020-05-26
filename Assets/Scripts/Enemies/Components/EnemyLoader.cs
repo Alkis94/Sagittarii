@@ -3,19 +3,6 @@ using System;
 
 public class EnemyLoader : MonoBehaviour
 {
-    public event Action<bool> enemyLoaded = delegate { };
-
-    private Animator animator;
-    private SpriteRenderer spriteRenderer;
-    private Rigidbody2D rigidbody2d;
-    [SerializeField]
-    private Sprite deadEnemySprite;
-    [SerializeField]
-    private Sprite criticalDeathEnemySprite;
-    private EnemyGotShot enemyGotShot;
-
-    private bool dead = false;
-    private bool criticalDeath = false;
     [HideInInspector]
     public int enemyKey;
     [HideInInspector]
@@ -23,37 +10,36 @@ public class EnemyLoader : MonoBehaviour
     [HideInInspector]
     public MapType mapType;
 
-    private void OnEnable()
-    {
-        enemyGotShot = GetComponent<EnemyGotShot>();
-        enemyGotShot.EnemyDiedAndHow += SaveOnDeath;
-    }
+    [SerializeField]
+    private Sprite deadEnemySprite;
+    [SerializeField]
+    private Sprite criticalDeathEnemySprite;
+    private Animator animator;
+    private SpriteRenderer spriteRenderer;
+    private Rigidbody2D rigidbody2d;
+    private EnemyGotShot enemyGotShot;
+    private bool dead = false;
+    private bool criticalDeath = false;
 
-    private void OnDisable()
-    {
-        enemyGotShot.EnemyDiedAndHow -= SaveOnDeath;
-    }
 
-    // Use this for initialization
     public void LoadEnemy()
     {
-        if(ES3.FileExists("Levels/" + mapType + "/Room" + roomKey))
-        {
-            dead = ES3.Load<bool>("Dead" + enemyKey.ToString(),"Levels/" + mapType + "/Room" + roomKey);
-            criticalDeath = ES3.Load<bool>("CriticalDeath" + enemyKey.ToString(), "Levels/" + mapType + "/Room" + roomKey);
-            transform.position = ES3.Load<Vector3>("Position" + enemyKey.ToString(), "Levels/" + mapType + "/Room" + roomKey);
-            transform.rotation = ES3.Load<Quaternion>("Rotation" + enemyKey.ToString(), "Levels/" + mapType + "/Room" + roomKey);
-            enemyLoaded?.Invoke(dead);
-        }
-        
 
-        if(dead)
+        Vector3 originalPosition = transform.position;
+        dead = ES3.Load<bool>("Dead" + enemyKey.ToString(), "Levels/" + mapType + "/Room" + roomKey);
+        criticalDeath = ES3.Load<bool>("CriticalDeath" + enemyKey.ToString(), "Levels/" + mapType + "/Room" + roomKey);
+        transform.position = ES3.Load<Vector3>("Position" + enemyKey.ToString(), "Levels/" + mapType + "/Room" + roomKey);
+        transform.rotation = ES3.Load<Quaternion>("Rotation" + enemyKey.ToString(), "Levels/" + mapType + "/Room" + roomKey);
+        GetComponent<EnemyBrain>().LoadEnemyBrain(originalPosition, dead);
+
+        if (dead)
         {
             spriteRenderer = GetComponent<SpriteRenderer>();
             animator = GetComponent<Animator>();
             rigidbody2d = GetComponent<Rigidbody2D>();
+            enemyGotShot = GetComponent<EnemyGotShot>();
             animator.enabled = false;
-            if(criticalDeath)
+            if (criticalDeath)
             {
                 spriteRenderer.sprite = criticalDeathEnemySprite;
             }
@@ -61,7 +47,7 @@ public class EnemyLoader : MonoBehaviour
             {
                 spriteRenderer.sprite = deadEnemySprite;
             }
-            
+
             GetComponent<EnemyBrain>().enabled = false;
             rigidbody2d.gravityScale = 1;
             spriteRenderer.sortingLayerName = "DeadEnemies";
@@ -74,7 +60,7 @@ public class EnemyLoader : MonoBehaviour
         }
     }
 
-    private void SaveOnDeath(bool criticalDeath,Vector2 projectileVelocityOnHit)
+    public void ChangeEnemyStatusForSave(bool criticalDeath)
     {
         dead = true;
         this.criticalDeath = criticalDeath;

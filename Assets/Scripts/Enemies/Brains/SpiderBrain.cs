@@ -7,9 +7,9 @@ public class SpiderBrain : EnemyBrain
 
     private MovementPattern movementPattern;
     private AttackPattern attackPattern;
-
     [SerializeField]
     private GameObject web;
+    private bool wasNotLoaded = true;
 
     protected override void Awake()
     {
@@ -20,16 +20,27 @@ public class SpiderBrain : EnemyBrain
     protected override void OnEnable()
     {
         base.OnEnable();
-        Instantiate(web, transform.position, Quaternion.identity);
     }
 
     protected override void OnDisable()
     {
         base.OnDisable();
     }
+    
+    public override void LoadEnemyBrain(Vector3 originalPosition,bool dead)
+    {
+        wasNotLoaded = false;
+        GetComponent<SpiderCrawlDown>().Load(originalPosition, dead);
+        Instantiate(web, originalPosition, Quaternion.identity);
+    }
 
     protected override void Start()
     {
+        if(wasNotLoaded)
+        {
+            Instantiate(web, transform.position, Quaternion.identity);
+        }
+
         InvokeRepeating("Attack", enemyStats.DelayBeforeFirstAttack, enemyStats.AttackData[0].AttackFrequency);
         base.Start();
     }

@@ -67,6 +67,11 @@ public abstract class  EnemyBrain : MonoBehaviour
 
     protected abstract void ChangeHorizontalDirection();
 
+    public virtual void LoadEnemyBrain(Vector3 originalPosition,bool dead)
+    {
+
+    }
+
     public IEnumerator ChangingDirectionsOverTime(float changeDirectionFrequency)
     {
         while(true)

@@ -108,4 +108,5 @@ public class OwlBrain : EnemyBrain
     {
         rigidbody2d.AddForce(new Vector2(0, 16), ForceMode2D.Impulse);
     }
+
 }

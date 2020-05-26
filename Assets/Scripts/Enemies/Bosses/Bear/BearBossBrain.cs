@@ -189,5 +189,5 @@ public class BearBossBrain : EnemyBrain
         else if (distance2 < distance3) transform.position = teleport2;
         else transform.position = teleport3;
     }
-    
+
 }

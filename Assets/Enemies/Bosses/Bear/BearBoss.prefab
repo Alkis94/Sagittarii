@@ -141,6 +141,7 @@ GameObject:
   - component: {fileID: 1471221887}
   - component: {fileID: 5182200612906122127}
   - component: {fileID: 1300828068075612826}
+  - component: {fileID: 2901732404732244204}
   m_Layer: 12
   m_Name: BearBoss
   m_TagString: Enemy
@@ -552,6 +553,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 959e2411369e94c4695319a2c5b834bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2901732404732244204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5296110209441186540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2964bbbfeb949f346a27dfc029e23b14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyKey: 0
+  roomKey: 
+  mapType: 0
+  deadEnemySprite: {fileID: 21300028, guid: 7b646a2e7aca0094a9e60ee029165250, type: 3}
+  criticalDeathEnemySprite: {fileID: 0}
 --- !u!1 &5376343802356086213
 GameObject:
   m_ObjectHideFlags: 0

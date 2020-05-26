@@ -1,24 +1,37 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class EnemiesSerializer : MonoBehaviour
 {
-    [HideInInspector]
-    public MapType mapType;
-    [HideInInspector]
-    public string roomKey;
 
-    private void Start()
+    public MapType MapType { get; set; }
+    public string RoomKey { get; set; }
+
+    private void OnEnable()
     {
-        int i = 0;
-        foreach(Transform child in transform)
+        if (ES3.FileExists("Levels/" + MapType + "/Room" + RoomKey))
         {
-            EnemyLoader enemyLoader = child.GetComponent<EnemyLoader>();
-            enemyLoader.enemyKey = i;
-            enemyLoader.mapType = mapType;
-            enemyLoader.roomKey = roomKey;
-            enemyLoader.LoadEnemy();
-            i += 1;
+            int i = 0;
+            foreach (Transform child in transform)
+            {
+                EnemyLoader enemyLoader = child.GetComponent<EnemyLoader>();
+                enemyLoader.enemyKey = i;
+                enemyLoader.mapType = MapType;
+                enemyLoader.roomKey = RoomKey;
+                enemyLoader.LoadEnemy();
+                i++;
+            }
+        }
+        else
+        {
+            int i = 0;
+            foreach (Transform child in transform)
+            {
+                EnemyLoader enemyLoader = child.GetComponent<EnemyLoader>();
+                enemyLoader.enemyKey = i;
+                enemyLoader.mapType = MapType;
+                enemyLoader.roomKey = RoomKey;
+                i++;
+            }
         }
     }
 }

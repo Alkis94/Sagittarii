@@ -23,6 +23,11 @@ public class GroundEnemyBrain : EnemyBrain
         base.OnDisable();
     }
 
+    public override void LoadEnemyBrain(Vector3 originalPosition, bool dead)
+    {
+
+    }
+
     protected override void Start()
     {
         base.Start();

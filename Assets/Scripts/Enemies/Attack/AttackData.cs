@@ -64,18 +64,12 @@ public class AttackData : SerializedScriptableObject
                 ProjectileSpawnPositionOffset.Add(Vector3.zero);
             }
         }
-        else if (ProjectileSpawnPositionOffset.Count == 0)
+        else if (ProjectileSpawnPositionOffset.Count < ProjectileAmount)
         {
-            for (int i = 0; i < ProjectileAmount; i++)
+            int limit = ProjectileAmount - ProjectileSpawnPositionOffset.Count;
+            for (int i = 0; i < limit; i++)
             {
                ProjectileSpawnPositionOffset.Add(Vector3.zero);
-            }
-        }
-        else if (ProjectileSpawnPositionOffset.Count == 1)
-        {
-            for (int i = 0; i < ProjectileAmount - 1; i++)
-            {
-                ProjectileSpawnPositionOffset.Add(Vector3.zero);
             }
         }
 
@@ -95,9 +89,10 @@ public class AttackData : SerializedScriptableObject
                 ProjectileRotations.Add(0);
             }
         }
-        else if (ProjectileRotations.Count == 1)
+        else if (ProjectileRotations.Count < ProjectileAmount)
         {
-            for (int i = 0; i < ProjectileAmount - 1; i++)
+            int limit = ProjectileAmount - ProjectileRotations.Count;
+            for (int i = 0; i < limit; i++)
             {
                 ProjectileRotations.Add(ProjectileRotations[0]);
             }

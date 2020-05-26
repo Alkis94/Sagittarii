@@ -47,7 +47,7 @@ public class PlayerMovement : MonoBehaviour
         input = GetComponent<PlayerInput>();
         
     }
-    // Use this for initialization
+
     void Start()
     {
         rigidBody2d = GetComponent<Rigidbody2D>();
@@ -76,7 +76,6 @@ public class PlayerMovement : MonoBehaviour
         
     }
 
-    // Update is called once per frame
     void Update()
     {
         animator.SetFloat(animatorVelocityY_ID, rigidBody2d.velocity.y);

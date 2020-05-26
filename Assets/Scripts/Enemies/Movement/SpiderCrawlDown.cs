@@ -4,29 +4,27 @@ using UnityEngine;
 
 public class SpiderCrawlDown : MonoBehaviour
 {
-    private EnemyLoader enemyLoader;
     private Animator animator;
     private Rigidbody2D rigidbody2d;
-    
     [SerializeField]
     private Transform webString;
     private Transform webStringInstance;
+    private bool wasNotLoaded = true;
 
     private void OnEnable()
     {
         animator = GetComponent<Animator>();
         rigidbody2d = GetComponent<Rigidbody2D>();
-        enemyLoader = GetComponent<EnemyLoader>();
-
-        webStringInstance = Instantiate(webString, transform.position, Quaternion.identity);
-        StartCoroutine(FallingMovement());
-
-        enemyLoader.enemyLoaded += OnEnemyLoad;
     }
 
-    private void OnDisable()
+
+    private void Start()
     {
-        enemyLoader.enemyLoaded -= OnEnemyLoad;
+        if(wasNotLoaded)
+        {
+            webStringInstance = Instantiate(webString, transform.position, Quaternion.identity);
+            StartCoroutine(FallingMovement());
+        }
     }
 
 
@@ -59,15 +57,20 @@ public class SpiderCrawlDown : MonoBehaviour
         animator.SetTrigger("FinishedFalling");
     }
 
-    private void OnEnemyLoad(bool dead)
+    public void Load(Vector3 originalPosition, bool dead)
     {
-        if(dead)
+        wasNotLoaded = false;
+
+        if (dead)
         {
             StopAllCoroutines();
         }
         else 
         {
-            float temp = webStringInstance.position.y - transform.position.y;
+            rigidbody2d = GetComponent<Rigidbody2D>();
+            animator = GetComponent<Animator>();
+            webStringInstance = Instantiate(webString, originalPosition, Quaternion.identity);
+            float temp = originalPosition.y - transform.position.y;
             temp = Mathf.Abs(temp);
             webStringInstance.localScale = new Vector3(webStringInstance.localScale.x, temp * 20, 1);
             StopAllCoroutines();

@@ -33,7 +33,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1767405952}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.168, y: 1.131, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6030475380556191376}
@@ -237,18 +237,55 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f3050e6466b8984ba6fffabc648d3c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
-  speed: 1
-  changeDirectionFrequency: 5
-  delayBeforeFirstAttack: 3
-  attackFrequencies:
-  - 5
-  goldGiven: 0
-  giveSpecificAmountOfGold: 10
-  changingDirections: 1
-  damageable: 1
-  amputation: 0
-  Relic: {fileID: 0}
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: Speed
+      Entry: 4
+      Data: 2
+    - Name: DelayBeforeFirstAttack
+      Entry: 4
+      Data: 3
+    - Name: Damageable
+      Entry: 5
+      Data: true
+    - Name: Amputation
+      Entry: 5
+      Data: false
+    - Name: ChangingDirections
+      Entry: 5
+      Data: false
+    - Name: ChangeDirectionFrequency
+      Entry: 4
+      Data: 0
+    - Name: MinGoldGiven
+      Entry: 3
+      Data: 5
+    - Name: MaxGoldGiven
+      Entry: 3
+      Data: 15
+    - Name: GoldDropChance
+      Entry: 4
+      Data: 0.1
+    - Name: Relic
+      Entry: 6
+      Data: 
+    - Name: RelicDropChance
+      Entry: 4
+      Data: 0.01
+    - Name: AttackData
+      Entry: 6
+      Data: 
+    - Name: health
+      Entry: 3
+      Data: 10
+  enemyData: {fileID: 0}
 --- !u!114 &6026461623799748943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -261,8 +298,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc23ffc019ed47e4aa0077b115d21db4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyData: {fileID: 0}
   hasAttack: 0
+  enemyStats: {fileID: 0}
 --- !u!114 &1767405955
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -291,7 +328,8 @@ MonoBehaviour:
   deathCry: {fileID: 8300000, guid: e2fa5e13413a57c468a8ec9f9c4320da, type: 3}
   hasBlood: 0
   hasCriticalDeath: 0
-  hasBeforeDeath: 0
+  shakeBeforeDeath: 0
+  amputationPart: {fileID: 0}
 --- !u!114 &7817322822323997714
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -305,7 +343,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gotHitSound: {fileID: 0}
-  amputationPart: {fileID: 0}
 --- !u!1 &1874738022036562592
 GameObject:
   m_ObjectHideFlags: 0
