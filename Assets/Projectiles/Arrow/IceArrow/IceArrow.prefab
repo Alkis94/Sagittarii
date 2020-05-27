@@ -172,10 +172,10 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
+  MinDistance: 20
+  MaxDistance: 75
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -208,7 +208,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -223,7 +223,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.5
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -275,6 +275,8 @@ MonoBehaviour:
   velocityOnHit: {x: 0, y: 0}
   impact: {fileID: 8300000, guid: 665b1f3b57f673247aaaa094072382c9, type: 3}
   impactDestroyDelay: 0.3
+  bulletSplits: 0
+  attackData: {fileID: 0}
 --- !u!114 &4745054986638837137
 MonoBehaviour:
   m_ObjectHideFlags: 0

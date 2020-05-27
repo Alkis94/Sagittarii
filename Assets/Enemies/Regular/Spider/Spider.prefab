@@ -221,9 +221,9 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 50
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -256,7 +256,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -271,7 +271,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.5
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -441,11 +441,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2964bbbfeb949f346a27dfc029e23b14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deadEnemySprite: {fileID: 21300022, guid: 029b67000ff7b1345938412ee69ce424, type: 3}
-  criticalDeathEnemySprite: {fileID: 0}
   enemyKey: 0
   roomKey: 
   mapType: 0
+  deadEnemySprite: {fileID: 21300022, guid: 029b67000ff7b1345938412ee69ce424, type: 3}
+  criticalDeathEnemySprite: {fileID: 0}
 --- !u!114 &7969251294673920433
 MonoBehaviour:
   m_ObjectHideFlags: 0

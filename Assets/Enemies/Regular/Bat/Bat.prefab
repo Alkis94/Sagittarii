@@ -140,7 +140,8 @@ AudioSource:
   m_GameObject: {fileID: 1767405952}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 243167415347350056, guid: bb9be695547233747b430024ce61251c,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: a0e1fe8dabe199041938412484e900f6, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.3
@@ -152,9 +153,9 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 50
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -187,7 +188,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -202,7 +203,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.5
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -370,11 +371,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2964bbbfeb949f346a27dfc029e23b14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deadEnemySprite: {fileID: 21300010, guid: 64bd58e5bb15cfd42b964b1bfd3eed8f, type: 3}
-  criticalDeathEnemySprite: {fileID: 0}
   enemyKey: 0
   roomKey: 
   mapType: 0
+  deadEnemySprite: {fileID: 21300010, guid: 64bd58e5bb15cfd42b964b1bfd3eed8f, type: 3}
+  criticalDeathEnemySprite: {fileID: 0}
 --- !u!114 &7165892758833424683
 MonoBehaviour:
   m_ObjectHideFlags: 0
