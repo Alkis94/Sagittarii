@@ -194,7 +194,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 3351421013944960693}
-        m_MethodName: PressResume
+        m_MethodName: ResumeForMenuFactory
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -216,6 +216,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a057391ebd960a449ac5385bc4628368, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  menu: {fileID: 6322800504507277019}
 --- !u!1 &6321930971411044325
 GameObject:
   m_ObjectHideFlags: 0
@@ -305,7 +306,6 @@ GameObject:
   - component: {fileID: 6098886323628453225}
   - component: {fileID: 6210187379660116307}
   - component: {fileID: 6209998197995027591}
-  - component: {fileID: 2575111865391614543}
   m_Layer: 5
   m_Name: PauseMenu
   m_TagString: Untagged
@@ -396,18 +396,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &2575111865391614543
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6322800504507277019}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99d5b66240072a84daf9b00eec13d0e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &6322818156216991153
 GameObject:
   m_ObjectHideFlags: 0

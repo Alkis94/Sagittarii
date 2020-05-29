@@ -8,6 +8,11 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField]
     private GameObject quitMenu;
     [SerializeField]
+    private GameObject howToPlayMenu;
+    [SerializeField]
+    private GameObject optionsMenu;
+
+    [SerializeField]
     private Transform mainButtons;
 
     private void Start()
@@ -19,6 +24,16 @@ public class MainMenuManager : MonoBehaviour
     {
         SceneManager.LoadScene("Town");
         GameState.UnpauseGame();
+    }
+
+    public void OnHowToPlayPress()
+    {
+        howToPlayMenu.SetActive(!howToPlayMenu.activeInHierarchy);
+    }
+
+    public void OnOptionsPress()
+    {
+        optionsMenu.SetActive(!optionsMenu.activeInHierarchy);
     }
 
     public void OnQuitPress()

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Restart : MonoBehaviour
+public class RestartScene : MonoBehaviour
 {
 
     public void PressRestart()
@@ -10,6 +10,5 @@ public class Restart : MonoBehaviour
         SceneManager.LoadScene(thisScene.name);
         GameState.UnpauseGame();
     }
-
 
 }

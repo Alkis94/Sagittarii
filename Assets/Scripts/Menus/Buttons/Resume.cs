@@ -4,17 +4,23 @@ using System;
 
 public class Resume : MonoBehaviour
 {
-
-    public event Action OnResumePressed = delegate { };
+    [SerializeField]
+    private GameObject menu;
 
     public void PressResume()
     {
+        DestroyMenu();
         GameState.UnpauseGame();
-        OnResumePressed?.Invoke();
     }
 
     public void ResumeForMenuFactory()
     {
         MenuFactory.DestroyMenuAndUnpause();
     }
+
+    private void DestroyMenu()
+    {
+        Destroy(menu);
+    }
+
 }
