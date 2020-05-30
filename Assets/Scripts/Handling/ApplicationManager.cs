@@ -12,6 +12,7 @@ public class ApplicationManager : MonoBehaviour
     private void OnApplicationQuit()
     {
         ES3.DeleteDirectory("Levels/");
+        ES3.DeleteDirectory("Bosses/");
     }
 
     private void ModeChanged(PlayModeStateChange playModeState)
@@ -19,6 +20,7 @@ public class ApplicationManager : MonoBehaviour
         if (playModeState == PlayModeStateChange.ExitingEditMode)
         {
             ES3.DeleteDirectory("Levels/");
+            ES3.DeleteDirectory("Bosses/");
         }
     }
 }

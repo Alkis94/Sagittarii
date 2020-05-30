@@ -63,7 +63,7 @@ public class EnemyGotShot : MonoBehaviour
 
     private void EnemyDiedFrom()
     {
-        GetComponent<EnemyLoader>().ChangeEnemyStatusForSave(LastHitCritical);
+        GetComponent<EnemyLoader>().ChangeEnemyStatusToDead(LastHitCritical);
         GetComponent<EnemyDeath>().ProcessDeath(LastHitCritical, projectileVelocityOnHit);
     }
 

@@ -26,6 +26,16 @@ public class PlayerStats : MonoBehaviour
     public static event Action<int, int> OnPlayerEnergyChanged = delegate { };
     public static event Action PlayerDied = delegate { };
 
+    private void OnEnable()
+    {
+        EnemiesSerializer.OnRoomHasAliveEnemies += EnteredRoomWithEnemies;
+    }
+
+    private void OnDisable()
+    {
+        EnemiesSerializer.OnRoomHasAliveEnemies -= EnteredRoomWithEnemies;
+    }
+
 
     private void Start()
     {
@@ -146,6 +156,16 @@ public class PlayerStats : MonoBehaviour
         {
             gold = value;
             OnPlayerGoldChanged?.Invoke(gold);
+        }
+    }
+
+    private void EnteredRoomWithEnemies()
+    {
+        CurrentEnergy -= 1;
+
+        if (CurrentEnergy <= 0)
+        {
+            CurrentHealth -= (int)(MaximumHealth * 0.05f);
         }
     }
 

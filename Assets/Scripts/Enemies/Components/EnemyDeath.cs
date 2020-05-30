@@ -25,7 +25,7 @@ public class EnemyDeath : MonoBehaviour
     private float healthDropRate = 0.05f;
     private float maxHealthDropRate = 0.005f;
     private float damageDropRate = 0.001f;
-    private float energyDropRate = 0.025f;
+    private float energyDropRate = 0.02f;
     [SerializeField]
     private bool hasBlood = true;
     [SerializeField]

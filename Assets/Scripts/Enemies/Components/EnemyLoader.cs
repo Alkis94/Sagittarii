@@ -1,37 +1,30 @@
 ﻿using UnityEngine;
-using System;
+using System.Collections;
 
-public class EnemyLoader : MonoBehaviour
+public abstract class EnemyLoader : MonoBehaviour
 {
-    [HideInInspector]
-    public int enemyKey;
-    [HideInInspector]
-    public string roomKey;
-    [HideInInspector]
-    public MapType mapType;
+    public int EnemyKey { get; set; }
+    public string RoomKey { get; set; }
+    public MapType MapType { get; set; }
 
     [SerializeField]
-    private Sprite deadEnemySprite;
+    protected Sprite deadEnemySprite;
     [SerializeField]
-    private Sprite criticalDeathEnemySprite;
-    private Animator animator;
-    private SpriteRenderer spriteRenderer;
-    private Rigidbody2D rigidbody2d;
-    private EnemyGotShot enemyGotShot;
-    private bool dead = false;
-    private bool criticalDeath = false;
+    protected Sprite criticalDeathEnemySprite;
+    protected Animator animator;
+    protected SpriteRenderer spriteRenderer;
+    protected Rigidbody2D rigidbody2d;
+    protected EnemyGotShot enemyGotShot;
+
+    protected bool dead = false;
+    protected bool criticalDeath = false;
 
 
-    public void LoadEnemy()
+    public abstract void Load();
+    public abstract void ChangeEnemyStatusToDead(bool criticalDeath);
+
+    public virtual bool IsDead()
     {
-
-        Vector3 originalPosition = transform.position;
-        dead = ES3.Load<bool>("Dead" + enemyKey.ToString(), "Levels/" + mapType + "/Room" + roomKey);
-        criticalDeath = ES3.Load<bool>("CriticalDeath" + enemyKey.ToString(), "Levels/" + mapType + "/Room" + roomKey);
-        transform.position = ES3.Load<Vector3>("Position" + enemyKey.ToString(), "Levels/" + mapType + "/Room" + roomKey);
-        transform.rotation = ES3.Load<Quaternion>("Rotation" + enemyKey.ToString(), "Levels/" + mapType + "/Room" + roomKey);
-        GetComponent<EnemyBrain>().LoadEnemyBrain(originalPosition, dead);
-
         if (dead)
         {
             spriteRenderer = GetComponent<SpriteRenderer>();
@@ -57,22 +50,10 @@ public class EnemyLoader : MonoBehaviour
             {
                 trans.gameObject.layer = 14;
             }
+
+            transform.parent = null;
+            return true;
         }
+        return false;
     }
-
-    public void ChangeEnemyStatusForSave(bool criticalDeath)
-    {
-        dead = true;
-        this.criticalDeath = criticalDeath;
-    }
-
-    private void OnDestroy()
-    {
-        ES3.Save<bool>("Dead" + enemyKey.ToString(), dead, "Levels/" + mapType + "/Room" + roomKey);
-        ES3.Save<bool>("CriticalDeath" + enemyKey.ToString(), criticalDeath, "Levels/" + mapType + "/Room" + roomKey);
-        ES3.Save<Vector3>("Position" + enemyKey.ToString(), transform.position, "Levels/" + mapType + "/Room" + roomKey);
-        ES3.Save<Quaternion>("Rotation" + enemyKey.ToString(), transform.rotation, "Levels/" + mapType + "/Room" + roomKey);
-    }
-
-    
 }

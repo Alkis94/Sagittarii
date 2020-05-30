@@ -16,8 +16,6 @@ public class OnSceneLoadChangePlayer : MonoBehaviour
     [SerializeField]
     private float playerTownSpeed = 6f;
 
-
-
     private void OnEnable()
     {
         playerStats = GetComponent<PlayerStats>();
@@ -53,14 +51,7 @@ public class OnSceneLoadChangePlayer : MonoBehaviour
             animator.runtimeAnimatorController = townController;
         }
         else
-        {
-            playerStats.CurrentEnergy -= 1;
-
-            if (playerStats.CurrentEnergy <= 0)
-            {
-                playerStats.CurrentHealth -= (int)(playerStats.MaximumHealth * 0.05f);
-            }
-
+        { 
             playerStats.speed = currentPlayerSpeed;
             animator.runtimeAnimatorController = bodyController;
             hands.SetActive(true);
