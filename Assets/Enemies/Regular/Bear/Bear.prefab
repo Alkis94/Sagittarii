@@ -550,9 +550,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4f62bf9e9524d544bad0e40d5e12c46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: HasCriticalDeath
+      Entry: 5
+      Data: true
   deathCry: {fileID: 8300000, guid: 6b4f050e74182454f8824328041ec75c, type: 3}
   hasBlood: 1
-  hasCriticalDeath: 1
   shakeBeforeDeath: 0
   amputationPart: {fileID: 6248712968822842458}
 --- !u!114 &3054776419552895605
@@ -592,9 +603,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2964bbbfeb949f346a27dfc029e23b14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyKey: 0
-  roomKey: 
-  mapType: 0
   deadEnemySprite: {fileID: 21300020, guid: a29038ef1f8bb1c4f855cc5838695478, type: 3}
   criticalDeathEnemySprite: {fileID: 21300016, guid: cf4a6e4ce5949a14489278c3c260782e,
     type: 3}

@@ -49,7 +49,6 @@ public class RoomFinish : MonoBehaviour
             if(transform.childCount <= 0)
             {
                 OnRoomFinished?.Invoke();
-                Debug.Log("Room Finished!");
                 break;
             }
             yield return new WaitForFixedUpdate();

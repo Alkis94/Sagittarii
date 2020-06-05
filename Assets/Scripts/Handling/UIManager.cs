@@ -95,7 +95,20 @@ public class UIManager : MonoBehaviour
 
     private void UpdateBar(int current, int max, Image image)
     {
-        float imageFillAmount = (float)current / max;
+        float imageFillAmount;
+        if (current <= 0)
+        {
+            imageFillAmount = 0;
+        }
+        else if (current >= max)
+        {
+            imageFillAmount = 1;
+        }
+        else
+        {
+            imageFillAmount = (float)current / max;
+        }
+        
         if(imageFillAmount > image.fillAmount)
         {
             StartCoroutine(FillBar(imageFillAmount,image));
@@ -138,6 +151,7 @@ public class UIManager : MonoBehaviour
 
     private void OnBossEnganged(int health)
     {
+        //Debug.Log("OnBossEnganged UI");
         bossCurrentHealth += health;
         bossMaxHealth += health;
         bossHealthBar.SetActive(true);
@@ -145,6 +159,7 @@ public class UIManager : MonoBehaviour
 
     private void OnBossDamaged(int damage)
     {
+        //Debug.Log("OnBossDamaged UI");
         bossCurrentHealth -=  damage;
         UpdateBar(bossCurrentHealth, bossMaxHealth, bossHealthImage);
         if(bossCurrentHealth <= 0)
@@ -157,7 +172,7 @@ public class UIManager : MonoBehaviour
 
     IEnumerator OnBossDeathDeactiveBar()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(5f);
         bossHealthBar.SetActive(false);
         bossHealthImage.fillAmount = 1f;
     }

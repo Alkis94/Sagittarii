@@ -19,6 +19,17 @@ public static class ExtensionMethods
         }
     }
 
+    public static void SetBoolArrayToTrue(ref bool[,] array)
+    {
+        for (int i = 0; i < array.GetLength(0); i++)
+        {
+            for (int j = 0; j < array.GetLength(1); j++)
+            {
+                array[i, j] = true;
+            }
+        }
+    }
+
     public static void Impulse(this Rigidbody2D rigidbody2d, float horizontalForce, float verticalForce)
     {
         rigidbody2d.AddForce(new Vector2(horizontalForce, verticalForce), ForceMode2D.Impulse);

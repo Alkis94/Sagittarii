@@ -25,7 +25,7 @@ public class OnSceneLoadChangePlayer : MonoBehaviour
         SceneManager.sceneLoaded += OnSceneLoaded;
         RoomChanger.OnRoomChangerEntered += NextPlayerSpawnPointDirection;
         MapChanger.OnMapChangerEnteredPlayerDirection += NextPlayerSpawnPointDirection;
-        Door.DoorEntered += NextPlayerSpawnPointDirection;
+        BossDoor.DoorEntered += NextPlayerSpawnPointDirection;
     }
 
     private void OnDisable()
@@ -33,7 +33,7 @@ public class OnSceneLoadChangePlayer : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoaded;
         RoomChanger.OnRoomChangerEntered -= NextPlayerSpawnPointDirection;
         MapChanger.OnMapChangerEnteredPlayerDirection -= NextPlayerSpawnPointDirection;
-        Door.DoorEntered -= NextPlayerSpawnPointDirection;
+        BossDoor.DoorEntered -= NextPlayerSpawnPointDirection;
     }
 
     private void Awake()

@@ -4,6 +4,7 @@ using System.Collections;
 public class EnemyGroupChooser : MonoBehaviour
 {
     private MapType mapType;
+    private RoomType roomType;
     private string roomKey;
     private int chosenChild;
 
@@ -21,34 +22,63 @@ public class EnemyGroupChooser : MonoBehaviour
     // Use this for initialization
     void ChooseGroup()
     {
-        if (ES3.FileExists("Levels/" + mapType + "/Room" + roomKey))
+        if(roomType == RoomType.bossRoom)
         {
-            chosenChild = ES3.Load<int>("ChosenGroup", "Levels/" + mapType + "/Room" + roomKey);
-            GameObject chosenGroup = transform.GetChild(chosenChild).gameObject;
-            chosenGroup.GetComponent<EnemiesSerializer>().MapType = mapType;
-            chosenGroup.GetComponent<EnemiesSerializer>().RoomKey = roomKey;
-            chosenGroup.SetActive(true);
+            if(ES3.FileExists("Bosses/" + mapType))
+            {
+                GameObject child = transform.GetChild(0).gameObject;
+                EnemiesSerializer childSerializer = child.GetComponent<EnemiesSerializer>();
+                childSerializer.MapType = mapType;
+                childSerializer.RoomKey = roomKey;
+                child.SetActive(true);
+                childSerializer.ReloadEnemies();
+            }
+            else
+            {
+                GameObject child = transform.GetChild(0).gameObject;
+                EnemiesSerializer childSerializer = child.GetComponent<EnemiesSerializer>();
+                childSerializer.MapType = mapType;
+                childSerializer.RoomKey = roomKey;
+                child.SetActive(true);
+                childSerializer.LoadEnemies();
+            }
+            
         }
         else
         {
-            chosenChild = Random.Range(0, transform.childCount);
-            GameObject chosenGroup = transform.GetChild(chosenChild).gameObject;
-            chosenGroup.GetComponent<EnemiesSerializer>().MapType = mapType;
-            chosenGroup.GetComponent<EnemiesSerializer>().RoomKey = roomKey;
-            chosenGroup.SetActive(true);
-            
+            if (ES3.FileExists("Levels/" + mapType + "/Room" + roomKey))
+            {
+                chosenChild = ES3.Load<int>("ChosenGroup", "Levels/" + mapType + "/Room" + roomKey);
+                GameObject chosenGroup = transform.GetChild(chosenChild).gameObject;
+                EnemiesSerializer chosenGroupSerializer = chosenGroup.GetComponent<EnemiesSerializer>();
+                chosenGroupSerializer.MapType = mapType;
+                chosenGroupSerializer.RoomKey = roomKey;
+                chosenGroup.SetActive(true);
+                chosenGroupSerializer.ReloadEnemies();
+            }
+            else
+            {
+                chosenChild = Random.Range(0, transform.childCount);
+                GameObject chosenGroup = transform.GetChild(chosenChild).gameObject;
+                EnemiesSerializer chosenGroupSerializer = chosenGroup.GetComponent<EnemiesSerializer>();
+                chosenGroupSerializer.MapType = mapType;
+                chosenGroupSerializer.RoomKey = roomKey;
+                chosenGroup.SetActive(true);
+                chosenGroupSerializer.LoadEnemies();
+            }
         }
+    }
+
+    private void GetInfoAndChoose(MapType mapType, string roomKey, RoomType roomType)
+    {
+        this.mapType = mapType;
+        this.roomKey = roomKey;
+        this.roomType = roomType;
+        ChooseGroup();
     }
 
     private void OnDestroy()
     {
         ES3.Save<int>("ChosenGroup", chosenChild, "Levels/" + mapType + "/Room" + roomKey);
-    }
-
-    private void GetInfoAndChoose(MapType mapType, string roomKey)
-    {
-        this.mapType = mapType;
-        this.roomKey = roomKey;
-        ChooseGroup();
     }
 }

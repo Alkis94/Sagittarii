@@ -4,11 +4,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 
-public class Door : MonoBehaviour
+public class BossDoor : MonoBehaviour
 {
 
     public static event Action<string> DoorEntered = delegate { };
 
+    private MapType mapType;
     private BoxCollider2D boxCollider2D;
     private Animator animator;
     [SerializeField]
@@ -17,17 +18,24 @@ public class Door : MonoBehaviour
     private bool isOpen = false;
 
     [SerializeField]
+    private bool isInside = false;
+
+    [SerializeField]
     private bool changeDoorStateOnStart = false;
 
     private void OnEnable()
     {
         RoomFinish.OnRoomFinished += OpenDoor;
+        MapManager.OnRoomLoaded += SetMapType;
     }
 
     private void OnDisable()
     {
         RoomFinish.OnRoomFinished -= OpenDoor;
+        MapManager.OnRoomLoaded -= SetMapType;
     }
+
+
 
     private void Start()
     {
@@ -35,11 +43,26 @@ public class Door : MonoBehaviour
         animator = GetComponent<Animator>();
         animator.SetBool("isOpen", isOpen);
 
-        if(changeDoorStateOnStart)
+        if (isInside)
+        {
+            if(ES3.FileExists("Bosses/" + mapType))
+            {
+                bool dead = ES3.Load<bool>("Dead0", "Bosses/" + mapType);
+                if (!dead)
+                {
+                    ChangeDoorState();
+                }
+            }
+            else
+            {
+                ChangeDoorState();
+            }
+        }
+
+        if (changeDoorStateOnStart)
         {
             ChangeDoorState();
         }
-        
     }
 
     private void Update()
@@ -80,8 +103,16 @@ public class Door : MonoBehaviour
 
     private void OpenDoor()
     {
-        animator.SetTrigger("Open");
-        animator.SetBool("isOpen", true);
-        isOpen = true;
+        if(!isOpen)
+        {
+            animator.SetTrigger("Open");
+            animator.SetBool("isOpen", true);
+            isOpen = true;
+        }
+    }
+
+    private void SetMapType(MapType mapType,string roomKey,RoomType roomType)
+    {
+        this.mapType = mapType;
     }
 }

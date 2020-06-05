@@ -4,7 +4,10 @@ using System.Collections.Generic;
 
 public class ForestMapCreator : MapCreator
 {
+
     private static ForestMapCreator instance = null;
+    private const int Forest_Length = 3;
+
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -39,7 +42,7 @@ public class ForestMapCreator : MapCreator
         mapLayout[5, 0] = (int)RoomType.horizontalRoad;
         mapRooms[2, 0] = "ForestEntranceRoom";
         mapRooms[4, 0] = "ForestToCave";
-        CreatePathToBoss(20, new Vector2Int(6, 0), false, false, false, true);
+        CreatePathToBoss(Forest_Length, new Vector2Int(6, 0), false, false, false, true);
 
         int randomNumber;
         int numberOfForestRooms = RoomTracker.ForestRooms.Count;

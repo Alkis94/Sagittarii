@@ -229,12 +229,17 @@ PrefabInstance:
     - target: {fileID: 8024046488873831897, guid: 29dcd8ba71d165d41b9a3e54356d1585,
         type: 3}
       propertyPath: changeDoorStateOnStart
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8024046488873831897, guid: 29dcd8ba71d165d41b9a3e54356d1585,
         type: 3}
       propertyPath: levelToLoad
       value: LastRoom
+      objectReference: {fileID: 0}
+    - target: {fileID: 8024046488873831897, guid: 29dcd8ba71d165d41b9a3e54356d1585,
+        type: 3}
+      propertyPath: isInside
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 29dcd8ba71d165d41b9a3e54356d1585, type: 3}
@@ -27311,7 +27316,7 @@ MonoBehaviour:
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
-    - {fileID: 1471221889}
+    - {fileID: 0}
     - {fileID: 2901732404732244204, guid: 8f0bc588126622f43bd45ef49a6840e7, type: 3}
     - {fileID: 0}
     - {fileID: 0}
@@ -28553,18 +28558,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe2a4d1ca87e2af47a59afa561f3650d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1471221889 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2901732404732244204, guid: 8f0bc588126622f43bd45ef49a6840e7,
-    type: 3}
-  m_PrefabInstance: {fileID: 1471221861}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1471221866}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2964bbbfeb949f346a27dfc029e23b14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1538317147 stripped

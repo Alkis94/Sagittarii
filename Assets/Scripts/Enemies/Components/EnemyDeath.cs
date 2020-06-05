@@ -3,9 +3,11 @@ using System;
 using Factories;
 using System.Collections;
 using Cinemachine;
+using Sirenix.OdinInspector;
+using Sirenix.Serialization;
 
-
-public class EnemyDeath : MonoBehaviour
+[ShowOdinSerializedPropertiesInInspector]
+public class EnemyDeath : SerializedMonoBehaviour
 {
     public static event Action<Vector3, string> OnDeathDropPickup = delegate { };
     public static event Action<string, Vector3> OnDeathDropRelic = delegate { };
@@ -28,8 +30,8 @@ public class EnemyDeath : MonoBehaviour
     private float energyDropRate = 0.02f;
     [SerializeField]
     private bool hasBlood = true;
-    [SerializeField]
-    private bool hasCriticalDeath = false;
+    [OdinSerialize]
+    public bool HasCriticalDeath { get; private set; }  = false;
     [SerializeField]
     private bool shakeBeforeDeath = false;
     [SerializeField]
@@ -121,7 +123,7 @@ public class EnemyDeath : MonoBehaviour
             Instantiate(bloodSplat, transform.position, Quaternion.identity);
         }
 
-        if(diedFromCriticalHit && hasCriticalDeath)
+        if(diedFromCriticalHit && HasCriticalDeath)
         {
             animator.SetTrigger("DieCritical");
             if (enemyStats.Amputation)

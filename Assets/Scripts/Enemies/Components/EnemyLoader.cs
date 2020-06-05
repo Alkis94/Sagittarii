@@ -15,6 +15,7 @@ public abstract class EnemyLoader : MonoBehaviour
     protected SpriteRenderer spriteRenderer;
     protected Rigidbody2D rigidbody2d;
     protected EnemyGotShot enemyGotShot;
+    protected EnemyDeath enemyDeath;
 
     protected bool dead = false;
     protected bool criticalDeath = false;
@@ -31,8 +32,9 @@ public abstract class EnemyLoader : MonoBehaviour
             animator = GetComponent<Animator>();
             rigidbody2d = GetComponent<Rigidbody2D>();
             enemyGotShot = GetComponent<EnemyGotShot>();
+            enemyDeath = GetComponent<EnemyDeath>();
             animator.enabled = false;
-            if (criticalDeath)
+            if (criticalDeath && enemyDeath.HasCriticalDeath)
             {
                 spriteRenderer.sprite = criticalDeathEnemySprite;
             }
