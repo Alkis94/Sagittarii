@@ -21,6 +21,9 @@ public class EnemyData : SerializedScriptableObject
     [Title("Bools")]
     [OdinSerialize] public bool Damageable { get; set; } = true;
     [OdinSerialize] public bool Amputation { get; private set; } = false;
+    [OdinSerialize] public bool HasBlood { get; private set; } = true;
+    [OdinSerialize] public bool HasCriticalDeath { get; private set; } = false;
+    [OdinSerialize] public bool ShakeBeforeDeath { get; private set; } = false;
     [OdinSerialize] public bool ChangingDirections { get; private set; } = false;
     [ShowIf("@ ChangingDirections")]
     [OdinSerialize] public float ChangeDirectionFrequency { get; private set; } = 0;
@@ -29,8 +32,8 @@ public class EnemyData : SerializedScriptableObject
     [OdinSerialize] public int MinGoldGiven { get; private set; } = 5;
     [OdinSerialize] public int MaxGoldGiven { get; private set; } = 15;
     [OdinSerialize] public float GoldDropChance { get; private set; } = 0.1f;
-    [OdinSerialize] public string Relic { get; private set; }
-    [OdinSerialize] public float RelicDropChance { get; private set; } = 0.01f;
+    [OdinSerialize] public List<string> Relics { get; private set; }
+    [OdinSerialize] public List<float> RelicDropChance { get; private set; }
 
     private void OnEnable()
     {
@@ -49,12 +52,15 @@ public class EnemyData : SerializedScriptableObject
         DelayBeforeFirstAttack = enemyInfo.delayBeforeFirstAttack;
         Damageable = enemyInfo.damageable;
         Amputation = enemyInfo.amputation;
+        HasBlood = enemyInfo.hasBlood;
+        HasCriticalDeath = enemyInfo.hasCriticalDeath;
+        ShakeBeforeDeath = enemyInfo.shakeBeforeDeath;
         ChangingDirections = enemyInfo.changingDirections;
         ChangeDirectionFrequency = enemyInfo.changeDirectionFrequency;
         MinGoldGiven = enemyInfo.minGoldGiven;
         MaxGoldGiven = enemyInfo.maxGoldGiven;
         GoldDropChance = enemyInfo.goldDropChance;
-        Relic = enemyInfo.relic;
+        Relics = enemyInfo.relics;
         RelicDropChance = enemyInfo.relicDropChance;
 
     }
@@ -71,6 +77,9 @@ public struct EnemyInfo
     [Title("Bools")]
     public bool damageable;
     public bool amputation;
+    public bool hasBlood;
+    public bool hasCriticalDeath;
+    public bool shakeBeforeDeath;
     public bool changingDirections;
     public float changeDirectionFrequency;
 
@@ -78,6 +87,6 @@ public struct EnemyInfo
     public int minGoldGiven;
     public int maxGoldGiven;
     public float goldDropChance;
-    public string relic;
-    public float relicDropChance;
+    public List<string> relics;
+    public List<float> relicDropChance;
 }

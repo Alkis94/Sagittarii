@@ -5,13 +5,16 @@
    
    "damageable": true,
    "amputation" : false,
+   "hasBlood" : true,
+   "hasCriticalDeath" : false,
+   "shakeBeforeDeath" : false,
    "changingDirections" : true,
    "changeDirectionFrequency" : 3,
    
    "minGoldGiven" : 5,
    "maxGoldGiven" : 15,
    "goldDropChance" : 0.1,
-   "relic" : "",
-   "relicDropChance" : 0
+   "relics" : [""],
+   "relicDropChance" : [0]
    
 }

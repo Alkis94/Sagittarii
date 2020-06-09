@@ -24,7 +24,11 @@ public class EnemyStats : SerializedMonoBehaviour
     [Title("Bools")]
     [OdinSerialize] public bool Damageable { get; set; } = true;
     [OdinSerialize] public bool Amputation { get; private set; } = false;
+    [OdinSerialize] public bool HasBlood { get; private set; } = true;
+    [OdinSerialize] public bool HasCriticalDeath { get; private set; } = false;
+    [OdinSerialize] public bool ShakeBeforeDeath { get; private set; } = false;
     [OdinSerialize] public bool ChangingDirections { get; private set; } = false;
+
     [ShowIf("@ ChangingDirections")]
     [OdinSerialize] public float ChangeDirectionFrequency { get; private set; } = 0;
 
@@ -32,8 +36,8 @@ public class EnemyStats : SerializedMonoBehaviour
     [OdinSerialize] public int MinGoldGiven { get; private set; } = 5;
     [OdinSerialize] public int MaxGoldGiven { get; private set; } = 15;
     [OdinSerialize] public float GoldDropChance { get; private set; } = 0.1f;
-    [OdinSerialize] public string Relic { get; private set; }
-    [OdinSerialize] public float RelicDropChance { get; private set; } = 0.01f;
+    [OdinSerialize] public List<string> Relics { get; private set; }
+    [OdinSerialize] public List<float> RelicDropChance { get; private set; }
 
 
     [Title("Attacks")]
@@ -60,23 +64,26 @@ public class EnemyStats : SerializedMonoBehaviour
 
     private void Awake()
     {
-        LoadFromJSON();
+        LoadFromData();
         RandomizeDelayBeforeFirstAttack();
     }
 
-    private void LoadFromJSON()
+    private void LoadFromData()
     {
         health = enemyData.Health;
         Speed = enemyData.Speed;
         DelayBeforeFirstAttack = enemyData.DelayBeforeFirstAttack;
         Damageable = enemyData.Damageable;
         Amputation = enemyData.Amputation;
+        HasBlood = enemyData.HasBlood;
+        HasCriticalDeath = enemyData.HasCriticalDeath;
+        ShakeBeforeDeath = enemyData.ShakeBeforeDeath;
         ChangingDirections = enemyData.ChangingDirections;
         ChangeDirectionFrequency = enemyData.ChangeDirectionFrequency;
         MinGoldGiven = enemyData.MinGoldGiven;
         MaxGoldGiven = enemyData.MaxGoldGiven;
         GoldDropChance = enemyData.GoldDropChance;
-        Relic = enemyData.Relic;
+        Relics = enemyData.Relics;
         RelicDropChance = enemyData.RelicDropChance;
      
     }

@@ -13,6 +13,7 @@ public class AttackData : SerializedScriptableObject
     private string enemyName;
     [SerializeField]
     private int attackID;
+
     //Attack Type
     [OdinSerialize] public ProjectileMovementTypeEnum ProjectileMovementType { get; private set; } = ProjectileMovementTypeEnum.straight;
     [ShowIf("@ ProjectileMovementType == ProjectileMovementTypeEnum.function")]
@@ -20,7 +21,6 @@ public class AttackData : SerializedScriptableObject
     [OdinSerialize] public AttackTypeEnum AttackType { get; private set; } = AttackTypeEnum.perimetrical;
     [ShowIf("@ AttackType == AttackTypeEnum.perimetrical")]
     [OdinSerialize] public bool AttackIsDirectionDependant { get; private set; } = false;
-    
     
     //Attack Stats
     [OdinSerialize] public int ProjectileAmount { get; private set; } = 1;
@@ -37,9 +37,7 @@ public class AttackData : SerializedScriptableObject
     [OdinSerialize] public List<Vector3> ProjectileSpawnPositionOffset { get; private set; }
     [OdinSerialize] public Vector3 UniversalSpawnPositionOffset { get; private set; } 
 
-    
     //randomness
-
     [OdinSerialize] public float RandomHorizontalFactorMin { get; private set; } = 0;
     [OdinSerialize] public float RandomHorizontalFactorMax { get; private set; } = 0;
     [OdinSerialize] public float RandomVerticalFactorMin { get; private set; } = 0;
@@ -122,15 +120,18 @@ public class AttackData : SerializedScriptableObject
         ProjectileSpawnPositionOffset.Clear();
         ProjectileRotations.Clear();
 
-        for(int i = 0; i < attackDataInfo.ProjectileRotations.Count; i++)
-        {
-            ProjectileRotations.Add(attackDataInfo.ProjectileRotations[i]);
-        }
+        ProjectileRotations = attackDataInfo.ProjectileRotations;
+        ProjectileSpawnPositionOffset = attackDataInfo.ProjectileSpawnPositionOffset;
 
-        for (int i = 0; i < attackDataInfo.ProjectileSpawnPositionOffset.Count; i++)
-        {
-            ProjectileSpawnPositionOffset.Add(attackDataInfo.ProjectileSpawnPositionOffset[i]);
-        }
+        //for(int i = 0; i < attackDataInfo.ProjectileRotations.Count; i++)
+        //{
+        //    ProjectileRotations.Add(attackDataInfo.ProjectileRotations[i]);
+        //}
+
+        //for (int i = 0; i < attackDataInfo.ProjectileSpawnPositionOffset.Count; i++)
+        //{
+        //    ProjectileSpawnPositionOffset.Add(attackDataInfo.ProjectileSpawnPositionOffset[i]);
+        //}
 
         RandomHorizontalFactorMin = attackDataInfo.RandomHorizontalFactorMin;
         RandomHorizontalFactorMax = attackDataInfo.RandomHorizontalFactorMax;

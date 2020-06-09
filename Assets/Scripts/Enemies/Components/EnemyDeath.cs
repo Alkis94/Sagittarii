@@ -28,12 +28,11 @@ public class EnemyDeath : SerializedMonoBehaviour
     private float maxHealthDropRate = 0.005f;
     private float damageDropRate = 0.001f;
     private float energyDropRate = 0.02f;
-    [SerializeField]
-    private bool hasBlood = true;
-    [OdinSerialize]
-    public bool HasCriticalDeath { get; private set; }  = false;
-    [SerializeField]
-    private bool shakeBeforeDeath = false;
+
+    private bool hasBlood;
+    private bool hasCriticalDeath;
+    private bool shakeBeforeDeath;
+
     [SerializeField]
     private GameObject amputationPart;
 
@@ -54,6 +53,9 @@ public class EnemyDeath : SerializedMonoBehaviour
         audioSource = GetComponent<AudioSource>();
         enemyBrain = GetComponent<EnemyBrain>();
 
+        hasBlood = enemyStats.HasBlood;
+        hasCriticalDeath = enemyStats.HasCriticalDeath;
+        shakeBeforeDeath = enemyStats.ShakeBeforeDeath;
         bloodSplat = Resources.Load("DeathBloodSplat") as GameObject;
     }
 
@@ -123,7 +125,7 @@ public class EnemyDeath : SerializedMonoBehaviour
             Instantiate(bloodSplat, transform.position, Quaternion.identity);
         }
 
-        if(diedFromCriticalHit && HasCriticalDeath)
+        if(diedFromCriticalHit && hasCriticalDeath)
         {
             animator.SetTrigger("DieCritical");
             if (enemyStats.Amputation)
@@ -143,17 +145,8 @@ public class EnemyDeath : SerializedMonoBehaviour
         rigidbody2d.velocity = Vector2.zero;
         transform.parent = null;
 
-        if (enemyStats.Relic != "")
-        {
-            float randomNumber;
-            randomNumber = UnityEngine.Random.Range(0f, 1f);
-            if (randomNumber < enemyStats.RelicDropChance)
-            {
-                DropRelic();
-                return;
-            }
-        }
-
+        
+        DropRelic();
         DropPickup();
         DropGold();
     }
@@ -192,7 +185,16 @@ public class EnemyDeath : SerializedMonoBehaviour
 
     private void DropRelic()
     {
-        OnDeathDropRelic?.Invoke(enemyStats.Relic, transform.position);
+        for (int i = 0; i < enemyStats.Relics.Count; i++)
+        {
+            float randomNumber;
+            randomNumber = UnityEngine.Random.Range(0f, 1f);
+            if (randomNumber < enemyStats.RelicDropChance[i])
+            {
+                OnDeathDropRelic?.Invoke(enemyStats.Relics[i], transform.position);
+                return;
+            }
+        }
     }
 
     private void DropGold()
