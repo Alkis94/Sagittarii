@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class SheepBrain : MonoBehaviour
 {
@@ -7,6 +8,9 @@ public class SheepBrain : MonoBehaviour
     private Rigidbody2D rigidbody2d;
     private Raycaster raycaster;
     private Animator animator;
+    private AudioSource audioSource;
+    [SerializeField]
+    private List<AudioClip> lampSounds;
 
     private float cannotChangeDirectionTime = 0;
 
@@ -16,11 +20,13 @@ public class SheepBrain : MonoBehaviour
         rigidbody2d = GetComponent<Rigidbody2D>();
         raycaster = GetComponentInChildren<Raycaster>();
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Start()
     {
         StartCoroutine(MoveAround());
+        StartCoroutine(BaaRandomly());
     }
 
     private void Update()
@@ -32,7 +38,7 @@ public class SheepBrain : MonoBehaviour
     {
         while (true)
         {
-            float randomDuration = Random.Range(5, 10);
+            float randomDuration = Random.Range(5, 15);
             yield return new WaitForSeconds(randomDuration);
             int randomNumber = Random.Range(100, 150);
             animator.SetTrigger("Move");
@@ -49,6 +55,17 @@ public class SheepBrain : MonoBehaviour
             }
             rigidbody2d.velocity = Vector2.zero;
             animator.SetBool("Walking", false);
+        }
+    }
+
+    IEnumerator BaaRandomly()
+    {
+        while(true)
+        {
+            float randomDuration = Random.Range(15, 30);
+            yield return new WaitForSeconds(randomDuration);
+            int randomNumber = Random.Range(0, 3);
+            audioSource.PlayOneShot(lampSounds[randomNumber]);
         }
     }
 
