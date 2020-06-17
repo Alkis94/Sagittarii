@@ -38,7 +38,7 @@ public class CaveMapCreator : MapCreator
 
     protected override void CreateMap()
     {
-        mapLayout[10, 0] = (int)RoomType.normalRoom;
+        mapLayout[10, 0] = (int)RoomType.exploredRoom;
         mapLayout[10, 1] = (int)RoomType.verticalRoad;
         bossRoomCoordinates = CreatePathToBoss(15,new Vector2Int(10,2),false);
         CreateRandomPaths();

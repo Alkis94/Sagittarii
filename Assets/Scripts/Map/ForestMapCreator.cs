@@ -6,7 +6,8 @@ public class ForestMapCreator : MapCreator
 {
 
     private static ForestMapCreator instance = null;
-    private const int Forest_Length = 3;
+    private const int Forest_Length = 20;
+
 
     private void Awake()
     {
@@ -36,9 +37,9 @@ public class ForestMapCreator : MapCreator
         
         mapLayout[0, 0] = (int)RoomType.horizontalRoad;
         mapLayout[1, 0] = (int)RoomType.horizontalRoad;
-        mapLayout[2, 0] = (int)RoomType.normalRoom;
+        mapLayout[2, 0] = (int)RoomType.unexploredRoom;
         mapLayout[3, 0] = (int)RoomType.horizontalRoad;
-        mapLayout[4, 0] = (int)RoomType.normalRoom;
+        mapLayout[4, 0] = (int)RoomType.unexploredRoom;
         mapLayout[5, 0] = (int)RoomType.horizontalRoad;
         mapRooms[2, 0] = "ForestEntranceRoom";
         mapRooms[4, 0] = "ForestToCave";
@@ -48,7 +49,7 @@ public class ForestMapCreator : MapCreator
         int numberOfForestRooms = RoomTracker.ForestRooms.Count;
         for (int i = 6; i < 40; i++)
         {
-            if(mapLayout[i,0] == (int)RoomType.normalRoom)
+            if(mapLayout[i,0] == (int)RoomType.unexploredRoom)
             {
                 randomNumber = Random.Range(0, numberOfForestRooms);
                 mapRooms[i, 0] = RoomTracker.ForestRooms[randomNumber];

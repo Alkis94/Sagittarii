@@ -2,12 +2,17 @@
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using Sirenix.OdinInspector;
+using Sirenix.Serialization;
 
-public class MapManager : MonoBehaviour
+public class MapManager : SerializedMonoBehaviour
 {
 
     private static MapManager instance = null;
     public static event Action<MapType,string,RoomType> OnRoomLoaded = delegate { };
+
+    [SerializeField]
+    private bool renderFullMap = false;
 
     private bool caveMapExists = false;
     private bool forestMapExists = false;
@@ -31,7 +36,7 @@ public class MapManager : MonoBehaviour
     [SerializeField]
     private List<GameObject> forestRooms;
 
-    [SerializeField]
+    [NonSerialized, OdinSerialize]
     private List<List<GameObject>> rooms;
 
     [SerializeField]
@@ -93,6 +98,7 @@ public class MapManager : MonoBehaviour
                 ES3.DeleteDirectory("Levels/");
                 ES3.DeleteDirectory("Levels/");
             }
+            
         }
         else if (currentMap == MapType.town && nextMap == MapType.forest)
         {
@@ -103,14 +109,18 @@ public class MapManager : MonoBehaviour
             currentMapCoords = forestFirstRoomCoordinates;
 
             SceneManager.LoadScene(mapRooms[forestFirstRoomCoordinates.x, forestFirstRoomCoordinates.y]);
-            OnRoomChangeRenderMapPart(Direction.east);
+            OnRoomChangeRenderMapPart();
             MoveCurrentPlayerPositionAndCenterMap();
 
             //We put an extra road to connect forest and town, and avoid having a room that collides on the town.
             Vector3 mapCoordinates = ConvertArrayCoordinates(0, 0);
-            ExtensionMethods.InstantiateAtLocalPosition(forestRooms[(int)RoomType.horizontalRoad], mapTransform, mapCoordinates);
+            ExtensionMethods.InstantiateAtLocalPosition(rooms[(int)this.currentMap - 1] [(int)RoomType.horizontalRoad], mapTransform, mapCoordinates);
 
-            //RenderMap();
+            if(renderFullMap)
+            {
+                RenderMap();
+            }
+
         }
         else if (currentMap == MapType.forest && nextMap == MapType.cave)
         {
@@ -123,13 +133,16 @@ public class MapManager : MonoBehaviour
             //We put this road to connect forest and caves. This roads is not inside mapLayout. We do it this way so
             //no rooms of caves collide with forrest rooms.
             Vector2 mapCoordinates = new Vector2(120, -20);
-            ExtensionMethods.InstantiateAtLocalPosition(forestRooms[(int)RoomType.verticalRoad], mapTransform, mapCoordinates);
+            ExtensionMethods.InstantiateAtLocalPosition(rooms[(int)this.currentMap - 1][(int)RoomType.verticalRoad], mapTransform, mapCoordinates);
 
             SceneManager.LoadScene(mapRooms[caveFirstRoomCoordinates.x, caveFirstRoomCoordinates.y]);
-            OnRoomChangeRenderMapPart(Direction.south);
+            OnRoomChangeRenderMapPart();
             MoveCurrentPlayerPositionAndCenterMap();
 
-            //RenderMap();
+            if (renderFullMap)
+            {
+                RenderMap();
+            }
         }
         else if (currentMap == MapType.cave && nextMap == MapType.forest)
         {
@@ -170,7 +183,7 @@ public class MapManager : MonoBehaviour
         {
             SceneManager.LoadScene(mapRooms[currentMapCoords.x, currentMapCoords.y]);
             MoveCurrentPlayerPositionAndCenterMap();
-            OnRoomChangeRenderMapPart(doorPlacement);
+            OnRoomChangeRenderMapPart();
         }
         else
         {
@@ -225,80 +238,76 @@ public class MapManager : MonoBehaviour
         }
     }
 
-    private void OnRoomChangeRenderMapPart(Direction renderDirection)
+    private void OnRoomChangeRenderMapPart()
     {
-
         Vector2 mapCoordinates = Vector2.zero;
-        if (renderDirection == Direction.west)
+        if (mapLayoutIsUnexplored[currentMapCoords.x, currentMapCoords.y])
         {
-            if (mapLayoutIsUnexplored[currentMapCoords.x, currentMapCoords.y])
+            mapLayout[currentMapCoords.x, currentMapCoords.y] = (int)RoomType.exploredRoom;
+            PlaceMapPart(currentMapCoords.x, currentMapCoords.y);
+            RenderNeighborUnexploredRooms();
+        }
+    }
+
+    private void RenderNeighborUnexploredRooms()
+    {
+         //Draw East
+        if (currentMapCoords.x + 1 < mapLayout.GetLength(0))
+        {
+            if(mapLayout[currentMapCoords.x + 1,currentMapCoords.y] > 0)
             {
-                //this check is so we don't go out of array bounds.
-                if (currentMapCoords.x + 1 < mapLayout.GetLength(0))
+                if(mapLayoutIsUnexplored[currentMapCoords.x + 2, currentMapCoords.y])
                 {
-                    //Render road
-                    mapCoordinates = ConvertArrayCoordinates(currentMapCoords.x + 1, currentMapCoords.y);
-                    ExtensionMethods.InstantiateAtLocalPosition(forestRooms[mapLayout[currentMapCoords.x + 1, currentMapCoords.y]], mapTransform, mapCoordinates);
-                    //we zero them so we don't render them again!
-                    mapLayoutIsUnexplored[currentMapCoords.x + 1, currentMapCoords.y] = false;
+                    PlaceMapPart(currentMapCoords.x + 1, currentMapCoords.y);
+                    PlaceMapPart(currentMapCoords.x + 2, currentMapCoords.y);
                 }
-
-                //Render room
-                mapCoordinates = ConvertArrayCoordinates(currentMapCoords.x, currentMapCoords.y);
-                ExtensionMethods.InstantiateAtLocalPosition(forestRooms[mapLayout[currentMapCoords.x, currentMapCoords.y]], mapTransform, mapCoordinates);
-                //we zero them so we don't render them again!
-                mapLayoutIsUnexplored[currentMapCoords.x, currentMapCoords.y] = false;
-
             }
         }
-        else if (renderDirection == Direction.east)
+        //Draw West
+        if (currentMapCoords.x - 1 >= 0)
         {
-            if (mapLayoutIsUnexplored[currentMapCoords.x, currentMapCoords.y])
+            if (mapLayout[currentMapCoords.x - 1, currentMapCoords.y] > 0)
             {
-                if (currentMapCoords.x - 1 >= 0)
+                if (mapLayoutIsUnexplored[currentMapCoords.x - 2, currentMapCoords.y])
                 {
-                    mapCoordinates = ConvertArrayCoordinates(currentMapCoords.x - 1, currentMapCoords.y);
-                    ExtensionMethods.InstantiateAtLocalPosition(forestRooms[mapLayout[currentMapCoords.x - 1, currentMapCoords.y]], mapTransform, mapCoordinates);
-                    mapLayoutIsUnexplored[currentMapCoords.x - 1, currentMapCoords.y] = false;
+                    PlaceMapPart(currentMapCoords.x - 1, currentMapCoords.y);
+                    PlaceMapPart(currentMapCoords.x - 2, currentMapCoords.y);
                 }
-
-                mapCoordinates = ConvertArrayCoordinates(currentMapCoords.x, currentMapCoords.y);
-                ExtensionMethods.InstantiateAtLocalPosition(forestRooms[mapLayout[currentMapCoords.x, currentMapCoords.y]], mapTransform, mapCoordinates);
-                mapLayoutIsUnexplored[currentMapCoords.x, currentMapCoords.y] = false;
             }
         }
-        else if (renderDirection == Direction.north)
+        //Draw South
+        if (currentMapCoords.y + 1 < mapLayout.GetLength(1))
         {
-            if (mapLayoutIsUnexplored[currentMapCoords.x, currentMapCoords.y])
+            if (mapLayout[currentMapCoords.x, currentMapCoords.y + 1] > 0)
             {
-                if (currentMapCoords.y + 1 < mapLayout.GetLength(1))
+                if (mapLayoutIsUnexplored[currentMapCoords.x, currentMapCoords.y + 1])
                 {
-                    mapCoordinates = ConvertArrayCoordinates(currentMapCoords.x, currentMapCoords.y + 1);
-                    ExtensionMethods.InstantiateAtLocalPosition(forestRooms[mapLayout[currentMapCoords.x, currentMapCoords.y + 1]], mapTransform, mapCoordinates);
-                    mapLayoutIsUnexplored[currentMapCoords.x, currentMapCoords.y + 1] = false;
+                    PlaceMapPart(currentMapCoords.x, currentMapCoords.y + 1);
+                    PlaceMapPart(currentMapCoords.x, currentMapCoords.y + 2);
                 }
-
-                mapCoordinates = ConvertArrayCoordinates(currentMapCoords.x, currentMapCoords.y);
-                ExtensionMethods.InstantiateAtLocalPosition(forestRooms[mapLayout[currentMapCoords.x, currentMapCoords.y]], mapTransform, mapCoordinates);
-                mapLayoutIsUnexplored[currentMapCoords.x, currentMapCoords.y] = false;
             }
         }
-        else if (renderDirection == Direction.south)
+        //Draw North
+        if (currentMapCoords.y - 1 >= 0)
         {
-            if (mapLayoutIsUnexplored[currentMapCoords.x, currentMapCoords.y])
+            if (mapLayout[currentMapCoords.x, currentMapCoords.y - 1] > 0)
             {
-                if (currentMapCoords.y - 1 >= 0)
+                if (mapLayoutIsUnexplored[currentMapCoords.x, currentMapCoords.y - 1])
                 {
-                    mapCoordinates = ConvertArrayCoordinates(currentMapCoords.x, currentMapCoords.y - 1);
-                    ExtensionMethods.InstantiateAtLocalPosition(forestRooms[mapLayout[currentMapCoords.x, currentMapCoords.y - 1]], mapTransform, mapCoordinates);
-                    mapLayoutIsUnexplored[currentMapCoords.x, currentMapCoords.y - 1] = false;
+                    PlaceMapPart(currentMapCoords.x, currentMapCoords.y - 1);
+                    PlaceMapPart(currentMapCoords.x, currentMapCoords.y - 2);
                 }
-
-                mapCoordinates = ConvertArrayCoordinates(currentMapCoords.x, currentMapCoords.y);
-                ExtensionMethods.InstantiateAtLocalPosition(forestRooms[mapLayout[currentMapCoords.x, currentMapCoords.y]], mapTransform, mapCoordinates);
-                mapLayoutIsUnexplored[currentMapCoords.x, currentMapCoords.y] = false;
-
             }
+        }
+    }
+
+    private void PlaceMapPart(int coordX, int coordY)
+    {
+        Vector2 mapCoordinates = ConvertArrayCoordinates(coordX, coordY);
+        ExtensionMethods.InstantiateAtLocalPosition(rooms[(int)currentMap - 1][mapLayout[coordX, coordY]], mapTransform, mapCoordinates);
+        if(mapLayout[coordX,coordY] < 4)
+        {
+            mapLayoutIsUnexplored[coordX, coordY] = false;
         }
     }
 
@@ -345,7 +354,7 @@ public class MapManager : MonoBehaviour
                 if (mapLayout[i, j] != 0)
                 {
                     Vector2 mapCoordinates = ConvertArrayCoordinates(i, j);
-                    ExtensionMethods.InstantiateAtLocalPosition(forestRooms[mapLayout[i, j]], mapTransform, mapCoordinates);
+                    ExtensionMethods.InstantiateAtLocalPosition(rooms[(int)currentMap - 1][mapLayout[i, j]], mapTransform, mapCoordinates);
                 }
             }
         }
@@ -357,8 +366,7 @@ public class MapManager : MonoBehaviour
         {
             return;
         }
-        //Debug.Log("X = " + currentMapCoords.x+ " Y = " + currentMapCoords.y);
-        //Debug.Log((RoomType)forestMapLayout[currentMapCoords.x, currentMapCoords.y]);
+
         string roomKey = currentMapCoords.x.ToString() + currentMapCoords.y.ToString();
         OnRoomLoaded?.Invoke(currentMap, roomKey,(RoomType)mapLayout[currentMapCoords.x,currentMapCoords.y]);
     }
