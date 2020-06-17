@@ -4,10 +4,19 @@ using UnityEngine;
 
 public class CloudSpawner : MonoBehaviour
 {
+    [SerializeField]
+    private float upperLimit = 8.5f;
+    [SerializeField]
+    private float lowerLimit = 2.5f;
+    [SerializeField]
+    private float spawnFrequency = 7f;
+    [SerializeField]
+    private float spawnRandomness = 10f;
+    [SerializeField]
+    private int sortingLayerMin = 0;
+    [SerializeField]
+    private int sortingLayerMax = 5;
 
-    private const float upperLimit = 8.5f;
-    private const float lowerLimit = 2.5f;
-    
     [SerializeField]
     private GameObject cloud;
 
@@ -35,17 +44,17 @@ public class CloudSpawner : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(randomDelay);
-            randomDelay = Random.Range(5f, 12f);
+            randomDelay = Random.Range(spawnFrequency, spawnFrequency + spawnRandomness);
             SpawnCLoud();
         }
     }
 
     private GameObject SpawnCLoud()
     {
-        Vector3 randomPosition = new Vector3(transform.position.x, Random.Range(2.5f, 8.5f), 0);
+        Vector3 randomPosition = new Vector3(transform.position.x, Random.Range(lowerLimit, upperLimit), 0);
         GameObject tempCloud = Instantiate(cloud, randomPosition, Quaternion.identity);
         tempCloud.GetComponent<SpriteRenderer>().sprite = ReturnRandomSprite();
-        tempCloud.GetComponent<SpriteRenderer>().sortingOrder = Random.Range(0, 4);
+        tempCloud.GetComponent<SpriteRenderer>().sortingOrder = Random.Range(sortingLayerMin, sortingLayerMax);
         return tempCloud;
     }
 
