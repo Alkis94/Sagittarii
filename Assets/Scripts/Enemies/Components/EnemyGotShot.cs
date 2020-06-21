@@ -9,9 +9,8 @@ public class EnemyGotShot : MonoBehaviour
     private AudioSource audioSource;
     [SerializeField]
     private AudioClip gotHitSound;
-    private bool LastHitCritical = false;
-    private Vector2 projectileVelocityOnHit;
-    
+    public Vector2 ProjectileVelocityOnHit { get; private set; }
+
 
     private void Awake()
     {
@@ -20,24 +19,13 @@ public class EnemyGotShot : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
 
-    private void OnEnable()
-    {
-        enemyStats.EnemyDied += EnemyDiedFrom;
-    }
-
-    private void OnDisable()
-    {
-        enemyStats.EnemyDied -= EnemyDiedFrom;
-    }
-
     public void Hit(int damage)
     {
         if (enemyStats.Damageable)
         {
-            LastHitCritical = false;
             ProcessHit();
             StartCoroutine(FlashRed());
-            enemyStats.Health -= damage;
+            enemyStats.ApplyDamage(damage,DamageType.normal,DamageSource.projectile);
         }
     }
 
@@ -45,11 +33,10 @@ public class EnemyGotShot : MonoBehaviour
     {
         if (enemyStats.Damageable)
         {
-            LastHitCritical = true;
             ProcessHit();
             StartCoroutine(FlashDarkRed());
-            this.projectileVelocityOnHit = projectileVelocityOnHit;
-            enemyStats.Health -= damage * 3;           
+            ProjectileVelocityOnHit = projectileVelocityOnHit;
+            enemyStats.ApplyDamage(damage, DamageType.critical, DamageSource.projectile);
         }
     }
 
@@ -59,12 +46,6 @@ public class EnemyGotShot : MonoBehaviour
         {
             audioSource.PlayOneShot(gotHitSound);
         }
-    }
-
-    private void EnemyDiedFrom()
-    {
-        GetComponent<EnemyLoader>().ChangeEnemyStatusToDead(LastHitCritical);
-        GetComponent<EnemyDeath>().ProcessDeath(LastHitCritical, projectileVelocityOnHit);
     }
 
     IEnumerator FlashRed()

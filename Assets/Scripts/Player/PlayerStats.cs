@@ -1,7 +1,9 @@
 ﻿using System;
 using UnityEngine;
+using Sirenix.OdinInspector;
+using Sirenix.Serialization;
 
-public class PlayerStats : MonoBehaviour
+public class PlayerStats : SerializedMonoBehaviour
 {
     [SerializeField]
     private  int currentHealth = 58;
@@ -16,9 +18,18 @@ public class PlayerStats : MonoBehaviour
     [SerializeField]
     private int gold = 20;
 
-    public float speed = 8f;
-    public  int damage = 10;
-    
+    [OdinSerialize]
+    public float Speed { get; set; } = 8f;
+    [OdinSerialize]
+    public  int Damage { get; set; } = 10;
+
+    public int LifeSteal { get; set; } = 0;
+    public float LifeStealChance { get; set; } = 0;
+
+    public int EnergySteal { get; set; } = 0;
+    public float EnergyStealChance { get; set; } = 0;
+
+
 
     public static event Action<int,int> OnPlayerHealthChanged = delegate { };
     public static event Action<int> OnPlayerGoldChanged = delegate { };
@@ -29,11 +40,34 @@ public class PlayerStats : MonoBehaviour
     private void OnEnable()
     {
         EnemiesSerializer.OnRoomHasAliveEnemies += EnteredRoomWithEnemies;
+        EnemyStats.OnEnemyWasKilled += EnemyWasKilled;
     }
 
     private void OnDisable()
     {
         EnemiesSerializer.OnRoomHasAliveEnemies -= EnteredRoomWithEnemies;
+        EnemyStats.OnEnemyWasKilled -= EnemyWasKilled;
+    }
+
+    private void EnemyWasKilled (DamageSource damageSource)
+    {
+        if(damageSource == DamageSource.projectile)
+        {
+            float randomNumber = UnityEngine.Random.Range(0f, 1f);
+
+            if(randomNumber < LifeStealChance)
+            {
+                CurrentHealth += LifeSteal;
+            }
+
+            randomNumber = UnityEngine.Random.Range(0f, 1f);
+
+            if (randomNumber < EnergyStealChance)
+            {
+                CurrentHealth += EnergySteal;
+            }
+
+        }
     }
 
 

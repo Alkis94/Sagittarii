@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4730772738287950238}
   - component: {fileID: 114000012713737418}
   - component: {fileID: 82000011482979170}
-  - component: {fileID: 2937836285584447015}
+  - component: {fileID: 5093056962912064577}
   m_Layer: 9
   m_Name: EnergyPickup
   m_TagString: Untagged
@@ -241,7 +241,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!114 &2937836285584447015
+--- !u!114 &5093056962912064577
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -250,9 +250,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000013538430894}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 698539bcab64e7d4a91c87f5e5eebb52, type: 3}
+  m_Script: {fileID: 11500000, guid: 74b567b7300cff54b8614c24a1072347, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentHealth: 0
+  maxHealth: 0
+  currentEnergy: 5
+  maxEnergy: 0
+  speed: 0
+  damage: 0
+  ammo: 0
+  gold: 0
 --- !u!1 &5675370975915603362
 GameObject:
   m_ObjectHideFlags: 0

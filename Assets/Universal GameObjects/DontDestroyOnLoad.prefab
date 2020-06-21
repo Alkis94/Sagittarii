@@ -97,7 +97,6 @@ MonoBehaviour:
   pickupsList:
   - {fileID: 1000014263955260, guid: 54687a7378ac1144790b4bd8ad36612d, type: 3}
   - {fileID: 1000013300930750, guid: 40b30148b6c092c4bb71fd6a206f5cdf, type: 3}
-  - {fileID: 1000013538430894, guid: eff128034e108f94fac6ecdeb159cb8f, type: 3}
   - {fileID: 1000013538430894, guid: d71ae13819aae8d4080a1b68307cc8ea, type: 3}
   - {fileID: 1000013538430894, guid: 327315ac14ccc2242a05e43c9a88eff3, type: 3}
   - {fileID: 1000013538430894, guid: 72faf5ce3f9ef8f43a4641d3b3b4f790, type: 3}
@@ -618,6 +617,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5060117036905097974, guid: 3c485888d2a73f649b36dc47db91afcb,
+        type: 3}
+      propertyPath: serializationData.Prefab
+      value: 
+      objectReference: {fileID: 5060117036905097974, guid: 3c485888d2a73f649b36dc47db91afcb,
+        type: 3}
     - target: {fileID: 6112859251357942033, guid: 3c485888d2a73f649b36dc47db91afcb,
         type: 3}
       propertyPath: m_Name
@@ -643,6 +648,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4214299108960782}
     m_Modifications:
+    - target: {fileID: 1397397872766350021, guid: 0f25f370f7d653749b16b4e24b59369f,
+        type: 3}
+      propertyPath: serializationData.Prefab
+      value: 
+      objectReference: {fileID: 1397397872766350021, guid: 0f25f370f7d653749b16b4e24b59369f,
+        type: 3}
     - target: {fileID: 2563198698278930993, guid: 0f25f370f7d653749b16b4e24b59369f,
         type: 3}
       propertyPath: m_Name

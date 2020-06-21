@@ -5,8 +5,6 @@ using Factories;
 
 public class AttackPattern : MonoBehaviour
 {
-    //[SerializeField]
-    //private List<AttackData> attackData;
     private AudioSource audioSource;
 
     private void Awake()
@@ -101,7 +99,7 @@ public class AttackPattern : MonoBehaviour
         return projectileRotation;
     }
 
-    private void StopCoroutines()
+    private void StopCoroutines(DamageType damageType)
     {
         StopAllCoroutines();
     }

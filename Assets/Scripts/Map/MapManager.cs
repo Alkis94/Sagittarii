@@ -33,8 +33,6 @@ public class MapManager : SerializedMonoBehaviour
     private readonly Vector2Int caveFirstRoomCoordinates = new Vector2Int(10, 0);
 
     private Vector2Int currentMapCoords = new Vector2Int(-1, 0);
-    [SerializeField]
-    private List<GameObject> forestRooms;
 
     [NonSerialized, OdinSerialize]
     private List<List<GameObject>> rooms;

@@ -25,9 +25,7 @@ public class EnemyDeath : SerializedMonoBehaviour
     [SerializeField]
     private AudioClip deathCry;
     private float healthDropRate = 0.05f;
-    private float maxHealthDropRate = 0.005f;
-    private float damageDropRate = 0.001f;
-    private float energyDropRate = 0.02f;
+    private float energyDropRate = 0.015f;
 
     private bool hasBlood;
     private bool hasCriticalDeath;
@@ -43,7 +41,14 @@ public class EnemyDeath : SerializedMonoBehaviour
     {
         enemyStats = GetComponent<EnemyStats>();
         enemyGotShot = GetComponent<EnemyGotShot>();
+        enemyStats.EnemyDied += ProcessDeath;
     }
+
+    private void OnDisable()
+    {
+        enemyStats.EnemyDied -= ProcessDeath;
+    }
+
 
     void Start()
     {
@@ -59,15 +64,21 @@ public class EnemyDeath : SerializedMonoBehaviour
         bloodSplat = Resources.Load("DeathBloodSplat") as GameObject;
     }
 
-    public void ProcessDeath(bool criticalDeath,Vector2 projectileVelocityOnHit)
-    { 
+    public void ProcessDeath(DamageType lastDamageType)
+    {
+        
         spriteRenderer.sortingLayerName = "DeadEnemies";
         gameObject.layer = 14;
         enemyGotShot.enabled = false;
         transform.localRotation = Quaternion.Euler(0, transform.localEulerAngles.y, 0);
-        diedFromCriticalHit = criticalDeath;
-        this.projectileVelocityOnHit = projectileVelocityOnHit;
+        GetComponent<EnemyLoader>().ChangeEnemyStatusToDead(diedFromCriticalHit);
+        projectileVelocityOnHit = enemyGotShot.ProjectileVelocityOnHit;
         rigidbody2d.velocity = Vector2.zero;
+
+        if(lastDamageType == DamageType.critical)
+        {
+            diedFromCriticalHit = true;
+        }
 
         if (enemyBrain != null)
         {
@@ -162,20 +173,6 @@ public class EnemyDeath : SerializedMonoBehaviour
         }
 
         randomNumber = UnityEngine.Random.Range(0f, 1f);
-        if (randomNumber < maxHealthDropRate)
-        {
-            OnDeathDropPickup?.Invoke(transform.position, "MaxHealthPickup");
-            return;
-        }
-
-        randomNumber = UnityEngine.Random.Range(0f, 1f);
-        if (randomNumber < damageDropRate)
-        {
-            OnDeathDropPickup?.Invoke(transform.position, "DamagePickup");
-            return;
-        }
-
-        randomNumber = UnityEngine.Random.Range(0f, 1f);
         if (randomNumber < energyDropRate)
         {
             OnDeathDropPickup?.Invoke(transform.position, "EnergyPickup");
@@ -202,13 +199,13 @@ public class EnemyDeath : SerializedMonoBehaviour
         float randomNumber = UnityEngine.Random.Range(0f, 1f);
         if (randomNumber < enemyStats.GoldDropChance)
         {
-            int minGoldGiven = enemyStats.MinGoldGiven / 5;
-            int maxGoldGiven = enemyStats.MaxGoldGiven / 5;
-            int finalGoldGiven = UnityEngine.Random.Range(minGoldGiven, maxGoldGiven + 1) * 5;
+            int minGoldGiven = enemyStats.MinGoldGiven / CoinPickup.copperValue;
+            int maxGoldGiven = enemyStats.MaxGoldGiven / CoinPickup.copperValue;
+            int finalGoldGiven = UnityEngine.Random.Range(minGoldGiven, maxGoldGiven + 1) * CoinPickup.copperValue;
 
-            int GoldCoins = finalGoldGiven / 20;
-            int SilverCoins = (finalGoldGiven - GoldCoins * 20) / 10;
-            int CooperCoins = (finalGoldGiven - (GoldCoins * 20 + SilverCoins * 10)) / 5;
+            int GoldCoins = finalGoldGiven / CoinPickup.goldValue;
+            int SilverCoins = (finalGoldGiven - GoldCoins * CoinPickup.goldValue) / CoinPickup.silverValue;
+            int CooperCoins = (finalGoldGiven - (GoldCoins * CoinPickup.goldValue + SilverCoins * CoinPickup.silverValue)) / CoinPickup.copperValue;
 
             for (int i = 0; i < GoldCoins; i++)
             {

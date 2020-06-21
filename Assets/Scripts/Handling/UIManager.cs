@@ -21,9 +21,12 @@ public class UIManager : MonoBehaviour
     private Image healthImage;
     [SerializeField]
     private Image energyImage;
+
+    private Coroutine energyCoroutine = null;
+    private Coroutine healthCoroutine = null;
+    private Coroutine bossHealthCoroutine = null;
+
     [SerializeField]
-
-
     private Image bossHealthImage;
     [SerializeField]
     private GameObject bossHealthBar;
@@ -77,13 +80,13 @@ public class UIManager : MonoBehaviour
     private void UpdateHealth(int health, int maxHealth)
     {
         UpdateText(health,maxHealth,healthText);
-        UpdateBar(health, maxHealth,healthImage);
+        UpdateBar(health, maxHealth,healthImage,ref healthCoroutine);
     }
 
     private void UpdateEnergy(int exhaustion, int maxExhastion)
     {
         UpdateText(exhaustion, maxExhastion, energyText);
-        UpdateBar(exhaustion, maxExhastion, energyImage);
+        UpdateBar(exhaustion, maxExhastion, energyImage,ref energyCoroutine);
     }
 
     private void UpdateText(int current,int max, TextMeshProUGUI text)
@@ -93,7 +96,7 @@ public class UIManager : MonoBehaviour
         text.text = current + "/" + max;
     }
 
-    private void UpdateBar(int current, int max, Image image)
+    private void UpdateBar(int current, int max, Image image,ref Coroutine coroutine)
     {
         float imageFillAmount;
         if (current <= 0)
@@ -108,14 +111,19 @@ public class UIManager : MonoBehaviour
         {
             imageFillAmount = (float)current / max;
         }
+
+        if(coroutine != null)
+        {
+            StopCoroutine(coroutine);
+        }
         
         if(imageFillAmount > image.fillAmount)
         {
-            StartCoroutine(FillBar(imageFillAmount,image));
+            coroutine = StartCoroutine(FillBar(imageFillAmount,image));
         }
         else
         {
-            StartCoroutine(DepleteBar(imageFillAmount,image));
+            coroutine = StartCoroutine(DepleteBar(imageFillAmount,image));
         }
     }
 
@@ -151,7 +159,6 @@ public class UIManager : MonoBehaviour
 
     private void OnBossEnganged(int health)
     {
-        //Debug.Log("OnBossEnganged UI");
         bossCurrentHealth += health;
         bossMaxHealth += health;
         bossHealthBar.SetActive(true);
@@ -159,9 +166,8 @@ public class UIManager : MonoBehaviour
 
     private void OnBossDamaged(int damage)
     {
-        //Debug.Log("OnBossDamaged UI");
         bossCurrentHealth -=  damage;
-        UpdateBar(bossCurrentHealth, bossMaxHealth, bossHealthImage);
+        UpdateBar(bossCurrentHealth, bossMaxHealth, bossHealthImage,ref bossHealthCoroutine);
         if(bossCurrentHealth <= 0)
         {
             bossCurrentHealth = 0;

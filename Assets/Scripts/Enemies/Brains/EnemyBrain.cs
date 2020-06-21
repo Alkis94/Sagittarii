@@ -91,7 +91,7 @@ public abstract class  EnemyBrain : MonoBehaviour
         }
     }
 
-    protected void OnEnemyDiedStopAll()
+    protected void OnEnemyDiedStopAll(DamageType damageType)
     {
         CancelInvoke();
         StopAllCoroutines();

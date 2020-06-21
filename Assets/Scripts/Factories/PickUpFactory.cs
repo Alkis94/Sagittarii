@@ -3,9 +3,24 @@ using System.Collections.Generic;
 
 public class PickUpFactory : MonoBehaviour
 {
+
+    private static PickUpFactory instance = null;
+
     [SerializeField]
     private List<GameObject> pickupsList;
     private Dictionary<string, GameObject> pickupsDictionery;
+
+    private void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            instance = this;
+        }
+    }
 
     private void OnEnable()
     {

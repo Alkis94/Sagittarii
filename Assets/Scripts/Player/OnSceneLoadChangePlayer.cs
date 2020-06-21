@@ -19,7 +19,7 @@ public class OnSceneLoadChangePlayer : MonoBehaviour
     private void OnEnable()
     {
         playerStats = GetComponent<PlayerStats>();
-        currentPlayerSpeed = playerStats.speed;
+        currentPlayerSpeed = playerStats.Speed;
         hands = transform.GetChild(0).gameObject;
         animator = GetComponent<Animator>();
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -45,14 +45,14 @@ public class OnSceneLoadChangePlayer : MonoBehaviour
     {
         if(scene.name == "Town")
         {
-            currentPlayerSpeed = playerStats.speed;
-            playerStats.speed = playerTownSpeed;
+            currentPlayerSpeed = playerStats.Speed;
+            playerStats.Speed = playerTownSpeed;
             hands.SetActive(false);
             animator.runtimeAnimatorController = townController;
         }
         else
         { 
-            playerStats.speed = currentPlayerSpeed;
+            playerStats.Speed = currentPlayerSpeed;
             animator.runtimeAnimatorController = bodyController;
             hands.SetActive(true);
         }

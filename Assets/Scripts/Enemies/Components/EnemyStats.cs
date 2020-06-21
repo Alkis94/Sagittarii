@@ -9,8 +9,9 @@ using Newtonsoft.Json;
 [ShowOdinSerializedPropertiesInInspector]
 public class EnemyStats : SerializedMonoBehaviour
 {
+    public static event Action<DamageSource> OnEnemyWasKilled = delegate { };
     public event Action EnemyHealthChanged = delegate { };
-    public event Action EnemyDied = delegate { };
+    public event Action<DamageType> EnemyDied = delegate { };
 
     [SerializeField]
     private EnemyData enemyData;
@@ -43,6 +44,9 @@ public class EnemyStats : SerializedMonoBehaviour
     [Title("Attacks")]
     [OdinSerialize] public List<AttackData> AttackData { get; private set; }
 
+    private DamageSource lastDamageSource;
+    private DamageType lastDamageType;
+
     public int Health
     {
         get
@@ -50,16 +54,33 @@ public class EnemyStats : SerializedMonoBehaviour
             return health;
         }
 
-        set
+        private set
         {
             health = value;
             EnemyHealthChanged?.Invoke();
 
             if (health <= 0)
             {
-                EnemyDied?.Invoke();
+                EnemyDied?.Invoke(lastDamageType);
+                OnEnemyWasKilled?.Invoke(lastDamageSource);
             }
         }
+    }
+
+    public void ApplyDamage(int damage,DamageType damageType, DamageSource damageSource)
+    {
+        lastDamageType = damageType;
+        lastDamageSource = damageSource;
+
+        if(damageType == DamageType.normal)
+        {
+            Health -= damage;
+        }
+        else
+        {
+            Health -= damage * 2;
+        }
+
     }
 
     private void Awake()
@@ -90,7 +111,7 @@ public class EnemyStats : SerializedMonoBehaviour
 
     private void RandomizeDelayBeforeFirstAttack()
     {
-        float randomizer = UnityEngine.Random.Range(-2.8f, 0.5f);
+        float randomizer = UnityEngine.Random.Range(-2.8f, 1f);
         DelayBeforeFirstAttack += randomizer;
     }
 }

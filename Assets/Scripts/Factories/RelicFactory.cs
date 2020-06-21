@@ -3,9 +3,24 @@ using System.Collections.Generic;
 
 public class RelicFactory : MonoBehaviour
 {
+
+    private static RelicFactory instance = null;
+
     [SerializeField]
     private List<GameObject> relicsList;
     private Dictionary<string, GameObject> relicsDictionery;
+
+    private void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            instance = this;
+        }
+    }
 
     private void OnEnable()
     {
@@ -27,16 +42,31 @@ public class RelicFactory : MonoBehaviour
         }
     }
 
-    public static Dictionary<string, bool> PlayerHasRelic = new Dictionary<string, bool>()
+    public static Dictionary<string, bool> PlayerHasUniqueRelic = new Dictionary<string, bool>()
     {
             {"Trident",false},
             {"BatWings",false}
     };
 
 
-    private  void CreateItem(string relic, Vector3 deadEnemyPosition)
+    private void CreateItem(string relic, Vector3 deadEnemyPosition)
     {
-         Instantiate(relicsDictionery[relic], deadEnemyPosition, Quaternion.identity);
+
+        bool ItemShouldDrop = true;
+
+        if (PlayerHasUniqueRelic.ContainsKey(relic))
+        {
+            if(PlayerHasUniqueRelic[relic])
+            {
+                ItemShouldDrop = false;
+            }
+        }
+
+        if(ItemShouldDrop)
+        {
+            Instantiate(relicsDictionery[relic], deadEnemyPosition, Quaternion.identity);
+        }
+        
     }
 }
 

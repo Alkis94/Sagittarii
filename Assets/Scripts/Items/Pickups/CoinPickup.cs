@@ -6,7 +6,11 @@ public class CoinPickup : MonoBehaviour
 
     private Rigidbody2D rigidbody2d;
     [SerializeField]
-    private int coinValue = 1;
+    private CoinType coinType = CoinType.copper;
+
+    public const int copperValue = 5;
+    public const int silverValue = 10;
+    public const int goldValue = 20;
 
     void Start()
     {
@@ -18,7 +22,7 @@ public class CoinPickup : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
-            collision.GetComponent<PlayerStats>().Gold += coinValue;
+            collision.GetComponent<PlayerStats>().Gold += (int)coinType;
         }
     }
 

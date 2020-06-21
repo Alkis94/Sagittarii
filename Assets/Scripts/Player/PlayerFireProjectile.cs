@@ -73,7 +73,7 @@ public class PlayerFireProjectile : MonoBehaviour
                 if (arrowPower > 0.01)
                 {
                     animator.SetTrigger("PlayerAttackRelease");
-                    FireArrow(arrowEmitter,projectile,projectileSpeed,projectileDestroyDelay,arrowPower,playerStats.damage);
+                    FireArrow(arrowEmitter,projectile,projectileSpeed,projectileDestroyDelay,arrowPower,playerStats.Damage);
                     playerStats.Ammo -= 1;
                 }
                 else

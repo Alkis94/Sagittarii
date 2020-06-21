@@ -3,10 +3,9 @@ using System.Collections;
 
 public class Item : MonoBehaviour
 {
-    protected AudioSource audioSource;
-    protected Rigidbody2D rigidbody2d;
-    protected BoxCollider2D boxCollider2D;
-    protected SpriteRenderer spriteRenderer;
+    private AudioSource audioSource;
+    private BoxCollider2D boxCollider2D;
+    private SpriteRenderer spriteRenderer;
 
     [SerializeField]
     private int despawnDelay = 30;
@@ -14,7 +13,6 @@ public class Item : MonoBehaviour
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        rigidbody2d = GetComponent<Rigidbody2D>();
         boxCollider2D = GetComponent<BoxCollider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         Destroy(gameObject, despawnDelay);

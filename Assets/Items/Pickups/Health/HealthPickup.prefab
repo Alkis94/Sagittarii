@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1930344230568569675}
   - component: {fileID: 82000011107749908}
   - component: {fileID: 114000011882025232}
-  - component: {fileID: 8487099567128758842}
+  - component: {fileID: 3979027739894322616}
   m_Layer: 9
   m_Name: HealthPickup
   m_TagString: Untagged
@@ -54,7 +54,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: c562cd910234aaa4c9c61c35cbbc69e5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -74,12 +74,12 @@ SpriteRenderer:
   m_SortingLayerID: -1255467649
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d174aaef35639bf44aea096507b7767e, type: 3}
-  m_Color: {r: 0.5661765, g: 0.5661765, b: 0.5661765, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 1e6ac9ddc853d38489995b93b6181b58, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.45, y: 0.5}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -123,14 +123,14 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.75, y: 0.55}
-    newSize: {x: 1, y: 1}
+    oldSize: {x: 0.45, y: 0.5}
+    newSize: {x: 0.45, y: 0.5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.65, y: 0.55}
+  m_Size: {x: 0.45, y: 0.5}
   m_EdgeRadius: 0
 --- !u!82 &82000011107749908
 AudioSource:
@@ -241,7 +241,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   despawnDelay: 30
---- !u!114 &8487099567128758842
+--- !u!114 &3979027739894322616
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -250,9 +250,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000013300930750}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f209ff4cdbed7e24ba050371a0d3457f, type: 3}
+  m_Script: {fileID: 11500000, guid: 74b567b7300cff54b8614c24a1072347, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentHealth: 10
+  maxHealth: 0
+  currentEnergy: 0
+  maxEnergy: 0
+  speed: 0
+  damage: 0
+  ammo: 0
+  gold: 0
 --- !u!1 &5048995370889642386
 GameObject:
   m_ObjectHideFlags: 0
@@ -297,16 +305,16 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.01}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.45, y: 0.5}
+    newSize: {x: 0.45, y: 0.5}
+    adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.65, y: 0.55}
+  m_Size: {x: 0.45, y: 0.48000002}
   m_EdgeRadius: 0

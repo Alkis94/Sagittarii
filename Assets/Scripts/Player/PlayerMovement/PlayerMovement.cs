@@ -96,7 +96,7 @@ public class PlayerMovement : MonoBehaviour
     {
         stateMachine.FixedUpdate();
 
-        float xVelocity = playerStats.speed * input.horizontal;
+        float xVelocity = playerStats.Speed * input.horizontal;
         rigidBody2d.velocity = new Vector2(xVelocity, rigidBody2d.velocity.y);
     }
 
