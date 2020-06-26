@@ -26,7 +26,7 @@ public class BearJaw : MonoBehaviour
         if (damageSource == DamageSource.projectile)
         {
             killCounter++;
-            if(killCounter >= 10)
+            if(killCounter >= 30)
             {
                 damagedAdded++;
                 playerStats.Damage += 1;

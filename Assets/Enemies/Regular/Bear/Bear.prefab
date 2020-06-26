@@ -299,8 +299,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -607018307
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300014, guid: b11aea4edd3c52c43bbdf543f4acc178, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -483,6 +483,15 @@ MonoBehaviour:
       Data: true
     - Name: Amputation
       Entry: 5
+      Data: true
+    - Name: HasBlood
+      Entry: 5
+      Data: true
+    - Name: HasCriticalDeath
+      Entry: 5
+      Data: true
+    - Name: ShakeBeforeDeath
+      Entry: 5
       Data: false
     - Name: ChangingDirections
       Entry: 5
@@ -498,13 +507,13 @@ MonoBehaviour:
       Data: 15
     - Name: GoldDropChance
       Entry: 4
-      Data: 0.1
-    - Name: Relic
+      Data: 0.2
+    - Name: Relics
       Entry: 6
       Data: 
     - Name: RelicDropChance
-      Entry: 4
-      Data: 0.01
+      Entry: 6
+      Data: 
     - Name: AttackData
       Entry: 7
       Data: 0|System.Collections.Generic.List`1[[AttackData, Assembly-CSharp]], mscorlib
@@ -558,13 +567,8 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes:
-    - Name: HasCriticalDeath
-      Entry: 5
-      Data: true
+    SerializationNodes: []
   deathCry: {fileID: 8300000, guid: 6b4f050e74182454f8824328041ec75c, type: 3}
-  hasBlood: 1
-  shakeBeforeDeath: 0
   amputationPart: {fileID: 6248712968822842458}
 --- !u!114 &3054776419552895605
 MonoBehaviour:
@@ -625,6 +629,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3054776419552895607}
     m_Modifications:
+    - target: {fileID: 673106940, guid: 8c343278596b39a4a9787d883cfe4b8e, type: 3}
+      propertyPath: m_Size.x
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 673106940, guid: 8c343278596b39a4a9787d883cfe4b8e, type: 3}
+      propertyPath: m_Size.y
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 546407988728210719, guid: 8c343278596b39a4a9787d883cfe4b8e,
         type: 3}
       propertyPath: m_Name
@@ -653,17 +665,17 @@ PrefabInstance:
     - target: {fileID: 5970716360217621940, guid: 8c343278596b39a4a9787d883cfe4b8e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.065999985
+      value: -0.1
       objectReference: {fileID: 0}
     - target: {fileID: 5970716360217621940, guid: 8c343278596b39a4a9787d883cfe4b8e,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.5040002
+      value: 0.502
       objectReference: {fileID: 0}
     - target: {fileID: 5970716360217621940, guid: 8c343278596b39a4a9787d883cfe4b8e,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -212.49232
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5970716360217621940, guid: 8c343278596b39a4a9787d883cfe4b8e,
         type: 3}

@@ -25,7 +25,7 @@ public class EnemyGotShot : MonoBehaviour
         {
             ProcessHit();
             StartCoroutine(FlashRed());
-            enemyStats.ApplyDamage(damage,DamageType.normal,DamageSource.projectile);
+            enemyStats.ApplyDamage(damage, DamageSource.projectile);
         }
     }
 
@@ -36,7 +36,7 @@ public class EnemyGotShot : MonoBehaviour
             ProcessHit();
             StartCoroutine(FlashDarkRed());
             ProjectileVelocityOnHit = projectileVelocityOnHit;
-            enemyStats.ApplyDamage(damage, DamageType.critical, DamageSource.projectile);
+            enemyStats.ApplyDamage(damage,  DamageSource.projectile, DamageType.critical);
         }
     }
 

@@ -360,10 +360,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ecb5258d6f4f7e4a80a50b7283681c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackData: {fileID: 11400000, guid: 26485e6d1e576de4f9761c4622091334, type: 2}
   projectile: {fileID: 1000011198274758, guid: 7286360133900744eb191a4b124d4e14, type: 3}
-  arrowEmitter: {fileID: 3681053211839336020}
-  projectileSpeed: 12
-  projectileDestroyDelay: 30
+  projectileEmitter: {fileID: 3681053211839336020}
 --- !u!1 &3681053211839336020
 GameObject:
   m_ObjectHideFlags: 0
@@ -467,7 +466,7 @@ GameObject:
   - component: {fileID: 18023797051373807}
   - component: {fileID: 7662037315595027482}
   m_Layer: 10
-  m_Name: Archer 1
+  m_Name: Archer
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -720,27 +719,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d4eb3fd47a2eeb41ac685f5d6504b86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes:
-    - Name: Speed
-      Entry: 4
-      Data: 8
-    - Name: Damage
-      Entry: 3
-      Data: 10
   currentHealth: 100
   maximumHealth: 100
   currentEnergy: 20
   maximumEnergy: 20
   ammo: 1000
   gold: 0
+  armor: 0
+  luck: 0.3
+  effectChance: 0
+  speed: 8
+  damage: 10
+  lifesteal: 0
+  lifestealChance: 0
+  energysteal: 0
+  energystealChance: 0
 --- !u!114 &696266295396060517
 MonoBehaviour:
   m_ObjectHideFlags: 0

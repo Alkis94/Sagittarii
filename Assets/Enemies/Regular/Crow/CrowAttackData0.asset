@@ -10,14 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6a1c0d2898bdfe345b949cceb39347ee, type: 3}
-  m_Name: BearAttackData
+  m_Name: CrowAttackData0
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 1000012292187914, guid: 170988b43b11f1c4ca35dd62237b8ffd, type: 3}
-    - {fileID: 8300000, guid: 9e40a9f54c0c78249b63198a7bef3672, type: 3}
+    - {fileID: 1000012292187914, guid: 397fba1b478484b4db2ef82bee43ddb2, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -31,28 +30,28 @@ MonoBehaviour:
       Data: 0
     - Name: AttackType
       Entry: 3
-      Data: 1
+      Data: 0
     - Name: AttackIsDirectionDependant
       Entry: 5
-      Data: true
+      Data: false
     - Name: ProjectileAmount
       Entry: 3
-      Data: 1
+      Data: 3
     - Name: ConsecutiveAttacks
       Entry: 3
       Data: 1
     - Name: ConsecutiveAttackDelay
       Entry: 4
       Data: 0.15
-    - Name: attackFrequency
+    - Name: AttackFrequency
       Entry: 4
-      Data: 7
+      Data: 4
     - Name: Damage
       Entry: 3
-      Data: 7
+      Data: 6
     - Name: ProjectileSpeed
       Entry: 4
-      Data: 7
+      Data: 3
     - Name: ProjectileDestroyDelay
       Entry: 4
       Data: 10
@@ -61,10 +60,16 @@ MonoBehaviour:
       Data: 0|System.Collections.Generic.List`1[[System.Single, mscorlib]], mscorlib
     - Name: 
       Entry: 12
-      Data: 1
+      Data: 3
     - Name: 
       Entry: 4
-      Data: 0
+      Data: 240
+    - Name: 
+      Entry: 4
+      Data: 270
+    - Name: 
+      Entry: 4
+      Data: 300
     - Name: 
       Entry: 13
       Data: 
@@ -77,7 +82,37 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 12
-      Data: 1
+      Data: 3
+    - Name: 
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 7
       Data: UnityEngine.Vector3, UnityEngine.CoreModule
@@ -114,9 +149,6 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: Randomness
-      Entry: 5
-      Data: true
     - Name: RandomHorizontalFactorMin
       Entry: 4
       Data: 0
@@ -139,7 +171,5 @@ MonoBehaviour:
       Entry: 10
       Data: 0
     - Name: AttackSound
-      Entry: 10
-      Data: 1
-  enemyName: Bear
-  attackID: 0
+      Entry: 6
+      Data: 

@@ -67,7 +67,7 @@ GameObject:
   - component: {fileID: 7378864008504176641}
   - component: {fileID: 5376952112647112786}
   - component: {fileID: 1658425444226327885}
-  - component: {fileID: 2613149672491566729}
+  - component: {fileID: 4823591092550478244}
   m_Layer: 9
   m_Name: Relic
   m_TagString: Untagged
@@ -273,7 +273,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   despawnDelay: 120
---- !u!114 &2613149672491566729
+--- !u!114 &4823591092550478244
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -282,9 +282,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 3848228553112147355}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 874fd6ac84b713c47bbcf15929f0104d, type: 3}
+  m_Script: {fileID: 11500000, guid: b52efdfb71b832145961b7b7d7e89c20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  changeMainAttack: 1
+  attackData: {fileID: 11400000, guid: 099cb86b9941487428f3ccb88a3ac146, type: 2}
+  changeSecondaryAttack: 0
+  secondaryAttackData: {fileID: 0}
+  relicName: Trident
 --- !u!1 &3923862190139915852
 GameObject:
   m_ObjectHideFlags: 0

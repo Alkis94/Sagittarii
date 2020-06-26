@@ -7,7 +7,7 @@ using System.Collections;
 public class UIManager : MonoBehaviour
 {
 
-    private static UIManager instance = null;
+    public static UIManager Instance { get; private set; } = null;
 
     [SerializeField]
     private TextMeshProUGUI energyText;
@@ -37,38 +37,14 @@ public class UIManager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance != null && instance != this)
+        if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
         }
         else
         {
-            instance = this;
+            Instance = this;
         }
-    }
-
-    
-
-    private void OnEnable()
-    {
-        PlayerStats.OnPlayerHealthChanged += UpdateHealth;
-        PlayerStats.OnPlayerEnergyChanged += UpdateEnergy;
-        PlayerStats.OnPlayerGoldChanged += UpdateGold;
-        PlayerStats.OnPlayerAmmoChanged += UpdateAmmo;
-
-        BossHealth.BossEngaged += OnBossEnganged;
-        BossHealth.BossDamaged += OnBossDamaged;
-    }
-
-    private void OnDisable()
-    {
-        PlayerStats.OnPlayerHealthChanged -= UpdateHealth;
-        PlayerStats.OnPlayerEnergyChanged -= UpdateEnergy;
-        PlayerStats.OnPlayerGoldChanged -= UpdateGold;
-        PlayerStats.OnPlayerAmmoChanged -= UpdateAmmo;
-
-        BossHealth.BossEngaged -= OnBossEnganged;
-        BossHealth.BossDamaged -= OnBossDamaged;
     }
 
     private void Start ()
@@ -76,17 +52,26 @@ public class UIManager : MonoBehaviour
         AudioListener.pause = false;
     }
 
-
-    private void UpdateHealth(int health, int maxHealth)
+    public void UpdateHealth(int health, int maxHealth)
     {
         UpdateText(health,maxHealth,healthText);
         UpdateBar(health, maxHealth,healthImage,ref healthCoroutine);
     }
 
-    private void UpdateEnergy(int exhaustion, int maxExhastion)
+    public void UpdateEnergy(int exhaustion, int maxExhastion)
     {
         UpdateText(exhaustion, maxExhastion, energyText);
         UpdateBar(exhaustion, maxExhastion, energyImage,ref energyCoroutine);
+    }
+
+    public void UpdateAmmo(int ammo)
+    {
+        ammoText.text = ammo.ToString();
+    }
+
+    public void UpdateGold(int gold)
+    {
+        goldText.text = gold.ToString();
     }
 
     private void UpdateText(int current,int max, TextMeshProUGUI text)
@@ -147,24 +132,14 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    private void UpdateAmmo(int ammo)
-    {
-        ammoText.text = ammo.ToString();
-    }
-
-    private void UpdateGold(int gold)
-    {
-        goldText.text = gold.ToString();
-    }
-
-    private void OnBossEnganged(int health)
+    public void EnableBossHealth(int health)
     {
         bossCurrentHealth += health;
         bossMaxHealth += health;
         bossHealthBar.SetActive(true);
     }
 
-    private void OnBossDamaged(int damage)
+    public void UpdateBossHealth(int damage)
     {
         bossCurrentHealth -=  damage;
         UpdateBar(bossCurrentHealth, bossMaxHealth, bossHealthImage,ref bossHealthCoroutine);

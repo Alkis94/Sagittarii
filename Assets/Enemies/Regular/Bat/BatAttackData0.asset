@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6a1c0d2898bdfe345b949cceb39347ee, type: 3}
-  m_Name: BatAttackData
+  m_Name: BatAttackData0
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -43,7 +43,7 @@ MonoBehaviour:
     - Name: ConsecutiveAttackDelay
       Entry: 4
       Data: 0.15
-    - Name: attackFrequency
+    - Name: AttackFrequency
       Entry: 4
       Data: 7
     - Name: Damage
@@ -113,9 +113,6 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: Randomness
-      Entry: 5
-      Data: true
     - Name: RandomHorizontalFactorMin
       Entry: 4
       Data: 0
@@ -140,5 +137,3 @@ MonoBehaviour:
     - Name: AttackSound
       Entry: 6
       Data: 
-  enemyName: Bat
-  attackID: 0

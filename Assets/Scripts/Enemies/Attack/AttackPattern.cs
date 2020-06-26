@@ -6,6 +6,7 @@ using Factories;
 public class AttackPattern : MonoBehaviour
 {
     private AudioSource audioSource;
+    private EnemyStats enemyStats;
 
     private void Awake()
     {
@@ -14,13 +15,20 @@ public class AttackPattern : MonoBehaviour
 
     private void OnEnable()
     {
+        enemyStats = GetComponent<EnemyStats>();
+        if (enemyStats != null)
+        {
+            enemyStats.EnemyDied += StopCoroutines;
+        }
         
-        GetComponent<EnemyStats>().EnemyDied += StopCoroutines;
     }
 
     private void OnDisable()
     {
-        GetComponent<EnemyStats>().EnemyDied -= StopCoroutines;
+        if (enemyStats != null)
+        {
+            enemyStats.EnemyDied -= StopCoroutines;
+        }
     }
 
     public void Attack(AttackData attackData)
@@ -41,7 +49,7 @@ public class AttackPattern : MonoBehaviour
             {
                 AttackInfo attackInfo = new AttackInfo();
                 attackInfo = CalculateAttackInfo(attackData, attackInfo, i, j);
-                ProjectileFactory.CreateProjectile(attackInfo);
+                ProjectileFactory.CreateProjectile(attackInfo,13,"EnemyProjectile");
             }
             yield return new WaitForSeconds(attackData.ConsecutiveAttackDelay);
         }
@@ -57,6 +65,8 @@ public class AttackPattern : MonoBehaviour
         rotationRandomness = Random.Range(attackData.RandomRotationFactorMin, attackData.RandomRotationFactorMax);
 
         attackInfo.spawnPosition = transform.position;
+
+
         attackInfo.projectile = attackData.Projectile;
 
         if (attackData.AttackIsDirectionDependant)
@@ -75,7 +85,7 @@ public class AttackPattern : MonoBehaviour
         attackInfo.destroyDelay = attackData.ProjectileDestroyDelay;
         attackInfo.damage = attackData.Damage;
 
-        if (attackData.AttackType == AttackTypeEnum.perimetrical)
+        if (attackData.AttackType == AttackTypeEnum.perimetrical || attackData.AttackType == AttackTypeEnum.aimed)
         {
             attackInfo.rotation = attackData.ProjectileRotations[i] + rotationRandomness;
         }

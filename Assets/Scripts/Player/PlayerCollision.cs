@@ -21,19 +21,16 @@ public class PlayerCollision : MonoBehaviour
             if (other.tag == "EnemyProjectile")
             {
                 int damage = other.GetComponent<ProjectileDataInitializer>().Damage;
-                PlayerGotHit(damage);
+                playerStats.ApplyDamage(damage, DamageSource.projectile);
+                playerAudio.PlayGotHitSound();
             }
 
             if (other.tag == "Spikes")
             {
-                PlayerGotHit(playerStats.MaximumHealth);
+                playerStats.ApplyDamage(playerStats.MaximumHealth, DamageSource.traps);
+                playerAudio.PlayGotHitSound();
             }
         }
     }
 
-    private void PlayerGotHit(int damage)
-    {
-        playerStats.CurrentHealth -= damage;
-        playerAudio.PlayGotHitSound();
-    }
 }

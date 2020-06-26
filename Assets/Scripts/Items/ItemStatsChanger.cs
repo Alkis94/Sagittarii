@@ -19,6 +19,21 @@ public class ItemStatsChanger : MonoBehaviour
     private int ammo = 0;
     [SerializeField]
     private int gold = 0;
+    [SerializeField]
+    private int armor = 0;
+    [SerializeField]
+    private float luck = 0;
+    [SerializeField]
+    private float effectChance = 0;
+    [SerializeField]
+    private int lifesteal = 0;
+    [SerializeField]
+    private float lifestealChance = 0;
+    [SerializeField]
+    private int energysteal = 0;
+    [SerializeField]
+    private float energystealChance = 0;
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -27,13 +42,20 @@ public class ItemStatsChanger : MonoBehaviour
             PlayerStats playerStats = collision.GetComponent<PlayerStats>();
 
             playerStats.MaximumHealth += maxHealth;
-            playerStats.CurrentHealth += currentHealth;
+            playerStats.ApplyHeal(currentHealth);
             playerStats.MaximumEnergy += maxEnergy;
             playerStats.CurrentEnergy += currentEnergy;
             playerStats.Speed += speed;
             playerStats.Damage += damage;
             playerStats.Ammo += ammo;
             playerStats.Gold += gold;
+            playerStats.Luck += luck;
+            playerStats.Armor += armor;
+            playerStats.Lifesteal += lifesteal;
+            playerStats.LifestealChance += lifestealChance;
+            playerStats.Energysteal += energysteal;
+            playerStats.EnergystealChance += energystealChance;
+            playerStats.EffectChance += effectChance;
         }
     }
 

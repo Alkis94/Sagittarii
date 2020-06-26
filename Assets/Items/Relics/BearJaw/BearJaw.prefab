@@ -67,7 +67,6 @@ GameObject:
   - component: {fileID: 7378864008504176641}
   - component: {fileID: 5376952112647112786}
   - component: {fileID: 1658425444226327885}
-  - component: {fileID: 6273039365728452543}
   - component: {fileID: 2744608628499758935}
   m_Layer: 9
   m_Name: Relic
@@ -274,26 +273,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   despawnDelay: 120
---- !u!114 &6273039365728452543
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3848228553112147355}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74b567b7300cff54b8614c24a1072347, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentHealth: 0
-  maxHealth: 0
-  currentEnergy: 0
-  maxEnergy: 0
-  speed: 0
-  damage: 5
-  ammo: 0
-  gold: 0
 --- !u!114 &2744608628499758935
 MonoBehaviour:
   m_ObjectHideFlags: 0

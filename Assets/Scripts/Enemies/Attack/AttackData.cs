@@ -9,11 +9,6 @@ using Newtonsoft.Json.Converters;
 [CreateAssetMenu(fileName = "AttackData", menuName = "AttackData", order = 1)]
 public class AttackData : SerializedScriptableObject
 {
-    [SerializeField]
-    private string enemyName;
-    [SerializeField]
-    private int attackID;
-
     //Attack Type
     [OdinSerialize] public ProjectileMovementTypeEnum ProjectileMovementType { get; private set; } = ProjectileMovementTypeEnum.straight;
     [ShowIf("@ ProjectileMovementType == ProjectileMovementTypeEnum.function")]
@@ -102,7 +97,19 @@ public class AttackData : SerializedScriptableObject
     private void LoadFromJson()
     {
         AttackDataInfo attackDataInfo = new AttackDataInfo();
-        var fileContent = File.ReadAllText(Application.streamingAssetsPath + "/" + enemyName + "/" + enemyName + "AttackData" + attackID + ".json");
+
+        string fileContent;
+        string attackerName = name.Substring(0, name.Length - 11);
+        if(File.Exists(Application.streamingAssetsPath + "/" + attackerName + "/" + name + ".json"))
+        {
+            fileContent = File.ReadAllText(Application.streamingAssetsPath + "/" + attackerName + "/" + name + ".json");
+        }
+        else
+        {
+            attackerName = name.Substring(0, name.Length - 12);
+            fileContent = File.ReadAllText(Application.streamingAssetsPath + "/" + attackerName + "/" + name + ".json");
+        }
+        
         attackDataInfo = JsonConvert.DeserializeObject<AttackDataInfo>(fileContent);
 
         ProjectileMovementType = attackDataInfo.ProjectileMovementType;
@@ -122,16 +129,6 @@ public class AttackData : SerializedScriptableObject
 
         ProjectileRotations = attackDataInfo.ProjectileRotations;
         ProjectileSpawnPositionOffset = attackDataInfo.ProjectileSpawnPositionOffset;
-
-        //for(int i = 0; i < attackDataInfo.ProjectileRotations.Count; i++)
-        //{
-        //    ProjectileRotations.Add(attackDataInfo.ProjectileRotations[i]);
-        //}
-
-        //for (int i = 0; i < attackDataInfo.ProjectileSpawnPositionOffset.Count; i++)
-        //{
-        //    ProjectileSpawnPositionOffset.Add(attackDataInfo.ProjectileSpawnPositionOffset[i]);
-        //}
 
         RandomHorizontalFactorMin = attackDataInfo.RandomHorizontalFactorMin;
         RandomHorizontalFactorMax = attackDataInfo.RandomHorizontalFactorMax;
@@ -169,7 +166,6 @@ public struct AttackDataInfo
 
 
     //randomness
-    public bool Randomness;
     public float RandomHorizontalFactorMin;
     public float RandomHorizontalFactorMax;
     public float RandomVerticalFactorMin;

@@ -7,7 +7,7 @@ using System.IO;
 using Newtonsoft.Json;
 
 [ShowOdinSerializedPropertiesInInspector]
-public class EnemyStats : SerializedMonoBehaviour
+public class EnemyStats : SerializedMonoBehaviour , IDamageable
 {
     public static event Action<DamageSource> OnEnemyWasKilled = delegate { };
     public event Action EnemyHealthChanged = delegate { };
@@ -36,7 +36,7 @@ public class EnemyStats : SerializedMonoBehaviour
     [Title("Drops")]
     [OdinSerialize] public int MinGoldGiven { get; private set; } = 5;
     [OdinSerialize] public int MaxGoldGiven { get; private set; } = 15;
-    [OdinSerialize] public float GoldDropChance { get; private set; } = 0.1f;
+    [OdinSerialize] public float GoldDropChance { get; private set; } = 0.2f;
     [OdinSerialize] public List<string> Relics { get; private set; }
     [OdinSerialize] public List<float> RelicDropChance { get; private set; }
 
@@ -67,7 +67,7 @@ public class EnemyStats : SerializedMonoBehaviour
         }
     }
 
-    public void ApplyDamage(int damage,DamageType damageType, DamageSource damageSource)
+    public void ApplyDamage(int damage, DamageSource damageSource, DamageType damageType = DamageType.normal)
     {
         lastDamageType = damageType;
         lastDamageSource = damageSource;

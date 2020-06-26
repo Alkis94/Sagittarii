@@ -112,7 +112,7 @@ public class DoctorShop : MonoBehaviour
     {
         if (playerStats.Gold >= healCost)
         {
-            playerStats.CurrentHealth += healAmount;
+            playerStats.ApplyHeal(healAmount);
             playerStats.Gold -= healCost;
             healthMenu.SetActive(false);
         }

@@ -2,12 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class UniqueRelicEnabler : MonoBehaviour
+public class SpecialRelicEnabler : MonoBehaviour
 {
 
     private Dictionary<string, MonoBehaviour> uniqueRelicsDictionery;
 
-    // Use this for initialization
     void Start()
     {
         uniqueRelicsDictionery = new Dictionary<string, MonoBehaviour>();
@@ -16,7 +15,6 @@ public class UniqueRelicEnabler : MonoBehaviour
         {
             if(monoBehaviour != this)
             {
-                Debug.Log(monoBehaviour.GetType());
                 uniqueRelicsDictionery.Add(monoBehaviour.GetType().ToString(), monoBehaviour);
             }
         }

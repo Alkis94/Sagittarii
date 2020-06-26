@@ -1,9 +1,8 @@
 ﻿using System;
 using UnityEngine;
-using Sirenix.OdinInspector;
-using Sirenix.Serialization;
 
-public class PlayerStats : SerializedMonoBehaviour
+
+public class PlayerStats : MonoBehaviour, IDamageable
 {
     [SerializeField]
     private  int currentHealth = 58;
@@ -17,24 +16,25 @@ public class PlayerStats : SerializedMonoBehaviour
     private int ammo = 500;
     [SerializeField]
     private int gold = 20;
+    [SerializeField]
+    private int armor = 0;
+    [SerializeField]
+    private float luck = 0;
+    [SerializeField]
+    private float effectChance = 0;
+    [SerializeField]
+    private float speed = 8;
+    [SerializeField]
+    private int damage = 0;
+    [SerializeField]
+    private int lifesteal = 0;
+    [SerializeField]
+    private float lifestealChance = 0;
+    [SerializeField]
+    private int energysteal = 0;
+    [SerializeField]
+    private float energystealChance = 0;
 
-    [OdinSerialize]
-    public float Speed { get; set; } = 8f;
-    [OdinSerialize]
-    public  int Damage { get; set; } = 10;
-
-    public int LifeSteal { get; set; } = 0;
-    public float LifeStealChance { get; set; } = 0;
-
-    public int EnergySteal { get; set; } = 0;
-    public float EnergyStealChance { get; set; } = 0;
-
-
-
-    public static event Action<int,int> OnPlayerHealthChanged = delegate { };
-    public static event Action<int> OnPlayerGoldChanged = delegate { };
-    public static event Action<int> OnPlayerAmmoChanged = delegate { };
-    public static event Action<int, int> OnPlayerEnergyChanged = delegate { };
     public static event Action PlayerDied = delegate { };
 
     private void OnEnable()
@@ -55,28 +55,51 @@ public class PlayerStats : SerializedMonoBehaviour
         {
             float randomNumber = UnityEngine.Random.Range(0f, 1f);
 
-            if(randomNumber < LifeStealChance)
+            if(randomNumber < LifestealChance)
             {
-                CurrentHealth += LifeSteal;
+                CurrentHealth += Lifesteal;
             }
 
             randomNumber = UnityEngine.Random.Range(0f, 1f);
 
-            if (randomNumber < EnergyStealChance)
+            if (randomNumber < EnergystealChance)
             {
-                CurrentHealth += EnergySteal;
+                CurrentHealth += Energysteal;
             }
 
         }
     }
 
-
     private void Start()
     {
-        OnPlayerHealthChanged?.Invoke(currentHealth, maximumHealth);
-        OnPlayerGoldChanged?.Invoke(gold);
-        OnPlayerAmmoChanged?.Invoke(ammo);
-        OnPlayerEnergyChanged?.Invoke(currentEnergy, maximumEnergy);
+        UIManager.Instance.UpdateHealth(CurrentHealth, MaximumHealth);
+        UIManager.Instance.UpdateEnergy(CurrentEnergy, MaximumEnergy);
+        UIManager.Instance.UpdateGold(Gold);
+        UIManager.Instance.UpdateAmmo(Ammo);
+    }
+
+    public void ApplyDamage(int damage, DamageSource damageSource, DamageType damageType = DamageType.normal)
+    {
+        if(damageSource == DamageSource.projectile)
+        {
+            int damageToTake = damage - armor;
+            damageToTake = damageToTake > damage / 2 ? damageToTake : damage / 2;
+            CurrentHealth -= damageToTake;
+        }
+        else if (damageSource == DamageSource.traps)
+        {
+            CurrentHealth -= damage;
+        }
+        else 
+        {
+            CurrentHealth -= damage;
+        }
+        
+    }
+
+    public void ApplyHeal(int healAmount)
+    {
+        CurrentHealth += healAmount;
     }
 
     public  int CurrentHealth
@@ -86,7 +109,7 @@ public class PlayerStats : SerializedMonoBehaviour
             return currentHealth;
         }
 
-        set
+        private set
         {
             int newCurrentHealth = value;
 
@@ -100,9 +123,9 @@ public class PlayerStats : SerializedMonoBehaviour
                 currentHealth = MaximumHealth;
             }
 
-            OnPlayerHealthChanged?.Invoke(currentHealth,maximumHealth);
+            UIManager.Instance.UpdateHealth(CurrentHealth, MaximumHealth);
 
-            if(currentHealth <= 0)
+            if (currentHealth <= 0)
             {
                 PlayerDied?.Invoke();
             }
@@ -119,7 +142,7 @@ public class PlayerStats : SerializedMonoBehaviour
         set
         {
             maximumHealth = value;
-            OnPlayerHealthChanged?.Invoke(currentHealth, maximumHealth);
+            UIManager.Instance.UpdateHealth(CurrentHealth, MaximumHealth);
         }
     }
 
@@ -147,7 +170,7 @@ public class PlayerStats : SerializedMonoBehaviour
                 currentEnergy = MaximumEnergy;
             }
 
-            OnPlayerEnergyChanged?.Invoke(currentEnergy, maximumEnergy);
+            UIManager.Instance.UpdateEnergy(CurrentEnergy, MaximumEnergy);
         }
     }
 
@@ -161,9 +184,75 @@ public class PlayerStats : SerializedMonoBehaviour
         set
         {
             maximumEnergy = value;
-            OnPlayerEnergyChanged?.Invoke(currentEnergy, maximumEnergy);
+            UIManager.Instance.UpdateEnergy(CurrentEnergy, MaximumEnergy);
         }
     }
+
+    public int Damage
+    {
+        get
+        {
+            return damage;
+        }
+
+        set
+        {
+            damage = value > 0 ? value : 0;
+        }
+    }
+
+    public int Armor
+    {
+        get
+        {
+            return armor;
+        }
+
+        set
+        {
+            armor = value > 0 ? value : 0;
+        }
+    }
+    public float Speed
+    {
+        get
+        {
+            return speed;
+        }
+
+        set
+        {
+            speed = Mathf.Clamp(value, 4, 10);
+        }
+    }
+
+    public float Luck
+    {
+        get
+        {
+            return luck;
+        }
+
+        set
+        {
+            luck = Mathf.Clamp(value, -0.1f, 0.3f);
+        }
+    }
+
+    public float EffectChance
+    {
+        get
+        {
+            return effectChance;
+        }
+
+        set
+        {
+            effectChance = Mathf.Clamp(value, 0, 0.5f);
+        }
+    }
+
+    
 
     public int Ammo
     {
@@ -175,7 +264,7 @@ public class PlayerStats : SerializedMonoBehaviour
         set
         {
             ammo = value;
-            OnPlayerAmmoChanged?.Invoke(ammo);
+            UIManager.Instance.UpdateAmmo(Ammo);
         }
     }
 
@@ -189,7 +278,59 @@ public class PlayerStats : SerializedMonoBehaviour
         set
         {
             gold = value;
-            OnPlayerGoldChanged?.Invoke(gold);
+            UIManager.Instance.UpdateGold(Gold);
+        }
+    }
+
+    public int Lifesteal
+    {
+        get
+        {
+            return lifesteal;
+        }
+
+        set
+        {
+            lifesteal = value > 0 ? value : 0;
+        }
+    }
+
+    public float LifestealChance
+    {
+        get
+        {
+            return lifestealChance;
+        }
+
+        set
+        {
+            lifestealChance = value > 0 ? value : 0;
+        }
+    }
+
+    public int Energysteal
+    {
+        get
+        {
+            return energysteal;
+        }
+
+        set
+        {
+            energysteal = value > 0 ? value : 0;
+        }
+    }
+   
+    public float EnergystealChance
+    {
+        get
+        {
+            return energystealChance;
+        }
+
+        set
+        {
+            energystealChance = value > 0 ? value : 0;
         }
     }
 

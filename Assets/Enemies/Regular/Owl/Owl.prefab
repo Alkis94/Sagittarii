@@ -262,6 +262,15 @@ MonoBehaviour:
     - Name: Amputation
       Entry: 5
       Data: false
+    - Name: HasBlood
+      Entry: 5
+      Data: true
+    - Name: HasCriticalDeath
+      Entry: 5
+      Data: false
+    - Name: ShakeBeforeDeath
+      Entry: 5
+      Data: false
     - Name: ChangingDirections
       Entry: 5
       Data: false
@@ -276,13 +285,13 @@ MonoBehaviour:
       Data: 15
     - Name: GoldDropChance
       Entry: 4
-      Data: 0.1
-    - Name: Relic
+      Data: 0.2
+    - Name: Relics
       Entry: 6
       Data: 
     - Name: RelicDropChance
-      Entry: 4
-      Data: 0.01
+      Entry: 6
+      Data: 
     - Name: AttackData
       Entry: 7
       Data: 0|System.Collections.Generic.List`1[[AttackData, Assembly-CSharp]], mscorlib
@@ -340,10 +349,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4f62bf9e9524d544bad0e40d5e12c46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   deathCry: {fileID: 8300000, guid: ffc55d030196be04aa0435ae0c067446, type: 3}
-  hasBlood: 1
-  hasCriticalDeath: 0
-  shakeBeforeDeath: 0
   amputationPart: {fileID: 0}
 --- !u!114 &5441298073167055473
 MonoBehaviour:
@@ -386,9 +401,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2964bbbfeb949f346a27dfc029e23b14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyKey: 0
-  roomKey: 
-  mapType: 0
   deadEnemySprite: {fileID: 21300026, guid: 67ca74228843ce54e948670f5cbcf0e0, type: 3}
   criticalDeathEnemySprite: {fileID: 0}
 --- !u!114 &6257899514310587309

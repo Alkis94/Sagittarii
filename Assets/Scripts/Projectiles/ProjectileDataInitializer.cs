@@ -8,7 +8,7 @@ public class ProjectileDataInitializer : MonoBehaviour
     public int Damage { private set; get; }
     public FunctionMovementTypeEnum FunctionMovementType { get; private set; }
 
-    public void Initialize(Vector3 parentPosition,Vector3 spawnPositionOffset,float projectileSpeed,float projectileDestroyDelay,int damage,float projectileRotation, ProjectileMovementTypeEnum movementTypeEnum)
+    public void Initialize(Vector3 parentPosition, Vector3 spawnPositionOffset, float projectileSpeed, float projectileDestroyDelay, int damage, float projectileRotation, ProjectileMovementTypeEnum movementTypeEnum, int layer, string tag)
     {
         AddMovementComponent(movementTypeEnum);
         transform.position = parentPosition + spawnPositionOffset;
@@ -16,9 +16,11 @@ public class ProjectileDataInitializer : MonoBehaviour
         Speed = projectileSpeed;
         DestroyDelay = projectileDestroyDelay;
         Damage = damage;
+        gameObject.layer = layer;
+        gameObject.tag = tag;
     }
 
-    public void Initialize(Vector3 parentPosition, Vector3 spawnPositionOffset, float projectileSpeed, float projectileDestroyDelay, int damage, Quaternion projectileRotation, ProjectileMovementTypeEnum movementTypeEnum)
+    public void Initialize(Vector3 parentPosition, Vector3 spawnPositionOffset, float projectileSpeed, float projectileDestroyDelay, int damage, Quaternion projectileRotation, ProjectileMovementTypeEnum movementTypeEnum, int layer, string tag)
     {
         AddMovementComponent(movementTypeEnum);
         transform.position = parentPosition + spawnPositionOffset;
@@ -26,10 +28,11 @@ public class ProjectileDataInitializer : MonoBehaviour
         Speed = projectileSpeed;
         DestroyDelay = projectileDestroyDelay;
         Damage = damage;
-       
+        gameObject.layer = layer;
+        gameObject.tag = tag;
     }
 
-    public void Initialize(Vector3 parentPosition, Vector3 spawnPositionOffset, float projectileSpeed, float projectileDestroyDelay, int damage, float projectileRotation, ProjectileMovementTypeEnum movementTypeEnum, FunctionMovementTypeEnum functionMovementType)
+    public void Initialize(Vector3 parentPosition, Vector3 spawnPositionOffset, float projectileSpeed, float projectileDestroyDelay, int damage, float projectileRotation, ProjectileMovementTypeEnum movementTypeEnum, FunctionMovementTypeEnum functionMovementType, int layer, string tag)
     {
         AddMovementComponent(movementTypeEnum);
         transform.position = parentPosition + spawnPositionOffset;
@@ -38,6 +41,8 @@ public class ProjectileDataInitializer : MonoBehaviour
         DestroyDelay = projectileDestroyDelay;
         Damage = damage;
         FunctionMovementType = functionMovementType;
+        gameObject.layer = layer;
+        gameObject.tag = tag;
     }
 
     private void AddMovementComponent(ProjectileMovementTypeEnum movementTypeEnum)

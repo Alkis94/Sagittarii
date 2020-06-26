@@ -4,12 +4,11 @@ using Factories;
 using System.Collections;
 using Cinemachine;
 using Sirenix.OdinInspector;
-using Sirenix.Serialization;
+
 
 [ShowOdinSerializedPropertiesInInspector]
 public class EnemyDeath : SerializedMonoBehaviour
 {
-    public static event Action<Vector3, string> OnDeathDropPickup = delegate { };
     public static event Action<string, Vector3> OnDeathDropRelic = delegate { };
 
     private EnemyStats enemyStats;
@@ -66,7 +65,6 @@ public class EnemyDeath : SerializedMonoBehaviour
 
     public void ProcessDeath(DamageType lastDamageType)
     {
-        
         spriteRenderer.sortingLayerName = "DeadEnemies";
         gameObject.layer = 14;
         enemyGotShot.enabled = false;
@@ -156,28 +154,14 @@ public class EnemyDeath : SerializedMonoBehaviour
         rigidbody2d.velocity = Vector2.zero;
         transform.parent = null;
 
-        
         DropRelic();
-        DropPickup();
-        DropGold();
-    }
-
-    private void DropPickup()
-    {
-        float randomNumber;
-        randomNumber = UnityEngine.Random.Range(0f, 1f);
-        if (randomNumber < healthDropRate)
+        bool pickupDropped = false;
+        pickupDropped = PickUpFactory.Instance.DropPickup(transform.position, "HealthPickup", healthDropRate);
+        if(!pickupDropped)
         {
-            OnDeathDropPickup?.Invoke(transform.position, "HealthPickup");
-            return;
+            PickUpFactory.Instance.DropPickup(transform.position, "EnergyPickup", energyDropRate);
         }
-
-        randomNumber = UnityEngine.Random.Range(0f, 1f);
-        if (randomNumber < energyDropRate)
-        {
-            OnDeathDropPickup?.Invoke(transform.position, "EnergyPickup");
-            return;
-        }
+        PickUpFactory.Instance.DropGold(transform.position, enemyStats.GoldDropChance, enemyStats.MinGoldGiven, enemyStats.MaxGoldGiven);
     }
 
     private void DropRelic()
@@ -190,36 +174,6 @@ public class EnemyDeath : SerializedMonoBehaviour
             {
                 OnDeathDropRelic?.Invoke(enemyStats.Relics[i], transform.position);
                 return;
-            }
-        }
-    }
-
-    private void DropGold()
-    {
-        float randomNumber = UnityEngine.Random.Range(0f, 1f);
-        if (randomNumber < enemyStats.GoldDropChance)
-        {
-            int minGoldGiven = enemyStats.MinGoldGiven / CoinPickup.copperValue;
-            int maxGoldGiven = enemyStats.MaxGoldGiven / CoinPickup.copperValue;
-            int finalGoldGiven = UnityEngine.Random.Range(minGoldGiven, maxGoldGiven + 1) * CoinPickup.copperValue;
-
-            int GoldCoins = finalGoldGiven / CoinPickup.goldValue;
-            int SilverCoins = (finalGoldGiven - GoldCoins * CoinPickup.goldValue) / CoinPickup.silverValue;
-            int CooperCoins = (finalGoldGiven - (GoldCoins * CoinPickup.goldValue + SilverCoins * CoinPickup.silverValue)) / CoinPickup.copperValue;
-
-            for (int i = 0; i < GoldCoins; i++)
-            {
-                OnDeathDropPickup?.Invoke(transform.position, "Gold");
-            }
-
-            for (int i = 0; i < SilverCoins; i++)
-            {
-                OnDeathDropPickup?.Invoke(transform.position, "Silver");
-            }
-
-            for (int i = 0; i < CooperCoins; i++)
-            {
-                OnDeathDropPickup?.Invoke(transform.position, "Cooper");
             }
         }
     }

@@ -22,9 +22,6 @@ public class ProjectileImpact : MonoBehaviour
     [ShowIf("@ bulletSplits")]
     [SerializeField] private AttackData attackData;
 
-
-
-
     void Start()
     {
         destroyDelay = GetComponent<ProjectileDataInitializer>().DestroyDelay;

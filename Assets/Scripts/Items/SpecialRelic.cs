@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class UniqueRelic : MonoBehaviour
+public class SpecialRelic : MonoBehaviour
 {
     [SerializeField]
     private string relic = "";
@@ -10,7 +10,7 @@ public class UniqueRelic : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
-            collision.GetComponentInChildren<UniqueRelicEnabler>().EnableRelic(relic);
+            collision.GetComponentInChildren<SpecialRelicEnabler>().EnableRelic(relic);
         }
     }
 }

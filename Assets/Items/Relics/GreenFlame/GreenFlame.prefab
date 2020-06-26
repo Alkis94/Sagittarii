@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4000013385186368}
   - component: {fileID: 50000011342217976}
   m_Layer: 9
-  m_Name: BatFangs
+  m_Name: GreenFlame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -67,7 +67,7 @@ GameObject:
   - component: {fileID: 7378864008504176641}
   - component: {fileID: 5376952112647112786}
   - component: {fileID: 1658425444226327885}
-  - component: {fileID: 2352779721561867140}
+  - component: {fileID: 2553027350938701775}
   m_Layer: 9
   m_Name: Relic
   m_TagString: Untagged
@@ -127,7 +127,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 56e77fd9b1e2ccc4a8c7c0ca6ca471fc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b87365a863c048a4e8b81449e51e02fd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -273,7 +273,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   despawnDelay: 120
---- !u!114 &2352779721561867140
+--- !u!114 &2553027350938701775
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -282,24 +282,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 3848228553112147355}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74b567b7300cff54b8614c24a1072347, type: 3}
+  m_Script: {fileID: 11500000, guid: b52efdfb71b832145961b7b7d7e89c20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHealth: 0
-  maxHealth: 0
-  currentEnergy: 0
-  maxEnergy: 0
-  speed: 0
-  damage: 0
-  ammo: 0
-  gold: 0
-  armor: 0
-  luck: 0
-  effectChance: 0
-  lifesteal: 3
-  lifestealChance: 0.1
-  energysteal: 0
-  energystealChance: 0
+  changeMainAttack: 0
+  attackData: {fileID: 0}
+  changeSecondaryAttack: 1
+  secondaryAttackData: {fileID: 11400000, guid: bd7a7b68ce9cff143a1b4c74a6a3c97d,
+    type: 2}
+  relicName: GreenFlame
 --- !u!1 &3923862190139915852
 GameObject:
   m_ObjectHideFlags: 0

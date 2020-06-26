@@ -44,8 +44,9 @@ public class RelicFactory : MonoBehaviour
 
     public static Dictionary<string, bool> PlayerHasUniqueRelic = new Dictionary<string, bool>()
     {
-            {"Trident",false},
-            {"BatWings",false}
+          {"Trident",false},
+          {"BearJaw",false},
+          {"GreenFlame",false}
     };
 
 

@@ -6,9 +6,6 @@ public class BossHealth : MonoBehaviour
 
     private EnemyStats EnemyStats;
     private int previousHealth;
-
-    public static event Action<int> BossEngaged = delegate { };
-    public static event Action<int> BossDamaged = delegate { };
     
     private void OnEnable()
     {
@@ -25,13 +22,13 @@ public class BossHealth : MonoBehaviour
     void Start()
     {
         previousHealth = EnemyStats.Health;
-        BossEngaged?.Invoke(EnemyStats.Health);
+        UIManager.Instance.EnableBossHealth(EnemyStats.Health);
     }
 
     private void OnBossHealthChanged()
     {
         int damage = previousHealth - EnemyStats.Health;
-        BossDamaged?.Invoke(damage);
+        UIManager.Instance.UpdateBossHealth(damage);
         previousHealth = EnemyStats.Health;
     }
 }
