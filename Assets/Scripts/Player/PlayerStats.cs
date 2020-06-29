@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayerStats : MonoBehaviour, IDamageable
 {
     [SerializeField]
+    private CharacterClass characterClass;
+    [SerializeField]
     private  int currentHealth = 58;
     [SerializeField]
     private  int maximumHealth = 100;
@@ -25,6 +27,8 @@ public class PlayerStats : MonoBehaviour, IDamageable
     [SerializeField]
     private float speed = 8;
     [SerializeField]
+    private float projectileSpeed = 10;
+    [SerializeField]
     private int damage = 0;
     [SerializeField]
     private int lifesteal = 0;
@@ -34,6 +38,7 @@ public class PlayerStats : MonoBehaviour, IDamageable
     private int energysteal = 0;
     [SerializeField]
     private float energystealChance = 0;
+    
 
     public static event Action PlayerDied = delegate { };
 
@@ -100,6 +105,13 @@ public class PlayerStats : MonoBehaviour, IDamageable
     public void ApplyHeal(int healAmount)
     {
         CurrentHealth += healAmount;
+    }
+
+    public CharacterClass CharacterClass
+    {
+        get => characterClass;
+
+        set => characterClass = value;
     }
 
     public  int CurrentHealth
@@ -213,6 +225,7 @@ public class PlayerStats : MonoBehaviour, IDamageable
             armor = value > 0 ? value : 0;
         }
     }
+
     public float Speed
     {
         get
@@ -223,6 +236,19 @@ public class PlayerStats : MonoBehaviour, IDamageable
         set
         {
             speed = Mathf.Clamp(value, 4, 10);
+        }
+    }
+
+    public float ProjectileSpeed
+    {
+        get
+        {
+            return projectileSpeed;
+        }
+
+        set
+        {
+            projectileSpeed = Mathf.Clamp(value, 4, 20);
         }
     }
 

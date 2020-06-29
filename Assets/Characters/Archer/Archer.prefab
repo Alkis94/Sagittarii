@@ -361,7 +361,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackData: {fileID: 11400000, guid: 26485e6d1e576de4f9761c4622091334, type: 2}
-  projectile: {fileID: 1000011198274758, guid: 7286360133900744eb191a4b124d4e14, type: 3}
   projectileEmitter: {fileID: 3681053211839336020}
 --- !u!1 &3681053211839336020
 GameObject:
@@ -719,6 +718,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d4eb3fd47a2eeb41ac685f5d6504b86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterClass: 0
   currentHealth: 100
   maximumHealth: 100
   currentEnergy: 20
@@ -726,9 +726,10 @@ MonoBehaviour:
   ammo: 1000
   gold: 0
   armor: 0
-  luck: 0.3
+  luck: 0
   effectChance: 0
   speed: 8
+  projectileSpeed: 10
   damage: 10
   lifesteal: 0
   lifestealChance: 0

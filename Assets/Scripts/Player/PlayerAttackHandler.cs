@@ -13,8 +13,6 @@ public class PlayerAttackHandler : MonoBehaviour
     private PlayerAttackHolder playerSecondaryAttack;
 
     [SerializeField]
-    private GameObject projectile;
-    [SerializeField]
     private GameObject projectileEmitter;
  
     private Animator animator;
@@ -24,8 +22,8 @@ public class PlayerAttackHandler : MonoBehaviour
     
     private float attackHoldAnimationLength = 0.333f;
     private float attackHoldAnimationSpeed;
-    private float timePassedHoldingArrow = 0f;
-    private float arrowPower;
+    private float timePassedHoldingAttack = 0f;
+    private float projectilePower;
 
     public AttackData AttackData
     {
@@ -85,36 +83,42 @@ public class PlayerAttackHandler : MonoBehaviour
         {
             if ((Input.GetButtonDown("Fire1") || Input.GetButton("Fire1")) && animator.GetCurrentAnimatorStateInfo(0).IsName("IdleHands"))
             {
-                timePassedHoldingArrow = 0;
-                animator.SetTrigger("PlayerAttackHold");
+                projectilePower = 0;
+                timePassedHoldingAttack = 0;
+                animator.SetTrigger("AttackHold");
                 audioSource.Play();
             }
-            else if (Input.GetButton("Fire1") && animator.GetCurrentAnimatorStateInfo(0).IsName("PlayerAttackHold"))
+            else if (Input.GetButton("Fire1") && animator.GetCurrentAnimatorStateInfo(0).IsName("AttackHold"))
             {
-                timePassedHoldingArrow += Time.deltaTime;
+                timePassedHoldingAttack += Time.deltaTime;
                 attackHoldAnimationSpeed = animator.GetCurrentAnimatorStateInfo(0).speedMultiplier;
 
             }
-            else if (Input.GetButtonUp("Fire1") && animator.GetCurrentAnimatorStateInfo(0).IsName("PlayerAttackHold"))
+            else if (Input.GetButtonUp("Fire1") && animator.GetCurrentAnimatorStateInfo(0).IsName("AttackHold"))
             {
-                arrowPower = timePassedHoldingArrow * attackHoldAnimationSpeed / attackHoldAnimationLength;
-                arrowPower = arrowPower > 1 ? 1 : arrowPower;
-                if (arrowPower > 0.01)
+                projectilePower = timePassedHoldingAttack * attackHoldAnimationSpeed / attackHoldAnimationLength;
+                projectilePower = projectilePower > 1 ? 1 : projectilePower;
+                if (projectilePower > 0.3)
                 {
-                    animator.SetTrigger("PlayerAttackRelease");
-                    PlayerAttack(playerMainAttack);
-                    if(secondaryAttackData != null)
-                    {
-                        PlayerAttack(playerSecondaryAttack);
-                    }
-                    playerStats.Ammo -= 1;
+                    animator.SetTrigger("AttackRelease");
+                    
                 }
                 else
                 {
-                    animator.SetTrigger("PlayerAttackCanceled");
+                    animator.SetTrigger("AttackCanceled");
                 }
             }
         }
+    }
+
+    public void CallAttackFromAnimation()
+    {
+        PlayerAttack(playerMainAttack);
+        if (secondaryAttackData != null)
+        {
+            PlayerAttack(playerSecondaryAttack);
+        }
+        playerStats.Ammo -= 1;
     }
 
     public void PlayerAttack(PlayerAttackHolder playerAttackHolder)
@@ -166,13 +170,13 @@ public class PlayerAttackHandler : MonoBehaviour
         {
             attackInfo.spawnPositionOffset = new Vector3((playerAttackHolder.UniversalSpawnPositionOffset.x + playerAttackHolder.ProjectileSpawnPositionOffset[i].x + positionRandomness.x) * transform.right.x,
                                                           playerAttackHolder.UniversalSpawnPositionOffset.y + playerAttackHolder.ProjectileSpawnPositionOffset[i].y + positionRandomness.y, 0);
-            attackInfo.speed = playerAttackHolder.ProjectileSpeed * transform.right.x;
+            attackInfo.speed = playerStats.ProjectileSpeed * transform.right.x * projectilePower;
         }
         else
         {
             attackInfo.spawnPositionOffset = new Vector3((playerAttackHolder.UniversalSpawnPositionOffset.x + playerAttackHolder.ProjectileSpawnPositionOffset[i].x + positionRandomness.x),
                                                           playerAttackHolder.UniversalSpawnPositionOffset.y + playerAttackHolder.ProjectileSpawnPositionOffset[i].y + positionRandomness.y, 0);
-            attackInfo.speed = playerAttackHolder.ProjectileSpeed;
+            attackInfo.speed = playerStats.ProjectileSpeed * projectilePower;
         }
 
         attackInfo.destroyDelay = playerAttackHolder.ProjectileDestroyDelay;
@@ -206,6 +210,7 @@ public class PlayerAttackHandler : MonoBehaviour
         playerAttackHolder.FunctionMovementType = attackData.FunctionMovementType;
         playerAttackHolder.AttackType = attackData.AttackType;
         playerAttackHolder.ConsecutiveAttacks = attackData.ConsecutiveAttacks;
+        playerAttackHolder.ConsecutiveAttackDelay = attackData.ConsecutiveAttackDelay;
         playerAttackHolder.ProjectileRotations = attackData.ProjectileRotations.Union(attackData.ProjectileRotations).ToList();
         playerAttackHolder.ProjectileAmount = attackData.ProjectileRotations.Count;
         playerAttackHolder.UniversalSpawnPositionOffset = Vector3.zero;

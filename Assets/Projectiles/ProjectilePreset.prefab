@@ -14,11 +14,9 @@ GameObject:
   - component: {fileID: 95019345211589736}
   - component: {fileID: 2279813215593487114}
   - component: {fileID: 114515642773749994}
-  - component: {fileID: 1347826763514464308}
-  - component: {fileID: 4464454744644392146}
   - component: {fileID: 114920016889057218}
   m_Layer: 13
-  m_Name: GreenStraightProjectile
+  m_Name: ProjectilePreset
   m_TagString: EnemyProjectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -164,31 +162,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f1211ab3f74e3345a3e27d51008ca56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1347826763514464308
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1000012292187914}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b74cbf2379a11764d8d880256490fe5e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &4464454744644392146
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1000012292187914}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a47a34547fd613f449a00da978b0c8a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  impactDestroyDelay: 0.25
 --- !u!114 &114920016889057218
 MonoBehaviour:
   m_ObjectHideFlags: 0
