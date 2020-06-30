@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using Cinemachine;
 
@@ -6,16 +7,19 @@ public class CharacterChooser : MonoBehaviour
 {
 
     [SerializeField]
-    private static CharacterClass characterClass = CharacterClass.thief;
+    private CharacterClass characterClass = CharacterClass.thief;
 
-    public static CharacterClass CharacterClassChosen
+    public CharacterClass CharacterClassChosen
     {
         get => characterClass;
-        set => characterClass = value;
+        set
+        {
+            characterClass = value;
+            ChooseChild();
+        }
     }
 
-    // Use this for initialization
-    void Start()
+    private void ChooseChild()
     {
         List<int> childrenToDestroy = new List<int>();
         Transform chosenChild = transform.GetChild(0);
@@ -37,9 +41,5 @@ public class CharacterChooser : MonoBehaviour
         {
             Destroy(transform.GetChild(childrenToDestroy[0]).gameObject);
         }
-
-        
-        FindObjectOfType<CinemachineVirtualCamera>().Follow = chosenChild;
     }
-
 }

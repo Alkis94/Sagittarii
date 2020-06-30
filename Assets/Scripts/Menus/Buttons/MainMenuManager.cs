@@ -1,6 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MainMenuManager : MonoBehaviour
@@ -11,9 +9,10 @@ public class MainMenuManager : MonoBehaviour
     private GameObject howToPlayMenu;
     [SerializeField]
     private GameObject optionsMenu;
-
     [SerializeField]
     private Transform mainButtons;
+    [SerializeField]
+    private GameObject savesMenu;
 
     private void Start()
     {
@@ -22,8 +21,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void OnPlayPress()
     {
-        SceneManager.LoadScene("Town");
-        GameState.UnpauseGame();
+        savesMenu.SetActive(!savesMenu.activeInHierarchy);
     }
 
     public void OnHowToPlayPress()

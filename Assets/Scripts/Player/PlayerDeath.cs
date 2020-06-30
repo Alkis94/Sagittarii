@@ -4,7 +4,6 @@ using Factories;
 
 public class PlayerDeath : MonoBehaviour
 {
-
     private PlayerAudio playerAudio;
     private Animator animator;
     private PlayerStats playerStats;
@@ -14,22 +13,17 @@ public class PlayerDeath : MonoBehaviour
         PlayerStats.PlayerDied += Die;
     }
 
-
     void OnDisable()
     {
         PlayerStats.PlayerDied -= Die;
     }
 
-
-    // Use this for initialization
     private void Start()
     {
         playerAudio = GetComponent<PlayerAudio>();
         animator = GetComponent<Animator>();
         playerStats = GetComponent<PlayerStats>();
     }
-
-    
 
     private void Die()
     {
@@ -42,6 +36,11 @@ public class PlayerDeath : MonoBehaviour
         Invoke("PlayerDiedDelayedMenu", 3);
         gameObject.layer = 14;
         enabled = false;
+
+        if (ES3.FileExists("Saves/Profile" + SaveProfile.SaveID))
+        {
+            ES3.DeleteFile("Saves/Profile" + SaveProfile.SaveID);
+        }
     }
 
     private void PlayerDiedDelayedMenu()

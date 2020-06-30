@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 
@@ -50,6 +51,14 @@ public class UIManager : MonoBehaviour
     private void Start ()
     {
         AudioListener.pause = false;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "Town")
+        {
+            gameObject.SetActive(true);
+        }
     }
 
     public void UpdateHealth(int health, int maxHealth)

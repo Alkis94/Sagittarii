@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class OnSceneLoadChangePlayer : MonoBehaviour
+public class PlayerSceneChangeManager : MonoBehaviour
 {
     private GameObject hands;
     private Animator animator;
@@ -11,21 +11,20 @@ public class OnSceneLoadChangePlayer : MonoBehaviour
     [SerializeField]
     private RuntimeAnimatorController bodyController;
 
-    private float currentPlayerSpeed;
     private Direction lastDoorTakenPlacement;
-    [SerializeField]
-    private float playerTownSpeed = 6f;
+
 
     private void OnEnable()
     {
         playerStats = GetComponent<PlayerStats>();
-        currentPlayerSpeed = playerStats.Speed;
         hands = transform.GetChild(0).gameObject;
         animator = GetComponent<Animator>();
         SceneManager.sceneLoaded += OnSceneLoaded;
         RoomChanger.OnRoomChangerEntered += NextPlayerSpawnPointDirection;
         MapChanger.OnMapChangerEnteredPlayerDirection += NextPlayerSpawnPointDirection;
         BossDoor.DoorEntered += NextPlayerSpawnPointDirection;
+        NextPlayerSpawnPointDirection();
+        transform.position = NextPlayerSpawnPointPosition();
     }
 
     private void OnDisable()
@@ -43,16 +42,13 @@ public class OnSceneLoadChangePlayer : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if(scene.name == "Town")
+        if (scene.name == "Town")
         {
-            currentPlayerSpeed = playerStats.Speed;
-            playerStats.Speed = playerTownSpeed;
             hands.SetActive(false);
             animator.runtimeAnimatorController = townController;
         }
         else
         { 
-            playerStats.Speed = currentPlayerSpeed;
             animator.runtimeAnimatorController = bodyController;
             hands.SetActive(true);
         }
@@ -60,7 +56,7 @@ public class OnSceneLoadChangePlayer : MonoBehaviour
         transform.position = NextPlayerSpawnPointPosition();
     }
 
-    private void NextPlayerSpawnPointDirection(string levelToLoad)
+    private void NextPlayerSpawnPointDirection(string levelToLoad = null)
     {
         this.lastDoorTakenPlacement = Direction.middle;
     }
@@ -69,8 +65,6 @@ public class OnSceneLoadChangePlayer : MonoBehaviour
     {
         this.lastDoorTakenPlacement = lastDoorTakenPlacement;
     }
-
-
 
     private Vector3 NextPlayerSpawnPointPosition()
     {
@@ -106,50 +100,5 @@ public class OnSceneLoadChangePlayer : MonoBehaviour
 
         return transform.position;
     }
-
-    private void SavePlayer()
-    {
-        ES3.Save<int>("CurrentHealth", playerStats.CurrentHealth,"Profile" + SaveProfileHandler.SaveID + "/Player");
-        ES3.Save<int>("MaximumHealth", playerStats.MaximumHealth, "Profile" + SaveProfileHandler.SaveID + "/Player");
-        ES3.Save<int>("CurrentEnergy", playerStats.CurrentEnergy, "Profile" + SaveProfileHandler.SaveID + "/Player");
-        ES3.Save<int>("MaximumEnergy", playerStats.MaximumEnergy, "Profile" + SaveProfileHandler.SaveID + "/Player");
-        ES3.Save<int>("Gold", playerStats.Gold, "Profile" + SaveProfileHandler.SaveID + "/Player");
-        ES3.Save<int>("Ammo", playerStats.Ammo, "Profile" + SaveProfileHandler.SaveID + "/Player");
-    }
-
-    //private Vector3 ReturnAnySpawnPointPosition()
-    //{
-    //    GameObject tmp = GameObject.FindGameObjectWithTag("PlayerSpawnWest");
-    //    if(tmp != null)
-    //    {
-    //        return tmp.transform.position;
-    //    }
-
-    //    tmp = GameObject.FindGameObjectWithTag("PlayerSpawnEast");
-    //    if (tmp != null)
-    //    {
-    //        return tmp.transform.position;
-    //    }
-
-    //    tmp = GameObject.FindGameObjectWithTag("PlayerSpawnNorth");
-    //    if (tmp != null)
-    //    {
-    //        return tmp.transform.position;
-    //    }
-
-    //    tmp = GameObject.FindGameObjectWithTag("PlayerSpawnSouth");
-    //    if (tmp != null)
-    //    {
-    //        return tmp.transform.position;
-    //    }
-
-    //    tmp = GameObject.FindGameObjectWithTag("PlayerSpawn");
-    //    if (tmp != null)
-    //    {
-    //        return tmp.transform.position;
-    //    }
-
-    //    return transform.position;
-    //}
 
 }

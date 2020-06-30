@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Cinemachine;
 
-public class GetCameraConfiner : MonoBehaviour
+public class CameraController : MonoBehaviour
 {
     private PolygonCollider2D cameraConfiner;
     private CinemachineConfiner cinemachineConfiner;
@@ -14,14 +14,11 @@ public class GetCameraConfiner : MonoBehaviour
         cinemachineConfiner = GetComponent<CinemachineConfiner>();
     }
 
-    private void Start()
-    {
-        
-    }
-
     void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
+        GetConfiner();
+        GetComponent<CinemachineVirtualCamera>().Follow = FindObjectOfType<CharacterChooser>().transform.GetChild(0);
     }
 
     void OnDisable()
@@ -31,8 +28,13 @@ public class GetCameraConfiner : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        GetConfiner();
+    }
+
+    private void GetConfiner()
+    {
         GameObject tempConfiner = GameObject.FindGameObjectWithTag("CameraConfiner");
-        if(tempConfiner != null)
+        if (tempConfiner != null)
         {
             cameraConfiner = tempConfiner.GetComponent<PolygonCollider2D>();
             cinemachineConfiner.m_BoundingShape2D = cameraConfiner;

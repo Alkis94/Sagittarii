@@ -1,9 +1,12 @@
 ﻿using System;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 
 public class PlayerStats : MonoBehaviour, IDamageable
 {
+
+    public static event Action PlayerDied = delegate { };
+
     [SerializeField]
     private CharacterClass characterClass;
     [SerializeField]
@@ -39,19 +42,28 @@ public class PlayerStats : MonoBehaviour, IDamageable
     [SerializeField]
     private float energystealChance = 0;
     
-
-    public static event Action PlayerDied = delegate { };
-
     private void OnEnable()
     {
         EnemiesSerializer.OnRoomHasAliveEnemies += EnteredRoomWithEnemies;
         EnemyStats.OnEnemyWasKilled += EnemyWasKilled;
+        SceneManager.sceneLoaded += OnSceneLoaded;
+
+        if (ES3.FileExists("Saves/Profile" + SaveProfile.SaveID))
+        {
+            LoadPlayer();
+        }
+        else
+        {
+            ES3.Save<int>("Class", (int)characterClass, "Saves/Profile" + SaveProfile.SaveID);
+            SavePlayer();
+        }
     }
 
     private void OnDisable()
     {
         EnemiesSerializer.OnRoomHasAliveEnemies -= EnteredRoomWithEnemies;
         EnemyStats.OnEnemyWasKilled -= EnemyWasKilled;
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
     private void EnemyWasKilled (DamageSource damageSource)
@@ -368,6 +380,32 @@ public class PlayerStats : MonoBehaviour, IDamageable
         {
             CurrentHealth -= (int)(MaximumHealth * 0.05f);
         }
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        SavePlayer();
+    }
+
+
+    private void SavePlayer()
+    {
+        ES3.Save<int>("CurrentHealth", CurrentHealth, "Saves/Profile" + SaveProfile.SaveID);
+        ES3.Save<int>("MaximumHealth", MaximumHealth, "Saves/Profile" + SaveProfile.SaveID);
+        ES3.Save<int>("CurrentEnergy", CurrentEnergy, "Saves/Profile" + SaveProfile.SaveID);
+        ES3.Save<int>("MaximumEnergy", MaximumEnergy, "Saves/Profile" + SaveProfile.SaveID);
+        ES3.Save<int>("Gold", Gold, "Saves/Profile" + SaveProfile.SaveID);
+        ES3.Save<int>("Ammo", Ammo, "Saves/Profile" + SaveProfile.SaveID);
+    }
+
+    public void LoadPlayer()
+    {
+        CurrentHealth = ES3.Load<int>("CurrentHealth", "Saves/Profile" + SaveProfile.SaveID);
+        MaximumHealth = ES3.Load<int>("MaximumHealth", "Saves/Profile" + SaveProfile.SaveID);
+        CurrentEnergy = ES3.Load<int>("CurrentEnergy", "Saves/Profile" + SaveProfile.SaveID);
+        MaximumEnergy = ES3.Load<int>("MaximumEnergy", "Saves/Profile" + SaveProfile.SaveID);
+        Gold = ES3.Load<int>("Gold", "Saves/Profile" + SaveProfile.SaveID);
+        Ammo = ES3.Load<int>("Ammo", "Saves/Profile" + SaveProfile.SaveID);
     }
 
 }

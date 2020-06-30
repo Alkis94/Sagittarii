@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 
 public class PickUpFactory : MonoBehaviour
@@ -22,13 +23,27 @@ public class PickUpFactory : MonoBehaviour
             Instance = this;
         }
     }
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "Town")
+        {
+            playerStats = FindObjectOfType<PlayerStats>();
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+        }
+    }
+
 
     private void Start()
     {
         playerStats = FindObjectOfType<PlayerStats>();
         pickupsDictionery = new Dictionary<string, GameObject>();
 
-        for (int i=0; i < pickupsList.Count; i++)
+        for (int i = 0; i < pickupsList.Count; i++)
         {
             pickupsDictionery.Add(pickupsList[i].name, pickupsList[i]);
         }

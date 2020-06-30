@@ -10,16 +10,9 @@ public class SaveProfileHandler : MonoBehaviour
     [SerializeField]
     private GameObject profile3;
 
-    public static int SaveID { get; private set; }
+    
 
-    // Use this for initialization
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
+    public void OnStartPress(int index)
     {
 
     }
