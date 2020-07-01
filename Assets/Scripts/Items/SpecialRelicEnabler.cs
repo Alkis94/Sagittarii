@@ -5,25 +5,38 @@ using System.Collections.Generic;
 public class SpecialRelicEnabler : MonoBehaviour
 {
 
-    private Dictionary<string, MonoBehaviour> uniqueRelicsDictionery;
+    private Dictionary<string, MonoBehaviour> specialRelicDictionery;
 
-    void Start()
+    private void OnEnable()
     {
-        uniqueRelicsDictionery = new Dictionary<string, MonoBehaviour>();
+        specialRelicDictionery = new Dictionary<string, MonoBehaviour>();
 
         foreach(var monoBehaviour in GetComponents<MonoBehaviour>())
         {
             if(monoBehaviour != this)
             {
-                uniqueRelicsDictionery.Add(monoBehaviour.GetType().ToString(), monoBehaviour);
+                specialRelicDictionery.Add(monoBehaviour.GetType().ToString(), monoBehaviour);
             }
+        }
+
+        if (ES3.FileExists("Saves/Profile" + SaveProfile.SaveID + "/SpecialItems"))
+        {
+            foreach (var relic in specialRelicDictionery)
+            {
+                if (ES3.KeyExists("Special" +relic.Key, "Saves/Profile" + SaveProfile.SaveID + "/SpecialItems"))
+                {
+                    specialRelicDictionery[relic.Key].enabled = true;
+                }
+            }
+
         }
 
     }
 
     public void EnableRelic(string relic)
     {
-        uniqueRelicsDictionery[relic].enabled = true;
+        specialRelicDictionery[relic].enabled = true;
+        ES3.Save<bool>("Special" + relic, true, "Saves/Profile" + SaveProfile.SaveID + "/SpecialItems");
     }
 
  

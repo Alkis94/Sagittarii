@@ -25,6 +25,18 @@ public class RelicFactory : MonoBehaviour
     private void OnEnable()
     {
         EnemyDeath.OnDeathDropRelic += CreateItem;
+
+        if(ES3.FileExists("Saves/Profile" + SaveProfile.SaveID + "/UniqueItems"))
+        {
+            foreach(var relic in PlayerHasUniqueRelic)
+            {
+                if (ES3.KeyExists(relic.Key, "Saves/Profile" + SaveProfile.SaveID + "/UniqueItems"))
+                {
+                    PlayerHasUniqueRelic[relic.Key] = true;
+                }
+            }
+            
+        }
     }
 
     private void OnDisable()
@@ -42,12 +54,23 @@ public class RelicFactory : MonoBehaviour
         }
     }
 
-    public static Dictionary<string, bool> PlayerHasUniqueRelic = new Dictionary<string, bool>()
+    private static Dictionary<string, bool> PlayerHasUniqueRelic = new Dictionary<string, bool>()
     {
           {"Trident",false},
           {"BearJaw",false},
           {"GreenFlame",false}
     };
+
+    public static void PlayerGotUniqueRelic (string relicName)
+    {
+        PlayerHasUniqueRelic[relicName] = true;
+        ES3.Save<bool>(relicName, true, "Saves/Profile" + SaveProfile.SaveID + "/UniqueItems");
+    }
+
+    public static bool CheckUniqueRelicPossession (string relicName)
+    {
+        return PlayerHasUniqueRelic[relicName];
+    }
 
 
     private void CreateItem(string relic, Vector3 deadEnemyPosition)

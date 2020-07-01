@@ -20,12 +20,14 @@ public class EnemyGroupChooser : MonoBehaviour
     }
 
     // Use this for initialization
-    void ChooseGroup()
+    private void ChooseGroup()
     {
         if(roomType == RoomType.bossRoom)
         {
-            if(ES3.FileExists("Bosses/" + mapType))
+            Debug.Log("Boss room!");
+            if(ES3.FileExists("Saves/Profile" + SaveProfile.SaveID + "/Bosses/" + mapType))
             {
+                Debug.Log("File exists");
                 GameObject child = transform.GetChild(0).gameObject;
                 EnemiesSerializer childSerializer = child.GetComponent<EnemiesSerializer>();
                 childSerializer.MapType = mapType;

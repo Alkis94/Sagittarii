@@ -15,6 +15,8 @@ public class ItemAttackChanger : MonoBehaviour
     private AttackData secondaryAttackData;
     [SerializeField]
     private string relicName;
+    [SerializeField]
+    private bool isUnique = false;
     
     
 
@@ -34,7 +36,11 @@ public class ItemAttackChanger : MonoBehaviour
                 collision.GetComponentInChildren<PlayerAttackHandler>().SecondaryAttackData = secondaryAttackData;
             }
             
-            RelicFactory.PlayerHasUniqueRelic[relicName] = true;
+            if(isUnique)
+            {
+                RelicFactory.PlayerGotUniqueRelic(relicName);
+            }
+            
         }
     }
 }

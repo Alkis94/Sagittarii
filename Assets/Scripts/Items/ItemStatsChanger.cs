@@ -24,8 +24,6 @@ public class ItemStatsChanger : MonoBehaviour
     [SerializeField]
     private float luck = 0;
     [SerializeField]
-    private float effectChance = 0;
-    [SerializeField]
     private int lifesteal = 0;
     [SerializeField]
     private float lifestealChance = 0;
@@ -55,7 +53,6 @@ public class ItemStatsChanger : MonoBehaviour
             playerStats.LifestealChance += lifestealChance;
             playerStats.Energysteal += energysteal;
             playerStats.EnergystealChance += energystealChance;
-            playerStats.EffectChance += effectChance;
         }
     }
 

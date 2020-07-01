@@ -27,12 +27,12 @@ public class SaveProfile : MonoBehaviour
     // Use this for initialization
     private void Start()
     {
-        if(ES3.FileExists("Saves/Profile"+profileID))
+        if(ES3.FileExists("Saves/Profile" + profileID + "/PlayerStats"))
         {
             isNew = false;
             newGameText.SetActive(false);
             characterImage.SetActive(true);
-            hero = ES3.Load<int>("Class", "Saves/Profile" + profileID);
+            hero = ES3.Load<int>("Class", "Saves/Profile" + profileID + "/PlayerStats");
             Image heroImage = characterImage.GetComponent<Image>();
             heroImage.sprite = heroSprites[hero];
             heroImage.GetComponent<Image>().SetNativeSize();
@@ -57,14 +57,14 @@ public class SaveProfile : MonoBehaviour
 
     public void OnDeletePress()
     {
-        if (ES3.FileExists("Saves/Profile" + profileID))
+        if (ES3.DirectoryExists("Saves/Profile" + profileID))
         {
             Image heroImage = characterImage.GetComponent<Image>();
             heroImage.sprite = null;
             characterImage.SetActive(false);
             newGameText.SetActive(true);
             isNew = true;
-            ES3.DeleteFile("Saves/Profile" + profileID);
+            ES3.DeleteDirectory("Saves/Profile" + profileID);
         }
     }
 

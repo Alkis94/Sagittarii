@@ -281,6 +281,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackData: {fileID: 11400000, guid: 36db9f6d80784044fbfa1b96a4b2561a, type: 2}
+  projectileMovementTypeMain: 0
+  functionMovementTypeMain: 0
+  attackTypeMain: 2
+  mainProjectile: {fileID: 1000012292187914, guid: a23869597a2c5f44a8659171000b70ee,
+    type: 3}
   projectileEmitter: {fileID: 3681053211839336020}
 --- !u!1 &3681053211839336020
 GameObject:
@@ -712,7 +717,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   townController: {fileID: 9100000, guid: ddf77de649b5fcd428b816490cf9d9c3, type: 2}
   bodyController: {fileID: 9100000, guid: e39bf99f4ad068e4c9832690fd3dc3b2, type: 2}
-  playerTownSpeed: 8
 --- !u!114 &5399449951423691859
 MonoBehaviour:
   m_ObjectHideFlags: 0

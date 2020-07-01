@@ -6,7 +6,7 @@ public class ForestMapCreator : MapCreator
 {
 
     private static ForestMapCreator instance = null;
-    private const int Forest_Length = 20;
+    private const int Forest_Length = 3;
 
 
     private void Awake()

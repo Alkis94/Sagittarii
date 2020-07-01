@@ -366,6 +366,7 @@ public class MapManager : SerializedMonoBehaviour
         }
 
         string roomKey = currentMapCoords.x.ToString() + currentMapCoords.y.ToString();
+        Debug.Log((RoomType)mapLayout[currentMapCoords.x, currentMapCoords.y]);
         OnRoomLoaded?.Invoke(currentMap, roomKey,(RoomType)mapLayout[currentMapCoords.x,currentMapCoords.y]);
     }
 }

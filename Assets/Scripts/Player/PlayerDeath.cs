@@ -37,9 +37,9 @@ public class PlayerDeath : MonoBehaviour
         gameObject.layer = 14;
         enabled = false;
 
-        if (ES3.FileExists("Saves/Profile" + SaveProfile.SaveID))
+        if (ES3.DirectoryExists("Saves/Profile" + SaveProfile.SaveID))
         {
-            ES3.DeleteFile("Saves/Profile" + SaveProfile.SaveID);
+            ES3.DeleteDirectory("Saves/Profile" + SaveProfile.SaveID);
         }
     }
 
