@@ -7,7 +7,6 @@ public class BossEnemyLoader : EnemyLoader
 
     public override void Load()
     {
-        
         Vector3 originalPosition = transform.position;
         dead = ES3.Load<bool>("Dead" + EnemyKey, "Saves/Profile" + SaveProfile.SaveID + "/Bosses/" + MapType);
         criticalDeath = ES3.Load<bool>("CriticalDeath" + EnemyKey, "Saves/Profile" + SaveProfile.SaveID + "/Bosses/" + MapType);
@@ -15,7 +14,6 @@ public class BossEnemyLoader : EnemyLoader
         transform.rotation = ES3.Load<Quaternion>("Rotation" + EnemyKey, "Saves/Profile" + SaveProfile.SaveID + "/Bosses/" + MapType);
         GetComponent<EnemyBrain>().LoadEnemyBrain(originalPosition, dead);
         GetComponent<BossHealth>().enabled = false;
-        Debug.Log("Boss dead loaded = " + dead);
     }
 
     public override void ChangeEnemyStatusToDead(bool criticalDeath)

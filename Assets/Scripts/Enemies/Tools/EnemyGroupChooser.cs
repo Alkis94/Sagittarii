@@ -24,10 +24,8 @@ public class EnemyGroupChooser : MonoBehaviour
     {
         if(roomType == RoomType.bossRoom)
         {
-            Debug.Log("Boss room!");
             if(ES3.FileExists("Saves/Profile" + SaveProfile.SaveID + "/Bosses/" + mapType))
             {
-                Debug.Log("File exists");
                 GameObject child = transform.GetChild(0).gameObject;
                 EnemiesSerializer childSerializer = child.GetComponent<EnemiesSerializer>();
                 childSerializer.MapType = mapType;
@@ -81,6 +79,7 @@ public class EnemyGroupChooser : MonoBehaviour
 
     private void OnDestroy()
     {
+        MapManager.OnRoomLoaded -= GetInfoAndChoose;
         ES3.Save<int>("ChosenGroup", chosenChild, "Levels/" + mapType + "/Room" + roomKey);
     }
 }

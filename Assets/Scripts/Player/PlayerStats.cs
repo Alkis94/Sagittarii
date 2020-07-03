@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class PlayerStats : MonoBehaviour, IDamageable
 {
 
-    public static event Action PlayerDied = delegate { };
+    public static event Action OnPlayerDied = delegate { };
 
     [SerializeField]
     private CharacterClass characterClass;
@@ -43,25 +43,13 @@ public class PlayerStats : MonoBehaviour, IDamageable
     private void OnEnable()
     {
         EnemiesSerializer.OnRoomHasAliveEnemies += EnteredRoomWithEnemies;
-        EnemyStats.OnEnemyWasKilled += EnemyWasKilled;
-        SceneManager.sceneLoaded += OnSceneLoaded;
-
-        if (ES3.FileExists("Saves/Profile" + SaveProfile.SaveID + "/PlayerStats"))
-        {
-            LoadPlayer();
-        }
-        else
-        {
-            ES3.Save<int>("Class", (int)characterClass, "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-            SavePlayer();
-        }
+        EnemyStats.OnEnemyWasKilled += EnemyWasKilled;      
     }
 
     private void OnDisable()
     {
         EnemiesSerializer.OnRoomHasAliveEnemies -= EnteredRoomWithEnemies;
         EnemyStats.OnEnemyWasKilled -= EnemyWasKilled;
-        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
     private void EnemyWasKilled (DamageSource damageSource)
@@ -131,7 +119,7 @@ public class PlayerStats : MonoBehaviour, IDamageable
             return currentHealth;
         }
 
-        private set
+        set
         {
             int newCurrentHealth = value;
 
@@ -149,7 +137,7 @@ public class PlayerStats : MonoBehaviour, IDamageable
 
             if (currentHealth <= 0)
             {
-                PlayerDied?.Invoke();
+                OnPlayerDied?.Invoke();
             }
         }
     }
@@ -363,50 +351,6 @@ public class PlayerStats : MonoBehaviour, IDamageable
         {
             CurrentHealth -= (int)(MaximumHealth * 0.05f);
         }
-    }
-
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        SavePlayer();
-    }
-
-
-    private void SavePlayer()
-    {
-        ES3.Save<int>("CurrentHealth", CurrentHealth, "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-        ES3.Save<int>("MaximumHealth", MaximumHealth, "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-        ES3.Save<int>("CurrentEnergy", CurrentEnergy, "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-        ES3.Save<int>("MaximumEnergy", MaximumEnergy, "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-        ES3.Save<int>("Gold", Gold, "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-        ES3.Save<int>("Ammo", Ammo, "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-        ES3.Save<int>("Damage", Damage, "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-        ES3.Save<int>("Armor", Armor, "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-        ES3.Save<float>("Speed", Speed, "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-        ES3.Save<float>("ProjectileSpeed", ProjectileSpeed, "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-        ES3.Save<float>("Luck", Luck, "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-        ES3.Save<int>("Lifesteal", Lifesteal, "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-        ES3.Save<float>("LifestealChance", LifestealChance, "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-        ES3.Save<int>("Energysteal", Energysteal, "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-        ES3.Save<float>("EnergystealChance", EnergystealChance, "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-    }
-
-    public void LoadPlayer()
-    {
-        CurrentHealth = ES3.Load<int>("CurrentHealth", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-        MaximumHealth = ES3.Load<int>("MaximumHealth", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-        CurrentEnergy = ES3.Load<int>("CurrentEnergy", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-        MaximumEnergy = ES3.Load<int>("MaximumEnergy", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-        Gold = ES3.Load<int>("Gold", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-        Ammo = ES3.Load<int>("Ammo", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-        Damage = ES3.Load<int>("Damage", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-        Armor = ES3.Load<int>("Armor",  "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-        Speed = ES3.Load<float>("Speed",  "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-        ProjectileSpeed = ES3.Load<float>("ProjectileSpeed", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-        Luck = ES3.Load<float>("Luck",  "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-        Lifesteal = ES3.Load<int>("Lifesteal", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-        LifestealChance = ES3.Load<float>("LifestealChance", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-        Energysteal = ES3.Load<int>("Energysteal", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-        EnergystealChance = ES3.Load<float>("EnergystealChance", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
     }
 
 }

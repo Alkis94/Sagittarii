@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using TMPro;
 
-public class DoctorShop : MonoBehaviour
+public class DoctorShop : MonoBehaviour, IInteractable
 {
     [SerializeField]
     private GameObject healthMenu;
@@ -26,6 +26,10 @@ public class DoctorShop : MonoBehaviour
         healAmountText.text = "0";
     }
 
+    public void Interact()
+    {
+        OpenHealthMenu();
+    }
 
     public void OpenHealthMenu()
     {
@@ -37,24 +41,6 @@ public class DoctorShop : MonoBehaviour
         }
 
         missingHealth = playerStats.MaximumHealth - playerStats.CurrentHealth;
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            FindIfPlayInRange();
-        }
-    }
-
-    private void FindIfPlayInRange()
-    {
-        BoxCollider2D playerCollider;
-        playerCollider = GameObject.FindGameObjectWithTag("Player").GetComponent<BoxCollider2D>();
-        if (boxCollider2D.IsTouching(playerCollider))
-        {
-            OpenHealthMenu();
-        }
     }
 
     public void OnMaxClick()
@@ -97,7 +83,6 @@ public class DoctorShop : MonoBehaviour
             healAmount -= 10;
             healCost -= 10;
 
-            //make sure the healAmount/Cost doesn't go below 0
             if(healAmount < 0)
             {
                 healAmount = 0;

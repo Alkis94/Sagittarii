@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using System;
 
 public abstract class MapCreator : MonoBehaviour
@@ -12,10 +10,18 @@ public abstract class MapCreator : MonoBehaviour
 
     protected int[,] mapLayout;
     protected string[,] mapRooms;
+    protected List<Vector2Int> roomsWithTreasure;
+    [SerializeField]
+    protected int numberOfTreasures = 0;
 
-    protected List<Vector2Int> unexploredRoomArrayCoordinates;
+    protected List<Vector2Int> roomArrayCoordinates;
     protected abstract void CreateMap();
-    public static event Action<int[,], string[,],MapType> OnMapCreated = delegate { };
+    public static event Action<int[,], string[,],MapType,List<Vector2Int>> OnMapCreated = delegate { };
+
+    protected virtual void Start()
+    {
+        roomArrayCoordinates = new List<Vector2Int>();
+    }
 
     protected void CreatePath(int roadLength, Vector2Int startCoordinates, bool directRoadNorth = true, bool directRoadSouth = true, bool directRoadWest = true, bool directRoadEast = true)
     {
@@ -23,7 +29,7 @@ public abstract class MapCreator : MonoBehaviour
         List<int> availableDirections = new List<int>();
 
         Vector2Int currentCoordinates = startCoordinates;
-        mapLayout[currentCoordinates.x, currentCoordinates.y] = (int)RoomType.unexploredRoom;
+        mapLayout[currentCoordinates.x, currentCoordinates.y] = (int)RoomType.normalRoom;
 
 
         while (i < roadLength)
@@ -56,33 +62,33 @@ public abstract class MapCreator : MonoBehaviour
             if (randomDirection == (int)Direction.west)
             {
                 mapLayout[currentCoordinates.x - 1, currentCoordinates.y] = (int)RoomType.horizontalRoad;
-                mapLayout[currentCoordinates.x - 2, currentCoordinates.y] = (int)RoomType.unexploredRoom;
+                mapLayout[currentCoordinates.x - 2, currentCoordinates.y] = (int)RoomType.normalRoom;
                 currentCoordinates.x -= 2;
-                unexploredRoomArrayCoordinates.Add(new Vector2Int(currentCoordinates.x, currentCoordinates.y));
+                roomArrayCoordinates.Add(new Vector2Int(currentCoordinates.x, currentCoordinates.y));
                 i++;
             }
             else if (randomDirection == (int)Direction.east)
             {
                 mapLayout[currentCoordinates.x + 1, currentCoordinates.y] = (int)RoomType.horizontalRoad;
-                mapLayout[currentCoordinates.x + 2, currentCoordinates.y] = (int)RoomType.unexploredRoom;
+                mapLayout[currentCoordinates.x + 2, currentCoordinates.y] = (int)RoomType.normalRoom;
                 currentCoordinates.x += 2;
-                unexploredRoomArrayCoordinates.Add(new Vector2Int(currentCoordinates.x, currentCoordinates.y));
+                roomArrayCoordinates.Add(new Vector2Int(currentCoordinates.x, currentCoordinates.y));
                 i++;
             }
             else if (randomDirection == (int)Direction.north)
             {
                 mapLayout[currentCoordinates.x, currentCoordinates.y - 1] = (int)RoomType.verticalRoad;
-                mapLayout[currentCoordinates.x, currentCoordinates.y - 2] = (int)RoomType.unexploredRoom;
+                mapLayout[currentCoordinates.x, currentCoordinates.y - 2] = (int)RoomType.normalRoom;
                 currentCoordinates.y -= 2;
-                unexploredRoomArrayCoordinates.Add(new Vector2Int(currentCoordinates.x, currentCoordinates.y));
+                roomArrayCoordinates.Add(new Vector2Int(currentCoordinates.x, currentCoordinates.y));
                 i++;
             }
             else if (randomDirection == (int)Direction.south)
             {
                 mapLayout[currentCoordinates.x, currentCoordinates.y + 1] = (int)RoomType.verticalRoad;
-                mapLayout[currentCoordinates.x, currentCoordinates.y + 2] = (int)RoomType.unexploredRoom;
+                mapLayout[currentCoordinates.x, currentCoordinates.y + 2] = (int)RoomType.normalRoom;
                 currentCoordinates.y += 2;
-                unexploredRoomArrayCoordinates.Add(new Vector2Int(currentCoordinates.x, currentCoordinates.y));
+                roomArrayCoordinates.Add(new Vector2Int(currentCoordinates.x, currentCoordinates.y));
                 i++;
             }
 
@@ -97,8 +103,8 @@ public abstract class MapCreator : MonoBehaviour
         while ( i < randomAmountOfSmallRoads)
         {
             int randomRoadLength = UnityEngine.Random.Range(1, 8);
-            int randomUnexploredRoomID = UnityEngine.Random.Range(0, unexploredRoomArrayCoordinates.Count);
-            Vector2Int randomUnexploredRoom = unexploredRoomArrayCoordinates[randomUnexploredRoomID];
+            int randomUnexploredRoomID = UnityEngine.Random.Range(0, roomArrayCoordinates.Count);
+            Vector2Int randomUnexploredRoom = roomArrayCoordinates[randomUnexploredRoomID];
 
             if(HasSpaceAroundForRoom(randomUnexploredRoom))
             {
@@ -112,8 +118,8 @@ public abstract class MapCreator : MonoBehaviour
     protected Vector2Int CreatePathToBoss(int pathSize, Vector2Int pathStartingRoom, bool directRoadNorth = true, bool directRoadSouth = true, bool directRoadWest = true, bool directRoadEast = true)
     {
         CreatePath(pathSize, pathStartingRoom, directRoadNorth, directRoadSouth, directRoadWest, directRoadEast);
-        Vector2Int bossRoomCoordinates = unexploredRoomArrayCoordinates[unexploredRoomArrayCoordinates.Count - 1];
-        unexploredRoomArrayCoordinates.RemoveAt(unexploredRoomArrayCoordinates.Count - 1);
+        Vector2Int bossRoomCoordinates = roomArrayCoordinates[roomArrayCoordinates.Count - 1];
+        roomArrayCoordinates.RemoveAt(roomArrayCoordinates.Count - 1);
         mapLayout[bossRoomCoordinates.x, bossRoomCoordinates.y] = (int)RoomType.bossRoom;
         return bossRoomCoordinates;
     }
@@ -125,8 +131,8 @@ public abstract class MapCreator : MonoBehaviour
         while (i < randomAmountOfPaths)
         {
             int randomRoadLength = UnityEngine.Random.Range(1, 8);
-            int randomUnexploredRoomID = UnityEngine.Random.Range(0, unexploredRoomArrayCoordinates.Count);
-            Vector2Int randomUnexploredRoom = unexploredRoomArrayCoordinates[randomUnexploredRoomID];
+            int randomUnexploredRoomID = UnityEngine.Random.Range(0, roomArrayCoordinates.Count);
+            Vector2Int randomUnexploredRoom = roomArrayCoordinates[randomUnexploredRoomID];
 
 
             if (HasSpaceAroundForRoom(randomUnexploredRoom))
@@ -342,6 +348,6 @@ public abstract class MapCreator : MonoBehaviour
 
     protected void MapCreated(MapType mapType)
     {
-        OnMapCreated.Invoke(mapLayout, mapRooms, mapType);
+        OnMapCreated.Invoke(mapLayout, mapRooms, mapType,roomsWithTreasure);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using Sirenix.OdinInspector;
@@ -7,7 +8,6 @@ using Sirenix.Serialization;
 
 public class MapManager : SerializedMonoBehaviour
 {
-
     private static MapManager instance = null;
     public static event Action<MapType,string,RoomType> OnRoomLoaded = delegate { };
 
@@ -21,12 +21,20 @@ public class MapManager : SerializedMonoBehaviour
     private int[,] mapLayout;
     private bool[,] mapLayoutIsUnexplored;
     private string[,] mapRooms;
+    private GameObject[,] mapIcons;
+    private List<Vector2Int> mapRoomsWithTreasure;
+
     private int[,] forestMapLayout = new int[40, 1];
     private bool[,] forestMapLayoutIsUnexplored = new bool[40, 1];
     private string[,] forestMapRooms = new string[40, 1];
+    private GameObject[,] forestMapIcons = new GameObject[40, 1];
+    private List<Vector2Int> forestMapRoomsWithTreasure;
+
     private int[,] caveMapLayout = new int[20, 40];
     private bool[,] caveMapLayoutIsUnexplored = new bool[20, 40];
     private string[,] caveMapRooms = new string[20, 40];
+    private GameObject[,] caveMapIcons = new GameObject[40, 1];
+    private List<Vector2Int> caveMapRoomsWithTreasure;
 
     private readonly Vector2Int forestFirstRoomCoordinates = new Vector2Int(2, 0);
     private readonly Vector2Int forestCaveDoorRoomCoordinates = new Vector2Int(4, 0);
@@ -72,11 +80,11 @@ public class MapManager : SerializedMonoBehaviour
 
     private void OnDisable()
     {
-        SceneManager.sceneLoaded += OnSceneLoaded;
+        SceneManager.sceneLoaded -= OnSceneLoaded;
         RoomChanger.OnRoomChangerEntered -= ChangeRoom;
         MapChanger.OnMapChangerEntered -= ChangeMap;
         MapCreator.OnMapCreated -= SetMap;
-        BossDoor.DoorEntered += OnDoorEntered;
+        BossDoor.DoorEntered -= OnDoorEntered;
     }
 
     private void Start()
@@ -104,6 +112,7 @@ public class MapManager : SerializedMonoBehaviour
             mapLayout = forestMapLayout;
             mapLayoutIsUnexplored = forestMapLayoutIsUnexplored;
             mapRooms = forestMapRooms;
+            mapIcons = forestMapIcons;
             currentMapCoords = forestFirstRoomCoordinates;
 
             SceneManager.LoadScene(mapRooms[forestFirstRoomCoordinates.x, forestFirstRoomCoordinates.y]);
@@ -126,6 +135,7 @@ public class MapManager : SerializedMonoBehaviour
             mapLayout = caveMapLayout;
             mapLayoutIsUnexplored = caveMapLayoutIsUnexplored;
             mapRooms = caveMapRooms;
+            mapIcons = caveMapIcons;
             currentMapCoords = caveFirstRoomCoordinates;
 
             //We put this road to connect forest and caves. This roads is not inside mapLayout. We do it this way so
@@ -148,6 +158,7 @@ public class MapManager : SerializedMonoBehaviour
             mapLayout = forestMapLayout;
             mapLayoutIsUnexplored = forestMapLayoutIsUnexplored;
             mapRooms = forestMapRooms;
+            mapIcons = forestMapIcons;
             currentMapCoords = forestCaveDoorRoomCoordinates;
 
             SceneManager.LoadScene(mapRooms[forestCaveDoorRoomCoordinates.x, forestCaveDoorRoomCoordinates.y]);
@@ -220,7 +231,7 @@ public class MapManager : SerializedMonoBehaviour
         }
     }
 
-    public void SetMap(int[,] mapLayout, string[,] mapRooms, MapType mapType)
+    public void SetMap(int[,] mapLayout, string[,] mapRooms, MapType mapType, List<Vector2Int> roomsWithTreasure)
     {
         if (mapType == MapType.forest && !forestMapExists)
         {
@@ -241,10 +252,29 @@ public class MapManager : SerializedMonoBehaviour
         Vector2 mapCoordinates = Vector2.zero;
         if (mapLayoutIsUnexplored[currentMapCoords.x, currentMapCoords.y])
         {
-            mapLayout[currentMapCoords.x, currentMapCoords.y] = (int)RoomType.exploredRoom;
+            mapLayoutIsUnexplored[currentMapCoords.x, currentMapCoords.y] = false;
             PlaceMapPart(currentMapCoords.x, currentMapCoords.y);
             RenderNeighborUnexploredRooms();
         }
+    }
+
+    private GameObject PlaceMapPart(int coordX, int coordY)
+    {
+        Vector2 mapCoordinates = ConvertArrayCoordinates(coordX, coordY);
+        GameObject room = ExtensionMethods.InstantiateAtLocalPosition(rooms[(int)currentMap - 1][mapLayout[coordX, coordY]], mapTransform, mapCoordinates);
+        if (mapLayout[coordX, coordY] > 2)
+        {
+            if (mapLayoutIsUnexplored[coordX, coordY])
+            {
+                room.GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f, 1);
+            }
+            else
+            {
+                Destroy(mapIcons[coordX, coordY]);
+            }
+        }
+        mapIcons[coordX, coordY] = room;
+        return room;
     }
 
     private void RenderNeighborUnexploredRooms()
@@ -299,15 +329,7 @@ public class MapManager : SerializedMonoBehaviour
         }
     }
 
-    private void PlaceMapPart(int coordX, int coordY)
-    {
-        Vector2 mapCoordinates = ConvertArrayCoordinates(coordX, coordY);
-        ExtensionMethods.InstantiateAtLocalPosition(rooms[(int)currentMap - 1][mapLayout[coordX, coordY]], mapTransform, mapCoordinates);
-        if(mapLayout[coordX,coordY] < 4)
-        {
-            mapLayoutIsUnexplored[coordX, coordY] = false;
-        }
-    }
+    
 
     private void ResetMap()
     {
@@ -352,7 +374,10 @@ public class MapManager : SerializedMonoBehaviour
                 if (mapLayout[i, j] != 0)
                 {
                     Vector2 mapCoordinates = ConvertArrayCoordinates(i, j);
-                    ExtensionMethods.InstantiateAtLocalPosition(rooms[(int)currentMap - 1][mapLayout[i, j]], mapTransform, mapCoordinates);
+
+                    GameObject room = rooms[(int)currentMap - 1][mapLayout[i, j]];
+                    room.GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f, 1);
+                    ExtensionMethods.InstantiateAtLocalPosition(room, mapTransform, mapCoordinates);
                 }
             }
         }
@@ -366,7 +391,6 @@ public class MapManager : SerializedMonoBehaviour
         }
 
         string roomKey = currentMapCoords.x.ToString() + currentMapCoords.y.ToString();
-        Debug.Log((RoomType)mapLayout[currentMapCoords.x, currentMapCoords.y]);
         OnRoomLoaded?.Invoke(currentMap, roomKey,(RoomType)mapLayout[currentMapCoords.x,currentMapCoords.y]);
     }
 }

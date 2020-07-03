@@ -4,7 +4,6 @@ using System.Collections;
 public class Item : MonoBehaviour
 {
     private AudioSource audioSource;
-    private BoxCollider2D boxCollider2D;
     private SpriteRenderer spriteRenderer;
 
     [SerializeField]
@@ -13,7 +12,6 @@ public class Item : MonoBehaviour
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        boxCollider2D = GetComponent<BoxCollider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         Destroy(gameObject, despawnDelay);
     }

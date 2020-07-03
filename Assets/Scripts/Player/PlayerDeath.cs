@@ -10,12 +10,12 @@ public class PlayerDeath : MonoBehaviour
 
     void OnEnable()
     {
-        PlayerStats.PlayerDied += Die;
+        PlayerStats.OnPlayerDied += Die;
     }
 
     void OnDisable()
     {
-        PlayerStats.PlayerDied -= Die;
+        PlayerStats.OnPlayerDied -= Die;
     }
 
     private void Start()
@@ -40,6 +40,12 @@ public class PlayerDeath : MonoBehaviour
         if (ES3.DirectoryExists("Saves/Profile" + SaveProfile.SaveID))
         {
             ES3.DeleteDirectory("Saves/Profile" + SaveProfile.SaveID);
+        }
+
+        if (ES3.DirectoryExists(("Levels/")))
+        {
+            ES3.DeleteDirectory("Levels/");
+            ES3.DeleteDirectory("Levels/");
         }
     }
 

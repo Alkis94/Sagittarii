@@ -462,6 +462,7 @@ GameObject:
   - component: {fileID: 861896868}
   - component: {fileID: 1905537675866282385}
   - component: {fileID: 5060117036905097974}
+  - component: {fileID: 6432451859485017418}
   - component: {fileID: 696266295396060517}
   - component: {fileID: 2481066987502239242}
   - component: {fileID: 7907791811425724120}
@@ -732,7 +733,6 @@ MonoBehaviour:
   gold: 0
   armor: 0
   luck: 0
-  effectChance: 0
   speed: 8
   projectileSpeed: 10
   damage: 10
@@ -740,6 +740,23 @@ MonoBehaviour:
   lifestealChance: 0
   energysteal: 0
   energystealChance: 0
+--- !u!114 &6432451859485017418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6112859251357942033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ec798f3a48f3bf4685cbbdac31c2c46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectileMovementTypeMain: 1
+  functionMovementTypeMain: 0
+  attackTypeMain: 2
+  mainProjectile: {fileID: 1000011198274758, guid: 7286360133900744eb191a4b124d4e14,
+    type: 3}
 --- !u!114 &696266295396060517
 MonoBehaviour:
   m_ObjectHideFlags: 0

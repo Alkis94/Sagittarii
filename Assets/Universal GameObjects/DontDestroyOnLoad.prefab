@@ -146,6 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 906bb7e4344d77c4b9f5812502b93535, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterClass: 1
 --- !u!1 &1484942764084558547
 GameObject:
   m_ObjectHideFlags: 0
@@ -829,6 +830,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Thief
       objectReference: {fileID: 0}
+    - target: {fileID: 7907791811425724120, guid: be4eb5c279aa066408cbed3af634f670,
+        type: 3}
+      propertyPath: map
+      value: 
+      objectReference: {fileID: 5653815865735380404}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: be4eb5c279aa066408cbed3af634f670, type: 3}
 --- !u!4 &7506694383299019615 stripped

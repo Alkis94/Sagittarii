@@ -4,9 +4,7 @@
 
 using Factories;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using System.Collections;
-using System;
 
 
 //We first ensure this script runs before all other player scripts to prevent laggy
@@ -35,13 +33,13 @@ public class PlayerInput : MonoBehaviour
 
     void OnEnable()
     {
-        PlayerStats.PlayerDied += DisableInput;
+        PlayerStats.OnPlayerDied += DisableInput;
     }
 
 
     void OnDisable()
     {
-        PlayerStats.PlayerDied -= DisableInput;
+        PlayerStats.OnPlayerDied -= DisableInput;
     }
 
 
@@ -58,7 +56,19 @@ public class PlayerInput : MonoBehaviour
             MenuFactory.DestroyMenuAndUnpause();
         }
 
-        
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            var results = Physics2D.OverlapCircle(transform.position, 0.5f, 1 << LayerMask.NameToLayer("Interactables"));
+            if(results != null)
+            {
+                IInteractable interactable = results.gameObject.GetComponent<IInteractable>();
+                if(interactable != null)
+                {
+                    interactable.Interact();
+                }
+            }
+        }
+
         if (Input.GetKeyUp(KeyCode.S))
         {
             if (boxCollider2D.IsTouchingLayers(collisionMask))

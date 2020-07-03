@@ -9,10 +9,11 @@ public class WorldTreeMapCreator : MapCreator
 
 
     // Use this for initialization
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         mapLayout = new int[20, 40];
-        unexploredRoomArrayCoordinates = new List<Vector2Int>();
+        roomArrayCoordinates = new List<Vector2Int>();
         CreateMap();
         //RenderMap(200 , 800);
     }

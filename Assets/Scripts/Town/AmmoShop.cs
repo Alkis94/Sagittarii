@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class AmmoShop : MonoBehaviour
+public class AmmoShop : MonoBehaviour, IInteractable
 {
     [SerializeField]
     private GameObject projectileMenu;
@@ -36,22 +36,9 @@ public class AmmoShop : MonoBehaviour
         }
     }
 
-    private void Update()
+    public void Interact()
     {
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            FindIfPlayInRange();
-        }
-    }
-
-    private void FindIfPlayInRange()
-    {
-        BoxCollider2D playerCollider;
-        playerCollider = GameObject.FindGameObjectWithTag("Player").GetComponent<BoxCollider2D>();
-        if (boxCollider2D.IsTouching(playerCollider))
-        {
-            OpenProjectilesMenu();
-        }
+        OpenProjectilesMenu();
     }
 
     public void OnMinusClick()

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 
-public class BossDoor : MonoBehaviour
+public class BossDoor : MonoBehaviour, IInteractable
 {
 
     public static event Action<string> DoorEntered = delegate { };
@@ -35,8 +35,6 @@ public class BossDoor : MonoBehaviour
         MapManager.OnRoomLoaded -= SetMapType;
     }
 
-
-
     private void Start()
     {
         boxCollider2D = GetComponent<BoxCollider2D>();
@@ -65,14 +63,11 @@ public class BossDoor : MonoBehaviour
         }
     }
 
-    private void Update()
+    public void Interact()
     {
-        if (Input.GetKeyDown(KeyCode.W))
+        if (isOpen)
         {
-            if(isOpen)
-            {
-                DoorEnter();
-            }
+            DoorEnter();
         }
     }
 

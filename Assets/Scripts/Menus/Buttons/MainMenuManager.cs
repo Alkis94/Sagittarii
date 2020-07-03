@@ -17,6 +17,11 @@ public class MainMenuManager : MonoBehaviour
     private void Start()
     {
         quitMenu.SetActive(false);
+        if (ES3.DirectoryExists(("Levels/")))
+        {
+            ES3.DeleteDirectory("Levels/");
+            ES3.DeleteDirectory("Levels/");
+        }
     }
 
     public void OnPlayPress()

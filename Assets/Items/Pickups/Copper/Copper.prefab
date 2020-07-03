@@ -13,11 +13,11 @@ GameObject:
   - component: {fileID: 95000012083576296}
   - component: {fileID: 50000013947291910}
   - component: {fileID: 4730772738287950238}
-  - component: {fileID: 114000012713737418}
   - component: {fileID: 82000011482979170}
+  - component: {fileID: 114000012713737418}
   - component: {fileID: 3223124794425981332}
   m_Layer: 9
-  m_Name: Cooper
+  m_Name: Copper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -133,13 +133,13 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1000013538430894}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.01}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -150,21 +150,8 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.4, y: 0.4}
+  m_Size: {x: 0.4, y: 0.38}
   m_EdgeRadius: 0
---- !u!114 &114000012713737418
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1000013538430894}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 281c9b9c61211a940af5865e5bb3930a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  despawnDelay: 30
 --- !u!82 &82000011482979170
 AudioSource:
   m_ObjectHideFlags: 0
@@ -261,6 +248,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &114000012713737418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000013538430894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 281c9b9c61211a940af5865e5bb3930a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  despawnDelay: 30
 --- !u!114 &3223124794425981332
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -273,7 +273,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0add2085a0601b04bafbc3084e15bba6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coinValue: 5
+  coinType: 5
 --- !u!1 &719069388535904641
 GameObject:
   m_ObjectHideFlags: 0
@@ -318,7 +318,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.01}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -329,5 +329,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.4, y: 0.4}
+  m_Size: {x: 0.4, y: 0.38}
   m_EdgeRadius: 0

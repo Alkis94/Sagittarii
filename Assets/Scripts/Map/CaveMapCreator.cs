@@ -24,13 +24,11 @@ public class CaveMapCreator : MapCreator
 
     }
 
-
-    // Use this for initialization
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         mapLayout = new int[20, 40];
         mapRooms = new string[20, 40];
-        unexploredRoomArrayCoordinates = new List<Vector2Int>();
         AddCaveMapLists();
         CreateMap();
         MapCreated(MapType.cave);
@@ -38,7 +36,7 @@ public class CaveMapCreator : MapCreator
 
     protected override void CreateMap()
     {
-        mapLayout[10, 0] = (int)RoomType.exploredRoom;
+        mapLayout[10, 0] = (int)RoomType.normalRoom;
         mapLayout[10, 1] = (int)RoomType.verticalRoad;
         bossRoomCoordinates = CreatePathToBoss(15,new Vector2Int(10,2),false);
         CreateRandomPaths();
