@@ -25,6 +25,7 @@ public class PlayerSceneChangeManager : MonoBehaviour
         BossDoor.DoorEntered += NextPlayerSpawnPointDirection;
         NextPlayerSpawnPointDirection();
         transform.position = NextPlayerSpawnPointPosition();
+        MakeChangesForTown();
     }
 
     private void OnDisable()
@@ -44,8 +45,7 @@ public class PlayerSceneChangeManager : MonoBehaviour
     {
         if (scene.name == "Town")
         {
-            hands.SetActive(false);
-            animator.runtimeAnimatorController = townController;
+            MakeChangesForTown();
         }
         else
         { 
@@ -54,6 +54,13 @@ public class PlayerSceneChangeManager : MonoBehaviour
         }
 
         transform.position = NextPlayerSpawnPointPosition();
+    }
+
+    private void MakeChangesForTown()
+    {
+        hands.SetActive(false);
+        animator.runtimeAnimatorController = townController;
+        playerStats.CurrentEnergy = playerStats.MaximumEnergy;
     }
 
     private void NextPlayerSpawnPointDirection(string levelToLoad = null)

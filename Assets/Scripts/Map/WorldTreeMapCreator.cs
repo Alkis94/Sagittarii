@@ -7,15 +7,11 @@ public class WorldTreeMapCreator : MapCreator
 
     private Vector2Int startingRoom = new Vector2Int(10, 0);
 
-
-    // Use this for initialization
     protected override void Start()
     {
         base.Start();
         mapLayout = new int[20, 40];
-        roomArrayCoordinates = new List<Vector2Int>();
         CreateMap();
-        //RenderMap(200 , 800);
     }
 
     protected override void CreateMap()

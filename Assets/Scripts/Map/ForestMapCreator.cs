@@ -6,7 +6,7 @@ public class ForestMapCreator : MapCreator
 {
 
     private static ForestMapCreator instance = null;
-    private const int Forest_Length = 3;
+    private const int Forest_Length = 20;
 
 
     private void Awake()
@@ -24,6 +24,7 @@ public class ForestMapCreator : MapCreator
 
     protected override void Start()
     {
+        base.Start();
         mapRooms = new string[40, 1];
         mapLayout = new int[40, 1];
         numberOfTreasures = 2;
@@ -45,27 +46,22 @@ public class ForestMapCreator : MapCreator
 
         int randomNumber;
         int numberOfForestRooms = RoomTracker.ForestRooms.Count;
-        roomArrayCoordinates.Clear();
         for (int i = 6; i < 40; i++)
         {
             if(mapLayout[i,0] == (int)RoomType.normalRoom)
             {
                 randomNumber = Random.Range(0, numberOfForestRooms);
                 mapRooms[i, 0] = RoomTracker.ForestRooms[randomNumber];
-                roomArrayCoordinates.Add(new Vector2Int(i, 0));
+                normalRoomArrayCoordinates.Add(new Vector2Int(i, 0));
             }
-            else if(mapLayout[i, 0] == (int)RoomType.bossRoom)
+            else if (mapLayout[i, 0] == (int)RoomType.bossRoom)
             {
                 mapRooms[i, 0] = "ForestBossDoor";
             }
         }
 
-        for(int i = 0; i < 2; i++)
-        {
-            randomNumber = Random.Range(0, roomArrayCoordinates.Count);
-            roomsWithTreasure[i] = roomArrayCoordinates[randomNumber];
-        }
+        AddTreasures(2, normalRoomArrayCoordinates);
     }
-            
+
 
 }

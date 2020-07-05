@@ -119,11 +119,6 @@ public class RoomTracker
                 }
             }
         }
-
-        //for(int i = 0; i < ForestRooms.Count; i++)
-        //{
-        //    Debug.Log(ForestRooms[i]);
-        //}
     }
  
 }

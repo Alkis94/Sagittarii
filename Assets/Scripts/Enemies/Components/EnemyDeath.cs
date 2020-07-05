@@ -23,8 +23,8 @@ public class EnemyDeath : SerializedMonoBehaviour
 
     [SerializeField]
     private AudioClip deathCry;
-    private float healthDropRate = 0.05f;
-    private float energyDropRate = 0.015f;
+    private float healthDropRate = 0.025f;
+    private float energyDropRate = 0.01f;
 
     private bool hasBlood;
     private bool hasCriticalDeath;

@@ -39,10 +39,10 @@ public class CaveMapCreator : MapCreator
         mapLayout[10, 0] = (int)RoomType.normalRoom;
         mapLayout[10, 1] = (int)RoomType.verticalRoad;
         bossRoomCoordinates = CreatePathToBoss(15,new Vector2Int(10,2),false);
-        CreateRandomPaths();
-        CreateRandomSmallPaths();
+        CreateRandomPaths(5,8);
         AssignRooms();
         AssignBossRoom();
+        AddTreasures(4, normalRoomArrayCoordinates);
         mapRooms[10, 0] = "CaveToForest";
     }
 
