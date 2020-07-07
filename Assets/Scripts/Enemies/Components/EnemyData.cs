@@ -44,7 +44,7 @@ public class EnemyData : SerializedScriptableObject
     {
         EnemyInfo enemyInfo;
         enemyInfo = new EnemyInfo();
-        var fileContent = File.ReadAllText(Application.streamingAssetsPath + "/" + enemyName + "/" + enemyName + ".json");
+        var fileContent = File.ReadAllText(Application.streamingAssetsPath + "/Enemy/" + enemyName + "/" + enemyName + ".json");
         enemyInfo = JsonConvert.DeserializeObject<EnemyInfo>(fileContent);
 
         Health = enemyInfo.health;

@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a1c0d2898bdfe345b949cceb39347ee, type: 3}
+  m_Script: {fileID: 11500000, guid: d4bc6bd8f6a3b134ca613e20db5dfaf1, type: 3}
   m_Name: BatBossAttackData0
   m_EditorClassIdentifier: 
   serializationData:
@@ -25,7 +25,7 @@ MonoBehaviour:
     SerializationNodes:
     - Name: ProjectileMovementType
       Entry: 3
-      Data: 2
+      Data: 0
     - Name: FunctionMovementType
       Entry: 3
       Data: 0
@@ -35,141 +35,17 @@ MonoBehaviour:
     - Name: AttackIsDirectionDependant
       Entry: 5
       Data: false
-    - Name: ProjectileAmount
-      Entry: 3
-      Data: 5
     - Name: ConsecutiveAttacks
       Entry: 3
-      Data: 20
+      Data: 1
     - Name: ConsecutiveAttackDelay
       Entry: 4
-      Data: 0.3
-    - Name: AttackFrequency
-      Entry: 4
-      Data: 7
-    - Name: Damage
-      Entry: 3
-      Data: 7
-    - Name: ProjectileSpeed
-      Entry: 4
-      Data: 5
-    - Name: ProjectileDestroyDelay
-      Entry: 4
-      Data: 10
+      Data: 0
     - Name: ProjectileRotations
-      Entry: 7
-      Data: 0|System.Collections.Generic.List`1[[System.Single, mscorlib]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 5
-    - Name: 
-      Entry: 4
-      Data: 210
-    - Name: 
-      Entry: 4
-      Data: 240
-    - Name: 
-      Entry: 4
-      Data: 270
-    - Name: 
-      Entry: 4
-      Data: 300
-    - Name: 
-      Entry: 4
-      Data: 330
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
+      Entry: 6
       Data: 
     - Name: ProjectileSpawnPositionOffset
-      Entry: 7
-      Data: 1|System.Collections.Generic.List`1[[UnityEngine.Vector3, UnityEngine.CoreModule]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 5
-    - Name: 
-      Entry: 7
-      Data: UnityEngine.Vector3, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: UnityEngine.Vector3, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: UnityEngine.Vector3, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: UnityEngine.Vector3, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: UnityEngine.Vector3, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
+      Entry: 6
       Data: 
     - Name: UniversalSpawnPositionOffset
       Entry: 7
@@ -200,13 +76,28 @@ MonoBehaviour:
       Data: 0
     - Name: RandomRotationFactorMin
       Entry: 4
-      Data: -90
+      Data: 0
     - Name: RandomRotationFactorMax
       Entry: 4
-      Data: 90
+      Data: 0
     - Name: Projectile
       Entry: 10
       Data: 0
     - Name: AttackSound
       Entry: 10
       Data: 1
+    - Name: ProjectileAmount
+      Entry: 3
+      Data: 1
+    - Name: AttackFrequency
+      Entry: 4
+      Data: 7
+    - Name: Damage
+      Entry: 3
+      Data: 10
+    - Name: ProjectileSpeed
+      Entry: 4
+      Data: 5
+    - Name: ProjectileDestroyDelay
+      Entry: 4
+      Data: 10

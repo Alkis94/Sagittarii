@@ -6,7 +6,7 @@ using StateMachineNamespace;
 public class OwlWonderState: State<OwlBrain>
 {
     private float nextAttackTime;
-    private Vector3 playerPosition;
+    private Transform playerPosition;
 
     public OwlWonderState(OwlBrain stateOwner)
     {
@@ -16,14 +16,12 @@ public class OwlWonderState: State<OwlBrain>
     public override void EnterState()
     {
         nextAttackTime = Time.time + stateOwner.enemyStats.AttackData[0].AttackFrequency;
+        playerPosition = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     public override void FixedUpdateState()
     {
-
-        playerPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
-
-        if (playerPosition.x - 1 < stateOwner.transform.position.x && stateOwner.transform.position.x < playerPosition.x + 1 && playerPosition.y + 3 < stateOwner.transform.position.y)
+        if (playerPosition.position.x - 1 < stateOwner.transform.position.x && stateOwner.transform.position.x < playerPosition.position.x + 1 && playerPosition.position.y + 3 < stateOwner.transform.position.y)
         {
             stateOwner.stateMachine.ChangeState(stateOwner.huntAttackState);
         }

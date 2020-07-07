@@ -20,7 +20,7 @@ public class ProjectileImpact : MonoBehaviour
     [SerializeField]
     private bool bulletSplits;
     [ShowIf("@ bulletSplits")]
-    [SerializeField] private AttackData attackData;
+    [SerializeField] private EnemyAttackData attackData;
 
     void Start()
     {

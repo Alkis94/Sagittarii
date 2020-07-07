@@ -5,8 +5,6 @@ public class SimpleFlyingEnemyBrain : EnemyBrain
     
     private int horizontalDirection = 1;
     private int verticalDirection = 1;
-    
-
 
     protected override void Awake()
     {
@@ -31,7 +29,6 @@ public class SimpleFlyingEnemyBrain : EnemyBrain
         {
             InvokeRepeating("CallMainAttack", enemyStats.DelayBeforeFirstAttack, enemyStats.AttackData[0].AttackFrequency);
         }
-        
     }
 
 

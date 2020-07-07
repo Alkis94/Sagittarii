@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a1c0d2898bdfe345b949cceb39347ee, type: 3}
+  m_Script: {fileID: 11500000, guid: d4bc6bd8f6a3b134ca613e20db5dfaf1, type: 3}
   m_Name: CrowAttackData0
   m_EditorClassIdentifier: 
   serializationData:
@@ -34,27 +34,12 @@ MonoBehaviour:
     - Name: AttackIsDirectionDependant
       Entry: 5
       Data: false
-    - Name: ProjectileAmount
-      Entry: 3
-      Data: 3
     - Name: ConsecutiveAttacks
       Entry: 3
       Data: 1
     - Name: ConsecutiveAttackDelay
       Entry: 4
       Data: 0.15
-    - Name: AttackFrequency
-      Entry: 4
-      Data: 4
-    - Name: Damage
-      Entry: 3
-      Data: 6
-    - Name: ProjectileSpeed
-      Entry: 4
-      Data: 3
-    - Name: ProjectileDestroyDelay
-      Entry: 4
-      Data: 10
     - Name: ProjectileRotations
       Entry: 7
       Data: 0|System.Collections.Generic.List`1[[System.Single, mscorlib]], mscorlib
@@ -173,3 +158,18 @@ MonoBehaviour:
     - Name: AttackSound
       Entry: 6
       Data: 
+    - Name: ProjectileAmount
+      Entry: 3
+      Data: 3
+    - Name: AttackFrequency
+      Entry: 4
+      Data: 4
+    - Name: Damage
+      Entry: 3
+      Data: 6
+    - Name: ProjectileSpeed
+      Entry: 4
+      Data: 3
+    - Name: ProjectileDestroyDelay
+      Entry: 4
+      Data: 10

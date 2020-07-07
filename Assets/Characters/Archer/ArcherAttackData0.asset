@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a1c0d2898bdfe345b949cceb39347ee, type: 3}
+  m_Script: {fileID: 11500000, guid: 217928bcc80122f44b8b857afee7e49c, type: 3}
   m_Name: ArcherAttackData0
   m_EditorClassIdentifier: 
   serializationData:
@@ -30,36 +30,24 @@ MonoBehaviour:
       Data: 0
     - Name: AttackType
       Entry: 3
-      Data: 0
+      Data: 2
     - Name: AttackIsDirectionDependant
       Entry: 5
-      Data: true
-    - Name: ProjectileAmount
-      Entry: 3
-      Data: 1
+      Data: false
     - Name: ConsecutiveAttacks
       Entry: 3
       Data: 1
     - Name: ConsecutiveAttackDelay
       Entry: 4
       Data: 0
-    - Name: AttackFrequency
-      Entry: 4
-      Data: 0
-    - Name: Damage
-      Entry: 3
-      Data: 10
-    - Name: ProjectileSpeed
-      Entry: 4
-      Data: 1000
-    - Name: ProjectileDestroyDelay
-      Entry: 4
-      Data: 20
     - Name: ProjectileRotations
       Entry: 7
       Data: 0|System.Collections.Generic.List`1[[System.Single, mscorlib]], mscorlib
     - Name: 
       Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 4
       Data: 0
     - Name: 
       Entry: 13
@@ -73,7 +61,22 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
       Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 13
       Data: 

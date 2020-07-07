@@ -6,138 +6,41 @@ using System.IO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-[CreateAssetMenu(fileName = "AttackData", menuName = "AttackData", order = 1)]
 public class AttackData : SerializedScriptableObject
 {
     //Attack Type
-    [OdinSerialize] public ProjectileMovementTypeEnum ProjectileMovementType { get; private set; } = ProjectileMovementTypeEnum.straight;
+    [OdinSerialize] public ProjectileMovementTypeEnum ProjectileMovementType { get; protected set; } = ProjectileMovementTypeEnum.straight;
     [ShowIf("@ ProjectileMovementType == ProjectileMovementTypeEnum.function")]
-    [OdinSerialize] public FunctionMovementTypeEnum FunctionMovementType { get; private set; } = FunctionMovementTypeEnum.sin;
-    [OdinSerialize] public AttackTypeEnum AttackType { get; private set; } = AttackTypeEnum.perimetrical;
+    [OdinSerialize] public FunctionMovementTypeEnum FunctionMovementType { get; protected set; } = FunctionMovementTypeEnum.sin;
+    [OdinSerialize] public AttackTypeEnum AttackType { get; protected set; } = AttackTypeEnum.perimetrical;
     [ShowIf("@ AttackType == AttackTypeEnum.perimetrical")]
-    [OdinSerialize] public bool AttackIsDirectionDependant { get; private set; } = false;
+    [OdinSerialize] public bool AttackIsDirectionDependant { get; protected set; } = false;
     
     //Attack Stats
-    [OdinSerialize] public int ProjectileAmount { get; private set; } = 1;
-    [OdinSerialize] public int ConsecutiveAttacks { get; private set; } = 1;
+    [OdinSerialize] public int ConsecutiveAttacks { get; protected set; } = 1;
     [ShowIf("@ ConsecutiveAttacks > 1")]
-    [OdinSerialize] public float ConsecutiveAttackDelay { get; private set; } = 0;
-    [OdinSerialize] public float AttackFrequency { get; private set; } = 7;
-    [OdinSerialize] public int Damage { get; private set; } = 10;
-    [OdinSerialize] public float ProjectileSpeed { get; private set; } = 5;
-    [OdinSerialize] public float ProjectileDestroyDelay { get; private set; } = 10f;
+    [OdinSerialize] public float ConsecutiveAttackDelay { get; protected set; } = 0;
 
     //Placement
-    [OdinSerialize] public List<float> ProjectileRotations { get; private set; }
-    [OdinSerialize] public List<Vector3> ProjectileSpawnPositionOffset { get; private set; }
-    [OdinSerialize] public Vector3 UniversalSpawnPositionOffset { get; private set; } 
+    [OdinSerialize] public List<float> ProjectileRotations { get; protected set; }
+    [OdinSerialize] public List<Vector3> ProjectileSpawnPositionOffset { get; protected set; }
+    [OdinSerialize] public Vector3 UniversalSpawnPositionOffset { get; protected set; } 
 
     //randomness
-    [OdinSerialize] public float RandomHorizontalFactorMin { get; private set; } = 0;
-    [OdinSerialize] public float RandomHorizontalFactorMax { get; private set; } = 0;
-    [OdinSerialize] public float RandomVerticalFactorMin { get; private set; } = 0;
-    [OdinSerialize] public float RandomVerticalFactorMax { get; private set; } = 0;
-    [OdinSerialize] public float RandomRotationFactorMin { get; private set; } = 0;
-    [OdinSerialize] public float RandomRotationFactorMax { get; private set; } = 0;
+    [OdinSerialize] public float RandomHorizontalFactorMin { get; protected set; } = 0;
+    [OdinSerialize] public float RandomHorizontalFactorMax { get; protected set; } = 0;
+    [OdinSerialize] public float RandomVerticalFactorMin { get; protected set; } = 0;
+    [OdinSerialize] public float RandomVerticalFactorMax { get; protected set; } = 0;
+    [OdinSerialize] public float RandomRotationFactorMin { get; protected set; } = 0;
+    [OdinSerialize] public float RandomRotationFactorMax { get; protected set; } = 0;
 
     //Parts
-    [OdinSerialize] public GameObject Projectile { get; private set; }
-    [OdinSerialize] public AudioClip AttackSound { get; private set; } = null;
+    [OdinSerialize] public GameObject Projectile { get; protected set; }
+    [OdinSerialize] public AudioClip AttackSound { get; protected set; } = null;
 
-    private void OnEnable()
-    {
-        LoadFromJson();
+   
 
-        if (ProjectileSpawnPositionOffset == null)
-        {
-            ProjectileSpawnPositionOffset = new List<Vector3>();
-
-            for (int i = 0; i < ProjectileAmount; i++)
-            {
-                ProjectileSpawnPositionOffset.Add(Vector3.zero);
-            }
-        }
-        else if (ProjectileSpawnPositionOffset.Count < ProjectileAmount)
-        {
-            int limit = ProjectileAmount - ProjectileSpawnPositionOffset.Count;
-            for (int i = 0; i < limit; i++)
-            {
-               ProjectileSpawnPositionOffset.Add(Vector3.zero);
-            }
-        }
-
-        if (ProjectileRotations == null)
-        {
-            ProjectileRotations = new List<float>();
-
-            for (int i = 0; i < ProjectileAmount; i++)
-            {
-                ProjectileRotations.Add(0);
-            }
-        }
-        else if (ProjectileRotations.Count == 0)
-        {
-            for (int i = 0; i < ProjectileAmount; i++)
-            {
-                ProjectileRotations.Add(0);
-            }
-        }
-        else if (ProjectileRotations.Count < ProjectileAmount)
-        {
-            int limit = ProjectileAmount - ProjectileRotations.Count;
-            for (int i = 0; i < limit; i++)
-            {
-                ProjectileRotations.Add(ProjectileRotations[0]);
-            }
-        }
-
-       
-    }
-
-    private void LoadFromJson()
-    {
-        AttackDataInfo attackDataInfo = new AttackDataInfo();
-
-        string fileContent;
-        string attackerName = name.Substring(0, name.Length - 11);
-        if(File.Exists(Application.streamingAssetsPath + "/" + attackerName + "/" + name + ".json"))
-        {
-            fileContent = File.ReadAllText(Application.streamingAssetsPath + "/" + attackerName + "/" + name + ".json");
-        }
-        else
-        {
-            attackerName = name.Substring(0, name.Length - 12);
-            fileContent = File.ReadAllText(Application.streamingAssetsPath + "/" + attackerName + "/" + name + ".json");
-        }
-        
-        attackDataInfo = JsonConvert.DeserializeObject<AttackDataInfo>(fileContent);
-
-        ProjectileMovementType = attackDataInfo.ProjectileMovementType;
-        FunctionMovementType = attackDataInfo.FunctionMovementType;
-        AttackType = attackDataInfo.AttackType;
-        AttackIsDirectionDependant = attackDataInfo.AttackIsDirectionDependant;
-        ProjectileAmount = attackDataInfo.ProjectileAmount;
-        ConsecutiveAttacks = attackDataInfo.ConsecutiveAttacks;
-        ConsecutiveAttackDelay = attackDataInfo.ConsecutiveAttackDelay;
-        AttackFrequency = attackDataInfo.attackFrequency;
-        Damage = attackDataInfo.Damage;
-        ProjectileSpeed = attackDataInfo.ProjectileSpeed;
-        ProjectileDestroyDelay = attackDataInfo.ProjectileDestroyDelay;
-        UniversalSpawnPositionOffset = attackDataInfo.UniversalSpawnPositionOffset;
-
-        ProjectileSpawnPositionOffset.Clear();
-        ProjectileRotations.Clear();
-
-        ProjectileRotations = attackDataInfo.ProjectileRotations;
-        ProjectileSpawnPositionOffset = attackDataInfo.ProjectileSpawnPositionOffset;
-
-        RandomHorizontalFactorMin = attackDataInfo.RandomHorizontalFactorMin;
-        RandomHorizontalFactorMax = attackDataInfo.RandomHorizontalFactorMax;
-        RandomVerticalFactorMin = attackDataInfo.RandomVerticalFactorMin;
-        RandomVerticalFactorMax = attackDataInfo.RandomVerticalFactorMax;
-        RandomRotationFactorMin = attackDataInfo.RandomRotationFactorMin;
-        RandomRotationFactorMax = attackDataInfo.RandomRotationFactorMax;
-    }
+    
 }
 
 public struct AttackDataInfo

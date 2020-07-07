@@ -15,8 +15,8 @@ public class PlayerAttackHandler : MonoBehaviour
     public event Action<PlayerAttackHolder, string> OnPlayerAttackChanged = delegate { };
     
     [SerializeField]
-    private AttackData attackData;
-    private AttackData secondaryAttackData;
+    private PlayerAttackData attackData;
+    private PlayerAttackData secondaryAttackData;
     
     [SerializeField]
     private ProjectileMovementTypeEnum projectileMovementTypeMain;
@@ -45,7 +45,7 @@ public class PlayerAttackHandler : MonoBehaviour
     private float timePassedHoldingAttack = 0f;
     private float projectilePower;
 
-    public AttackData AttackData
+    public PlayerAttackData AttackData
     {
         get
         {
@@ -60,7 +60,7 @@ public class PlayerAttackHandler : MonoBehaviour
         }
     }
 
-    public AttackData SecondaryAttackData
+    public PlayerAttackData SecondaryAttackData
     {
         get
         {
@@ -96,8 +96,6 @@ public class PlayerAttackHandler : MonoBehaviour
     {
         SceneManager.sceneLoaded -= ResetAnimator;
     }
-
-    
 
     void Update()
     {
@@ -226,9 +224,8 @@ public class PlayerAttackHandler : MonoBehaviour
         }
     }
 
-    private void CalculateNewPlayerAttackData(PlayerAttackHolder playerAttackHolder, AttackData attackData, bool isMainAttack = false)
+    private void CalculateNewPlayerAttackData(PlayerAttackHolder playerAttackHolder, PlayerAttackData attackData, bool isMainAttack = false)
     {
-
         playerAttackHolder.ConsecutiveAttacks = attackData.ConsecutiveAttacks > playerAttackHolder.ConsecutiveAttacks ? attackData.ConsecutiveAttacks : playerAttackHolder.ConsecutiveAttacks;
         playerAttackHolder.ConsecutiveAttackDelay = attackData.ConsecutiveAttackDelay < playerAttackHolder.ConsecutiveAttackDelay ? attackData.ConsecutiveAttackDelay : playerAttackHolder.ConsecutiveAttackDelay;
         playerAttackHolder.ConsecutiveAttackDelay = playerAttackHolder.ConsecutiveAttackDelay < 0.1f ? 0.1f : playerAttackHolder.ConsecutiveAttackDelay;
@@ -253,7 +250,6 @@ public class PlayerAttackHandler : MonoBehaviour
             playerAttackHolder.FunctionMovementType = attackData.FunctionMovementType;
             playerAttackHolder.AttackType = attackData.AttackType;
         }
-
 
         playerAttackHolder.ProjectileSpawnPositionOffset.Clear();
         for (int i = 0; i < playerAttackHolder.ProjectileAmount; i++)

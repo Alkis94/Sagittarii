@@ -306,8 +306,8 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 11400000, guid: 740345de48613d347aa01ec8f4ad24a6, type: 2}
-    - {fileID: 11400000, guid: 100856dff7b8f0f4da39a53950d5a601, type: 2}
+    - {fileID: 11400000, guid: 6faf40a57bf22c24c994186dc091a77e, type: 2}
+    - {fileID: 11400000, guid: a4d7091e1019fa049851053e4589dd5f, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -325,6 +325,15 @@ MonoBehaviour:
     - Name: Amputation
       Entry: 5
       Data: false
+    - Name: HasBlood
+      Entry: 5
+      Data: true
+    - Name: HasCriticalDeath
+      Entry: 5
+      Data: false
+    - Name: ShakeBeforeDeath
+      Entry: 5
+      Data: false
     - Name: ChangingDirections
       Entry: 5
       Data: false
@@ -340,15 +349,16 @@ MonoBehaviour:
     - Name: GoldDropChance
       Entry: 4
       Data: 0.1
-    - Name: Relic
+    - Name: Relics
       Entry: 6
       Data: 
     - Name: RelicDropChance
-      Entry: 4
-      Data: 0.01
+      Entry: 6
+      Data: 
     - Name: AttackData
       Entry: 7
-      Data: 0|System.Collections.Generic.List`1[[AttackData, Assembly-CSharp]], mscorlib
+      Data: 0|System.Collections.Generic.List`1[[EnemyAttackData, Assembly-CSharp]],
+        mscorlib
     - Name: 
       Entry: 12
       Data: 2
@@ -407,13 +417,8 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes:
-    - Name: HasCriticalDeath
-      Entry: 5
-      Data: false
+    SerializationNodes: []
   deathCry: {fileID: 8300000, guid: acf7a3d9e312ff3449d8a3e6cbedde21, type: 3}
-  hasBlood: 1
-  shakeBeforeDeath: 1
   amputationPart: {fileID: 0}
 --- !u!114 &5014629230105752360
 MonoBehaviour:

@@ -7,12 +7,12 @@ public class ItemAttackChanger : MonoBehaviour
     private bool changeMainAttack = false;
     [SerializeField]
     [ShowIf("@changeMainAttack")]
-    private AttackData attackData;
+    private PlayerAttackData attackData;
     [SerializeField]
     private bool changeSecondaryAttack = false;
     [SerializeField]
     [ShowIf("@changeSecondaryAttack")]
-    private AttackData secondaryAttackData;
+    private PlayerAttackData secondaryAttackData;
     [SerializeField]
     private string relicName;
     [SerializeField]

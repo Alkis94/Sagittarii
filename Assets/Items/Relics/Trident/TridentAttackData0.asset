@@ -9,14 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a1c0d2898bdfe345b949cceb39347ee, type: 3}
+  m_Script: {fileID: 11500000, guid: 217928bcc80122f44b8b857afee7e49c, type: 3}
   m_Name: TridentAttackData0
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects:
-    - {fileID: 1000011198274758, guid: 7286360133900744eb191a4b124d4e14, type: 3}
+    ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -34,42 +33,18 @@ MonoBehaviour:
     - Name: AttackIsDirectionDependant
       Entry: 5
       Data: false
-    - Name: ProjectileAmount
-      Entry: 3
-      Data: 3
     - Name: ConsecutiveAttacks
       Entry: 3
       Data: 1
     - Name: ConsecutiveAttackDelay
       Entry: 4
       Data: 0
-    - Name: AttackFrequency
-      Entry: 4
-      Data: 0
-    - Name: Damage
-      Entry: 3
-      Data: 0
-    - Name: ProjectileSpeed
-      Entry: 4
-      Data: 10
-    - Name: ProjectileDestroyDelay
-      Entry: 4
-      Data: 20
     - Name: ProjectileRotations
       Entry: 7
       Data: 0|System.Collections.Generic.List`1[[System.Single, mscorlib]], mscorlib
     - Name: 
       Entry: 12
-      Data: 3
-    - Name: 
-      Entry: 4
-      Data: -15
-    - Name: 
-      Entry: 4
       Data: 0
-    - Name: 
-      Entry: 4
-      Data: 15
     - Name: 
       Entry: 13
       Data: 
@@ -82,52 +57,7 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 12
-      Data: 3
-    - Name: 
-      Entry: 7
-      Data: UnityEngine.Vector3, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
       Data: 0
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: UnityEngine.Vector3, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: UnityEngine.Vector3, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
     - Name: 
       Entry: 13
       Data: 
@@ -168,8 +98,8 @@ MonoBehaviour:
       Entry: 4
       Data: 0
     - Name: Projectile
-      Entry: 10
-      Data: 0
+      Entry: 6
+      Data: 
     - Name: AttackSound
       Entry: 6
       Data: 

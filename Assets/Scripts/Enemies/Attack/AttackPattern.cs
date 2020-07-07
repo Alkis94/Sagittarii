@@ -31,7 +31,7 @@ public class AttackPattern : MonoBehaviour
         }
     }
 
-    public void Attack(AttackData attackData)
+    public void Attack(EnemyAttackData attackData)
     {
         if (attackData.AttackSound != null)
         {
@@ -41,7 +41,7 @@ public class AttackPattern : MonoBehaviour
         StartCoroutine(StartAttacking(attackData));
     }
 
-    IEnumerator StartAttacking(AttackData attackData)
+    IEnumerator StartAttacking(EnemyAttackData attackData)
     {
         for (int j = 0; j < attackData.ConsecutiveAttacks; j++)
         {
@@ -55,7 +55,7 @@ public class AttackPattern : MonoBehaviour
         }
     }
 
-    private AttackInfo CalculateAttackInfo(AttackData attackData, AttackInfo attackInfo, int i, int j)
+    private AttackInfo CalculateAttackInfo(EnemyAttackData attackData, AttackInfo attackInfo, int i, int j)
     {
 
         Vector3 positionRandomness = Vector3.zero;

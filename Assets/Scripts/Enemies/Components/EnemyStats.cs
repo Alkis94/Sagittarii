@@ -42,7 +42,7 @@ public class EnemyStats : SerializedMonoBehaviour , IDamageable
 
 
     [Title("Attacks")]
-    [OdinSerialize] public List<AttackData> AttackData { get; private set; }
+    [OdinSerialize] public List<EnemyAttackData> AttackData { get; private set; }
 
     private DamageSource lastDamageSource;
     private DamageType lastDamageType;
