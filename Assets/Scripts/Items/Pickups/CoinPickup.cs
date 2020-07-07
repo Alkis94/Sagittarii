@@ -11,7 +11,7 @@ public class CoinPickup : MonoBehaviour
 
     public const int copperValue = 5;
     public const int silverValue = 10;
-    public const int goldValue = 100;
+    public const int goldValue = 20;
 
     void Start()
     {

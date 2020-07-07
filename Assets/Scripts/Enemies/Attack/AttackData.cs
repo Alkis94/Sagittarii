@@ -123,6 +123,7 @@ public class AttackData : SerializedScriptableObject
         Damage = attackDataInfo.Damage;
         ProjectileSpeed = attackDataInfo.ProjectileSpeed;
         ProjectileDestroyDelay = attackDataInfo.ProjectileDestroyDelay;
+        UniversalSpawnPositionOffset = attackDataInfo.UniversalSpawnPositionOffset;
 
         ProjectileSpawnPositionOffset.Clear();
         ProjectileRotations.Clear();

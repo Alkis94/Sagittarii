@@ -1,17 +1,16 @@
 fileFormatVersion: 2
-guid: b52f75b0da268e840a7d15fdd5d2e8be
+guid: 63c36e09d92b5934c8af34e04de7e0f6
 TextureImporter:
   fileIDToRecycleName:
     21300000: tileset1_6
     21300002: tileset1_7
     21300004: tileset1_8
-    21300006: wolf_walking_v4_0
-    21300008: wolf_walking_v4_1
-    21300010: wolf_walking_v4_2
-    21300012: wolf_walking_v4_3
-    21300014: wolf_walking_v4_4
+    21300006: WolfDying_0
+    21300008: WolfDying_1
+    21300010: WolfDying_2
+    21300012: WolfDying_3
   externalObjects: {}
-  serializedVersion: 7
+  serializedVersion: 9
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -136,13 +135,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: wolf_walking_v4_0
+      name: WolfDying_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 39
-        height: 20
+        width: 42
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -150,19 +149,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 07078ef432fbeb041ac82c580762c5db
+      spriteID: 64e6f982281c90c45891126507763cab
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wolf_walking_v4_1
+      name: WolfDying_1
       rect:
         serializedVersion: 2
-        x: 40
+        x: 43
         y: 0
-        width: 39
-        height: 20
+        width: 42
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -170,19 +169,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d0e1600015998d14d82888fc5d15fdcb
+      spriteID: 64173ecbd22c5dc49a51260c5b70adcd
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wolf_walking_v4_2
+      name: WolfDying_2
       rect:
         serializedVersion: 2
-        x: 80
+        x: 86
         y: 0
-        width: 39
-        height: 20
+        width: 42
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -190,19 +189,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d9c9e9da58d3c70489bae458df71eadf
+      spriteID: d7954e48e19f28d4aa932c0479b19deb
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wolf_walking_v4_3
+      name: WolfDying_3
       rect:
         serializedVersion: 2
-        x: 120
+        x: 129
         y: 0
-        width: 39
-        height: 20
+        width: 42
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -210,27 +209,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 71b4a7dde5376fc48891a9cc612fed90
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: wolf_walking_v4_4
-      rect:
-        serializedVersion: 2
-        x: 160
-        y: 0
-        width: 39
-        height: 20
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 21ee4d738a6593447b047b84bc6fffd7
+      spriteID: ba2a136d99d57d440aeecfb624a5a527
       vertices: []
       indices: 
       edges: []

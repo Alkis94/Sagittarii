@@ -179,7 +179,6 @@ public class PlayerStats : MonoBehaviour, IDamageable
             {
                 currentEnergy = MaximumEnergy;
             }
-
             UIManager.Instance.UpdateEnergy(CurrentEnergy, MaximumEnergy);
         }
     }

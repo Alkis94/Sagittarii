@@ -1,14 +1,14 @@
 fileFormatVersion: 2
-guid: be6d8a4cbaf5ed744b655cfe74861e9f
+guid: f27c93c21942fcc4fb9ae4cf96d7e685
 TextureImporter:
   fileIDToRecycleName:
     21300000: tileset1_6
     21300002: tileset1_7
     21300004: tileset1_8
-    21300006: wolf_death_v2_0
-    21300008: wolf_death_v2_1
-    21300010: wolf_death_v2_2
-    21300012: wolf_death_v2_3
+    21300006: WolfAttacking_0
+    21300008: WolfAttacking_1
+    21300010: WolfAttacking_2
+    21300012: WolfAttacking_3
   externalObjects: {}
   serializedVersion: 9
   mipmaps:
@@ -135,81 +135,81 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: wolf_death_v2_0
+      name: WolfAttacking_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 39
-        height: 19
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5263158}
+        width: 42
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e2715aa570cbdf84da95caeed8bddf88
+      spriteID: cdb47bf0ca4e21d4e82a312fbd23290a
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wolf_death_v2_1
+      name: WolfAttacking_1
       rect:
         serializedVersion: 2
-        x: 40
+        x: 43
         y: 0
-        width: 39
-        height: 13
-      alignment: 9
-      pivot: {x: 0.5, y: 0.7692308}
+        width: 42
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 011168753c457b14c9cddf0d2ab003e4
+      spriteID: cb679402c8c775046ae1e0746de238f0
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wolf_death_v2_2
+      name: WolfAttacking_2
       rect:
         serializedVersion: 2
-        x: 80
+        x: 86
         y: 0
-        width: 39
-        height: 11
-      alignment: 9
-      pivot: {x: 0.5, y: 0.90909094}
+        width: 42
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 19de1699fe066ce47999e529385cc420
+      spriteID: 3351a7e85dae18246a98be60090fe21f
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wolf_death_v2_3
+      name: WolfAttacking_3
       rect:
         serializedVersion: 2
-        x: 120
+        x: 129
         y: 0
-        width: 39
-        height: 8
-      alignment: 9
-      pivot: {x: 0.5, y: 1.3}
+        width: 42
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 19e6f46f17db23449a7c69ccb51c3f4f
+      spriteID: b58ca35d93b20e241a9694515c0e3ad6
       vertices: []
       indices: 
       edges: []

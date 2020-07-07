@@ -2,6 +2,10 @@
 
 public class TreasureChest : MonoBehaviour, IInteractable
 {
+    [SerializeField]
+    private int minGoldDrop = 0;
+    [SerializeField]
+    private int maxGoldDrop = 100;
     private Animator animator;
     private MapType mapType;
     private RoomType roomType;
@@ -12,6 +16,7 @@ public class TreasureChest : MonoBehaviour, IInteractable
     private void OnEnable()
     {
         MapManager.OnRoomLoaded += GetInfo;
+        isEnabled = transform.GetChild(0).gameObject.activeInHierarchy;
     }
 
     private void OnDisable()
@@ -44,10 +49,10 @@ public class TreasureChest : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        if(isClosed && isEnabled)
+        if (isClosed && isEnabled)
         {
             animator.SetTrigger("Open");
-            PickUpFactory.Instance.DropGold(transform.position, 1, 35, 65);
+            PickUpFactory.Instance.DropGold(transform.position, 1, minGoldDrop, maxGoldDrop, true);
             isClosed = false;
             ES3.Save<bool>("isClosed", isClosed, "Levels/" + mapType + "/Room" + roomKey);
         }

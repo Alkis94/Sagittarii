@@ -25,7 +25,6 @@ public class PlayerSceneChangeManager : MonoBehaviour
         BossDoor.DoorEntered += NextPlayerSpawnPointDirection;
         NextPlayerSpawnPointDirection();
         transform.position = NextPlayerSpawnPointPosition();
-        MakeChangesForTown();
     }
 
     private void OnDisable()
@@ -39,6 +38,14 @@ public class PlayerSceneChangeManager : MonoBehaviour
     private void Awake()
     {
         lastDoorTakenPlacement = Direction.west;
+    }
+
+    private void Start()
+    {
+        if(SceneManager.GetActiveScene().name == "Town")
+        {
+            MakeChangesForTown();
+        }
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
