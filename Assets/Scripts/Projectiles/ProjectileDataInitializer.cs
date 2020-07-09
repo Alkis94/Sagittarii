@@ -14,6 +14,10 @@ public class ProjectileDataInitializer : MonoBehaviour
         transform.position = parentPosition + spawnPositionOffset;
         transform.rotation = Quaternion.Euler(0f, 0f, projectileRotation);
         Speed = projectileSpeed;
+        if(Speed < 0)
+        {
+            GetComponent<SpriteRenderer>().flipX = true;
+        }
         DestroyDelay = projectileDestroyDelay;
         Damage = damage;
         gameObject.layer = layer;
@@ -26,6 +30,10 @@ public class ProjectileDataInitializer : MonoBehaviour
         transform.position = parentPosition + spawnPositionOffset;
         transform.rotation = projectileRotation;
         Speed = projectileSpeed;
+        if (Speed < 0)
+        {
+            GetComponent<SpriteRenderer>().flipX = true;
+        }
         DestroyDelay = projectileDestroyDelay;
         Damage = damage;
         gameObject.layer = layer;
@@ -38,6 +46,10 @@ public class ProjectileDataInitializer : MonoBehaviour
         transform.position = parentPosition + spawnPositionOffset;
         transform.rotation = Quaternion.Euler(0f, 0f, projectileRotation);
         Speed = projectileSpeed;
+        if (Speed < 0)
+        {
+            GetComponent<SpriteRenderer>().flipX = true;
+        }
         DestroyDelay = projectileDestroyDelay;
         Damage = damage;
         FunctionMovementType = functionMovementType;

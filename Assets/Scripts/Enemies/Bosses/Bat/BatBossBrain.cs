@@ -125,7 +125,7 @@ public class BatBossBrain : EnemyBrain
     {
         while(true)
         {
-            AttackPatterns.Attack(enemyStats.AttackData[index]);
+            enemyAttackHandler.Attack(enemyStats.AttackData[index]);
             yield return new WaitForSeconds(attackFrequency);
         }
     }

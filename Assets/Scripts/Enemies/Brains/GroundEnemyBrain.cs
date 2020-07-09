@@ -35,17 +35,18 @@ public class GroundEnemyBrain : EnemyBrain
         InvokeRepeating("StartAttackAnimation", enemyStats.DelayBeforeFirstAttack, enemyStats.AttackData[0].AttackFrequency);  
     }
 
-    protected virtual void Update()
+    protected virtual void FixedUpdate()
     {
         if (enemyStats.Health > 0)
         {
+            enemyGroundMovement.Move(enemyStats.Speed);
             CheckCollisions();
         }
     }
 
     protected virtual void CheckCollisions()
     {
-        
+        raycaster.UpdateRaycastOrigins();
         collisionTracker.collisions.Reset();
         collisionTracker.TrackHorizontalCollisions();
         collisionTracker.TrackVerticalCollisions(rigidbody2d.velocity.y);
@@ -55,14 +56,6 @@ public class GroundEnemyBrain : EnemyBrain
         {
             cannotChangeDirectionTime = Time.time + 0.1f;
             ChangeHorizontalDirection();
-        }
-    }
-
-    protected virtual void FixedUpdate()
-    {
-        if (enemyStats.Health > 0)
-        {
-            enemyGroundMovement.Move(enemyStats.Speed);
         }
     }
 

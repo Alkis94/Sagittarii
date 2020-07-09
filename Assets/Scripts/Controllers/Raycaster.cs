@@ -24,6 +24,7 @@ public class Raycaster : MonoBehaviour
     private void Start()
     {
         CalculateRaySpacing();
+        UpdateRaycastOrigins();
     }
 
     public void UpdateRaycastOrigins()

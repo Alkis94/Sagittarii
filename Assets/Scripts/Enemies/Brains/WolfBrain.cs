@@ -31,11 +31,6 @@ public class WolfBrain : GroundEnemyBrain
         StartCoroutine(UpdateVelocityYForAnimator());
     }
 
-    protected override void Update()
-    {
-        base.Update();
-    }
-
     protected override void FixedUpdate()
     {
         base.FixedUpdate();

@@ -6,7 +6,6 @@ public class SpiderBrain : EnemyBrain
 {
 
     private MovementPattern movementPattern;
-    private AttackPattern attackPattern;
     [SerializeField]
     private GameObject web;
     private bool wasNotLoaded = true;
@@ -14,7 +13,6 @@ public class SpiderBrain : EnemyBrain
     protected override void Awake()
     {
         base.Awake();
-        attackPattern = GetComponent<AttackPattern>();
     }
 
     protected override void OnEnable()
@@ -49,7 +47,7 @@ public class SpiderBrain : EnemyBrain
     {
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
         {
-            attackPattern.Attack(enemyStats.AttackData[0]);
+            enemyAttackHandler.Attack(enemyStats.AttackData[0]);
             animator.SetTrigger("Attack");
             audioSource.Play();
         }

@@ -45,7 +45,7 @@ public class ProjectileImpact : MonoBehaviour
 
         if (bulletSplits)
         {
-            GetComponent<AttackPattern>().Attack(attackData);
+            GetComponent<EnemyAttackHandler>().Attack(attackData);
         }
 
         Destroy(gameObject, impactDestroyDelay);
@@ -65,7 +65,7 @@ public class ProjectileImpact : MonoBehaviour
         yield return new WaitForSeconds(destroyDelay);
         if(bulletSplits)
         {
-            GetComponent<AttackPattern>().Attack(attackData);
+            GetComponent<EnemyAttackHandler>().Attack(attackData);
         }
         Destroy(gameObject);
     }

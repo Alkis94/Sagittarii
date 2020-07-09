@@ -15,11 +15,11 @@ public abstract class  EnemyBrain : MonoBehaviour
     protected CollisionTracker collisionTracker;
     protected Raycaster raycaster;
     protected AudioSource audioSource;
+    protected EnemyAttackHandler enemyAttackHandler;
 
     [HideInInspector]
     public Animator animator { get; protected set; }
-    [HideInInspector]
-    public AttackPattern AttackPatterns { get; protected set; }
+    
     [HideInInspector]
     public MovementPattern[] MovementPatterns { get; protected set; }
 
@@ -46,7 +46,7 @@ public abstract class  EnemyBrain : MonoBehaviour
         enemyGotShot = GetComponent<EnemyGotShot>();
         enemyStats = GetComponent<EnemyStats>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        AttackPatterns = GetComponent<AttackPattern>();
+        enemyAttackHandler = GetComponent<EnemyAttackHandler>();
     }
 
     protected virtual void Start()
@@ -100,7 +100,7 @@ public abstract class  EnemyBrain : MonoBehaviour
     //Gets called from animation sometimes!
     protected void CallMainAttack()
     {
-        AttackPatterns.Attack(enemyStats.AttackData[0]);
+        enemyAttackHandler.Attack(enemyStats.AttackData[0]);
     }
 
     protected void StartAttackAnimation()

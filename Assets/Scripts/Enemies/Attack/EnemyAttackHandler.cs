@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Factories;
 
-public class AttackPattern : MonoBehaviour
+public class EnemyAttackHandler: MonoBehaviour
 {
     private AudioSource audioSource;
     private EnemyStats enemyStats;

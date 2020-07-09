@@ -2,14 +2,11 @@
 
 public class EnemyGroundMovement : MonoBehaviour
 {
-
     private Rigidbody2D rigidbody2d;
-    private Raycaster raycaster;
 
     private void Awake()
     {
         rigidbody2d = GetComponent<Rigidbody2D>();
-        raycaster = GetComponentInChildren<Raycaster>();
     }
 
     public void Move(float speed)
@@ -18,7 +15,6 @@ public class EnemyGroundMovement : MonoBehaviour
         {
             rigidbody2d.velocity = new Vector2(transform.right.x * speed, rigidbody2d.velocity.y);
         }
-        raycaster.UpdateRaycastOrigins();
     }
 
     public void ChangeHorizontalDirection()

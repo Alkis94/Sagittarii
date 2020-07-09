@@ -94,7 +94,7 @@ public class OwlBrain : EnemyBrain
     //Called from Animation
     public void CallAttack()
     {
-        AttackPatterns.Attack(enemyStats.AttackData[0]);
+        enemyAttackHandler.Attack(enemyStats.AttackData[0]);
     }
 
     //Called from Animation

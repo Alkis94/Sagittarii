@@ -4,13 +4,11 @@ using System.Collections;
 public class TulipBrain : EnemyBrain
 {
     private Transform player;
-    private AttackPattern attackPattern;
     private int horizontalDirection = 1;
 
     protected override void Awake()
     {
         base.Awake();
-        attackPattern = GetComponent<AttackPattern>();
     }
 
     protected override void OnEnable()
@@ -54,7 +52,7 @@ public class TulipBrain : EnemyBrain
                 StartAttackAnimation();
                 yield return new WaitForSeconds(enemyStats.AttackData[0].AttackFrequency);
             }
-            yield return new WaitForSeconds(Time.fixedDeltaTime);
+            yield return new WaitForSeconds(0.5f);
         }
     }
 

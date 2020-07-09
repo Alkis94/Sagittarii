@@ -173,7 +173,8 @@ AudioSource:
   m_GameObject: {fileID: 3848228553112147355}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 243167415347350056, guid: bb9be695547233747b430024ce61251c,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: 110a807cbe712cf449782c151c45d790, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -293,6 +294,12 @@ MonoBehaviour:
   damage: 0
   ammo: 0
   gold: 0
+  armor: 0
+  luck: 0
+  lifesteal: 0
+  lifestealChance: 0
+  energysteal: 0
+  energystealChance: 0
 --- !u!1 &3923862190139915852
 GameObject:
   m_ObjectHideFlags: 0
