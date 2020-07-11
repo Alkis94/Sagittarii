@@ -46,13 +46,13 @@ public class TulipBrain : EnemyBrain
     {
         while(true)
         {
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right, 30, 1 << LayerMask.NameToLayer("Player"));
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right, 40, 1 << LayerMask.NameToLayer("Player"));
             if (hit)
             {
                 StartAttackAnimation();
                 yield return new WaitForSeconds(enemyStats.AttackData[0].AttackFrequency);
             }
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.25f);
         }
     }
 

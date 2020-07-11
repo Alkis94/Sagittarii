@@ -41,7 +41,7 @@ public class OwlHuntAttackState : State<OwlBrain>
             stateOwner.horizontalDirection = stateOwner.transform.right.x < 0 ? 1 : -1;
         }
 
-        if (playerPosition.x - 1 < stateOwner.transform.position.x && stateOwner.transform.position.x < playerPosition.x + 1)
+        if (playerPosition.x - 0.5f < stateOwner.transform.position.x && stateOwner.transform.position.x < playerPosition.x + 0.5f)
         {
             stateOwner.animator.SetTrigger("Attack");
             stateOwner.MovementPatterns[1].Move(0, stateOwner.verticalDirection, stateOwner.horizontalDirection);

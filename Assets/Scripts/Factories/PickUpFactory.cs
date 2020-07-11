@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 public class PickUpFactory : MonoBehaviour
 {
-
     public static PickUpFactory Instance { get; private set; } = null;
 
     [SerializeField]

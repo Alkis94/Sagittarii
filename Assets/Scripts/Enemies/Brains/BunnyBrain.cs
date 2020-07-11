@@ -38,7 +38,7 @@ public class BunnyBrain : GroundEnemyBrain
             RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right, 15, 1 << LayerMask.NameToLayer("Player"));
             if (hit)
             {
-                if (hit.distance < 2)
+                if (hit.distance < 4)
                 {
                     StartAttackAnimation();
                     enemyGroundMovement.Move(0);

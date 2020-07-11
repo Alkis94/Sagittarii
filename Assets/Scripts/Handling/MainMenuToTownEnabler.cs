@@ -10,6 +10,8 @@ public class MainMenuToTownEnabler : MonoBehaviour
     private GameObject character;
     [SerializeField]
     private GameObject playerCamera;
+    [SerializeField]
+    private GameObject itemFactories;
 
     private void OnEnable()
     {
@@ -28,6 +30,7 @@ public class MainMenuToTownEnabler : MonoBehaviour
             UI.SetActive(true);
             playerCamera.SetActive(true);
             character.transform.GetChild(0).gameObject.SetActive(true);
+            itemFactories.SetActive(true);
             Destroy(gameObject);
         }
     }

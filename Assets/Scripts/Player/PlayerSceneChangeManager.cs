@@ -72,7 +72,7 @@ public class PlayerSceneChangeManager : MonoBehaviour
 
     private void NextPlayerSpawnPointDirection(string levelToLoad = null)
     {
-        this.lastDoorTakenPlacement = Direction.middle;
+        lastDoorTakenPlacement = Direction.middle;
     }
 
     private void NextPlayerSpawnPointDirection(Direction lastDoorTakenPlacement)
@@ -82,36 +82,79 @@ public class PlayerSceneChangeManager : MonoBehaviour
 
     private Vector3 NextPlayerSpawnPointPosition()
     {
-        GameObject thisSpawn = GameObject.FindGameObjectWithTag("PlayerSpawnWest");
-        if (lastDoorTakenPlacement == Direction.east && thisSpawn != null)
+        
+        //Try to find the correct next spawn depending on the last door taken.
+        if (lastDoorTakenPlacement == Direction.east)
         {
-            return thisSpawn.transform.position;
+            GameObject thisSpawn = GameObject.FindGameObjectWithTag("PlayerSpawnWest");
+            if(thisSpawn != null)
+            {
+                return thisSpawn.transform.position;
+            }
+        }
+        else if (lastDoorTakenPlacement == Direction.west)
+        {
+            GameObject thisSpawn = GameObject.FindGameObjectWithTag("PlayerSpawnEast");
+            if (thisSpawn != null)
+            {
+                return thisSpawn.transform.position;
+            }
+        }
+        else if (lastDoorTakenPlacement == Direction.north)
+        {
+            GameObject thisSpawn = GameObject.FindGameObjectWithTag("PlayerSpawnSouth");
+            if (thisSpawn != null)
+            {
+                return thisSpawn.transform.position;
+            }
+        }
+        else if (lastDoorTakenPlacement == Direction.south)
+        {
+            GameObject thisSpawn = GameObject.FindGameObjectWithTag("PlayerSpawnNorth");
+            if (thisSpawn != null)
+            {
+                return thisSpawn.transform.position;
+            }
+        }
+        else if (lastDoorTakenPlacement == Direction.middle)
+        {
+            GameObject thisSpawn = GameObject.FindGameObjectWithTag("PlayerSpawnMiddle");
+            if (thisSpawn != null)
+            {
+                return thisSpawn.transform.position;
+            }
         }
 
-        thisSpawn = GameObject.FindGameObjectWithTag("PlayerSpawnEast");
-        if (lastDoorTakenPlacement == Direction.west && thisSpawn != null)
+
+        //If the correct spawn was not found return any possible spawn position for the player
+        GameObject anySpawn = GameObject.FindGameObjectWithTag("PlayerSpawnMiddle");
+        if(anySpawn != null)
         {
-            return thisSpawn.transform.position;
+            return anySpawn.transform.position;
+        }
+        anySpawn = GameObject.FindGameObjectWithTag("PlayerSpawnWest");
+        if (anySpawn != null)
+        {
+            return anySpawn.transform.position;
+        }
+        anySpawn = GameObject.FindGameObjectWithTag("PlayerSpawnEast");
+        if (anySpawn != null)
+        {
+            return anySpawn.transform.position;
+        }
+        anySpawn = GameObject.FindGameObjectWithTag("PlayerSpawnNorth");
+        if (anySpawn != null)
+        {
+            return anySpawn.transform.position;
+        }
+        anySpawn = GameObject.FindGameObjectWithTag("PlayerSpawnSouth");
+        if (anySpawn != null)
+        {
+            return anySpawn.transform.position;
         }
 
-        thisSpawn = GameObject.FindGameObjectWithTag("PlayerSpawnSouth");
-        if (lastDoorTakenPlacement == Direction.north && thisSpawn != null)
-        {
-            return thisSpawn.transform.position;
-        }
-
-        thisSpawn = GameObject.FindGameObjectWithTag("PlayerSpawnNorth");
-        if (lastDoorTakenPlacement == Direction.south && thisSpawn != null)
-        {
-            return thisSpawn.transform.position;
-        }
-
-        thisSpawn = GameObject.FindGameObjectWithTag("PlayerSpawnMiddle");
-        if (lastDoorTakenPlacement == Direction.middle && thisSpawn != null)
-        {
-            return thisSpawn.transform.position;
-        }
-
+        
+        Debug.LogError("No player spawn position found in the scene!");
         return transform.position;
     }
 

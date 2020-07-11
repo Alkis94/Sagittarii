@@ -7,7 +7,6 @@ public class SaveProfile : MonoBehaviour
 {
     public static int SaveID { get; private set; } = 1;
 
-
     [SerializeField]
     private int profileID;
     [SerializeField]

@@ -18,7 +18,7 @@ public class CoinPickup : MonoBehaviour
         rigidbody2d = GetComponent<Rigidbody2D>();
         boxCollider2d = GetComponent<BoxCollider2D>();
         rigidbody2d.AddForce(new Vector2(Random.Range(-2f, 2f), Random.Range(2f, 8f)), ForceMode2D.Impulse);
-        Invoke("EnableCollider", 0.5f);
+        Invoke("EnableCollider", 0.25f);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

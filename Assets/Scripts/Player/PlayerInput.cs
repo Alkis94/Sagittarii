@@ -1,10 +1,7 @@
-﻿// This script handles inputs for the player. It serves two main purposes: 1) wrap up
-// inputs so swapping between mobile and standalone is simpler and 2) keeping inputs
-// from Update() in sync with FixedUpdate()
-
-using Factories;
+﻿using Factories;
 using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 
 //We first ensure this script runs before all other player scripts to prevent laggy
@@ -14,21 +11,24 @@ public class PlayerInput : MonoBehaviour
 {
     public GameObject map;
 
-	[HideInInspector] public float horizontal;		//Float that stores horizontal input
-	[HideInInspector] public bool jumpHeld;			//Bool that stores jump pressed
-	[HideInInspector] public bool jumpPressed;		//Bool that stores jump held
+	[HideInInspector] public float horizontal;		
+	[HideInInspector] public bool jumpHeld;			
+	[HideInInspector] public bool jumpPressed;		
 
 	private bool readyToClear;                              //Bool used to keep input in sync
-    //private const float teleportCastTime = 3;
-    //private float teleportTimeCasted = 0;
+    private bool isTeleporting = false;
+    private Coroutine teleportCoroutine = null;
+
 
     private BoxCollider2D boxCollider2D;
+    private SpriteRenderer spriteRenderer;
     [SerializeField]
     private LayerMask collisionMask;
 
     private void Awake()
     {
         boxCollider2D = GetComponent<BoxCollider2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     void OnEnable()
@@ -46,22 +46,22 @@ public class PlayerInput : MonoBehaviour
     void Update()
 	{
 
-        if (Input.GetButtonDown("Cancel") && !GameState.GamePaused)
+        if (Input.GetButtonDown("Cancel") && GameManager.GameState == GameStateEnum.unpaused)
         {
             MenuFactory.CreateMenuAndPause(MenuFactory.PauseMenu);
         }
 
-        else if (Input.GetButtonDown("Cancel") && GameState.GamePaused)
+        else if (Input.GetButtonDown("Cancel") && GameManager.GameState == GameStateEnum.paused)
         {
             MenuFactory.DestroyMenuAndUnpause();
         }
 
         if (Input.GetKeyDown(KeyCode.W))
         {
-            var results = Physics2D.OverlapCircle(transform.position, 0.5f, 1 << LayerMask.NameToLayer("Interactables"));
-            if(results != null)
+            var result = Physics2D.OverlapCircle(transform.position, 0.5f, 1 << LayerMask.NameToLayer("Interactables"));
+            if(result != null)
             {
-                IInteractable interactable = results.gameObject.GetComponent<IInteractable>();
+                IInteractable interactable = result.gameObject.GetComponent<IInteractable>();
                 if(interactable != null)
                 {
                     interactable.Interact();
@@ -87,36 +87,28 @@ public class PlayerInput : MonoBehaviour
 		ProcessInputs();
 		horizontal = Mathf.Clamp(horizontal, -1f, 1f);
 
+        if (isTeleporting)
+        {
+            if (Input.anyKey)
+            {
+                if(!Input.GetKeyDown(KeyCode.F) && !Input.GetButtonDown("Cancel") && !Input.GetKey(KeyCode.F) && !Input.GetButton("Cancel"))
+                {
+                    Debug.Log("Canceled");
+                    StopCoroutine(teleportCoroutine);
+                    spriteRenderer.color = new Color(1f, 1f, 1f);
+                    teleportCoroutine = null;
+                    isTeleporting = false;
+                }
+            }
+        }
 
-        // This is used to call QuickQuitMenu so you can test indintual scenes as builds!
-        //Replace the above "Cancel" to use!
-
-        //if (Input.GetButtonDown("Cancel") && !GameState.GamePaused)
-        //{
-        //    MenuFactory.CreateMenuAndPause(MenuFactory.QuickQuitMenu);
-        //}
-        //else if (Input.GetButtonDown("Cancel") && GameState.GamePaused)
-        //{
-        //    MenuFactory.DestroyMenuAndUnpause();
-        //}
-
-        //if(Input.GetKeyUp(KeyCode.F))
-        //{
-        //    teleportTimeCasted = 0;
-        //}
-
-        //if (Input.GetKey(KeyCode.F))
-        //{
-        //    teleportTimeCasted += Time.deltaTime;
-        //    if (teleportCastTime <= teleportTimeCasted)
-        //    {
-        //        teleportTimeCasted = 0;
-        //        if (SceneManager.GetActiveScene().name != "Town")
-        //        {
-        //            SceneManager.LoadScene("Town");
-        //        }
-        //    }
-        //}
+        if (Input.GetKeyDown(KeyCode.F) && !isTeleporting && teleportCoroutine == null)
+        {
+            if(SceneManager.GetActiveScene().name != "Town")
+            {
+                teleportCoroutine = StartCoroutine(Teleport());
+            }
+        }
     }
 
     void FixedUpdate()
@@ -152,8 +144,24 @@ public class PlayerInput : MonoBehaviour
         horizontal = 0f;
         jumpPressed = false;
         jumpHeld = false;
-
         enabled = false;
+    }
+
+    IEnumerator Teleport()
+    {
+        yield return new WaitForSeconds(0.1f);
+        isTeleporting = true;
+        for(int i = 0; i < 6; i++)
+        {
+            spriteRenderer.color = new Color(1f, 1f, 1f);
+            yield return new WaitForSeconds(0.25f);
+            spriteRenderer.color = new Color(0f, 0f, 1f);
+            yield return new WaitForSeconds(0.25f);
+        }
+        spriteRenderer.color = new Color(1f, 1f, 1f);
+        isTeleporting = false;
+        teleportCoroutine = null;
+        SceneManager.LoadScene("Town");
     }
 
     IEnumerator ReturnToNormalLayer()
@@ -173,3 +181,17 @@ public class PlayerInput : MonoBehaviour
         }
     }
 }
+
+
+
+// This is used to call QuickQuitMenu so you can test indintual scenes as builds!
+//Replace the above "Cancel" to use!
+
+//if (Input.GetButtonDown("Cancel") && !GameState.GamePaused)
+//{
+//    MenuFactory.CreateMenuAndPause(MenuFactory.QuickQuitMenu);
+//}
+//else if (Input.GetButtonDown("Cancel") && GameState.GamePaused)
+//{
+//    MenuFactory.DestroyMenuAndUnpause();
+//}

@@ -8,7 +8,7 @@ public class RestartScene : MonoBehaviour
     {
         var thisScene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(thisScene.name);
-        GameState.UnpauseGame();
+        GameManager.GameState = GameStateEnum.unpaused;
     }
 
 }

@@ -51,6 +51,6 @@ public class PlayerDeath : MonoBehaviour
 
     private void PlayerDiedDelayedMenu()
     {
-        MenuFactory.CreateMenuAndPause(MenuFactory.DefeatMenuDev);
+        MenuFactory.CreateMenuAndPause(MenuFactory.DefeatMenu);
     }
 }

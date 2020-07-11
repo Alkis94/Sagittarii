@@ -10,7 +10,7 @@ public class Resume : MonoBehaviour
     public void PressResume()
     {
         DestroyMenu();
-        GameState.UnpauseGame();
+        GameManager.GameState = GameStateEnum.unpaused;
     }
 
     public void ResumeForMenuFactory()

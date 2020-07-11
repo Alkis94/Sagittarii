@@ -20,18 +20,17 @@ public class BossEnemyLoader : EnemyLoader
     {
         dead = true;
         this.criticalDeath = criticalDeath;
-        Debug.Log("Dead = " + dead);
         ES3.Save<bool>("Dead" + EnemyKey, dead, "Saves/Profile" + SaveProfile.SaveID + "/Bosses/" + MapType);
         ES3.Save<bool>("CriticalDeath" + EnemyKey, criticalDeath, "Saves/Profile" + SaveProfile.SaveID + "/Bosses/" + MapType);
         ES3.Save<Vector3>("Position" + EnemyKey, transform.position, "Saves/Profile" + SaveProfile.SaveID + "/Bosses/" + MapType);
         ES3.Save<Quaternion>("Rotation" + EnemyKey, transform.rotation, "Saves/Profile" + SaveProfile.SaveID + "/Bosses/" + MapType);
     }
 
-    private void OnDestroy()
-    {
-        ES3.Save<bool>("Dead" + EnemyKey, dead, "Saves/Profile" + SaveProfile.SaveID + "/Bosses/" + MapType);
-        ES3.Save<bool>("CriticalDeath" + EnemyKey, criticalDeath, "Saves/Profile" + SaveProfile.SaveID + "/Bosses/" + MapType);
-        ES3.Save<Vector3>("Position" + EnemyKey, transform.position, "Saves/Profile" + SaveProfile.SaveID + "/Bosses/" + MapType);
-        ES3.Save<Quaternion>("Rotation" + EnemyKey, transform.rotation, "Saves/Profile" + SaveProfile.SaveID + "/Bosses/" + MapType);
-    }
+    //private void OnDestroy()
+    //{
+    //    ES3.Save<bool>("Dead" + EnemyKey, dead, "Saves/Profile" + SaveProfile.SaveID + "/Bosses/" + MapType);
+    //    ES3.Save<bool>("CriticalDeath" + EnemyKey, criticalDeath, "Saves/Profile" + SaveProfile.SaveID + "/Bosses/" + MapType);
+    //    ES3.Save<Vector3>("Position" + EnemyKey, transform.position, "Saves/Profile" + SaveProfile.SaveID + "/Bosses/" + MapType);
+    //    ES3.Save<Quaternion>("Rotation" + EnemyKey, transform.rotation, "Saves/Profile" + SaveProfile.SaveID + "/Bosses/" + MapType);
+    //}
 }
