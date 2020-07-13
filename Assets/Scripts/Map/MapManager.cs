@@ -37,7 +37,6 @@ public class MapManager : SerializedMonoBehaviour
     private Vector2Int[] caveMapRoomsWithTreasure;
 
     private readonly Vector2Int forestFirstRoomCoordinates = new Vector2Int(2, 0);
-    private readonly Vector2Int forestCaveDoorRoomCoordinates = new Vector2Int(4, 0);
     private readonly Vector2Int caveFirstRoomCoordinates = new Vector2Int(10, 0);
 
     private Vector2Int currentMapCoords = new Vector2Int(-1, 0);
@@ -159,7 +158,7 @@ public class MapManager : SerializedMonoBehaviour
         else if (currentMap == MapType.cave && nextMap == MapType.forest)
         {
             this.currentMap = MapType.forest;
-            currentMapCoords = forestCaveDoorRoomCoordinates;
+            currentMapCoords = forestFirstRoomCoordinates;
 
             mapLayout = forestMapLayout;
             mapLayoutIsUnexplored = forestMapLayoutIsUnexplored;
@@ -167,7 +166,7 @@ public class MapManager : SerializedMonoBehaviour
             mapIcons = forestMapIcons;
             mapRoomsWithTreasure = forestMapRoomsWithTreasure;
 
-            SceneManager.LoadScene(mapRooms[forestCaveDoorRoomCoordinates.x, forestCaveDoorRoomCoordinates.y]);
+            SceneManager.LoadScene(mapRooms[forestFirstRoomCoordinates.x, forestFirstRoomCoordinates.y]);
             MoveCurrentPlayerPositionAndCenterMap();
         }
     }

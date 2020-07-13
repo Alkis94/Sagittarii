@@ -28,30 +28,21 @@ public class WolfBrain : GroundEnemyBrain
     {
         base.Start();
         animatorVelocityY_ID = Animator.StringToHash("VelocityY");
-        StartCoroutine(UpdateVelocityYForAnimator());
     }
 
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
+        animator.SetFloat(animatorVelocityY_ID, rigidbody2d.velocity.y);
     }
 
-
+    //Gets called from animation
     private void CallJump()
     {
-        //Gets called from animation
         if (collisionTracker.collisions.below)
         {
             enemyGroundMovement.Jump(4,5);
         }
     }
 
-    IEnumerator UpdateVelocityYForAnimator()
-    {
-        while(true)
-        {
-            animator.SetFloat(animatorVelocityY_ID, rigidbody2d.velocity.y);
-            yield return null;
-        }
-    }
 }

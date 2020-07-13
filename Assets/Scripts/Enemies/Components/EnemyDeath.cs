@@ -23,8 +23,7 @@ public class EnemyDeath : SerializedMonoBehaviour
 
     [SerializeField]
     private AudioClip deathCry;
-    private float healthDropRate = 0.025f;
-    private float energyDropRate = 0.01f;
+    
 
     private bool hasBlood;
     private bool hasCriticalDeath;
@@ -155,12 +154,7 @@ public class EnemyDeath : SerializedMonoBehaviour
         transform.parent = null;
 
         DropRelic();
-        bool pickupDropped = false;
-        pickupDropped = PickUpFactory.Instance.DropPickup(transform.position, "HealthPickup", healthDropRate);
-        if(!pickupDropped)
-        {
-            PickUpFactory.Instance.DropPickup(transform.position, "EnergyPickup", energyDropRate);
-        }
+        PickUpFactory.Instance.DropPickup(transform.position);
         PickUpFactory.Instance.DropGold(transform.position, enemyStats.GoldDropChance, enemyStats.MinGoldGiven, enemyStats.MaxGoldGiven);
     }
 
@@ -170,6 +164,7 @@ public class EnemyDeath : SerializedMonoBehaviour
         {
             float randomNumber;
             randomNumber = UnityEngine.Random.Range(0f, 1f);
+            
             if (randomNumber < enemyStats.RelicDropChance[i])
             {
                 OnDeathDropRelic?.Invoke(enemyStats.Relics[i], transform.position);

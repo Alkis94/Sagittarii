@@ -29,16 +29,13 @@ public class BunnyBrain : GroundEnemyBrain
 
     protected override void FixedUpdate()
     {
-
         CheckCollisions();
-        //enemyGroundMovement.Move(enemyStats.Speed);
-
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Walking"))
         {
             RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right, 15, 1 << LayerMask.NameToLayer("Player"));
             if (hit)
             {
-                if (hit.distance < 4)
+                if (hit.distance < 10)
                 {
                     StartAttackAnimation();
                     enemyGroundMovement.Move(0);
@@ -46,7 +43,7 @@ public class BunnyBrain : GroundEnemyBrain
                 }
                 else
                 {
-                    enemyGroundMovement.Move(enemyStats.Speed + 4);
+                    enemyGroundMovement.Move(enemyStats.Speed + 6);
                 }
             }
             else

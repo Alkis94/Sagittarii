@@ -4,12 +4,12 @@
   "AttackType" : "Perimetrical",
   "AttackIsDirectionDependant" : true,
   "ProjectileAmount" : 1,
-  "ConsecutiveAttacks" : 5,
-  "ConsecutiveAttackDelay" : 0.15,
+  "ConsecutiveAttacks" : 10,
+  "ConsecutiveAttackDelay" : 0.075,
   "AttackFrequency" : 1,
   "Damage" : 5,
-  "ProjectileSpeed" : 12,
-  "ProjectileDestroyDelay" : 1.5,
+  "ProjectileSpeed" : 10,
+  "ProjectileDestroyDelay" : 3,
   "ProjectileRotations" : [0],
   "ProjectileSpawnPositionOffset": [ { "x": 0, "y" : 0, "z" : 0 } ],
   "UniversalSpawnPositionOffset" : { "x": 0, "y" : 0, "z" : 0 },
@@ -17,7 +17,7 @@
   "RandomHorizontalFactorMax" : 0,
   "RandomVerticalFactorMin" : 0,
   "RandomVerticalFactorMax" : 0,
-  "RandomRotationFactorMin" : -40,
-  "RandomRotationFactorMax" : 40
+  "RandomRotationFactorMin" : -30,
+  "RandomRotationFactorMax" : 30
   
 }

@@ -11,6 +11,9 @@ public class PickUpFactory : MonoBehaviour
     private Dictionary<string, GameObject> pickupsDictionery;
     private PlayerStats playerStats;
 
+    private float healthDropRate = 0.02f;
+    private float energyDropRate = 0.01f;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -36,7 +39,6 @@ public class PickUpFactory : MonoBehaviour
         }
     }
 
-
     private void Start()
     {
         playerStats = FindObjectOfType<PlayerStats>();
@@ -53,17 +55,24 @@ public class PickUpFactory : MonoBehaviour
         Instantiate(pickupsDictionery[pickup], spawnPosition, Quaternion.identity);
     }
 
-    public bool DropPickup(Vector3 spawnPosition, string pickup, float dropRate)
+    public void DropPickup(Vector3 spawnPosition)
     {
         float randomNumber = Random.Range(0f, 1f);
-        float dropChance = dropRate + playerStats.Luck;
-        
+        float dropChance = healthDropRate + playerStats.Luck;
+
         if (randomNumber < dropChance)
         {
-            CreatePickup(spawnPosition, pickup);
-            return true;
+            CreatePickup(spawnPosition, "HealthPickup");
+            return;
         }
-        return false;
+
+        randomNumber = Random.Range(0f, 1f);
+        dropChance = energyDropRate + playerStats.Luck;
+        if (randomNumber < dropChance)
+        {
+            CreatePickup(spawnPosition, "EnergyPickup");
+            return;
+        }
     }
 
     public void DropGold(Vector3 spawnPosition, float goldDropChance, int minGoldGiven, int maxGoldGiven, bool dropRandomCoins = false)
