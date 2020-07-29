@@ -97,13 +97,6 @@ public class MapManager : SerializedMonoBehaviour
         {
             this.currentMap = MapType.town;
             SceneManager.LoadScene("Town");
-            ResetMap();
-            if(ES3.DirectoryExists(("Levels/")))
-            {
-                ES3.DeleteDirectory("Levels/");
-                ES3.DeleteDirectory("Levels/");
-            }
-            
         }
         else if (currentMap == MapType.town && nextMap == MapType.forest)
         {
@@ -143,7 +136,7 @@ public class MapManager : SerializedMonoBehaviour
 
             //We put this road to connect forest and caves. This roads is not inside mapLayout. We do it this way so
             //no rooms of caves collide with forrest rooms.
-            Vector2 mapCoordinates = new Vector2(120, -20);
+            Vector2 mapCoordinates = new Vector2(80, -20);
             ExtensionMethods.InstantiateAtLocalPosition(rooms[(int)this.currentMap - 1][(int)RoomType.verticalRoad], mapTransform, mapCoordinates);
 
             SceneManager.LoadScene(mapRooms[caveFirstRoomCoordinates.x, caveFirstRoomCoordinates.y]);
@@ -361,7 +354,7 @@ public class MapManager : SerializedMonoBehaviour
         }
         else if (currentMap == MapType.cave)
         {
-            Vector2 mapCoordinates = new Vector2(-80 + x * 20, -40 - y * 20);
+            Vector2 mapCoordinates = new Vector2(-120 + x * 20, -40 - y * 20);
             return mapCoordinates;
         }
         else
@@ -391,12 +384,22 @@ public class MapManager : SerializedMonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if(mapLayout == null)
+        if (scene.name == "Town")
+        {
+            ResetMap();
+            if (ES3.DirectoryExists(("Levels/")))
+            {
+                ES3.DeleteDirectory("Levels/");
+                ES3.DeleteDirectory("Levels/");
+            }
+        }
+
+        if (mapLayout == null)
         {
             return;
         }
 
-        for(int i = 0; i < mapRoomsWithTreasure.Length; i++)
+        for (int i = 0; i < mapRoomsWithTreasure.Length; i++)
         {
             if(currentMapCoords == mapRoomsWithTreasure[i])
             {

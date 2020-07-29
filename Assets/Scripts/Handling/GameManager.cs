@@ -3,8 +3,6 @@
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
-    
-
     private static GameStateEnum gameState = GameStateEnum.unpaused;
 
     public static GameStateEnum GameState
@@ -25,7 +23,7 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-        
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
