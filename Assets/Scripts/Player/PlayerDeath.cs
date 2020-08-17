@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 using Factories;
 
 public class PlayerDeath : MonoBehaviour

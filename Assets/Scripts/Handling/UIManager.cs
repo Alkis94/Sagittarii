@@ -73,6 +73,23 @@ public class UIManager : MonoBehaviour
         UpdateBar(exhaustion, maxExhastion, energyImage,ref energyCoroutine);
     }
 
+    public void SetHealth(int health, int maxHealth)
+    {
+        UpdateText(health, maxHealth, healthText);
+        if (health <= 0)
+        {
+            healthImage.fillAmount = 0;
+        }
+        else if (health >= maxHealth)
+        {
+            healthImage.fillAmount = 1;
+        }
+        else
+        {
+            healthImage.fillAmount = (float)health / maxHealth;
+        }
+    }
+
     public void UpdateAmmo(int ammo)
     {
         ammoText.text = ammo.ToString();

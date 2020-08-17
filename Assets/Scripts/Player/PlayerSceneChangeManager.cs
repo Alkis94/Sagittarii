@@ -154,7 +154,7 @@ public class PlayerSceneChangeManager : MonoBehaviour
         }
 
         
-        Debug.LogError("No player spawn position found in the scene!");
+        Debug.Log("No player spawn position found in the scene!");
         return transform.position;
     }
 

@@ -50,10 +50,10 @@ public class PlayerLoader : MonoBehaviour
 
     private void SavePlayer()
     {
-        ES3.Save<int>("CurrentHealth", playerStats.CurrentHealth, "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
         ES3.Save<int>("MaximumHealth", playerStats.MaximumHealth, "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-        ES3.Save<int>("CurrentEnergy", playerStats.CurrentEnergy, "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
+        ES3.Save<int>("CurrentHealth", playerStats.CurrentHealth, "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
         ES3.Save<int>("MaximumEnergy", playerStats.MaximumEnergy, "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
+        ES3.Save<int>("CurrentEnergy", playerStats.CurrentEnergy, "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
         ES3.Save<int>("Gold", playerStats.Gold, "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
         ES3.Save<int>("Ammo", playerStats.Ammo, "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
         ES3.Save<int>("Damage", playerStats.Damage, "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
@@ -69,10 +69,10 @@ public class PlayerLoader : MonoBehaviour
 
     private void LoadPlayer()
     {
-        playerStats.CurrentHealth = ES3.Load<int>("CurrentHealth", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
         playerStats.MaximumHealth = ES3.Load<int>("MaximumHealth", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-        playerStats.CurrentEnergy = ES3.Load<int>("CurrentEnergy", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
+        playerStats.CurrentHealth = ES3.Load<int>("CurrentHealth", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
         playerStats.MaximumEnergy = ES3.Load<int>("MaximumEnergy", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
+        playerStats.CurrentEnergy = ES3.Load<int>("CurrentEnergy", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
         playerStats.Gold = ES3.Load<int>("Gold", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
         playerStats.Ammo = ES3.Load<int>("Ammo", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
         playerStats.Damage = ES3.Load<int>("Damage", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
@@ -138,5 +138,13 @@ public class PlayerLoader : MonoBehaviour
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         SavePlayer();
+    }
+
+    private void OnDestroy()
+    {
+        if (ES3.DirectoryExists("Saves/Profile" + SaveProfile.SaveID))
+        {
+            SavePlayer();
+        }
     }
 }

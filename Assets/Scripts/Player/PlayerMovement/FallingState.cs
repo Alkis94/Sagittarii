@@ -5,7 +5,7 @@ using StateMachineNamespace;
 public class FallingState : State<PlayerMovement>
 {
     private float maxFallSpeed = -25f;       //Max speed player can fall
-    private float coyoteDuration = .1f;     //How long the player can jump after falling
+    private float coyoteDuration = .15f;     //How long the player can jump after falling
     private float canStillJumpTime;
 
     public FallingState(PlayerMovement owner)

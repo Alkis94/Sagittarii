@@ -10,7 +10,7 @@ public class PlayerStats : MonoBehaviour, IDamageable
     [SerializeField]
     private CharacterClass characterClass;
     [SerializeField]
-    private  int currentHealth = 58;
+    private  int currentHealth = 100;
     [SerializeField]
     private  int maximumHealth = 100;
     [SerializeField]
@@ -75,7 +75,7 @@ public class PlayerStats : MonoBehaviour, IDamageable
 
     private void Start()
     {
-        UIManager.Instance.UpdateHealth(CurrentHealth, MaximumHealth);
+        UIManager.Instance.SetHealth(CurrentHealth, MaximumHealth);
         UIManager.Instance.UpdateEnergy(CurrentEnergy, MaximumEnergy);
         UIManager.Instance.UpdateGold(Gold);
         UIManager.Instance.UpdateAmmo(Ammo);

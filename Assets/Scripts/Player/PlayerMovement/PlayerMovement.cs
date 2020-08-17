@@ -110,9 +110,24 @@ public class PlayerMovement : MonoBehaviour
 
         //Cast rays for the left and right foot
         RaycastHit2D leftCheck = Physics2D.Raycast(bottomLeftCorner, Vector2.down, groundDistance, groundLayer);
-        Debug.DrawRay(bottomLeftCorner, Vector2.down , Color.red);
+        if(leftCheck)
+        {
+            Debug.DrawRay(bottomLeftCorner, Vector2.down, Color.green);
+        }
+        else
+        {
+            Debug.DrawRay(bottomLeftCorner, Vector2.down, Color.red);
+        }
+        
         RaycastHit2D rightCheck = Physics2D.Raycast(bottomRightCorner, Vector2.down, groundDistance, groundLayer);
-        Debug.DrawRay(bottomRightCorner, Vector2.down, Color.red);
+        if (rightCheck)
+        {
+            Debug.DrawRay(bottomRightCorner, Vector2.down, Color.green);
+        }
+        else
+        {
+            Debug.DrawRay(bottomRightCorner, Vector2.down, Color.red);
+        }
 
         return (leftCheck || rightCheck);
     }
