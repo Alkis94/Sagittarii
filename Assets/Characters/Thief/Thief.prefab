@@ -85,7 +85,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3126641117570683229}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.129, y: 0.02, z: 0}
+  m_LocalPosition: {x: -0.078, y: -0.0025, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3556800323298913501}
@@ -514,7 +514,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.051591635, y: -0.16747552}
+  m_Offset: {x: 0.07790333, y: -0.1172961}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -525,7 +525,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.49978864, y: 1.5871469}
+  m_Size: {x: 0.5451119, y: 1.3378692}
   m_EdgeRadius: 0
 --- !u!82 &861896868
 AudioSource:
@@ -653,7 +653,7 @@ MonoBehaviour:
   gold: 0
   armor: 0
   luck: 0.05
-  speed: 10
+  speed: 8
   projectileSpeed: 15
   damage: 10
   lifesteal: 0

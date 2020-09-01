@@ -32,10 +32,11 @@ public class BunnyBrain : GroundEnemyBrain
         CheckCollisions();
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Walking"))
         {
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right, 15, 1 << LayerMask.NameToLayer("Player"));
+            Vector3 origin = new Vector3(transform.position.x, transform.position.y - 1, 0);
+            RaycastHit2D hit = Physics2D.Raycast(origin, transform.right, 10, 1 << LayerMask.NameToLayer("Player"));
             if (hit)
             {
-                if (hit.distance < 10)
+                if (hit.distance < 5)
                 {
                     StartAttackAnimation();
                     enemyGroundMovement.Move(0);
