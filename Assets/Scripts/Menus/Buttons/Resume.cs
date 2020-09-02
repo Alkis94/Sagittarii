@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using Factories;
-using System;
 
 public class Resume : MonoBehaviour
 {
@@ -9,18 +8,13 @@ public class Resume : MonoBehaviour
 
     public void PressResume()
     {
-        DestroyMenu();
+        menu.SetActive(false);
         GameManager.GameState = GameStateEnum.unpaused;
     }
 
     public void ResumeForMenuFactory()
     {
         MenuFactory.DestroyMenuAndUnpause();
-    }
-
-    private void DestroyMenu()
-    {
-        Destroy(menu);
     }
 
 }

@@ -1,5 +1,4 @@
-﻿using Factories;
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
 
@@ -9,9 +8,12 @@ using UnityEngine.SceneManagement;
 [DefaultExecutionOrder(-100)]
 public class PlayerInput : MonoBehaviour
 {
-    public GameObject map;
+    [SerializeField]
+    private GameObject map;
+    [SerializeField]
+    private GameObject pauseMenu;
 
-	[HideInInspector] public float horizontal;		
+    [HideInInspector] public float horizontal;		
 	[HideInInspector] public bool jumpHeld;			
 	[HideInInspector] public bool jumpPressed;		
 
@@ -48,12 +50,14 @@ public class PlayerInput : MonoBehaviour
 
         if (Input.GetButtonDown("Cancel") && GameManager.GameState == GameStateEnum.unpaused)
         {
-            MenuFactory.CreateMenuAndPause(MenuFactory.PauseMenu);
+            pauseMenu.SetActive(true);
+            GameManager.GameState = GameStateEnum.paused;
         }
 
         else if (Input.GetButtonDown("Cancel") && GameManager.GameState == GameStateEnum.paused)
         {
-            MenuFactory.DestroyMenuAndUnpause();
+            pauseMenu.SetActive(false);
+            GameManager.GameState = GameStateEnum.unpaused;
         }
 
         if (Input.GetKeyDown(KeyCode.W))

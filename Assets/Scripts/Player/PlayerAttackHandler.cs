@@ -99,7 +99,7 @@ public class PlayerAttackHandler : MonoBehaviour
 
     void Update()
     {
-        if (playerStats.Ammo > 0)
+        if (playerStats.Ammo > 0 && GameManager.GameState == GameStateEnum.unpaused)
         {
             if ((Input.GetButtonDown("Fire1") || Input.GetButton("Fire1")) && animator.GetCurrentAnimatorStateInfo(0).IsName("IdleHands"))
             {

@@ -3,15 +3,29 @@ using UnityEngine.EventSystems;
 
 public class ButtonSound : MonoBehaviour, IPointerEnterHandler
 {
+    [SerializeField]
     private AudioSource audioSource;
+    [SerializeField]
+    private AudioClip buttonOverSound;
+    [SerializeField]
+    private AudioClip buttonPressedSound;
+
 
     private void Start()
     {
-        audioSource = GetComponent<AudioSource>();
+        if(audioSource == null)
+        {
+            audioSource = GetComponent<AudioSource>();
+        }
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        audioSource.Play();
+        audioSource.PlayOneShot(buttonOverSound);
+    }
+
+    public void OnButtonPressed()
+    {
+        audioSource.PlayOneShot(buttonPressedSound);
     }
 }

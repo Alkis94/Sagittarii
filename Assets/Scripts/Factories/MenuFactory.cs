@@ -4,9 +4,7 @@ namespace Factories
 {
     public static class MenuFactory
     {
-        public static GameObject PauseMenu { get; private set; }
         public static GameObject DefeatMenu { get; private set; }
-        public static GameObject DefeatMenuDev { get; private set; }
         public static GameObject QuickQuitMenu { get; private set; }
         private static GameObject someMenu;
 
@@ -14,9 +12,7 @@ namespace Factories
 
         static MenuFactory()
         {
-            PauseMenu = Resources.Load("Menus/PauseMenu") as GameObject;
             DefeatMenu = Resources.Load("Menus/DefeatMenu") as GameObject;
-            DefeatMenuDev = Resources.Load("Menus/DefeatMenuDev") as GameObject;
             QuickQuitMenu = Resources.Load("Menus/QuickQuitMenu") as GameObject;
         }
 

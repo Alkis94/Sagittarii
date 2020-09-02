@@ -19,21 +19,23 @@ public class PlayerRotateHand : MonoBehaviour
 
 	void Update ()
     {
-        HandFollowCursor();
-
-        mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-        if (transform.position.x < mousePosition.x)
+        if(GameManager.GameState == GameStateEnum.unpaused)
         {
-            spriteRenderer.flipY = false;
+            HandFollowCursor();
+            mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
+            if (transform.position.x < mousePosition.x)
+            {
+                spriteRenderer.flipY = false;
+
+            }
+            else if (transform.position.x > mousePosition.x)
+            {
+                spriteRenderer.flipY = true;
+
+
+            }
         }
-        else if (transform.position.x > mousePosition.x)
-        {
-            spriteRenderer.flipY = true;
-
-        }
-
     }
 
     private void HandFollowCursor()
