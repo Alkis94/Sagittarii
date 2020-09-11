@@ -6,12 +6,12 @@ public class ProjectileArrowMovement : MonoBehaviour
 
     private void OnEnable()
     {
-        GetComponent<ProjectileImpact>().OnCollision += DisableComponent;
+        GetComponent<ProjectileHandler>().OnCollision += DisableComponent;
     }
 
     private void OnDisable()
     {
-        GetComponent<ProjectileImpact>().OnCollision -= DisableComponent;
+        GetComponent<ProjectileHandler>().OnCollision -= DisableComponent;
     }
 
     void Start()

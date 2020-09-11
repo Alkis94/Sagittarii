@@ -2,5 +2,6 @@
 {
     archer,
     thief,
-    pyromancer
+    pyromancer,
+    spearman
 }

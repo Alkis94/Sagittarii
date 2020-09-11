@@ -3,7 +3,7 @@ using UnityEngine;
 using System.Collections;
 using Sirenix.OdinInspector;
 
-public class ProjectileImpact : MonoBehaviour
+public class ProjectileHandler: MonoBehaviour
 {
 
     public event Action OnCollision = delegate { };
@@ -16,11 +16,16 @@ public class ProjectileImpact : MonoBehaviour
     private AudioClip impact;
     private float destroyDelay = 1;
     [SerializeField]
-    private float impactDestroyDelay = 0;
-    [SerializeField]
     private bool bulletSplits;
     [ShowIf("@ bulletSplits")]
     [SerializeField] private EnemyAttackData attackData;
+
+    private Animator animator;
+
+    [SerializeField]
+    private bool hasImpactAnimation = false;
+    [SerializeField]
+    private bool hasTravelAnimation = false;
 
     void Start()
     {
@@ -28,13 +33,27 @@ public class ProjectileImpact : MonoBehaviour
         rigidbody2d = GetComponent<Rigidbody2D>();
         audioSource = GetComponent<AudioSource>();
         StartCoroutine(DestroyAndSplit());
+
+        animator = GetComponent<Animator>();
+
+        if (hasTravelAnimation)
+        {
+            animator.SetTrigger("Travel");
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         OnCollision?.Invoke();
 
-        if(impact != null)
+        float impactDestroyDelay = 0;
+        if (hasImpactAnimation)
+        {
+            animator.SetTrigger("Impact");
+            impactDestroyDelay = animator.GetCurrentAnimatorStateInfo(0).length;
+        }
+
+        if (impact != null)
         {
             audioSource.clip = impact;
             audioSource.Play();

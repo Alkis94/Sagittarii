@@ -4,13 +4,8 @@ using UnityEngine;
 
 public class PlayerRotateHand : MonoBehaviour
 {
-
     private SpriteRenderer spriteRenderer;
     private Vector3 mousePosition;
-
-    private float horizontalDirection;
-    private int handDirection;
-
 
     void Start ()
     {
@@ -32,8 +27,6 @@ public class PlayerRotateHand : MonoBehaviour
             else if (transform.position.x > mousePosition.x)
             {
                 spriteRenderer.flipY = true;
-
-
             }
         }
     }

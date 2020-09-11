@@ -120,8 +120,7 @@ public class PlayerAttackHandler : MonoBehaviour
                 projectilePower = projectilePower > 1 ? 1 : projectilePower;
                 if (projectilePower > 0.3)
                 {
-                    animator.SetTrigger("AttackRelease");
-                    
+                    animator.SetTrigger("AttackRelease");                    
                 }
                 else
                 {
@@ -131,6 +130,8 @@ public class PlayerAttackHandler : MonoBehaviour
         }
     }
 
+
+    //Gets called from animation!
     public void CallAttackFromAnimation()
     {
         PlayerAttack(PlayerMainAttack);

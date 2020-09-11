@@ -16,7 +16,6 @@ GameObject:
   - component: {fileID: 82000013208893430}
   - component: {fileID: 1965399130761235180}
   - component: {fileID: 8567265056696599361}
-  - component: {fileID: 4745054986638837137}
   m_Layer: 11
   m_Name: IceArrow
   m_TagString: PlayerProjectile
@@ -117,7 +116,7 @@ Animator:
   m_GameObject: {fileID: 1000011198274758}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 6c602699f554462418228ec4b65da2b5, type: 2}
+  m_Controller: {fileID: 9100000, guid: 95e6e7819ee64fd4cb9b06e2b09532f1, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -275,20 +274,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   velocityOnHit: {x: 0, y: 0}
   impact: {fileID: 8300000, guid: 665b1f3b57f673247aaaa094072382c9, type: 3}
-  impactDestroyDelay: 0.3
   bulletSplits: 0
   attackData: {fileID: 0}
---- !u!114 &4745054986638837137
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1000011198274758}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2dcfb23501b394b4084b9bdae1f590e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
   hasImpactAnimation: 1
   hasTravelAnimation: 0

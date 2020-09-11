@@ -14,7 +14,7 @@ public class EnemyWasCriticalHitDetector : MonoBehaviour
     {
         if (collision.tag == "PlayerProjectile")
         {
-            enemyGotShot.CriticalHit(collision.GetComponent<ProjectileDataInitializer>().Damage, collision.GetComponent<ProjectileImpact>().velocityOnHit);
+            enemyGotShot.CriticalHit(collision.GetComponent<ProjectileDataInitializer>().Damage, collision.GetComponent<ProjectileHandler>().velocityOnHit);
         }
     }
 }

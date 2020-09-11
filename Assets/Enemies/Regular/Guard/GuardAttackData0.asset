@@ -1,0 +1,139 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4bc6bd8f6a3b134ca613e20db5dfaf1, type: 3}
+  m_Name: GuardAttackData0
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects:
+    - {fileID: 1000012292187914, guid: 99db0d4392550fc4a994ac51f88e532d, type: 3}
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: ProjectileMovementType
+      Entry: 3
+      Data: 1
+    - Name: FunctionMovementType
+      Entry: 3
+      Data: 0
+    - Name: AttackType
+      Entry: 3
+      Data: 1
+    - Name: AttackIsDirectionDependant
+      Entry: 5
+      Data: false
+    - Name: ConsecutiveAttacks
+      Entry: 3
+      Data: 1
+    - Name: ConsecutiveAttackDelay
+      Entry: 4
+      Data: 0.15
+    - Name: ProjectileRotations
+      Entry: 7
+      Data: 0|System.Collections.Generic.List`1[[System.Single, mscorlib]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: ProjectileSpawnPositionOffset
+      Entry: 7
+      Data: 1|System.Collections.Generic.List`1[[UnityEngine.Vector3, UnityEngine.CoreModule]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: UniversalSpawnPositionOffset
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: RandomHorizontalFactorMin
+      Entry: 4
+      Data: 0
+    - Name: RandomHorizontalFactorMax
+      Entry: 4
+      Data: 0
+    - Name: RandomVerticalFactorMin
+      Entry: 4
+      Data: 0
+    - Name: RandomVerticalFactorMax
+      Entry: 4
+      Data: 0
+    - Name: RandomRotationFactorMin
+      Entry: 4
+      Data: 0
+    - Name: RandomRotationFactorMax
+      Entry: 4
+      Data: 0
+    - Name: Projectile
+      Entry: 10
+      Data: 0
+    - Name: AttackSound
+      Entry: 6
+      Data: 
+    - Name: ProjectileAmount
+      Entry: 3
+      Data: 1
+    - Name: AttackFrequency
+      Entry: 4
+      Data: 0
+    - Name: Damage
+      Entry: 3
+      Data: 100
+    - Name: ProjectileSpeed
+      Entry: 4
+      Data: 15
+    - Name: ProjectileDestroyDelay
+      Entry: 4
+      Data: 15

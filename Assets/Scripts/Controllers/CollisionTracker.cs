@@ -8,6 +8,8 @@ public class CollisionTracker : MonoBehaviour
     public LayerMask collisionMask;
     public CollisionInfo collisions;
     private Raycaster raycaster;
+    [SerializeField]
+    private float horizontalRayLength = 0.1f;
 
     void Start()
     {
@@ -19,13 +21,13 @@ public class CollisionTracker : MonoBehaviour
         int horizontalDirection = transform.parent.localRotation.y == 0 ? 1 : -1;
 
         int directionX = (int) Mathf.Sign(horizontalDirection);
-        float rayLength =  3*Raycaster.skinWidth;
+        
 
         for (int i = 0; i < raycaster.horizontalRayCount; i++)
         {
             Vector2 rayOrigin = (directionX == -1) ? raycaster.raycastOrigins.bottomLeft : raycaster.raycastOrigins.bottomRight;
             rayOrigin += Vector2.up * (raycaster.horizontalRaySpacing * i);
-            RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.right * directionX, rayLength, collisionMask);
+            RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.right * directionX, horizontalRayLength, collisionMask);
 
             Debug.DrawRay(rayOrigin, Vector2.right * directionX, Color.red);
 

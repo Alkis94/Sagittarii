@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 2279813215593487114}
   - component: {fileID: 114515642773749994}
   - component: {fileID: 7308990555295051740}
-  - component: {fileID: 114920016889057218}
   m_Layer: 13
   m_Name: GreenStraightProjectile
   m_TagString: EnemyProjectile
@@ -177,20 +176,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   velocityOnHit: {x: 0, y: 0}
   impact: {fileID: 0}
-  impactDestroyDelay: 0.25
   bulletSplits: 0
   attackData: {fileID: 0}
---- !u!114 &114920016889057218
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1000012292187914}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2dcfb23501b394b4084b9bdae1f590e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
   hasImpactAnimation: 1
   hasTravelAnimation: 0
