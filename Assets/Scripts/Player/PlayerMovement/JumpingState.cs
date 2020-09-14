@@ -70,7 +70,7 @@ public class JumpingState : State<PlayerMovement>
     private void Jump()
     {
         stateOwner.rigidBody2d.velocity = Vector2.zero;
-        stateOwner.animator.SetTrigger("PlayerJumped");
+        stateOwner.animator.SetTrigger("Jump");
         stateOwner.rigidBody2d.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
         stateOwner.playerAudio.PlayJumpSound();
         jumpExtraPush = 0;

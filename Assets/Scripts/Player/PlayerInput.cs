@@ -143,7 +143,7 @@ public class PlayerInput : MonoBehaviour
 		jumpHeld		= jumpHeld || Input.GetButton("Jump");
 	}
 
-    private void DisableInput()
+    private void DisableInput(DamageSource damageSource)
     {
         horizontal = 0f;
         jumpPressed = false;

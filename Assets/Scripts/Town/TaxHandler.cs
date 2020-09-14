@@ -4,6 +4,7 @@ using System.Collections;
 public class TaxHandler : MonoBehaviour
 {
     private PlayerStats playerStats;
+    [SerializeField]
     private int Tax = 100;
     public bool taxWasPaid = false;
     // Use this for initialization
@@ -15,14 +16,13 @@ public class TaxHandler : MonoBehaviour
 
     public void OnPayPressed()
     {
-        if(playerStats.Gold >= 100)
+        if(playerStats.Gold >= Tax)
         {
-            playerStats.Gold -= 100;
+            playerStats.Gold -= Tax;
             taxWasPaid = true;
-        }
-
-        gameObject.SetActive(false);
-        GameManager.GameState = GameStateEnum.unpaused;
+            gameObject.SetActive(false);
+            GameManager.GameState = GameStateEnum.unpaused;
+        }   
     }
 
     public void OnDontPayPressed()

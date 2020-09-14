@@ -67,7 +67,6 @@ public class PlayerSceneChangeManager : MonoBehaviour
     {
         hands.SetActive(false);
         animator.runtimeAnimatorController = townController;
-        playerStats.CurrentEnergy = playerStats.MaximumEnergy;
     }
 
     private void NextPlayerSpawnPointDirection(string levelToLoad = null)

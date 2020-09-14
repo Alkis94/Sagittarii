@@ -2,5 +2,6 @@
 {
     projectile,
     explosion,
-    traps
+    traps,
+    judgement
 }

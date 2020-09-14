@@ -6,6 +6,7 @@ public class PlayerDeath : MonoBehaviour
     private PlayerAudio playerAudio;
     private Animator animator;
     private PlayerStats playerStats;
+    private GameObject bloodSplat;
 
     void OnEnable()
     {
@@ -22,16 +23,30 @@ public class PlayerDeath : MonoBehaviour
         playerAudio = GetComponent<PlayerAudio>();
         animator = GetComponent<Animator>();
         playerStats = GetComponent<PlayerStats>();
+        bloodSplat = Resources.Load("DeathBloodSplat") as GameObject;
     }
 
-    private void Die()
+    private void Die(DamageSource damageSource)
     {
         foreach (Transform child in transform)
         {
             Destroy(child.gameObject);
         }
-        playerAudio.PlayDeathSound();
-        animator.SetTrigger("PlayerDied");
+       
+
+        if(damageSource == DamageSource.projectile)
+        {
+            animator.SetTrigger("Die");
+            playerAudio.PlayDeathSound();
+        }
+        else
+        {
+            animator.SetTrigger("DieSplatter");
+            playerAudio.PlaySplatterDeathSound();
+        }
+
+        Instantiate(bloodSplat, transform.position, Quaternion.identity);
+
         Invoke("PlayerDiedDelayedMenu", 3);
         gameObject.layer = 14;
         enabled = false;

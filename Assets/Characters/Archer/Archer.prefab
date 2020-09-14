@@ -789,6 +789,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   map: {fileID: 0}
+  pauseMenu: {fileID: 0}
   horizontal: 0
   jumpHeld: 0
   jumpPressed: 0
@@ -824,6 +825,8 @@ MonoBehaviour:
   playerGroundImpactSound: {fileID: 8300000, guid: 862219243afbbcc41821ac7616d7728b,
     type: 3}
   playerDeathSound: {fileID: 8300000, guid: bf3907a4fd5be2e4186ddd143307f7bb, type: 3}
+  playerSplatterDeathSound: {fileID: 8300000, guid: 90ff90b45c296e346a404d98ded32a80,
+    type: 3}
   playerJumpSound: {fileID: 8300000, guid: 51dcd922a0fbbff4eafca92345c169bd, type: 3}
   playerGotHitSound: {fileID: 8300000, guid: 237cfc5385e0ddc498d64ef42eb3e269, type: 3}
   playerSteps:

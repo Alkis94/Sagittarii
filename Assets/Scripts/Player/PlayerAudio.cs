@@ -11,6 +11,8 @@ public class PlayerAudio : MonoBehaviour
     [SerializeField]
     private AudioClip playerDeathSound;
     [SerializeField]
+    private AudioClip playerSplatterDeathSound;
+    [SerializeField]
     private AudioClip playerJumpSound;
     [SerializeField]
     private AudioClip playerGotHitSound;
@@ -41,6 +43,11 @@ public class PlayerAudio : MonoBehaviour
     public void PlayDeathSound()
     {
         audioSource.PlayOneShot(playerDeathSound);
+    }
+
+    public void PlaySplatterDeathSound()
+    {
+        audioSource.PlayOneShot(playerSplatterDeathSound);
     }
 
     public void PlayJumpSound()

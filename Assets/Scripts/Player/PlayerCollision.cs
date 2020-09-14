@@ -30,7 +30,6 @@ public class PlayerCollision : MonoBehaviour
             if (other.tag == "Spikes")
             {
                 playerStats.ApplyDamage(playerStats.MaximumHealth, DamageSource.traps);
-                playerAudio.PlayGotHitSound();
             }
         }
     }

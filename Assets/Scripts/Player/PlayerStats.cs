@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class PlayerStats : MonoBehaviour, IDamageable
 {
 
-    public static event Action OnPlayerDied = delegate { };
+    public static event Action<DamageSource> OnPlayerDied = delegate { };
 
     [SerializeField]
     private CharacterClass characterClass;
@@ -39,6 +39,8 @@ public class PlayerStats : MonoBehaviour, IDamageable
     private int energysteal = 0;
     [SerializeField]
     private float energystealChance = 0;
+
+    private DamageSource lastDamageSource;
     
     private void OnEnable()
     {
@@ -81,8 +83,10 @@ public class PlayerStats : MonoBehaviour, IDamageable
         UIManager.Instance.UpdateAmmo(Ammo);
     }
 
-    public void ApplyDamage(int damage, DamageSource damageSource, DamageType damageType = DamageType.normal)
+    public void ApplyDamage(int damage, DamageSource damageSource = DamageSource.projectile, DamageType damageType = DamageType.normal)
     {
+        lastDamageSource = damageSource;
+
         if(damageSource == DamageSource.projectile)
         {
             int damageToTake = damage - armor;
@@ -137,7 +141,7 @@ public class PlayerStats : MonoBehaviour, IDamageable
 
             if (currentHealth <= 0)
             {
-                OnPlayerDied?.Invoke();
+                OnPlayerDied?.Invoke(lastDamageSource);
             }
         }
     }
