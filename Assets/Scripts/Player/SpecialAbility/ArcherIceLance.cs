@@ -21,10 +21,20 @@ public class ArcherIceLance : SpecialAbility
         Cooldown = 5f;
     }
 
-    protected override void Ability()
+    public override void CastSpecialAbility()
     {
-        animator.SetTrigger("Special");
-        playerAttackHandler.SpecialAttack(playerAttackData, 3, 4);
+        if (playerStats.CurrentEnergy > 0 && SceneManager.GetActiveScene().name != "Town" && timeTillNextCast < Time.time)
+        {
+            if (specialAbilitySound != null)
+            {
+                audioSource.PlayOneShot(specialAbilitySound);
+            }
+            animator.SetTrigger("Special");
+            playerAttackHandler.SpecialAttack(playerAttackData, 3, 4);
+            timeTillNextCast = Time.time + Cooldown;
+            playerStats.CurrentEnergy--;
+            UIManager.Instance.UpdateSpecial(Cooldown);
+        }
     }
 
 }

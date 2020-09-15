@@ -62,6 +62,7 @@ public class ProjectileHandler: MonoBehaviour
     private void HandleCollision()
     {
         OnCollision?.Invoke();
+        velocityOnHit = rigidbody2d.velocity;
 
         float impactDestroyDelay = 0;
         if (hasImpactAnimation)
@@ -76,7 +77,7 @@ public class ProjectileHandler: MonoBehaviour
             audioSource.Play();
         }
 
-        velocityOnHit = rigidbody2d.velocity;
+        
         StopProjectile();
 
         if (bulletSplits)
