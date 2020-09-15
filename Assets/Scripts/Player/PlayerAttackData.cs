@@ -39,7 +39,7 @@ public class PlayerAttackData : AttackData
         ConsecutiveAttacks = attackDataInfo.ConsecutiveAttacks;
         ConsecutiveAttackDelay = attackDataInfo.ConsecutiveAttackDelay;
         UniversalSpawnPositionOffset = attackDataInfo.UniversalSpawnPositionOffset;
-
+       
         ProjectileSpawnPositionOffset.Clear();
         ProjectileRotations.Clear();
 

@@ -17,6 +17,8 @@ public class ProjectileHandler: MonoBehaviour
     private float destroyDelay = 1;
     [SerializeField]
     private bool bulletSplits;
+    [SerializeField]
+    private bool isPenetrative = false;
     [ShowIf("@ bulletSplits")]
     [SerializeField] private EnemyAttackData attackData;
 
@@ -44,6 +46,21 @@ public class ProjectileHandler: MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if(isPenetrative)
+        {
+            if(other.gameObject.layer == 8)
+            {
+                HandleCollision();
+            }
+        }
+        else
+        {
+            HandleCollision();
+        }
+    }
+
+    private void HandleCollision()
+    {
         OnCollision?.Invoke();
 
         float impactDestroyDelay = 0;
@@ -58,7 +75,7 @@ public class ProjectileHandler: MonoBehaviour
             audioSource.clip = impact;
             audioSource.Play();
         }
-        
+
         velocityOnHit = rigidbody2d.velocity;
         StopProjectile();
 

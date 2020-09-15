@@ -7,10 +7,9 @@ public class TaxHandler : MonoBehaviour
     [SerializeField]
     private int Tax = 100;
     public bool taxWasPaid = false;
-    // Use this for initialization
+
     void Start()
     {
-        GameManager.GameState = GameStateEnum.paused;
         playerStats = FindObjectOfType<PlayerStats>();
     }
 
@@ -21,14 +20,12 @@ public class TaxHandler : MonoBehaviour
             playerStats.Gold -= Tax;
             taxWasPaid = true;
             gameObject.SetActive(false);
-            GameManager.GameState = GameStateEnum.unpaused;
         }   
     }
 
     public void OnDontPayPressed()
     {
         gameObject.SetActive(false);
-        GameManager.GameState = GameStateEnum.unpaused;
     }
 
 }

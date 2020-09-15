@@ -12,9 +12,9 @@ public class EnemyAttackData : AttackData
 
     [OdinSerialize] public int ProjectileAmount { get; private set; } = 1;
     [OdinSerialize] public float AttackFrequency { get; private set; } = 7;
-    [OdinSerialize] public int Damage { get; private set; } = 10;
-    [OdinSerialize] public float ProjectileSpeed { get; private set; } = 5;
     [OdinSerialize] public float ProjectileDestroyDelay { get; private set; } = 10f;
+    [OdinSerialize] public float ProjectileSpeed { get; private set; } = 8;
+    [OdinSerialize] public int Damage { get; private set; } = 10;
 
     private void OnEnable()
     {

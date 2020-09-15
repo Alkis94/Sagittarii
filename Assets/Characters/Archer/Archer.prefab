@@ -470,6 +470,7 @@ GameObject:
   - component: {fileID: 5399449951423691859}
   - component: {fileID: 18023797051373807}
   - component: {fileID: 7662037315595027482}
+  - component: {fileID: 1187434360531511700}
   m_Layer: 10
   m_Name: Archer
   m_TagString: Player
@@ -727,8 +728,8 @@ MonoBehaviour:
   characterClass: 0
   currentHealth: 100
   maximumHealth: 100
-  currentEnergy: 20
-  maximumEnergy: 20
+  currentEnergy: 30
+  maximumEnergy: 30
   ammo: 1000
   gold: 0
   armor: 0
@@ -869,3 +870,17 @@ MonoBehaviour:
   bouncyBallLayer:
     serializedVersion: 2
     m_Bits: 2097152
+--- !u!114 &1187434360531511700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6112859251357942033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 539375fa1e9504c4793434fdea13729d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerAttackHandler: {fileID: 104242944841349632}
+  playerAttackData: {fileID: 11400000, guid: a176028956b6ba14c8538212c3d2a2e9, type: 2}

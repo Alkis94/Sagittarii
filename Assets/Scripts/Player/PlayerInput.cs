@@ -26,91 +26,145 @@ public class PlayerInput : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     [SerializeField]
     private LayerMask collisionMask;
+    private SpecialAbility specialAbility;
+    private PlayerStats playerStats;
+    private Animator animator;
+    private AudioSource audioSource;
+    private float timePassedHoldingAttack = 0;
 
     private void Awake()
     {
         boxCollider2D = GetComponent<BoxCollider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        specialAbility = GetComponent<SpecialAbility>();
+        playerStats = GetComponent<PlayerStats>();
+        animator = GetComponentsInChildren<Animator>()[1];
+        audioSource = GetComponentInChildren<AudioSource>();
     }
 
     void OnEnable()
     {
         PlayerStats.OnPlayerDied += DisableInput;
+        SceneManager.sceneLoaded += ResetAnimator;
     }
 
 
     void OnDisable()
     {
         PlayerStats.OnPlayerDied -= DisableInput;
+        SceneManager.sceneLoaded -= ResetAnimator;
     }
 
 
     void Update()
 	{
-
-        if (Input.GetButtonDown("Cancel") && GameManager.GameState == GameStateEnum.unpaused)
+        if(GameManager.GameState == GameStateEnum.unpaused)
         {
-            pauseMenu.SetActive(true);
-            GameManager.GameState = GameStateEnum.paused;
-        }
-
-        else if (Input.GetButtonDown("Cancel") && GameManager.GameState == GameStateEnum.paused)
-        {
-            pauseMenu.SetActive(false);
-            GameManager.GameState = GameStateEnum.unpaused;
-        }
-
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            var result = Physics2D.OverlapCircle(transform.position, 0.5f, 1 << LayerMask.NameToLayer("Interactables"));
-            if(result != null)
+            if (Input.GetButtonDown("Cancel") && GameManager.GameState == GameStateEnum.unpaused)
             {
-                IInteractable interactable = result.gameObject.GetComponent<IInteractable>();
-                if(interactable != null)
+                pauseMenu.SetActive(true);
+                GameManager.GameState = GameStateEnum.paused;
+            }
+
+            if (playerStats.Ammo > 0)
+            {
+                float projectilePower;
+                float attackHoldAnimationSpeed = 1;
+                float attackHoldAnimationLength = 0.333f;
+
+                if ((Input.GetButtonDown("Fire1") || Input.GetButton("Fire1")) && animator.GetCurrentAnimatorStateInfo(0).IsName("IdleHands"))
                 {
-                    interactable.Interact();
+                    projectilePower = 0;
+                    timePassedHoldingAttack = 0;
+                    animator.SetTrigger("AttackHold");
+                    audioSource.Play();
+                }
+                else if (Input.GetButton("Fire1") && animator.GetCurrentAnimatorStateInfo(0).IsName("AttackHold"))
+                {
+                    timePassedHoldingAttack += Time.deltaTime;
+                    attackHoldAnimationSpeed = animator.GetCurrentAnimatorStateInfo(0).speedMultiplier;
+
+                }
+                else if (Input.GetButtonUp("Fire1") && animator.GetCurrentAnimatorStateInfo(0).IsName("AttackHold"))
+                {
+                    projectilePower = timePassedHoldingAttack * attackHoldAnimationSpeed / attackHoldAnimationLength;
+                    projectilePower = projectilePower > 1 ? 1 : projectilePower;
+                    if (projectilePower > 0.4)
+                    {
+                        animator.SetTrigger("AttackRelease");
+                       
+                    }
+                    else
+                    {
+                        animator.SetTrigger("AttackCanceled");
+                    }
+                }
+            }
+
+            if (Input.GetButtonDown("Fire2"))
+            {
+                specialAbility.CastSpecialAbility();
+            }
+
+            if (Input.GetKeyDown(KeyCode.W))
+            {
+                var result = Physics2D.OverlapCircle(transform.position, 0.5f, 1 << LayerMask.NameToLayer("Interactables"));
+                if (result != null)
+                {
+                    IInteractable interactable = result.gameObject.GetComponent<IInteractable>();
+                    if (interactable != null)
+                    {
+                        interactable.Interact();
+                    }
+                }
+            }
+
+            if (Input.GetKeyUp(KeyCode.S))
+            {
+                if (boxCollider2D.IsTouchingLayers(collisionMask))
+                {
+                    gameObject.layer = 19; // PlayerNoPlatform Layer
+                    StartCoroutine(ReturnToNormalLayer());
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.M))
+            {
+                map.SetActive(!map.activeInHierarchy);
+            }
+
+            ClearInput();
+            ProcessInputs();
+            horizontal = Mathf.Clamp(horizontal, -1f, 1f);
+
+            if (isTeleporting)
+            {
+                if (Input.anyKey)
+                {
+                    if (!Input.GetKeyDown(KeyCode.F) && !Input.GetButtonDown("Cancel") && !Input.GetKey(KeyCode.F) && !Input.GetButton("Cancel"))
+                    {
+                        StopCoroutine(teleportCoroutine);
+                        spriteRenderer.color = new Color(1f, 1f, 1f);
+                        teleportCoroutine = null;
+                        isTeleporting = false;
+                    }
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.F) && !isTeleporting && teleportCoroutine == null)
+            {
+                if (SceneManager.GetActiveScene().name != "Town")
+                {
+                    teleportCoroutine = StartCoroutine(Teleport());
                 }
             }
         }
-
-        if (Input.GetKeyUp(KeyCode.S))
+        else if (GameManager.GameState == GameStateEnum.paused)
         {
-            if (boxCollider2D.IsTouchingLayers(collisionMask))
+            if(Input.GetButtonDown("Cancel"))
             {
-                gameObject.layer = 19; // PlayerNoPlatform Layer
-                StartCoroutine(ReturnToNormalLayer());
-            }
-        }
-
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            map.SetActive(!map.activeInHierarchy);
-        }
-
-        ClearInput();
-		ProcessInputs();
-		horizontal = Mathf.Clamp(horizontal, -1f, 1f);
-
-        if (isTeleporting)
-        {
-            if (Input.anyKey)
-            {
-                if(!Input.GetKeyDown(KeyCode.F) && !Input.GetButtonDown("Cancel") && !Input.GetKey(KeyCode.F) && !Input.GetButton("Cancel"))
-                {
-                    Debug.Log("Canceled");
-                    StopCoroutine(teleportCoroutine);
-                    spriteRenderer.color = new Color(1f, 1f, 1f);
-                    teleportCoroutine = null;
-                    isTeleporting = false;
-                }
-            }
-        }
-
-        if (Input.GetKeyDown(KeyCode.F) && !isTeleporting && teleportCoroutine == null)
-        {
-            if(SceneManager.GetActiveScene().name != "Town")
-            {
-                teleportCoroutine = StartCoroutine(Teleport());
+                pauseMenu.SetActive(false);
+                GameManager.GameState = GameStateEnum.unpaused;
             }
         }
     }
@@ -165,7 +219,10 @@ public class PlayerInput : MonoBehaviour
         spriteRenderer.color = new Color(1f, 1f, 1f);
         isTeleporting = false;
         teleportCoroutine = null;
-        SceneManager.LoadScene("Town");
+        if(playerStats.CurrentHealth > 0)
+        {
+            SceneManager.LoadScene("Town");
+        }
     }
 
     IEnumerator ReturnToNormalLayer()
@@ -184,6 +241,15 @@ public class PlayerInput : MonoBehaviour
             yield return null;
         }
     }
+
+    private void ResetAnimator(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name != "Town")
+        {
+            animator.SetTrigger("ResetHands");
+        }
+    }
+
 }
 
 

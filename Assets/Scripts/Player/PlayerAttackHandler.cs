@@ -34,16 +34,10 @@ public class PlayerAttackHandler : MonoBehaviour
     public AttackTypeEnum AttackTypeMain { get => attackTypeMain; private set => attackTypeMain = value; }
     public GameObject MainProjectile { get => mainProjectile; private set => mainProjectile = value; }
 
-    private Animator animator;
     private Vector3 arrowEmitterPosition;
     private PlayerStats playerStats;
     private AudioSource audioSource;
     private PlayerLoader playerLoader;
-    
-    private float attackHoldAnimationLength = 0.333f;
-    private float attackHoldAnimationSpeed;
-    private float timePassedHoldingAttack = 0f;
-    private float projectilePower;
 
     public PlayerAttackData AttackData
     {
@@ -78,7 +72,6 @@ public class PlayerAttackHandler : MonoBehaviour
 
     private void Awake()
     {
-        animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
         PlayerMainAttack = new PlayerAttackHolder();
         PlayerSecondaryAttack = new PlayerAttackHolder();
@@ -87,73 +80,34 @@ public class PlayerAttackHandler : MonoBehaviour
 
     private void OnEnable()
     {
-        SceneManager.sceneLoaded += ResetAnimator;
         playerStats = GetComponentInParent<PlayerStats>();
         CalculateNewPlayerAttackData(PlayerMainAttack, AttackData, true);
     }
 
-    private void OnDisable()
-    {
-        SceneManager.sceneLoaded -= ResetAnimator;
-    }
-
-    void Update()
-    {
-        if (playerStats.Ammo > 0 && GameManager.GameState == GameStateEnum.unpaused)
-        {
-            if ((Input.GetButtonDown("Fire1") || Input.GetButton("Fire1")) && animator.GetCurrentAnimatorStateInfo(0).IsName("IdleHands"))
-            {
-                projectilePower = 0;
-                timePassedHoldingAttack = 0;
-                animator.SetTrigger("AttackHold");
-                audioSource.Play();
-            }
-            else if (Input.GetButton("Fire1") && animator.GetCurrentAnimatorStateInfo(0).IsName("AttackHold"))
-            {
-                timePassedHoldingAttack += Time.deltaTime;
-                attackHoldAnimationSpeed = animator.GetCurrentAnimatorStateInfo(0).speedMultiplier;
-
-            }
-            else if (Input.GetButtonUp("Fire1") && animator.GetCurrentAnimatorStateInfo(0).IsName("AttackHold"))
-            {
-                projectilePower = timePassedHoldingAttack * attackHoldAnimationSpeed / attackHoldAnimationLength;
-                projectilePower = projectilePower > 1 ? 1 : projectilePower;
-                if (projectilePower > 0.3)
-                {
-                    animator.SetTrigger("AttackRelease");                    
-                }
-                else
-                {
-                    animator.SetTrigger("AttackCanceled");
-                }
-            }
-        }
-    }
-
+    // ###############################################
+    // #                                             #
+    // #     For main and secondary attacks          #
+    // #                                             #
+    // ###############################################
 
     //Gets called from animation!
     public void CallAttackFromAnimation()
     {
-        PlayerAttack(PlayerMainAttack);
+        StartCoroutine(PlayerAttack(PlayerMainAttack));
         if (HasSecondaryAttack)
         {
-            PlayerAttack(PlayerSecondaryAttack);
+            StartCoroutine(PlayerAttack(PlayerSecondaryAttack));
         }
         playerStats.Ammo -= 1;
     }
 
-    public void PlayerAttack(PlayerAttackHolder playerAttackHolder)
+    private IEnumerator PlayerAttack(PlayerAttackHolder playerAttackHolder)
     {
         if (playerAttackHolder.AttackSound != null)
         {
             audioSource.PlayOneShot(playerAttackHolder.AttackSound);
         }
 
-        StartCoroutine(PlayerStartAttacking(playerAttackHolder));
-    }
-
-    IEnumerator PlayerStartAttacking(PlayerAttackHolder playerAttackHolder)
-    {
         for (int j = 0; j < playerAttackHolder.ConsecutiveAttacks; j++)
         {
             for (int i = 0; i < playerAttackHolder.ProjectileAmount; i++)
@@ -166,9 +120,9 @@ public class PlayerAttackHandler : MonoBehaviour
         }
     }
 
+    //Calculates and returns the final info for each attack from playerAttackHolders for main and secondary attack.
     private AttackInfo PlayerCalculateAttackInfo(PlayerAttackHolder playerAttackHolder, AttackInfo attackInfo, int i, int j)
     {
-
         Vector3 positionRandomness = Vector3.zero;
         float rotationRandomness = 0f;
         positionRandomness = new Vector3(UnityEngine.Random.Range(playerAttackHolder.RandomHorizontalFactorMin, playerAttackHolder.RandomHorizontalFactorMax),
@@ -191,13 +145,13 @@ public class PlayerAttackHandler : MonoBehaviour
         {
             attackInfo.spawnPositionOffset = new Vector3((playerAttackHolder.UniversalSpawnPositionOffset.x + playerAttackHolder.ProjectileSpawnPositionOffset[i].x + positionRandomness.x) * transform.right.x,
                                                           playerAttackHolder.UniversalSpawnPositionOffset.y + playerAttackHolder.ProjectileSpawnPositionOffset[i].y + positionRandomness.y, 0);
-            attackInfo.speed = playerStats.ProjectileSpeed * transform.right.x * projectilePower;
+            attackInfo.speed = playerStats.ProjectileSpeed * transform.right.x /** projectilePower*/;
         }
         else
         {
             attackInfo.spawnPositionOffset = new Vector3((playerAttackHolder.UniversalSpawnPositionOffset.x + playerAttackHolder.ProjectileSpawnPositionOffset[i].x + positionRandomness.x),
                                                           playerAttackHolder.UniversalSpawnPositionOffset.y + playerAttackHolder.ProjectileSpawnPositionOffset[i].y + positionRandomness.y, 0);
-            attackInfo.speed = playerStats.ProjectileSpeed * projectilePower;
+            attackInfo.speed = playerStats.ProjectileSpeed /** projectilePower*/;
         }
 
         attackInfo.destroyDelay = playerAttackHolder.ProjectileDestroyDelay;
@@ -217,14 +171,7 @@ public class PlayerAttackHandler : MonoBehaviour
         return attackInfo;
     }
 
-    private void ResetAnimator(Scene scene, LoadSceneMode mode)
-    {
-        if(scene.name != "Town")
-        {
-            animator.SetTrigger("ResetHands");
-        }
-    }
-
+    //Changes the AttackHolders data depending on new data picked up by the player main through items!
     private void CalculateNewPlayerAttackData(PlayerAttackHolder playerAttackHolder, PlayerAttackData attackData, bool isMainAttack = false)
     {
         playerAttackHolder.ConsecutiveAttacks = attackData.ConsecutiveAttacks > playerAttackHolder.ConsecutiveAttacks ? attackData.ConsecutiveAttacks : playerAttackHolder.ConsecutiveAttacks;
@@ -257,5 +204,87 @@ public class PlayerAttackHandler : MonoBehaviour
         {
             playerAttackHolder.ProjectileSpawnPositionOffset.Add(Vector3.zero);
         }
+    }
+
+    // ###############################################
+    // #                                             #
+    // #           For special attacks               #
+    // #                                             #
+    // ###############################################
+
+    //Gets called from other attack sources like special abilities and items!
+    public void SpecialAttack(PlayerAttackData playerAttackData, float damageMultiplier, float speedMultiplier)
+    {
+        StartCoroutine(PlayerAttack(playerAttackData, damageMultiplier, speedMultiplier));
+    }
+
+    private IEnumerator PlayerAttack(PlayerAttackData playerAttackData, float damageMultiplier, float speedMultiplier)
+    {
+        if (playerAttackData.AttackSound != null)
+        {
+            audioSource.PlayOneShot(playerAttackData.AttackSound);
+        }
+
+        for (int j = 0; j < playerAttackData.ConsecutiveAttacks; j++)
+        {
+            for (int i = 0; i < playerAttackData.ProjectileRotations.Count; i++)
+            {
+                AttackInfo attackInfo = new AttackInfo();
+                attackInfo = PlayerCalculateAttackInfo(playerAttackData, attackInfo, i, j, damageMultiplier, speedMultiplier);
+                ProjectileFactory.CreateProjectile(attackInfo, 11, "PlayerProjectile");
+            }
+            yield return new WaitForSeconds(playerAttackData.ConsecutiveAttackDelay);
+        }
+    }
+
+    //Calculates final attack from simple attackData.
+    private AttackInfo PlayerCalculateAttackInfo(PlayerAttackData attackData, AttackInfo attackInfo, int i, int j, float damageMultiplier, float speedMultiplier)
+    {
+        Vector3 positionRandomness = Vector3.zero;
+        float rotationRandomness = 0f;
+        positionRandomness = new Vector3(UnityEngine.Random.Range(attackData.RandomHorizontalFactorMin, attackData.RandomHorizontalFactorMax),
+                                         UnityEngine.Random.Range(attackData.RandomVerticalFactorMin, attackData.RandomVerticalFactorMax), 0);
+        rotationRandomness = UnityEngine.Random.Range(attackData.RandomRotationFactorMin, attackData.RandomRotationFactorMax);
+
+
+        if (attackData.AttackType == AttackTypeEnum.aimed)
+        {
+            attackInfo.spawnPosition = projectileEmitter.transform.position;
+        }
+        else
+        {
+            attackInfo.spawnPosition = transform.position;
+        }
+
+        attackInfo.projectile = attackData.Projectile;
+
+        if (attackData.AttackIsDirectionDependant)
+        {
+            attackInfo.spawnPositionOffset = new Vector3((attackData.UniversalSpawnPositionOffset.x + attackData.ProjectileSpawnPositionOffset[i].x + positionRandomness.x) * transform.right.x,
+                                                          attackData.UniversalSpawnPositionOffset.y + attackData.ProjectileSpawnPositionOffset[i].y + positionRandomness.y, 0);
+            attackInfo.speed = playerStats.ProjectileSpeed * transform.right.x /** projectilePower*/;
+        }
+        else
+        {
+            attackInfo.spawnPositionOffset = new Vector3((attackData.UniversalSpawnPositionOffset.x + attackData.ProjectileSpawnPositionOffset[i].x + positionRandomness.x),
+                                                          attackData.UniversalSpawnPositionOffset.y + attackData.ProjectileSpawnPositionOffset[i].y + positionRandomness.y, 0);
+            attackInfo.speed = playerStats.ProjectileSpeed * speedMultiplier;
+        }
+
+        attackInfo.destroyDelay = 10;
+        attackInfo.damage = (int) (playerStats.Damage * damageMultiplier);
+
+        if (attackData.AttackType == AttackTypeEnum.aimed)
+        {
+            attackInfo.rotation = attackData.ProjectileRotations[i] + rotationRandomness + projectileEmitter.transform.rotation.eulerAngles.z;
+        }
+        else
+        {
+            attackInfo.rotation = attackData.ProjectileRotations[i] + rotationRandomness;
+        }
+
+        attackInfo.movementTypeEnum = attackData.ProjectileMovementType;
+        attackInfo.functionMovementType = attackData.FunctionMovementType;
+        return attackInfo;
     }
 }

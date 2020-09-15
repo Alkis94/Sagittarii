@@ -22,6 +22,8 @@ public class UIManager : MonoBehaviour
     private Image healthImage;
     [SerializeField]
     private Image energyImage;
+    [SerializeField]
+    private Image specialImage;
 
     private Coroutine energyCoroutine = null;
     private Coroutine healthCoroutine = null;
@@ -100,6 +102,12 @@ public class UIManager : MonoBehaviour
         goldText.text = gold.ToString();
     }
 
+    public void UpdateSpecial(float cooldown)
+    {
+        EmptyBar(specialImage);
+        StartCoroutine(FillBarWithTime(cooldown, specialImage));
+    }
+
     private void UpdateText(int current,int max, TextMeshProUGUI text)
     {
         current = 0 > current ? 0 : current;
@@ -156,6 +164,20 @@ public class UIManager : MonoBehaviour
             image.fillAmount -= 0.05f * fillAmountDifference;
             yield return null;
         }
+    }
+
+    IEnumerator FillBarWithTime(float coolDown, Image image)
+    {
+        while (image.fillAmount < 1)
+        {
+            image.fillAmount += Time.deltaTime / coolDown;
+            yield return null;
+        }
+    }
+
+    private void EmptyBar( Image image)
+    {
+        image.fillAmount = 0;
     }
 
     public void EnableBossHealth(int health)

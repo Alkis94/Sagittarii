@@ -390,6 +390,7 @@ GameObject:
   - component: {fileID: 5399449951423691859}
   - component: {fileID: 18023797051373807}
   - component: {fileID: 7662037315595027482}
+  - component: {fileID: 6890479430762839007}
   m_Layer: 10
   m_Name: Thief
   m_TagString: Player
@@ -647,8 +648,8 @@ MonoBehaviour:
   characterClass: 1
   currentHealth: 50
   maximumHealth: 50
-  currentEnergy: 20
-  maximumEnergy: 20
+  currentEnergy: 30
+  maximumEnergy: 30
   ammo: 1000
   gold: 0
   armor: 0
@@ -709,6 +710,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   map: {fileID: 0}
+  pauseMenu: {fileID: 0}
   horizontal: 0
   jumpHeld: 0
   jumpPressed: 0
@@ -744,6 +746,7 @@ MonoBehaviour:
   playerGroundImpactSound: {fileID: 8300000, guid: 862219243afbbcc41821ac7616d7728b,
     type: 3}
   playerDeathSound: {fileID: 8300000, guid: bf3907a4fd5be2e4186ddd143307f7bb, type: 3}
+  playerSplatterDeathSound: {fileID: 0}
   playerJumpSound: {fileID: 8300000, guid: 51dcd922a0fbbff4eafca92345c169bd, type: 3}
   playerGotHitSound: {fileID: 8300000, guid: 237cfc5385e0ddc498d64ef42eb3e269, type: 3}
   playerSteps:
@@ -786,3 +789,15 @@ MonoBehaviour:
   bouncyBallLayer:
     serializedVersion: 2
     m_Bits: 2097152
+--- !u!114 &6890479430762839007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6112859251357942033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d41562c56a2b6c545bf8a9fcc78a7a37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -40,7 +40,7 @@ public class PlayerStats : MonoBehaviour, IDamageable
     [SerializeField]
     private float energystealChance = 0;
 
-    private DamageSource lastDamageSource;
+    private DamageSource lastDamageSource = DamageSource.projectile;
     
     private void OnEnable()
     {
@@ -173,6 +173,7 @@ public class PlayerStats : MonoBehaviour, IDamageable
 
             if (newCurrentExhaustion < 0)
             {
+                ApplyDamage((int)(MaximumHealth * 0.05f), DamageSource.exhaustion);
                 currentEnergy = 0;
             }
             else if (newCurrentExhaustion <= MaximumEnergy)
@@ -348,12 +349,7 @@ public class PlayerStats : MonoBehaviour, IDamageable
 
     private void EnteredRoomWithEnemies()
     {
-        CurrentEnergy -= 1;
-
-        if (CurrentEnergy <= 0)
-        {
-            CurrentHealth -= (int)(MaximumHealth * 0.05f);
-        }
+        CurrentEnergy --;
     }
 
 }

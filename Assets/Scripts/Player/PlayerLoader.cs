@@ -137,7 +137,11 @@ public class PlayerLoader : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        SavePlayer();
+        //we need this check because the player was saving after exhaustion death with 0 health on scene change!
+        if(playerStats.CurrentHealth > 0)
+        {
+            SavePlayer();
+        }
     }
 
     private void OnDestroy()

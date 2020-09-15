@@ -3,5 +3,6 @@
     projectile,
     explosion,
     traps,
-    judgement
+    judgement,
+    exhaustion
 }

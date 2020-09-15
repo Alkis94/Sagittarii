@@ -15,12 +15,12 @@ public class AttackData : SerializedScriptableObject
     [OdinSerialize] public AttackTypeEnum AttackType { get; protected set; } = AttackTypeEnum.perimetrical;
     [ShowIf("@ AttackType == AttackTypeEnum.perimetrical")]
     [OdinSerialize] public bool AttackIsDirectionDependant { get; protected set; } = false;
-    
+
     //Attack Stats
     [OdinSerialize] public int ConsecutiveAttacks { get; protected set; } = 1;
     [ShowIf("@ ConsecutiveAttacks > 1")]
     [OdinSerialize] public float ConsecutiveAttackDelay { get; protected set; } = 0;
-
+    
     //Placement
     [OdinSerialize] public List<float> ProjectileRotations { get; protected set; }
     [OdinSerialize] public List<Vector3> ProjectileSpawnPositionOffset { get; protected set; }

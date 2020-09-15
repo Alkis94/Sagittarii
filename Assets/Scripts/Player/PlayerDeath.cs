@@ -34,7 +34,7 @@ public class PlayerDeath : MonoBehaviour
         }
        
 
-        if(damageSource == DamageSource.projectile)
+        if(damageSource == DamageSource.projectile || damageSource == DamageSource.exhaustion)
         {
             animator.SetTrigger("Die");
             playerAudio.PlayDeathSound();
