@@ -65,6 +65,7 @@ public class PlayerLoader : MonoBehaviour
         ES3.Save<float>("LifestealChance", playerStats.LifestealChance, "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
         ES3.Save<int>("Energysteal", playerStats.Energysteal, "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
         ES3.Save<float>("EnergystealChance", playerStats.EnergystealChance, "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
+        ES3.Save<int>("TimeLimit", playerStats.TimeLimit, "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
     }
 
     private void LoadPlayer()
@@ -84,6 +85,7 @@ public class PlayerLoader : MonoBehaviour
         playerStats.LifestealChance = ES3.Load<float>("LifestealChance", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
         playerStats.Energysteal = ES3.Load<int>("Energysteal", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
         playerStats.EnergystealChance = ES3.Load<float>("EnergystealChance", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
+        playerStats.TimeLimit = ES3.Load<int>("TimeLimit", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
     }
 
     public void SaveAttack(PlayerAttackHolder playerAttackHolder, string attackType)

@@ -31,6 +31,8 @@ public class ItemStatsChanger : MonoBehaviour
     private int energysteal = 0;
     [SerializeField]
     private float energystealChance = 0;
+    [SerializeField]
+    private int timeLimit = 0;
 
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -53,6 +55,7 @@ public class ItemStatsChanger : MonoBehaviour
             playerStats.LifestealChance += lifestealChance;
             playerStats.Energysteal += energysteal;
             playerStats.EnergystealChance += energystealChance;
+            playerStats.TimeLimit += timeLimit;
         }
     }
 

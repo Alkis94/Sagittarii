@@ -7,8 +7,9 @@ using TMPro;
 
 public class TimeCountDown : MonoBehaviour
 {
-    public int TimeLimit { get; set; } = 10;
+    private int TimeLimit = 600;
     private TextMeshProUGUI timeText;
+    private PlayerStats playerStats;
 
     private void OnEnable()
     {
@@ -29,7 +30,7 @@ public class TimeCountDown : MonoBehaviour
 
     IEnumerator CountDown()
     {
-        float timeLeft = TimeLimit * 60;
+        float timeLeft = TimeLimit;
         string minutes;
         string seconds = "0";
 
@@ -44,7 +45,6 @@ public class TimeCountDown : MonoBehaviour
             if (timeLeft <= 0)
             {
                 timeText.text = "00:00";
-                PlayerStats playerStats = FindObjectOfType<PlayerStats>();
                 playerStats.ApplyDamage(playerStats.MaximumHealth, DamageSource.judgement);
                 break;
             }
@@ -65,6 +65,11 @@ public class TimeCountDown : MonoBehaviour
         {
             if(!timeText.enabled)
             {
+                if (playerStats == null)
+                {
+                    playerStats = FindObjectOfType<PlayerStats>();
+                }
+                TimeLimit = playerStats.TimeLimit;
                 timeText.enabled = true;
                 StartCoroutine(CountDown());
             }

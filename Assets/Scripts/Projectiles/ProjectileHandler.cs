@@ -13,7 +13,7 @@ public class ProjectileHandler: MonoBehaviour
     private AudioSource audioSource;
     private Rigidbody2D rigidbody2d;
     [SerializeField]
-    private AudioClip impact;
+    private AudioClip impactSound;
     private float destroyDelay = 1;
     [SerializeField]
     private bool bulletSplits;
@@ -71,9 +71,9 @@ public class ProjectileHandler: MonoBehaviour
             impactDestroyDelay = animator.GetCurrentAnimatorStateInfo(0).length;
         }
 
-        if (impact != null)
+        if (impactSound != null)
         {
-            audioSource.clip = impact;
+            audioSource.clip = impactSound;
             audioSource.Play();
         }
 
@@ -83,6 +83,12 @@ public class ProjectileHandler: MonoBehaviour
         if (bulletSplits)
         {
             GetComponent<EnemyAttackHandler>().Attack(attackData);
+        }
+
+        ParticleSystem particleSystem = GetComponentInChildren<ParticleSystem>();
+        if(particleSystem != null)
+        {
+            particleSystem.Stop();
         }
 
         Destroy(gameObject, impactDestroyDelay);

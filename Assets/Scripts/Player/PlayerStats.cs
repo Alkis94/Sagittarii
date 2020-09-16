@@ -20,7 +20,7 @@ public class PlayerStats : MonoBehaviour, IDamageable
     [SerializeField]
     private int ammo = 500;
     [SerializeField]
-    private int gold = 20;
+    private int gold = 0;
     [SerializeField]
     private int armor = 0;
     [SerializeField]
@@ -39,6 +39,8 @@ public class PlayerStats : MonoBehaviour, IDamageable
     private int energysteal = 0;
     [SerializeField]
     private float energystealChance = 0;
+    [SerializeField]
+    private int timeLimit = 600;
 
     private DamageSource lastDamageSource = DamageSource.projectile;
     
@@ -344,6 +346,19 @@ public class PlayerStats : MonoBehaviour, IDamageable
         set
         {
             energystealChance = value > 0 ? value : 0;
+        }
+    }
+
+    public int TimeLimit
+    {
+        get
+        {
+            return timeLimit;
+        }
+
+        set
+        {
+            timeLimit = value > 180 ? value : 180;
         }
     }
 

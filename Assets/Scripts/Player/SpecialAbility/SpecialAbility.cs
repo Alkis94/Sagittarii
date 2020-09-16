@@ -18,21 +18,5 @@ public abstract class SpecialAbility : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
 
-    //public virtual void CastSpecialAbility()
-    //{
-    //    if (playerStats.CurrentEnergy > 0 && SceneManager.GetActiveScene().name != "Town" && timeTillNextCast < Time.time)
-    //    {
-    //        if(specialAbilitySound != null)
-    //        {
-    //            audioSource.PlayOneShot(specialAbilitySound);
-    //        }
-
-    //        timeTillNextCast = Time.time + Cooldown;
-    //        playerStats.CurrentEnergy--;
-    //        UIManager.Instance.UpdateSpecial(Cooldown);
-    //        Ability();
-    //    }
-    //}
-
     public abstract void CastSpecialAbility();
 }

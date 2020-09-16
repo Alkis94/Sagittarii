@@ -17,14 +17,17 @@ public class GuardEnabler : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(!taxHandler.taxWasPaid)
+        if(collision.tag == "Player")
         {
-            foreach(GameObject guard in guards)
+            if (!taxHandler.taxWasPaid)
             {
-                guard.GetComponent<GuardBrain>().enabled = true;
-                guard.GetComponent<Animator>().enabled = true;
-                guard.transform.GetChild(0).gameObject.SetActive(true);
+                foreach (GameObject guard in guards)
+                {
+                    guard.GetComponent<GuardBrain>().enabled = true;
+                    guard.GetComponent<Animator>().enabled = true;
+                    guard.transform.GetChild(0).gameObject.SetActive(true);
 
+                }
             }
         }
     }
