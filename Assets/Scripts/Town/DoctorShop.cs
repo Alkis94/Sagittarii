@@ -11,8 +11,6 @@ public class DoctorShop : MonoBehaviour, IInteractable
     private TextMeshProUGUI healCostText;
     [SerializeField]
     private TextMeshProUGUI healAmountText;
-    private BoxCollider2D boxCollider2D;
-
 
     private int missingHealth;
     private int healAmount = 0;
@@ -20,7 +18,6 @@ public class DoctorShop : MonoBehaviour, IInteractable
 
     void Start()
     {
-        boxCollider2D = GetComponent<BoxCollider2D>();
         healthMenu.SetActive(false);
         healCostText.text = "0";
         healAmountText.text = "0";
