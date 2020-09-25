@@ -498,7 +498,7 @@ Rigidbody2D:
   m_GravityScale: 3
   m_Material: {fileID: 0}
   m_Interpolate: 1
-  m_SleepingMode: 1
+  m_SleepingMode: 0
   m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!61 &5953550548956530663
@@ -647,6 +647,7 @@ MonoBehaviour:
   characterClass: 3
   currentHealth: 100
   maximumHealth: 100
+  healthMultiplier: 1
   currentEnergy: 20
   maximumEnergy: 20
   ammo: 1000
@@ -656,10 +657,15 @@ MonoBehaviour:
   speed: 8
   projectileSpeed: 8
   damage: 10
+  damageMultiplier: 1
+  damageTakenMultiplier: 1
   lifesteal: 0
   lifestealChance: 0
   energysteal: 0
   energystealChance: 0
+  timeLimit: 600
+  townTax: 100
+  restCost: 10
 --- !u!114 &6432451859485017418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -745,6 +751,7 @@ MonoBehaviour:
   playerGroundImpactSound: {fileID: 8300000, guid: 862219243afbbcc41821ac7616d7728b,
     type: 3}
   playerDeathSound: {fileID: 8300000, guid: bf3907a4fd5be2e4186ddd143307f7bb, type: 3}
+  playerSplatterDeathSound: {fileID: 0}
   playerJumpSound: {fileID: 8300000, guid: 51dcd922a0fbbff4eafca92345c169bd, type: 3}
   playerGotHitSound: {fileID: 8300000, guid: 237cfc5385e0ddc498d64ef42eb3e269, type: 3}
   playerSteps:

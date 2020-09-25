@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using TMPro;
 
 public class AmmoShop : MonoBehaviour, IInteractable
@@ -85,5 +83,12 @@ public class AmmoShop : MonoBehaviour, IInteractable
         }
     }
 
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "Player")
+        {
+            projectileMenu.SetActive(false);
+        }
+    }
 
 }

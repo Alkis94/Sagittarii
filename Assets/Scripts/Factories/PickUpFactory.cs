@@ -58,7 +58,8 @@ public class PickUpFactory : MonoBehaviour
     public void DropPickup(Vector3 spawnPosition)
     {
         float randomNumber = Random.Range(0f, 1f);
-        float dropChance = healthDropRate + playerStats.Luck;
+        float dropChance = healthDropRate + (playerStats.Luck / 2);
+        dropChance = dropChance < 0.3f ? dropChance : 0.3f;
 
         if (randomNumber < dropChance)
         {
@@ -67,7 +68,8 @@ public class PickUpFactory : MonoBehaviour
         }
 
         randomNumber = Random.Range(0f, 1f);
-        dropChance = energyDropRate + playerStats.Luck;
+        dropChance = energyDropRate + (playerStats.Luck / 2);
+        dropChance = dropChance < 0.3f ? dropChance : 0.3f;
         if (randomNumber < dropChance)
         {
             CreatePickup(spawnPosition, "EnergyPickup");
@@ -78,7 +80,8 @@ public class PickUpFactory : MonoBehaviour
     public void DropGold(Vector3 spawnPosition, float goldDropChance, int minGoldGiven, int maxGoldGiven, bool dropRandomCoins = false)
     {
         float randomNumber = Random.Range(0f, 1f);
-        float dropChance = goldDropChance + (playerStats.Luck / 2);
+        float dropChance = goldDropChance + (playerStats.Luck / 4);
+        dropChance = dropChance < 0.3f ? dropChance : 0.3f;
 
         if (randomNumber < dropChance)
         {

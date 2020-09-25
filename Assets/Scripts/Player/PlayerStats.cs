@@ -1,6 +1,5 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class PlayerStats : MonoBehaviour, IDamageable
 {
@@ -14,9 +13,11 @@ public class PlayerStats : MonoBehaviour, IDamageable
     [SerializeField]
     private  int maximumHealth = 100;
     [SerializeField]
-    private int currentEnergy = 20;
+    private float healthMultiplier = 1f;
     [SerializeField]
-    private int maximumEnergy = 20;
+    private int currentEnergy = 30;
+    [SerializeField]
+    private int maximumEnergy = 30;
     [SerializeField]
     private int ammo = 500;
     [SerializeField]
@@ -32,6 +33,10 @@ public class PlayerStats : MonoBehaviour, IDamageable
     [SerializeField]
     private int damage = 0;
     [SerializeField]
+    private float damageMultiplier = 1f;
+    [SerializeField]
+    private float damageTakenMultiplier = 1f;
+    [SerializeField]
     private int lifesteal = 0;
     [SerializeField]
     private float lifestealChance = 0;
@@ -41,6 +46,12 @@ public class PlayerStats : MonoBehaviour, IDamageable
     private float energystealChance = 0;
     [SerializeField]
     private int timeLimit = 600;
+    [SerializeField]
+    private int townTax = 100;
+    [SerializeField]
+    private int restCost = 10;
+    
+
 
     private DamageSource lastDamageSource = DamageSource.projectile;
     
@@ -91,24 +102,50 @@ public class PlayerStats : MonoBehaviour, IDamageable
 
         if(damageSource == DamageSource.projectile)
         {
-            int damageToTake = damage - armor;
+            int damageToTake = (int)(damage * DamageTakenMultiplier) - armor;
             damageToTake = damageToTake > damage / 2 ? damageToTake : damage / 2;
             CurrentHealth -= damageToTake;
         }
         else if (damageSource == DamageSource.traps)
         {
-            CurrentHealth -= damage;
+            CurrentHealth -= (int)(damage * DamageTakenMultiplier);
         }
         else 
         {
-            CurrentHealth -= damage;
+            CurrentHealth -= (int)(damage * DamageTakenMultiplier);
         }
         
     }
 
-    public void ApplyHeal(int healAmount)
+    public void ApplyHeal(int healAmount, bool isPercentage = false)
     {
-        CurrentHealth += healAmount;
+        if(isPercentage)
+        {
+            float percentage = (float)healAmount / 100;
+            CurrentHealth += (int)(MaximumHealth * percentage);
+        }
+        else
+        {
+            CurrentHealth += (int)(healAmount * healthMultiplier);
+        }
+    }
+
+    public void AddMaxHealth(int healthAmount, bool isPercentage = false)
+    {
+        if (isPercentage)
+        {
+            float percentage = (float)healthAmount / 100;
+            CurrentHealth += (int)(CurrentHealth * percentage);
+        }
+        else
+        {
+            MaximumHealth += (int)(healthAmount * healthMultiplier);
+        }
+    }
+
+    public void IncreaseDamageByPercentage(float percentage)
+    {
+        Damage += (int)(Damage * percentage / 100);
     }
 
     public CharacterClass CharacterClass
@@ -159,6 +196,19 @@ public class PlayerStats : MonoBehaviour, IDamageable
         {
             maximumHealth = value;
             UIManager.Instance.UpdateHealth(CurrentHealth, MaximumHealth);
+        }
+    }
+
+    public float HealthMultiplier
+    {
+        get
+        {
+            return healthMultiplier;
+        }
+
+        set
+        {
+            healthMultiplier = value;
         }
     }
 
@@ -217,6 +267,32 @@ public class PlayerStats : MonoBehaviour, IDamageable
         }
     }
 
+    public float DamageMultiplier
+    {
+        get
+        {
+            return damageMultiplier;
+        }
+
+        set
+        {
+            damageMultiplier = value;
+        }
+    }
+
+    public float DamageTakenMultiplier
+    {
+        get
+        {
+            return damageTakenMultiplier;
+        }
+
+        set
+        {
+            damageTakenMultiplier = value;
+        }
+    }
+
     public int Armor
     {
         get
@@ -265,7 +341,7 @@ public class PlayerStats : MonoBehaviour, IDamageable
 
         set
         {
-            luck = Mathf.Clamp(value, -0.1f, 0.3f);
+            luck = Mathf.Clamp(value, 0.0f, 0.3f);
         }
     }
 
@@ -359,6 +435,32 @@ public class PlayerStats : MonoBehaviour, IDamageable
         set
         {
             timeLimit = value > 180 ? value : 180;
+        }
+    }
+
+    public int TownTax
+    {
+        get
+        {
+            return townTax;
+        }
+
+        set
+        {
+            townTax = value;
+        }
+    }
+
+    public int RestCost
+    {
+        get
+        {
+            return restCost;
+        }
+
+        set
+        {
+            restCost = value;
         }
     }
 

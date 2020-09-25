@@ -19,7 +19,7 @@ public class GuardEnabler : MonoBehaviour
     {
         if(collision.tag == "Player")
         {
-            if (!taxHandler.taxWasPaid)
+            if (!taxHandler.TaxWasPaid)
             {
                 foreach (GameObject guard in guards)
                 {

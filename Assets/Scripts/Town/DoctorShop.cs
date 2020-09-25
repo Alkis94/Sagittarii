@@ -12,7 +12,7 @@ public class DoctorShop : MonoBehaviour, IInteractable
     [SerializeField]
     private TextMeshProUGUI healAmountText;
 
-    private int missingHealth;
+    private int missingHealthPercentage;
     private int healAmount = 0;
     private int healCost = 0;
 
@@ -20,7 +20,7 @@ public class DoctorShop : MonoBehaviour, IInteractable
     {
         healthMenu.SetActive(false);
         healCostText.text = "0";
-        healAmountText.text = "0";
+        healAmountText.text = "0%";
     }
 
     public void Interact()
@@ -37,38 +37,39 @@ public class DoctorShop : MonoBehaviour, IInteractable
             playerStats = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStats>();
         }
 
-        missingHealth = playerStats.MaximumHealth - playerStats.CurrentHealth;
+        float currentHealthPercentage = (float)playerStats.CurrentHealth / (float)playerStats.MaximumHealth * 100;
+        missingHealthPercentage = 100 - (int)(currentHealthPercentage);
     }
 
     public void OnMaxClick()
     {
-        healAmount = missingHealth;
-        healCost = missingHealth;
+        healAmount = missingHealthPercentage;
+        healCost = missingHealthPercentage;
         if(healAmount > playerStats.Gold)
         {
             healAmount = playerStats.Gold;
             healCost = playerStats.Gold;
         }
-        healAmountText.text = healAmount.ToString();
+        healAmountText.text = healAmount.ToString() + "%";
         healCostText.text = healCost.ToString();
     }
 
     public void OnPlusAmountClick()
     {
-        if (healAmount < missingHealth)
+        if (healAmount < missingHealthPercentage)
         {
-            if(healAmount < missingHealth - 10)
+            if(healAmount < missingHealthPercentage - 10)
             {
                 healAmount += 10;
                 healCost += 10;
             }
             else
             {
-                healAmount += missingHealth - healAmount;
-                healCost += missingHealth - healCost;
+                healAmount += missingHealthPercentage - healAmount;
+                healCost += missingHealthPercentage - healCost;
             }
             
-            healAmountText.text = healAmount.ToString();
+            healAmountText.text = healAmount.ToString() + "%";
             healCostText.text = healCost.ToString();
         }
     }
@@ -85,7 +86,7 @@ public class DoctorShop : MonoBehaviour, IInteractable
                 healAmount = 0;
                 healCost = 0;
             }
-            healAmountText.text = healAmount.ToString();
+            healAmountText.text = healAmount.ToString() + "%";
             healCostText.text = healCost.ToString();
         }
     }
@@ -94,8 +95,16 @@ public class DoctorShop : MonoBehaviour, IInteractable
     {
         if (playerStats.Gold >= healCost)
         {
-            playerStats.ApplyHeal(healAmount);
+            playerStats.ApplyHeal(healAmount * playerStats.MaximumHealth / 100);
             playerStats.Gold -= healCost;
+            healthMenu.SetActive(false);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "Player")
+        {
             healthMenu.SetActive(false);
         }
     }

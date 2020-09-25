@@ -155,7 +155,7 @@ public class PlayerAttackHandler : MonoBehaviour
         }
 
         attackInfo.destroyDelay = playerAttackHolder.ProjectileDestroyDelay;
-        attackInfo.damage = playerStats.Damage;
+        attackInfo.damage = (int)(playerStats.Damage * playerStats.DamageMultiplier);
 
         if (playerAttackHolder.AttackType == AttackTypeEnum.aimed)
         {
@@ -238,7 +238,7 @@ public class PlayerAttackHandler : MonoBehaviour
     }
 
     //Calculates final attack from simple attackData.
-    private AttackInfo PlayerCalculateAttackInfo(PlayerAttackData attackData, AttackInfo attackInfo, int i, int j, float damageMultiplier, float speedMultiplier)
+    private AttackInfo PlayerCalculateAttackInfo(PlayerAttackData attackData, AttackInfo attackInfo, int i, int j, float specialDamageMultiplier, float specialSpeedMultiplier)
     {
         Vector3 positionRandomness = Vector3.zero;
         float rotationRandomness = 0f;
@@ -268,11 +268,11 @@ public class PlayerAttackHandler : MonoBehaviour
         {
             attackInfo.spawnPositionOffset = new Vector3((attackData.UniversalSpawnPositionOffset.x + attackData.ProjectileSpawnPositionOffset[i].x + positionRandomness.x),
                                                           attackData.UniversalSpawnPositionOffset.y + attackData.ProjectileSpawnPositionOffset[i].y + positionRandomness.y, 0);
-            attackInfo.speed = playerStats.ProjectileSpeed * speedMultiplier;
+            attackInfo.speed = playerStats.ProjectileSpeed * specialSpeedMultiplier;
         }
 
         attackInfo.destroyDelay = 10;
-        attackInfo.damage = (int) (playerStats.Damage * damageMultiplier);
+        attackInfo.damage = (int) (playerStats.Damage * specialDamageMultiplier * playerStats.DamageMultiplier);
 
         if (attackData.AttackType == AttackTypeEnum.aimed)
         {

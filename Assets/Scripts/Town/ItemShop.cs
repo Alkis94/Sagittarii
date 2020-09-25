@@ -1,7 +1,6 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
-using System.Collections;
 using System.Collections.Generic;
 
 public class ItemShop : MonoBehaviour, IInteractable
@@ -38,7 +37,6 @@ public class ItemShop : MonoBehaviour, IInteractable
         {
             if(ES3.KeyExists(rareItems[i].name, "Saves/Profile" + SaveProfile.SaveID + "/RareShopItemsBought"))
             {
-                Debug.Log("Removed item : " + rareItems[i].name);
                 rareItems.Remove(rareItems[i]);
             }
         }
@@ -122,6 +120,14 @@ public class ItemShop : MonoBehaviour, IInteractable
         GameObject chosenItem = Instantiate(chosenItems[i], transform.position, Quaternion.identity); ;
         chosenItem.transform.GetChild(0).gameObject.SetActive(false);
         return chosenItem;
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if(collision.tag == "Player")
+        {
+            itemMenu.SetActive(false);
+        }
     }
 
 }

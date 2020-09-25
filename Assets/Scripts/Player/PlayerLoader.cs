@@ -52,11 +52,14 @@ public class PlayerLoader : MonoBehaviour
     {
         ES3.Save<int>("MaximumHealth", playerStats.MaximumHealth, "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
         ES3.Save<int>("CurrentHealth", playerStats.CurrentHealth, "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
+        ES3.Save<float>("HealthMultiplier", playerStats.HealthMultiplier, "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
         ES3.Save<int>("MaximumEnergy", playerStats.MaximumEnergy, "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
         ES3.Save<int>("CurrentEnergy", playerStats.CurrentEnergy, "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
         ES3.Save<int>("Gold", playerStats.Gold, "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
         ES3.Save<int>("Ammo", playerStats.Ammo, "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
         ES3.Save<int>("Damage", playerStats.Damage, "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
+        ES3.Save<float>("DamageMultiplier", playerStats.DamageMultiplier, "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
+        ES3.Save<float>("DamageTakenMultiplier", playerStats.DamageTakenMultiplier, "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
         ES3.Save<int>("Armor", playerStats.Armor, "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
         ES3.Save<float>("Speed", playerStats.Speed, "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
         ES3.Save<float>("ProjectileSpeed", playerStats.ProjectileSpeed, "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
@@ -66,17 +69,22 @@ public class PlayerLoader : MonoBehaviour
         ES3.Save<int>("Energysteal", playerStats.Energysteal, "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
         ES3.Save<float>("EnergystealChance", playerStats.EnergystealChance, "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
         ES3.Save<int>("TimeLimit", playerStats.TimeLimit, "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
+        ES3.Save<int>("TownTax", playerStats.TownTax, "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
+        ES3.Save<int>("RestCost", playerStats.RestCost, "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
     }
 
     private void LoadPlayer()
     {
         playerStats.MaximumHealth = ES3.Load<int>("MaximumHealth", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
         playerStats.CurrentHealth = ES3.Load<int>("CurrentHealth", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
+        playerStats.HealthMultiplier = ES3.Load<float>("HealthMultiplier", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
         playerStats.MaximumEnergy = ES3.Load<int>("MaximumEnergy", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
         playerStats.CurrentEnergy = ES3.Load<int>("CurrentEnergy", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
         playerStats.Gold = ES3.Load<int>("Gold", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
         playerStats.Ammo = ES3.Load<int>("Ammo", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
         playerStats.Damage = ES3.Load<int>("Damage", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
+        playerStats.DamageMultiplier = ES3.Load<float>("DamageMultiplier", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
+        playerStats.DamageTakenMultiplier = ES3.Load<float>("DamageTakenMultiplier", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
         playerStats.Armor = ES3.Load<int>("Armor", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
         playerStats.Speed = ES3.Load<float>("Speed", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
         playerStats.ProjectileSpeed = ES3.Load<float>("ProjectileSpeed", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
@@ -86,6 +94,8 @@ public class PlayerLoader : MonoBehaviour
         playerStats.Energysteal = ES3.Load<int>("Energysteal", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
         playerStats.EnergystealChance = ES3.Load<float>("EnergystealChance", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
         playerStats.TimeLimit = ES3.Load<int>("TimeLimit", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
+        playerStats.TownTax = ES3.Load<int>("TownTax", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
+        playerStats.RestCost = ES3.Load<int>("RestCost", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
     }
 
     public void SaveAttack(PlayerAttackHolder playerAttackHolder, string attackType)
