@@ -89,7 +89,6 @@ public class PlayerMovement : MonoBehaviour
         {
             timeStill = 0;
         }
-        animator.SetFloat(animatorTimeStill_ID, timeStill);
     }
 
     private void FixedUpdate()

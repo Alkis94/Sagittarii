@@ -108,7 +108,6 @@ public class ItemShop : MonoBehaviour, IInteractable
             if(chosenItemIsRare[i])
             {
                 ES3.Save<string>(rareItems[rareItemID].name, rareItems[rareItemID].name, "Saves/Profile" + SaveProfile.SaveID + "/RareShopItemsBought");
-                Debug.Log("Item : " + rareItems[rareItemID].name + " bought and saved!");
                 rareItems.RemoveAt(rareItemID);
             }
         }

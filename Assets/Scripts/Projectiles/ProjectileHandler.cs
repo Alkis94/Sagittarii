@@ -29,10 +29,14 @@ public class ProjectileHandler: MonoBehaviour
     [SerializeField]
     private bool hasTravelAnimation = false;
 
-    void Start()
+    private void Awake()
+    {
+        rigidbody2d = GetComponent<Rigidbody2D>();
+    }
+
+    private void Start()
     {
         destroyDelay = GetComponent<ProjectileDataInitializer>().DestroyDelay;
-        rigidbody2d = GetComponent<Rigidbody2D>();
         audioSource = GetComponent<AudioSource>();
         StartCoroutine(DestroyAndSplit());
 
