@@ -81,7 +81,6 @@ public class PickUpFactory : MonoBehaviour
     {
         float randomNumber = Random.Range(0f, 1f);
         float dropChance = goldDropChance + (playerStats.Luck / 4);
-        dropChance = dropChance < 0.3f ? dropChance : 0.3f;
 
         if (randomNumber < dropChance)
         {

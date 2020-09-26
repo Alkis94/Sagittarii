@@ -3,8 +3,6 @@ using System.Collections;
 
 public class BossEnemyLoader : EnemyLoader
 {
-
-
     public override void Load()
     {
         Vector3 originalPosition = transform.position;

@@ -43,9 +43,9 @@ public class BossDoor : MonoBehaviour, IInteractable
 
         if (isInside)
         {
-            if(ES3.FileExists("Bosses/" + mapType))
+            if(ES3.FileExists("Saves/Profile" + SaveProfile.SaveID + "/Bosses/" + mapType))
             {
-                bool dead = ES3.Load<bool>("Dead0", "Bosses/" + mapType);
+                bool dead = ES3.Load<bool>("Dead0", "Saves/Profile" + SaveProfile.SaveID + "/Bosses/" + mapType);
                 if (!dead)
                 {
                     ChangeDoorState();
