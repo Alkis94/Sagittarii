@@ -15,7 +15,11 @@ public class PlayerInput : MonoBehaviour
 
     [HideInInspector] public float horizontal;		
 	[HideInInspector] public bool jumpHeld;			
-	[HideInInspector] public bool jumpPressed;		
+	[HideInInspector] public bool jumpPressed;
+
+    private const float jumpPressedBeforeGroundGraceDelay = 0.2f;
+    private float jumpPressedGraceCooldown = 0;
+
 
 	private bool readyToClear;                              //Bool used to keep input in sync
     private bool isTeleporting = false;
@@ -182,9 +186,13 @@ public class PlayerInput : MonoBehaviour
 			return;
 
 		horizontal		= 0f;
-		jumpPressed		= false;
 		jumpHeld		= false;
 		readyToClear	= false;
+
+        if(jumpPressedGraceCooldown < Time.time)
+        {
+            jumpPressed = false;
+        }
 	}
 
 	void ProcessInputs()
@@ -192,9 +200,14 @@ public class PlayerInput : MonoBehaviour
 		//Accumulate horizontal axis input
 		horizontal		+= Input.GetAxis("Horizontal");
 
-		//Accumulate button inputs
-		jumpPressed		= jumpPressed || Input.GetButtonDown("Jump");
-		jumpHeld		= jumpHeld || Input.GetButton("Jump");
+        //Accumulate button inputs
+        if (Input.GetButtonDown("Jump"))
+        {
+            jumpPressedGraceCooldown = Time.time + jumpPressedBeforeGroundGraceDelay;
+        }
+
+        jumpPressed	= jumpPressed || Input.GetButtonDown("Jump");
+		jumpHeld = jumpHeld || Input.GetButton("Jump");
 	}
 
     private void DisableInput(DamageSource damageSource)

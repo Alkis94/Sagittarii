@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 using StateMachineNamespace;
 
 public class JumpingState : State<PlayerMovement>
@@ -11,6 +10,7 @@ public class JumpingState : State<PlayerMovement>
     private const float jumpExtraPushLimit = 20; //Helps limit the times the incremental force can be applied
     private float maxJumpSpeed = 12;
     private bool jumpHeldContiniously;
+    private float bouncyMushroomCooldown = 0;
  
 
     public JumpingState(PlayerMovement owner)
@@ -61,9 +61,10 @@ public class JumpingState : State<PlayerMovement>
             stateOwner.rigidBody2d.velocity = new Vector2(stateOwner.rigidBody2d.velocity.x, maxJumpSpeed);
         }
 
-        if (stateOwner.input.jumpPressed && stateOwner.LegOnBouncyBall())
+        if (stateOwner.input.jumpPressed && stateOwner.LegOnBouncyBall() && bouncyMushroomCooldown < Time.time)
         {
             Jump();
+            bouncyMushroomCooldown = Time.time + 0.5f;
         }
     }
 
