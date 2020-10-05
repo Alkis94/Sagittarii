@@ -6,7 +6,6 @@ public class CaveMapCreator : MapCreator
 {
     private static CaveMapCreator instance = null;
     private Vector2Int bossRoomCoordinates;
-
     private List<List<string>> caveRooms;
 
     private void Awake()
@@ -19,16 +18,14 @@ public class CaveMapCreator : MapCreator
         {
             instance = this;
         }
-
         caveRooms = new List<List<string>>();
-
     }
 
     protected override void Start()
     {
         base.Start();
-        mapLayout = new int[20, 40];
-        mapRooms = new string[20, 40];
+        map = new Room[20, 40];
+        FillArrayWithRooms();
         AddCaveMapLists();
         CreateMap();
         MapCreated(MapType.cave);
@@ -36,14 +33,15 @@ public class CaveMapCreator : MapCreator
 
     protected override void CreateMap()
     {
-        mapLayout[10, 0] = (int)RoomType.normalRoom;
-        mapLayout[10, 1] = (int)RoomType.verticalRoad;
+        map[10, 0].RoomType = RoomType.normalRoom;
+        map[10, 1].RoomType = RoomType.verticalRoad;
         bossRoomCoordinates = CreatePathToBoss(15,new Vector2Int(10,2),false);
         CreateRandomPaths(5,8);
         AssignRooms();
         AssignBossRoom();
         AddTreasures(4, normalRoomArrayCoordinates);
-        mapRooms[10, 0] = "CaveToForest";
+
+        map[10, 0].RoomName = "CaveToForest";
     }
 
     private void AssignRooms()
@@ -53,16 +51,16 @@ public class CaveMapCreator : MapCreator
         bool east = false;
         bool west = false;
 
-        for (int i = 0; i < mapLayout.GetLength(0); i++)
+        for (int i = 0; i < map.GetLength(0); i++)
         {
-            for (int j = 0; j < mapLayout.GetLength(1); j++)
+            for (int j = 0; j < map.GetLength(1); j++)
             {
-                //mapLayout[i, j] > 2 check means that inside the mapLayout there is a room, not a road or no room.
-                if (mapLayout[i, j] > 2)
+                //mapLayout[i, j] > 2 check means that inside the map there is a room, not a road or no room.
+                if ((int)map[i, j].RoomType > 2)
                 {
                     FindConnectedRoadDirections(ref north,ref south,ref east,ref west, i, j);
                     int openings = ReturnCorrectRoomOpenings(north, south, east, west);
-                    mapRooms[i, j] = AssignCorrectRoom(openings);
+                    map[i, j].RoomName = AssignCorrectRoom(openings);
                     north = false;
                     south = false;
                     east = false;
@@ -79,7 +77,7 @@ public class CaveMapCreator : MapCreator
         bool east = false;
         bool west = false;
         FindConnectedRoadDirections(ref north, ref south, ref east, ref west, bossRoomCoordinates.x, bossRoomCoordinates.y);
-        mapRooms[bossRoomCoordinates.x, bossRoomCoordinates.y] = ReturnCorrectBossRoom(north, south, east, west,MapType.cave);
+        map[bossRoomCoordinates.x, bossRoomCoordinates.y].RoomName = ReturnCorrectBossRoom(north, south, east, west, MapType.cave);
     }
 
     private void AddCaveMapLists()

@@ -23,8 +23,8 @@ public class ForestMapCreator : MapCreator
     protected override void Start()
     {
         base.Start();
-        mapRooms = new string[40, 1];
-        mapLayout = new int[40, 1];
+        map = new Room[40, 1];
+        FillArrayWithRooms();
         numberOfTreasures = 2;
         CreateMap();
         MapCreated(MapType.forest);
@@ -32,26 +32,29 @@ public class ForestMapCreator : MapCreator
 
     protected override void CreateMap()
     {
-        mapLayout[0, 0] = (int)RoomType.horizontalRoad;
-        mapLayout[1, 0] = (int)RoomType.horizontalRoad;
-        mapLayout[2, 0] = (int)RoomType.normalRoom;
-        mapLayout[3, 0] = (int)RoomType.horizontalRoad;
-        mapRooms[2, 0] = "ForestEntrance";
+        map[0, 0].RoomType = RoomType.horizontalRoad;
+        map[1, 0].RoomType = RoomType.horizontalRoad;
+
+        map[2, 0].RoomType = RoomType.normalRoom;
+        map[2, 0].RoomName = "ForestEntrance";
+
+        map[3, 0].RoomType = RoomType.horizontalRoad;
+
         CreatePathToBoss(Forest_Length, new Vector2Int(4, 0), false, false, false, true);
 
         int randomNumber;
         int numberOfForestRooms = RoomTracker.ForestRooms.Count;
         for (int i = 4; i < 40; i++)
         {
-            if(mapLayout[i,0] == (int)RoomType.normalRoom)
+            if(map[i,0].RoomType == RoomType.normalRoom)
             {
                 randomNumber = Random.Range(0, numberOfForestRooms);
-                mapRooms[i, 0] = RoomTracker.ForestRooms[randomNumber];
+                map[i, 0].RoomName = RoomTracker.ForestRooms[randomNumber];
                 normalRoomArrayCoordinates.Add(new Vector2Int(i, 0));
             }
-            else if (mapLayout[i, 0] == (int)RoomType.bossRoom)
+            else if (map[i, 0].RoomType == RoomType.bossRoom)
             {
-                mapRooms[i, 0] = "ForestBossDoor";
+                map[i, 0].RoomName = "ForestBossDoor";
             }
         }
 

@@ -64,7 +64,7 @@ public class JumpingState : State<PlayerMovement>
         if (stateOwner.input.jumpPressed && stateOwner.LegOnBouncyBall() && bouncyMushroomCooldown < Time.time)
         {
             Jump();
-            bouncyMushroomCooldown = Time.time + 0.5f;
+            bouncyMushroomCooldown = Time.time + 0.25f;
         }
     }
 

@@ -8,8 +8,6 @@ namespace Factories
         public static GameObject QuickQuitMenu { get; private set; }
         private static GameObject someMenu;
 
-
-
         static MenuFactory()
         {
             DefeatMenu = Resources.Load("Menus/DefeatMenu") as GameObject;

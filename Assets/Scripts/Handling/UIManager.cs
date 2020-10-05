@@ -33,6 +33,10 @@ public class UIManager : MonoBehaviour
     private Image bossHealthImage;
     [SerializeField]
     private GameObject bossHealthBar;
+    [SerializeField]
+    private GameObject defeatMenu;
+    [SerializeField]
+    private Image blackDeathImage;
 
     private int bossMaxHealth;
     private int bossCurrentHealth;
@@ -204,6 +208,28 @@ public class UIManager : MonoBehaviour
         yield return new WaitForSeconds(5f);
         bossHealthBar.SetActive(false);
         bossHealthImage.fillAmount = 1f;
+    }
+
+    public void CallDeathUI()
+    {
+        StartCoroutine(ActivateDeathUI());
+    }
+
+    IEnumerator ActivateDeathUI()
+    {
+        float delay = Time.time + 2f;
+        float alpha = 0;
+        blackDeathImage.enabled = true;
+
+        while(delay > Time.time)
+        {
+            yield return new WaitForSeconds(0.025f);
+            alpha += 0.015f;
+            blackDeathImage.color = new Color(0, 0, 0, alpha);
+        }
+
+        GameManager.GameState = GameStateEnum.paused;
+        defeatMenu.SetActive(true);
     }
 
 }

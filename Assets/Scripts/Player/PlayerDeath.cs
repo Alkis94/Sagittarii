@@ -47,7 +47,7 @@ public class PlayerDeath : MonoBehaviour
 
         Instantiate(bloodSplat, transform.position, Quaternion.identity);
 
-        Invoke("PlayerDiedDelayedMenu", 3);
+        UIManager.Instance.CallDeathUI();
         gameObject.layer = 14;
         enabled = false;
 
@@ -61,10 +61,5 @@ public class PlayerDeath : MonoBehaviour
             ES3.DeleteDirectory("Levels/");
             ES3.DeleteDirectory("Levels/");
         }
-    }
-
-    private void PlayerDiedDelayedMenu()
-    {
-        MenuFactory.CreateMenuAndPause(MenuFactory.DefeatMenu);
     }
 }
