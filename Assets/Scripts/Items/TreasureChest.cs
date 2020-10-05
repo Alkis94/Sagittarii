@@ -7,6 +7,7 @@ public class TreasureChest : MonoBehaviour, IInteractable
     [SerializeField]
     private int maxGoldDrop = 100;
     private Animator animator;
+    private AudioSource audioSource;
     private MapType mapType;
     private RoomType roomType;
     private string roomKey;
@@ -29,6 +30,7 @@ public class TreasureChest : MonoBehaviour, IInteractable
         if(isEnabled)
         {
             animator = GetComponentInChildren<Animator>();
+            audioSource = GetComponent<AudioSource>();
             if (ES3.KeyExists("isClosed", "Levels/" + mapType + "/Room" + roomKey))
             {
                 isClosed = ES3.Load<bool>("isClosed", "Levels/" + mapType + "/Room" + roomKey);
@@ -52,6 +54,7 @@ public class TreasureChest : MonoBehaviour, IInteractable
         if (isClosed && isEnabled)
         {
             animator.SetTrigger("Open");
+            audioSource.Play();
             PickUpFactory.Instance.DropGold(transform.position, 1, minGoldDrop, maxGoldDrop, true);
             isClosed = false;
             ES3.Save<bool>("isClosed", isClosed, "Levels/" + mapType + "/Room" + roomKey);

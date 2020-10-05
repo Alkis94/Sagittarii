@@ -7,7 +7,6 @@ public class FallingState : State<PlayerMovement>
     private float maxFallSpeed = -25f;       //Max speed player can fall
     private float coyoteDuration = .15f;     //How long the player can jump after falling
     private float canStillJumpTime;
-    private float bouncyMushroomCooldown = 0;
 
     public FallingState(PlayerMovement owner)
     {
@@ -16,7 +15,6 @@ public class FallingState : State<PlayerMovement>
 
     public override void EnterState()
     {
-        //Debug.Log("Entered FallingState");
         canStillJumpTime = Time.time + coyoteDuration;
     }
 
