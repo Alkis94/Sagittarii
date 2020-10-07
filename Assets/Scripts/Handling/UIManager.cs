@@ -217,11 +217,11 @@ public class UIManager : MonoBehaviour
 
     IEnumerator ActivateDeathUI()
     {
+        blackDeathImage.enabled = true;
+        yield return new WaitForSeconds(3f);
         float delay = Time.time + 2f;
         float alpha = 0;
-        blackDeathImage.enabled = true;
-
-        while(delay > Time.time)
+        while (delay > Time.time)
         {
             yield return new WaitForSeconds(0.025f);
             alpha += 0.015f;
