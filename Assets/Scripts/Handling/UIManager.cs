@@ -19,6 +19,12 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI goldText;
     [SerializeField]
+    private TextMeshProUGUI relicNameText;
+    [SerializeField]
+    private TextMeshProUGUI relicDescriptionText;
+    [SerializeField]
+    private GameObject relicTextBackground;
+    [SerializeField]
     private Image healthImage;
     [SerializeField]
     private Image energyImage;
@@ -208,6 +214,39 @@ public class UIManager : MonoBehaviour
         yield return new WaitForSeconds(5f);
         bossHealthBar.SetActive(false);
         bossHealthImage.fillAmount = 1f;
+    }
+
+    public void CallItemTexts(string relicName, string relicDescription, RelicRarity relicRarity)
+    {
+        switch((int)relicRarity)
+        {
+            case 0:
+                relicNameText.color = Color.green;
+                break;
+            case 1:
+                relicNameText.color = Color.blue;
+                break;
+            case 2:
+                relicNameText.color = Color.magenta;
+                break;
+            default:
+                relicNameText.color = Color.green;
+                break;
+        }
+        relicNameText.text = relicName;
+        relicDescriptionText.text = relicDescription;
+        StartCoroutine(MoveItemTexts());
+    }
+
+    private IEnumerator MoveItemTexts()
+    {
+        LeanTween.moveLocalX(relicNameText.gameObject, 45, 0.5f).setEaseInOutCubic();
+        LeanTween.moveLocalX(relicDescriptionText.gameObject, 45, 0.5f).setEaseInOutCubic();
+        LeanTween.moveLocalX(relicTextBackground, 45, 0.5f).setEaseInOutCubic();
+        yield return new WaitForSeconds(2f);
+        LeanTween.moveLocalX(relicNameText.gameObject, 600, 0.5f).setEaseInOutBack();
+        LeanTween.moveLocalX(relicDescriptionText.gameObject, 600, 0.5f).setEaseInOutBack();
+        LeanTween.moveLocalX(relicTextBackground, 600, 0.5f).setEaseInOutBack();
     }
 
     public void CallDeathUI()

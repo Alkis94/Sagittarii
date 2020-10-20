@@ -348,6 +348,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   despawnDelay: 120
+  relicName: Ring of Protection
+  relicDescription: Armor increased!
 --- !u!114 &6273039365728452543
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -360,12 +362,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74b567b7300cff54b8614c24a1072347, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthPercentageHeal: 0
+  maxHealthPercentageIncrease: 0
   currentHealth: 0
   maxHealth: 0
+  healthMultiplier: 0
   currentEnergy: 0
   maxEnergy: 0
   speed: 0
   damage: 0
+  damagePercentageIncrease: 0
+  damageMultiplier: 0
+  damageTakenMultiplier: 0
   ammo: 0
   gold: 0
   armor: 1
@@ -375,6 +383,8 @@ MonoBehaviour:
   energysteal: 0
   energystealChance: 0
   timeLimit: 0
+  townTax: 0
+  restCost: 0
 --- !u!114 &8012121439658920174
 MonoBehaviour:
   m_ObjectHideFlags: 0

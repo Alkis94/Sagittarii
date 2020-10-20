@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4000013385186368}
   - component: {fileID: 50000011342217976}
   m_Layer: 9
-  m_Name: TridentRelic
+  m_Name: Trident
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -274,6 +274,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   despawnDelay: 120
+  relicName: Trident
+  relicDescription: Your power tripled kind of..
+  relicRarity: 2
 --- !u!114 &4823591092550478244
 MonoBehaviour:
   m_ObjectHideFlags: 0

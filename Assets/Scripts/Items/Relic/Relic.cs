@@ -10,6 +10,12 @@ public class Relic : MonoBehaviour
 
     [SerializeField]
     private int despawnDelay = 60;
+    [SerializeField]
+    private string relicName = "";
+    [SerializeField]
+    private string relicDescription = "";
+    [SerializeField]
+    private RelicRarity relicRarity = RelicRarity.common;
 
     private void Start()
     {
@@ -39,6 +45,7 @@ public class Relic : MonoBehaviour
         gameObject.layer = 14;
         spriteRenderer.enabled = false;
         audioSource.Play();
+        UIManager.Instance.CallItemTexts(relicName, relicDescription, relicRarity);
         Destroy(transform.parent.gameObject, 0.3f);
     }
 
@@ -46,9 +53,9 @@ public class Relic : MonoBehaviour
     {
         int direction = 1;
         yield return new WaitForSeconds(1f);
-        while(true)
+        while (true)
         {
-            for(int i = 0; i < 20; i++)
+            for (int i = 0; i < 20; i++)
             {
                 transform.position += transform.up * Time.fixedDeltaTime * direction;
                 yield return new WaitForSeconds(Time.fixedDeltaTime);
