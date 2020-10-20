@@ -23,6 +23,8 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI relicDescriptionText;
     [SerializeField]
+    private Coroutine textCoroutine;
+    [SerializeField]
     private GameObject relicTextBackground;
     [SerializeField]
     private Image healthImage;
@@ -233,13 +235,24 @@ public class UIManager : MonoBehaviour
                 relicNameText.color = Color.green;
                 break;
         }
+
+        relicNameText.transform.localPosition = new Vector3(600, relicNameText.transform.localPosition.y, 0);
+        relicDescriptionText.transform.localPosition = new Vector3(600, relicDescriptionText.transform.localPosition.y, 0);
+        relicTextBackground.transform.localPosition = new Vector3(600, relicTextBackground.transform.localPosition.y, 0);
+
         relicNameText.text = relicName;
         relicDescriptionText.text = relicDescription;
-        StartCoroutine(MoveItemTexts());
+
+        if(textCoroutine != null)
+        {
+            StopCoroutine(textCoroutine);
+        }
+        textCoroutine = StartCoroutine(MoveItemTexts());
     }
 
     private IEnumerator MoveItemTexts()
     {
+
         LeanTween.moveLocalX(relicNameText.gameObject, 45, 0.5f).setEaseInOutCubic();
         LeanTween.moveLocalX(relicDescriptionText.gameObject, 45, 0.5f).setEaseInOutCubic();
         LeanTween.moveLocalX(relicTextBackground, 45, 0.5f).setEaseInOutCubic();
