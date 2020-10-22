@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b837eb82f78c336459102ea2db63eeaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemiesParent: {fileID: 0}
   minTimeLimit: 30
   maxTimeLimit: 90
   minAmountOfEnemySpawns: 3
@@ -59,7 +60,7 @@ MonoBehaviour:
     enemyType: 1
   - enemy: {fileID: 1688857693048517404, guid: de27e89231196de4daf798383559ad9a, type: 3}
     enemySpawnFrequency: 8
-    enemyType: 0
+    enemyType: 1
   - enemy: {fileID: 3457750228986333725, guid: 7968b7284a4f2a648ba161ddf4bdc3a9, type: 3}
     enemySpawnFrequency: 6
     enemyType: 0

@@ -48,7 +48,6 @@ public class RoomManager : MonoBehaviour
         {
             if(transform.childCount <= 0)
             {
-                Debug.Log("Room Finished!");
                 OnRoomFinished?.Invoke();
                 break;
             }

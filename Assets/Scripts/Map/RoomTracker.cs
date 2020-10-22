@@ -6,6 +6,7 @@ using System.Collections.Generic;
 public class RoomTracker
 {
     public static List<string> ForestRooms { get; private set; }
+    public static List<string> ForestSpawnRooms { get; private set; }
 
     public static List<string> CaveRoomsNSWE { get; private set; }
     public static List<string> CaveRoomsNWE { get; private set; }
@@ -29,6 +30,7 @@ public class RoomTracker
     private static void CalculateRoomLists()
     {
         ForestRooms = new List<string>();
+        ForestSpawnRooms = new List<string>();
 
         CaveRoomsNSWE = new List<string>();
         CaveRoomsNWE = new List<string>();
@@ -54,6 +56,10 @@ public class RoomTracker
             if(scene.StringStartsWith("ForestRoom"))
             {
                 ForestRooms.Add(scene);
+            }
+            else if(scene.StringStartsWith("ForestSpawn"))
+            {
+                ForestSpawnRooms.Add(scene);
             }
             else if (scene.StringStartsWith("CaveRoom"))
             { 

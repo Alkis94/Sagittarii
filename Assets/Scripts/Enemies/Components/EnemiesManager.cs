@@ -15,64 +15,50 @@ public class EnemiesManager : MonoBehaviour
         mapType = MapManager.Instance.CurrentMap;
         roomKey = MapManager.Instance.CurrentMapCoords.x.ToString() + MapManager.Instance.CurrentMapCoords.y.ToString();
         roomType = MapManager.Instance.GetMapRoomType();
-
-        ChooseGroup();
-
-        if (ES3.FileExists("Levels/" + mapType + "/Room" + roomKey + "/Enemies"))
-        {
-            ReloadEnemies();
-        }
-        else
-        {
-            LoadEnemies();
-        }
+        ChooseAndLoad();
     }
 
-    private void ChooseGroup()
+    private void ChooseAndLoad()
     {
-        //if(roomType == RoomType.bossRoom)
-        //{
-        //    if(ES3.FileExists("Saves/Profile" + SaveProfile.SaveID + "/Bosses/" + mapType))
-        //    {
-        //        GameObject child = transform.GetChild(0).gameObject;
-        //        EnemiesSerializer childSerializer = child.GetComponent<EnemiesSerializer>();
-        //        childSerializer.MapType = mapType;
-        //        childSerializer.RoomKey = roomKey;
-        //        child.SetActive(true);
-        //        childSerializer.ReloadEnemies();
-        //    }
-        //    else
-        //    {
-        //        GameObject child = transform.GetChild(0).gameObject;
-        //        EnemiesSerializer childSerializer = child.GetComponent<EnemiesSerializer>();
-        //        childSerializer.MapType = mapType;
-        //        childSerializer.RoomKey = roomKey;
-        //        child.SetActive(true);
-        //        childSerializer.LoadEnemies();
-        //    }
-        //}
-
         if(roomType == RoomType.bossRoom)
         {
             if (ES3.FileExists("Saves/Profile" + SaveProfile.SaveID + "/Bosses/" + mapType))
             {
-
+                chosenGroup = transform.GetChild(0).gameObject;
+                ReloadEnemies();
+            }
+            else
+            {
+                chosenGroup = transform.GetChild(0).gameObject;
+                LoadEnemies();
             }
         }
-
-        if (ES3.FileExists("Levels/" + mapType + "/Room" + roomKey + "/Enemies"))
+        if (roomType == RoomType.spawnRoom)
         {
-            chosenGroupID = ES3.Load<int>("ChosenGroupID", "Levels/" + mapType + "/Room" + roomKey + "/Enemies");
-            chosenGroup = transform.GetChild(chosenGroupID).gameObject;
+            if (ES3.FileExists("Saves/Profile" + SaveProfile.SaveID + "/Bosses/" + mapType))
+            {
+                chosenGroup = transform.GetChild(0).gameObject;
+                ReloadEnemies();
+            }
         }
         else
         {
-            chosenGroupID = UnityEngine.Random.Range(0, transform.childCount);
-            chosenGroup = transform.GetChild(chosenGroupID).gameObject;
+            if (ES3.FileExists("Levels/" + mapType + "/Room" + roomKey + "/Enemies"))
+            {
+                chosenGroupID = ES3.Load<int>("ChosenGroupID", "Levels/" + mapType + "/Room" + roomKey + "/Enemies");
+                chosenGroup = transform.GetChild(chosenGroupID).gameObject;
+                ReloadEnemies();
+            }
+            else
+            {
+                chosenGroupID = UnityEngine.Random.Range(0, transform.childCount);
+                chosenGroup = transform.GetChild(chosenGroupID).gameObject;
+                LoadEnemies();
+            }
         }
     }
 
-    public void LoadEnemies()
+    private void LoadEnemies()
     {
         int i = 0;
         foreach (Transform child in chosenGroup.transform)
@@ -85,10 +71,9 @@ public class EnemiesManager : MonoBehaviour
         }
         chosenGroup.SetActive(true);
         CheckForAliveEnemies();
-        Debug.Log("Enemies Loaded!");
     }
 
-    public void ReloadEnemies()
+    private void ReloadEnemies()
     {
         int i = 0;
         int childCount = chosenGroup.transform.childCount;
@@ -112,7 +97,6 @@ public class EnemiesManager : MonoBehaviour
         }
         chosenGroup.SetActive(true);
         CheckForAliveEnemies();
-        Debug.Log("Enemies Reloaded!");
     }
 
     private void CheckForAliveEnemies()

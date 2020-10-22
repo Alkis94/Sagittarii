@@ -8,10 +8,13 @@ public class Spawner : MonoBehaviour
 
     public event Action OnSpawnerFinished = delegate { };
 
+    [SerializeField]
     private Transform enemiesParent;
-
     private float timeLimit;
     private int amountOfEnemySpawns;
+    private MapType mapType;
+    private string roomKey;
+    private int keyCounter;
 
     [Header("Spawner Configuration")]
     [SerializeField]
@@ -31,14 +34,13 @@ public class Spawner : MonoBehaviour
     private List<Transform> groundSpawnPoints;
     private List<FlyingSpawnPoint> flyingSpawnPoints;
     
-
-
     private void Awake()
     {
         groundSpawnPoints = new List<Transform>();
         flyingSpawnPoints = new List<FlyingSpawnPoint>();
         enemiesChosenToSpawn = new List<EnemySpawnInfo>();
-        enemiesParent = GameObject.FindGameObjectWithTag("Enemies").GetComponent<Transform>();
+        mapType = MapManager.Instance.CurrentMap;
+        roomKey = MapManager.Instance.CurrentMapCoords.x.ToString() + MapManager.Instance.CurrentMapCoords.y.ToString();
 
         foreach(Transform spawnPoint in transform)
         {
@@ -52,44 +54,37 @@ public class Spawner : MonoBehaviour
                 flyingSpawnPoints.Add(flyingSpawnPoint);
             }
         }
-
-        //foreach (GameObject groundSpawnPoint in GameObject.FindGameObjectsWithTag("GroundSpawnPoint"))
-        //{
-        //    groundSpawnPoints.Add(groundSpawnPoint.transform);
-        //}
-
-        //foreach (GameObject flyingSpawnPoint in GameObject.FindGameObjectsWithTag("FlyingSpawnPoint"))
-        //{
-        //    FlyingSpawnPoint someFlyingSpawnPoint = flyingSpawnPoint.GetComponent<FlyingSpawnPoint>();
-        //    flyingSpawnPoints.Add(someFlyingSpawnPoint);
-        //}
     }
 
 
     void Start()
     {
-        amountOfEnemySpawns = UnityEngine.Random.Range(minAmountOfEnemySpawns, maxAmountOfEnemySpawns + 1);
-
-        for (int i = 0; i < amountOfEnemySpawns; i++)
+        if (!ES3.FileExists("Levels/" + mapType + "/Room" + roomKey + "/Enemies"))
         {
-            int randomNumber = UnityEngine.Random.Range(0, enemySpawnInfos.Count);
-            enemiesChosenToSpawn.Add(enemySpawnInfos[randomNumber]);
-        }
+            enemiesParent.gameObject.SetActive(true);
+            amountOfEnemySpawns = UnityEngine.Random.Range(minAmountOfEnemySpawns, maxAmountOfEnemySpawns + 1);
 
-        for (int i = 0; i < enemiesChosenToSpawn.Count; i++)
-        {
-            if (enemiesChosenToSpawn[i].enemyType == EnemyType.ground)
+            for (int i = 0; i < amountOfEnemySpawns; i++)
             {
-                StartCoroutine(SpawnGroundEnemy(enemiesChosenToSpawn[i].enemy, enemiesChosenToSpawn[i].enemySpawnFrequency));
+                int randomNumber = UnityEngine.Random.Range(0, enemySpawnInfos.Count);
+                enemiesChosenToSpawn.Add(enemySpawnInfos[randomNumber]);
             }
-            else if (enemiesChosenToSpawn[i].enemyType == EnemyType.flying)
-            {
-                StartCoroutine(SpawnFlyingEnemy(enemiesChosenToSpawn[i].enemy, enemiesChosenToSpawn[i].enemySpawnFrequency));
-            }
-        }
 
-        timeLimit = Time.time + UnityEngine.Random.Range(minTimeLimit, maxTimeLimit);
-        StartCoroutine(StopAfterTimeLimit());
+            for (int i = 0; i < enemiesChosenToSpawn.Count; i++)
+            {
+                if (enemiesChosenToSpawn[i].enemyType == EnemyType.ground)
+                {
+                    StartCoroutine(SpawnGroundEnemy(enemiesChosenToSpawn[i].enemy, enemiesChosenToSpawn[i].enemySpawnFrequency));
+                }
+                else if (enemiesChosenToSpawn[i].enemyType == EnemyType.flying)
+                {
+                    StartCoroutine(SpawnFlyingEnemy(enemiesChosenToSpawn[i].enemy, enemiesChosenToSpawn[i].enemySpawnFrequency));
+                }
+            }
+
+            timeLimit = Time.time + UnityEngine.Random.Range(minTimeLimit, maxTimeLimit);
+            StartCoroutine(StopAfterTimeLimit());
+        }
     }
 
     IEnumerator StopAfterTimeLimit()
@@ -114,7 +109,12 @@ public class Spawner : MonoBehaviour
         while (true)
         {
             int randomNumber = UnityEngine.Random.Range(0, groundSpawnPoints.Count);
-            Instantiate(enemy, groundSpawnPoints[randomNumber].position,Quaternion.identity, enemiesParent);
+            var someEnemy = Instantiate(enemy, groundSpawnPoints[randomNumber].position,Quaternion.identity, enemiesParent);
+            EnemyLoader enemyLoader = someEnemy.GetComponent<EnemyLoader>();
+            enemyLoader.EnemyKey = keyCounter;
+            enemyLoader.RoomKey = roomKey;
+            enemyLoader.MapType = mapType;
+            keyCounter++;
             yield return new WaitForSeconds(enemySpawnFrequency);
         }
     }
@@ -129,7 +129,12 @@ public class Spawner : MonoBehaviour
             int randomNumber = UnityEngine.Random.Range(0, flyingSpawnPoints.Count);
             Vector3 spawnPosition = new Vector3(UnityEngine.Random.Range(flyingSpawnPoints[randomNumber].MinBoundX, flyingSpawnPoints[randomNumber].MaxBoundX),
                                                 UnityEngine.Random.Range(flyingSpawnPoints[randomNumber].MinBoundY, flyingSpawnPoints[randomNumber].MaxBoundY), 0);
-            Instantiate(enemy, spawnPosition,Quaternion.identity, enemiesParent);
+            var someEnemy = Instantiate(enemy, spawnPosition,Quaternion.identity, enemiesParent);
+            EnemyLoader enemyLoader = someEnemy.GetComponent<EnemyLoader>();
+            enemyLoader.EnemyKey = keyCounter;
+            enemyLoader.RoomKey = roomKey;
+            enemyLoader.MapType = mapType;
+            keyCounter++;
             yield return new WaitForSeconds(enemySpawnFrequency);
         }
     }

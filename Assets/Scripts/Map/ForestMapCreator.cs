@@ -1,11 +1,9 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
-
 
 public class ForestMapCreator : MapCreator
 {
     private static ForestMapCreator instance = null;
-    private const int Forest_Length = 20;
+    private const int Forest_Length = 6;
 
     private void Awake()
     {
@@ -58,8 +56,18 @@ public class ForestMapCreator : MapCreator
             }
         }
 
+        AddSpawnRoom();
         AddTreasures(2, normalRoomArrayCoordinates);
     }
 
-
+    private void AddSpawnRoom ()
+    {
+        
+        int randomNumber = Random.Range(0, normalRoomArrayCoordinates.Count);
+        int randomNumber2 = Random.Range(0, RoomTracker.ForestSpawnRooms.Count);
+        //normalRoomArrayCoordinates.RemoveAt(randomNumber);
+        map[normalRoomArrayCoordinates[randomNumber].x, 0].RoomName = RoomTracker.ForestSpawnRooms[randomNumber2];
+        map[normalRoomArrayCoordinates[randomNumber].x, 0].RoomType = RoomType.spawnRoom;
+        Debug.Log("SpawnRoom added at randomNumber" + normalRoomArrayCoordinates[randomNumber].x);
+    }
 }
