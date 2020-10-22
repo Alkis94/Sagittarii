@@ -11,7 +11,7 @@ public class CollisionTracker : MonoBehaviour
     [SerializeField]
     private float horizontalRayLength = 0.1f;
 
-    void Start()
+    void Awake()
     {
         raycaster = GetComponent<Raycaster>();
     }

@@ -25,6 +25,10 @@ public class SpiderCrawlDown : MonoBehaviour
             webStringInstance = Instantiate(webString, transform.position, Quaternion.identity);
             StartCoroutine(FallingMovement());
         }
+        else
+        {
+            FinishedFalling();
+        }
     }
 
 
@@ -74,7 +78,6 @@ public class SpiderCrawlDown : MonoBehaviour
             temp = Mathf.Abs(temp);
             webStringInstance.localScale = new Vector3(webStringInstance.localScale.x, temp * 20, 1);
             StopAllCoroutines();
-            FinishedFalling();
         }
     }
 }

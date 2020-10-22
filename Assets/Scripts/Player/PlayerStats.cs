@@ -57,13 +57,13 @@ public class PlayerStats : MonoBehaviour, IDamageable
     
     private void OnEnable()
     {
-        EnemiesSerializer.OnRoomHasAliveEnemies += EnteredRoomWithEnemies;
+        EnemiesManager.OnRoomHasAliveEnemies += EnteredRoomWithEnemies;
         EnemyStats.OnEnemyWasKilled += EnemyWasKilled;      
     }
 
     private void OnDisable()
     {
-        EnemiesSerializer.OnRoomHasAliveEnemies -= EnteredRoomWithEnemies;
+        EnemiesManager.OnRoomHasAliveEnemies -= EnteredRoomWithEnemies;
         EnemyStats.OnEnemyWasKilled -= EnemyWasKilled;
     }
 

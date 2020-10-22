@@ -31,9 +31,9 @@ public class TreasureChest : MonoBehaviour, IInteractable
         {
             animator = GetComponentInChildren<Animator>();
             audioSource = GetComponent<AudioSource>();
-            if (ES3.KeyExists("isClosed", "Levels/" + mapType + "/Room" + roomKey))
+            if (ES3.KeyExists("isClosed", "Levels/" + mapType + "/Room" + roomKey + "/Props"))
             {
-                isClosed = ES3.Load<bool>("isClosed", "Levels/" + mapType + "/Room" + roomKey);
+                isClosed = ES3.Load<bool>("isClosed", "Levels/" + mapType + "/Room" + roomKey + "/Props");
             }
 
             if (!isClosed)
@@ -57,7 +57,7 @@ public class TreasureChest : MonoBehaviour, IInteractable
             audioSource.Play();
             PickUpFactory.Instance.DropGold(transform.position, 1, minGoldDrop, maxGoldDrop, true);
             isClosed = false;
-            ES3.Save<bool>("isClosed", isClosed, "Levels/" + mapType + "/Room" + roomKey);
+            ES3.Save<bool>("isClosed", isClosed, "Levels/" + mapType + "/Room" + roomKey + "/Props");
         }
     }
 

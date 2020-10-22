@@ -25,13 +25,13 @@ public class BossDoor : MonoBehaviour, IInteractable
 
     private void OnEnable()
     {
-        RoomFinish.OnRoomFinished += OpenDoor;
+        RoomManager.OnRoomFinished += OpenDoor;
         MapManager.OnRoomLoaded += SetMapType;
     }
 
     private void OnDisable()
     {
-        RoomFinish.OnRoomFinished -= OpenDoor;
+        RoomManager.OnRoomFinished -= OpenDoor;
         MapManager.OnRoomLoaded -= SetMapType;
     }
 

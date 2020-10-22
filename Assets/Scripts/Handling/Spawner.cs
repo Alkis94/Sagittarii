@@ -19,9 +19,10 @@ public class Spawner : MonoBehaviour
     [SerializeField]
     private float maxTimeLimit = 120f;
     [SerializeField]
-    private int maxAmountOfEnemySpawns = 5;
-    [SerializeField]
     private int minAmountOfEnemySpawns = 3;
+    [SerializeField]
+    private int maxAmountOfEnemySpawns = 5;
+    
 
     [Header("Possible Enemy Spawns")]
     [SerializeField]
@@ -39,16 +40,29 @@ public class Spawner : MonoBehaviour
         enemiesChosenToSpawn = new List<EnemySpawnInfo>();
         enemiesParent = GameObject.FindGameObjectWithTag("Enemies").GetComponent<Transform>();
 
-        foreach (GameObject groundSpawnPoint in GameObject.FindGameObjectsWithTag("GroundSpawnPoint"))
+        foreach(Transform spawnPoint in transform)
         {
-            groundSpawnPoints.Add(groundSpawnPoint.transform);
+            if(spawnPoint.tag == "GroundSpawnPoint")
+            {
+                groundSpawnPoints.Add(spawnPoint.transform);
+            }
+            else if (spawnPoint.tag == "FlyingSpawnPoint")
+            {
+                FlyingSpawnPoint flyingSpawnPoint = spawnPoint.GetComponent<FlyingSpawnPoint>();
+                flyingSpawnPoints.Add(flyingSpawnPoint);
+            }
         }
 
-        foreach (GameObject flyingSpawnPoint in GameObject.FindGameObjectsWithTag("FlyingSpawnPoint"))
-        {
-            FlyingSpawnPoint someFlyingSpawnPoint = flyingSpawnPoint.GetComponent<FlyingSpawnPoint>();
-            flyingSpawnPoints.Add(someFlyingSpawnPoint);
-        }
+        //foreach (GameObject groundSpawnPoint in GameObject.FindGameObjectsWithTag("GroundSpawnPoint"))
+        //{
+        //    groundSpawnPoints.Add(groundSpawnPoint.transform);
+        //}
+
+        //foreach (GameObject flyingSpawnPoint in GameObject.FindGameObjectsWithTag("FlyingSpawnPoint"))
+        //{
+        //    FlyingSpawnPoint someFlyingSpawnPoint = flyingSpawnPoint.GetComponent<FlyingSpawnPoint>();
+        //    flyingSpawnPoints.Add(someFlyingSpawnPoint);
+        //}
     }
 
 
@@ -60,7 +74,6 @@ public class Spawner : MonoBehaviour
         {
             int randomNumber = UnityEngine.Random.Range(0, enemySpawnInfos.Count);
             enemiesChosenToSpawn.Add(enemySpawnInfos[randomNumber]);
-            //Debug.Log("Enemy Chosen: " + enemySpawnInfos[randomNumber].enemy);
         }
 
         for (int i = 0; i < enemiesChosenToSpawn.Count; i++)
@@ -115,7 +128,7 @@ public class Spawner : MonoBehaviour
         {
             int randomNumber = UnityEngine.Random.Range(0, flyingSpawnPoints.Count);
             Vector3 spawnPosition = new Vector3(UnityEngine.Random.Range(flyingSpawnPoints[randomNumber].MinBoundX, flyingSpawnPoints[randomNumber].MaxBoundX),
-                                                UnityEngine.Random.Range(flyingSpawnPoints[randomNumber].MinBoundY, flyingSpawnPoints[randomNumber].MaxBoundY),0);
+                                                UnityEngine.Random.Range(flyingSpawnPoints[randomNumber].MinBoundY, flyingSpawnPoints[randomNumber].MaxBoundY), 0);
             Instantiate(enemy, spawnPosition,Quaternion.identity, enemiesParent);
             yield return new WaitForSeconds(enemySpawnFrequency);
         }

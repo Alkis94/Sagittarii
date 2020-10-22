@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class RoomFinish : MonoBehaviour
+public class RoomManager : MonoBehaviour
 {
     public static event Action OnRoomFinished = delegate { };
     private Spawner spawner;
@@ -48,6 +48,7 @@ public class RoomFinish : MonoBehaviour
         {
             if(transform.childCount <= 0)
             {
+                Debug.Log("Room Finished!");
                 OnRoomFinished?.Invoke();
                 break;
             }

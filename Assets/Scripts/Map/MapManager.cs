@@ -6,9 +6,11 @@ using UnityEngine.SceneManagement;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 
+
+[DefaultExecutionOrder(-99)]
 public class MapManager : SerializedMonoBehaviour
 {
-    private static MapManager instance = null;
+    public static MapManager Instance = null;
     public static event Action<MapType,string,RoomType> OnRoomLoaded = delegate { };
 
     [SerializeField]
@@ -25,7 +27,8 @@ public class MapManager : SerializedMonoBehaviour
     private readonly Vector2Int forestFirstRoomCoordinates = new Vector2Int(2, 0);
     private readonly Vector2Int caveFirstRoomCoordinates = new Vector2Int(10, 0);
 
-    private Vector2Int currentMapCoords = new Vector2Int(-1, 0);
+    public Vector2Int CurrentMapCoords { get; private set; } = new Vector2Int(-1, 0);
+    public MapType CurrentMap { get; private set; } = MapType.town;
 
     [NonSerialized, OdinSerialize]
     private List<List<GameObject>> rooms;
@@ -36,18 +39,17 @@ public class MapManager : SerializedMonoBehaviour
     private GameObject playerCurrentMapLocationPrefab;
     [SerializeField]
     private GameObject townIcon;
-    private MapType currentMap = MapType.town;
     private GameObject playerCurrentMapLocation;
 
     private void Awake()
     {
-        if (instance != null && instance != this)
+        if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
         }
         else
         {
-            instance = this;
+            Instance = this;
         }
     }
 
@@ -78,13 +80,13 @@ public class MapManager : SerializedMonoBehaviour
     {
         if (nextMap == MapType.town)
         {
-            this.currentMap = MapType.town;
+            CurrentMap = MapType.town;
             SceneManager.LoadScene("Town");
         }
         else if (currentMap == MapType.town && nextMap == MapType.forest)
         {
-            currentMapCoords = forestFirstRoomCoordinates;
-            this.currentMap = MapType.forest;
+            CurrentMapCoords = forestFirstRoomCoordinates;
+            CurrentMap = MapType.forest;
             map = forestMap;
 
 
@@ -94,7 +96,7 @@ public class MapManager : SerializedMonoBehaviour
 
             //We put an extra road to connect forest and town, and avoid having a room that collides on the town.
             Vector3 mapCoordinates = ConvertArrayCoordinates(0, 0);
-            ExtensionMethods.InstantiateAtLocalPosition(rooms[(int)this.currentMap - 1] [(int)RoomType.horizontalRoad], mapTransform, mapCoordinates);
+            ExtensionMethods.InstantiateAtLocalPosition(rooms[(int)CurrentMap - 1] [(int)RoomType.horizontalRoad], mapTransform, mapCoordinates);
 
             if(renderFullMap)
             {
@@ -104,14 +106,14 @@ public class MapManager : SerializedMonoBehaviour
         }
         else if (currentMap == MapType.forest && nextMap == MapType.cave)
         {
-            this.currentMap = MapType.cave;
-            currentMapCoords = caveFirstRoomCoordinates;
+            CurrentMap = MapType.cave;
+            CurrentMapCoords = caveFirstRoomCoordinates;
             map = caveMap;
 
             //We put this road to connect forest and caves. This roads is not inside mapLayout. We do it this way so
             //no rooms of caves collide with forrest rooms.
             Vector2 mapCoordinates = new Vector2(80, -20);
-            ExtensionMethods.InstantiateAtLocalPosition(rooms[(int)this.currentMap - 1][(int)RoomType.verticalRoad], mapTransform, mapCoordinates);
+            ExtensionMethods.InstantiateAtLocalPosition(rooms[(int)CurrentMap - 1][(int)RoomType.verticalRoad], mapTransform, mapCoordinates);
 
             SceneManager.LoadScene(map[caveFirstRoomCoordinates.x, caveFirstRoomCoordinates.y].RoomName);
             OnRoomChangeRenderMapPart();
@@ -124,8 +126,8 @@ public class MapManager : SerializedMonoBehaviour
         }
         else if (currentMap == MapType.cave && nextMap == MapType.forest)
         {
-            this.currentMap = MapType.forest;
-            currentMapCoords = forestFirstRoomCoordinates;
+            CurrentMap = MapType.forest;
+            CurrentMapCoords = forestFirstRoomCoordinates;
             map = forestMap;
             SceneManager.LoadScene(map[forestFirstRoomCoordinates.x, forestFirstRoomCoordinates.y].RoomName);
             MoveCurrentPlayerPositionAndCenterMap();
@@ -135,35 +137,35 @@ public class MapManager : SerializedMonoBehaviour
     private void ChangeRoom(Direction doorPlacement)
     {
 
-        Vector2Int previousMapCoords = currentMapCoords;
+        Vector2Int previousMapCoords = CurrentMapCoords;
 
         if (doorPlacement == Direction.west)
         {
-            currentMapCoords = new Vector2Int(currentMapCoords.x - 2, currentMapCoords.y);
+            CurrentMapCoords = new Vector2Int(CurrentMapCoords.x - 2, CurrentMapCoords.y);
         }
         else if (doorPlacement == Direction.east)
         {
-            currentMapCoords = new Vector2Int(currentMapCoords.x + 2, currentMapCoords.y);
+            CurrentMapCoords = new Vector2Int(CurrentMapCoords.x + 2, CurrentMapCoords.y);
         }
         else if (doorPlacement == Direction.north)
         {
-            currentMapCoords = new Vector2Int(currentMapCoords.x, currentMapCoords.y - 2);
+            CurrentMapCoords = new Vector2Int(CurrentMapCoords.x, CurrentMapCoords.y - 2);
         }
         else if (doorPlacement == Direction.south)
         {
-            currentMapCoords = new Vector2Int(currentMapCoords.x, currentMapCoords.y + 2);
+            CurrentMapCoords = new Vector2Int(CurrentMapCoords.x, CurrentMapCoords.y + 2);
         }
       
-        if (map[currentMapCoords.x, currentMapCoords.y].RoomName != null)
+        if (map[CurrentMapCoords.x, CurrentMapCoords.y].RoomName != null)
         {
-            SceneManager.LoadScene(map[currentMapCoords.x, currentMapCoords.y].RoomName);
+            SceneManager.LoadScene(map[CurrentMapCoords.x, CurrentMapCoords.y].RoomName);
             MoveCurrentPlayerPositionAndCenterMap();
             OnRoomChangeRenderMapPart();
         }
         else
         {
             Debug.LogError("Room Not Found");
-            currentMapCoords = previousMapCoords;
+            CurrentMapCoords = previousMapCoords;
         }
     }
 
@@ -171,7 +173,7 @@ public class MapManager : SerializedMonoBehaviour
     {
         if (levelToLoad == "LastRoom")
         {
-            SceneManager.LoadScene(map[currentMapCoords.x, currentMapCoords.y].RoomName);
+            SceneManager.LoadScene(map[CurrentMapCoords.x, CurrentMapCoords.y].RoomName);
         }
         else
         {
@@ -184,13 +186,13 @@ public class MapManager : SerializedMonoBehaviour
         //we change the location of red indication of the player in the map 
         if (currentPlayerLocationInitialized)
         {
-            Vector3 mapCoordinates = ConvertArrayCoordinates(currentMapCoords.x, currentMapCoords.y);
+            Vector3 mapCoordinates = ConvertArrayCoordinates(CurrentMapCoords.x, CurrentMapCoords.y);
             playerCurrentMapLocation.transform.localPosition = mapCoordinates;
             mapTransform.localPosition = new Vector3(-mapCoordinates.x, -mapCoordinates.y, 0);
         }
         else
         {
-            Vector2 mapCoordinates = ConvertArrayCoordinates(currentMapCoords.x, currentMapCoords.y);
+            Vector2 mapCoordinates = ConvertArrayCoordinates(CurrentMapCoords.x, CurrentMapCoords.y);
             playerCurrentMapLocation = ExtensionMethods.InstantiateAtLocalPosition(playerCurrentMapLocationPrefab, mapTransform, mapCoordinates);
             mapTransform.localPosition = new Vector3(-mapCoordinates.x, -mapCoordinates.y, 0);
             currentPlayerLocationInitialized = true;
@@ -214,10 +216,10 @@ public class MapManager : SerializedMonoBehaviour
     private void OnRoomChangeRenderMapPart()
     {
         Vector2 mapCoordinates = Vector2.zero;
-        if (map[currentMapCoords.x, currentMapCoords.y].IsUnexplored)
+        if (map[CurrentMapCoords.x, CurrentMapCoords.y].IsUnexplored)
         {
-            map[currentMapCoords.x, currentMapCoords.y].IsUnexplored = false;
-            PlaceMapPart(currentMapCoords.x, currentMapCoords.y);
+            map[CurrentMapCoords.x, CurrentMapCoords.y].IsUnexplored = false;
+            PlaceMapPart(CurrentMapCoords.x, CurrentMapCoords.y);
             RenderNeighborUnexploredRooms();
         }
     }
@@ -225,7 +227,7 @@ public class MapManager : SerializedMonoBehaviour
     private GameObject PlaceMapPart(int coordX, int coordY)
     {
         Vector2 mapCoordinates = ConvertArrayCoordinates(coordX, coordY);
-        GameObject roomIcon = ExtensionMethods.InstantiateAtLocalPosition(rooms[(int)currentMap - 1][(int)map[coordX, coordY].RoomType], mapTransform, mapCoordinates);
+        GameObject roomIcon = ExtensionMethods.InstantiateAtLocalPosition(rooms[(int)CurrentMap - 1][(int)map[coordX, coordY].RoomType], mapTransform, mapCoordinates);
         if ((int)map[coordX, coordY].RoomType > 2)
         {
             if (map[coordX, coordY].IsUnexplored)
@@ -244,50 +246,50 @@ public class MapManager : SerializedMonoBehaviour
     private void RenderNeighborUnexploredRooms()
     {
          //Draw East
-        if (currentMapCoords.x + 1 < map.GetLength(0))
+        if (CurrentMapCoords.x + 1 < map.GetLength(0))
         {
-            if(map[currentMapCoords.x + 1,currentMapCoords.y].RoomType > 0)
+            if(map[CurrentMapCoords.x + 1, CurrentMapCoords.y].RoomType > 0)
             {
-                if(map[currentMapCoords.x + 2, currentMapCoords.y].IsUnexplored)
+                if(map[CurrentMapCoords.x + 2, CurrentMapCoords.y].IsUnexplored)
                 {
-                    PlaceMapPart(currentMapCoords.x + 1, currentMapCoords.y);
-                    PlaceMapPart(currentMapCoords.x + 2, currentMapCoords.y);
+                    PlaceMapPart(CurrentMapCoords.x + 1, CurrentMapCoords.y);
+                    PlaceMapPart(CurrentMapCoords.x + 2, CurrentMapCoords.y);
                 }
             }
         }
         //Draw West
-        if (currentMapCoords.x - 1 >= 0)
+        if (CurrentMapCoords.x - 1 >= 0)
         {
-            if (map[currentMapCoords.x - 1, currentMapCoords.y].RoomType > 0)
+            if (map[CurrentMapCoords.x - 1, CurrentMapCoords.y].RoomType > 0)
             {
-                if (map[currentMapCoords.x - 2, currentMapCoords.y].IsUnexplored)
+                if (map[CurrentMapCoords.x - 2, CurrentMapCoords.y].IsUnexplored)
                 {
-                    PlaceMapPart(currentMapCoords.x - 1, currentMapCoords.y);
-                    PlaceMapPart(currentMapCoords.x - 2, currentMapCoords.y);
+                    PlaceMapPart(CurrentMapCoords.x - 1, CurrentMapCoords.y);
+                    PlaceMapPart(CurrentMapCoords.x - 2, CurrentMapCoords.y);
                 }
             }
         }
         //Draw South
-        if (currentMapCoords.y + 1 < map.GetLength(1))
+        if (CurrentMapCoords.y + 1 < map.GetLength(1))
         {
-            if (map[currentMapCoords.x, currentMapCoords.y + 1].RoomType > 0)
+            if (map[CurrentMapCoords.x, CurrentMapCoords.y + 1].RoomType > 0)
             {
-                if (map[currentMapCoords.x, currentMapCoords.y + 1].IsUnexplored)
+                if (map[CurrentMapCoords.x, CurrentMapCoords.y + 1].IsUnexplored)
                 {
-                    PlaceMapPart(currentMapCoords.x, currentMapCoords.y + 1);
-                    PlaceMapPart(currentMapCoords.x, currentMapCoords.y + 2);
+                    PlaceMapPart(CurrentMapCoords.x, CurrentMapCoords.y + 1);
+                    PlaceMapPart(CurrentMapCoords.x, CurrentMapCoords.y + 2);
                 }
             }
         }
         //Draw North
-        if (currentMapCoords.y - 1 >= 0)
+        if (CurrentMapCoords.y - 1 >= 0)
         {
-            if (map[currentMapCoords.x, currentMapCoords.y - 1].RoomType > 0)
+            if (map[CurrentMapCoords.x, CurrentMapCoords.y - 1].RoomType > 0)
             {
-                if (map[currentMapCoords.x, currentMapCoords.y - 1].IsUnexplored)
+                if (map[CurrentMapCoords.x, CurrentMapCoords.y - 1].IsUnexplored)
                 {
-                    PlaceMapPart(currentMapCoords.x, currentMapCoords.y - 1);
-                    PlaceMapPart(currentMapCoords.x, currentMapCoords.y - 2);
+                    PlaceMapPart(CurrentMapCoords.x, CurrentMapCoords.y - 1);
+                    PlaceMapPart(CurrentMapCoords.x, CurrentMapCoords.y - 2);
                 }
             }
         }
@@ -305,12 +307,12 @@ public class MapManager : SerializedMonoBehaviour
 
     private Vector2 ConvertArrayCoordinates(int x, int y)
     {
-        if (currentMap == MapType.forest)
+        if (CurrentMap == MapType.forest)
         {
             Vector2 mapCoordinates = new Vector2(40 + x * 20, 0);
             return mapCoordinates;
         }
-        else if (currentMap == MapType.cave)
+        else if (CurrentMap == MapType.cave)
         {
             Vector2 mapCoordinates = new Vector2(-120 + x * 20, -40 - y * 20);
             return mapCoordinates;
@@ -332,7 +334,7 @@ public class MapManager : SerializedMonoBehaviour
                 {
                     Vector2 mapCoordinates = ConvertArrayCoordinates(i, j);
 
-                    GameObject room = rooms[(int)currentMap - 1][(int)map[i, j].RoomType];
+                    GameObject room = rooms[(int)CurrentMap - 1][(int)map[i, j].RoomType];
                     room.GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f, 1);
                     ExtensionMethods.InstantiateAtLocalPosition(room, mapTransform, mapCoordinates);
                 }
@@ -357,7 +359,7 @@ public class MapManager : SerializedMonoBehaviour
             return;
         }
 
-        if(map[currentMapCoords.x, currentMapCoords.y].HasTreasure)
+        if(map[CurrentMapCoords.x, CurrentMapCoords.y].HasTreasure)
         {
             TreasureChest treasureChest = FindObjectOfType<TreasureChest>();
             if (treasureChest != null)
@@ -366,7 +368,12 @@ public class MapManager : SerializedMonoBehaviour
             }
         }
 
-        string roomKey = currentMapCoords.x.ToString() + currentMapCoords.y.ToString();
-        OnRoomLoaded?.Invoke(currentMap, roomKey, map[currentMapCoords.x,currentMapCoords.y].RoomType);
+        string roomKey = CurrentMapCoords.x.ToString() + CurrentMapCoords.y.ToString();
+        OnRoomLoaded?.Invoke(CurrentMap, roomKey, map[CurrentMapCoords.x,CurrentMapCoords.y].RoomType);
+    }
+
+    public RoomType GetMapRoomType()
+    {
+        return map[CurrentMapCoords.x, CurrentMapCoords.y].RoomType;
     }
 }
