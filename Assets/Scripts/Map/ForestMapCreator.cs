@@ -62,12 +62,12 @@ public class ForestMapCreator : MapCreator
 
     private void AddSpawnRoom ()
     {
-        
         int randomNumber = Random.Range(0, normalRoomArrayCoordinates.Count);
         int randomNumber2 = Random.Range(0, RoomTracker.ForestSpawnRooms.Count);
-        //normalRoomArrayCoordinates.RemoveAt(randomNumber);
+        
         map[normalRoomArrayCoordinates[randomNumber].x, 0].RoomName = RoomTracker.ForestSpawnRooms[randomNumber2];
         map[normalRoomArrayCoordinates[randomNumber].x, 0].RoomType = RoomType.spawnRoom;
         Debug.Log("SpawnRoom added at randomNumber" + normalRoomArrayCoordinates[randomNumber].x);
+        normalRoomArrayCoordinates.RemoveAt(randomNumber);
     }
 }

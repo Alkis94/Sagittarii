@@ -1,10 +1,8 @@
-﻿using UnityEngine;
-using System.Linq;
-using System;
+﻿using System;
 using Factories;
+using UnityEngine;
+using System.Linq;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.SceneManagement;
 
 public class PlayerAttackHandler : MonoBehaviour
 {

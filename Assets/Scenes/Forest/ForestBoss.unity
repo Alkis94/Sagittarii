@@ -27163,8 +27163,8 @@ MonoBehaviour:
     - {fileID: 11400000, guid: bdd2cea465046d543b1f9802bcf402e9, type: 2}
     - {fileID: 1788294079}
     - {fileID: 1788294081}
-    - {fileID: 1788294077}
-    - {fileID: 1788294082}
+    - {fileID: 0}
+    - {fileID: 0}
     - {fileID: 1788294078}
     - {fileID: 1788294076}
     - {fileID: 1788294080}
@@ -28715,7 +28715,7 @@ PrefabInstance:
     - target: {fileID: 1499141357242650371, guid: 8c330cc8ae86e434695ed3b4b055f3c5,
         type: 3}
       propertyPath: m_Name
-      value: EnemyGroupChooser
+      value: EnemiesManager
       objectReference: {fileID: 0}
     - target: {fileID: 4384568627883303892, guid: 8c330cc8ae86e434695ed3b4b055f3c5,
         type: 3}
@@ -28785,18 +28785,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1788294075}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1788294077 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5897759882119561516, guid: 8c330cc8ae86e434695ed3b4b055f3c5,
-    type: 3}
-  m_PrefabInstance: {fileID: 1788294075}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1788294076}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72c0022b0d3966f4189d50c031165e3c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1788294078 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4384568627883303892, guid: 8c330cc8ae86e434695ed3b4b055f3c5,
@@ -28825,18 +28813,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c835aeaf052a5094481e01ee217ff2e4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1788294082 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 493010946397134862, guid: 8c330cc8ae86e434695ed3b4b055f3c5,
-    type: 3}
-  m_PrefabInstance: {fileID: 1788294075}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1788294080}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3357ffc809ced8e4ab52354d7bfd67c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1899390353
