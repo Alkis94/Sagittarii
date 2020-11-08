@@ -24,6 +24,11 @@ public abstract class EnemyLoader : MonoBehaviour
     public abstract void Load();
     public abstract void ChangeEnemyStatusToDead(bool criticalDeath);
 
+    protected virtual void Awake()
+    {
+        enemyStats = GetComponent<EnemyStats>();
+    }
+
     public virtual bool IsDead()
     {
         if (dead)
@@ -32,7 +37,6 @@ public abstract class EnemyLoader : MonoBehaviour
             animator = GetComponent<Animator>();
             rigidbody2d = GetComponent<Rigidbody2D>();
             enemyGotShot = GetComponent<EnemyGotShot>();
-            enemyStats= GetComponent<EnemyStats>();
             animator.enabled = false;
 
             if (criticalDeath && enemyStats.HasCriticalDeath)

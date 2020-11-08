@@ -1,17 +1,21 @@
 fileFormatVersion: 2
-guid: e3e2bf085d467f64891c5b86deb925f1
+guid: 123ae87480ebec842add1b947fb73969
 TextureImporter:
   fileIDToRecycleName:
     21300000: tileset1_0
     21300002: tileset1_1
-    21300004: tileset1_3
-    21300006: tileset1_4
-    21300008: tileset1_6
-    21300010: tileset1_7
-    21300012: ForestSpawnerSpikesAppear_0
-    21300014: ForestSpawnerSpikesAppear_1
-    21300016: ForestSpawnerSpikesAppear_2
-    21300018: ForestSpawnerSpikesAppear_3
+    21300004: tileset1_2
+    21300006: tileset1_3
+    21300008: tileset1_4
+    21300010: tileset1_5
+    21300012: tileset1_6
+    21300014: tileset1_7
+    21300016: tileset1_8
+    21300018: ForestSpawnerSpikesVanish_0
+    21300020: ForestSpawnerSpikesVanish_1
+    21300022: ForestSpawnerSpikesVanish_2
+    21300024: ForestSpawnerSpikesVanish_3
+    21300026: ForestSpawnerSpikesVanish_4
   externalObjects: {}
   serializedVersion: 9
   mipmaps:
@@ -138,12 +142,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ForestSpawnerSpikesAppear_0
+      name: ForestSpawnerSpikesVanish_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 7
+        width: 11
         height: 320
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -152,18 +156,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5540bb87ea016b54abdc65019bac70aa
+      spriteID: ef4058f6a13d5374d8e03a976757e97d
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ForestSpawnerSpikesAppear_1
+      name: ForestSpawnerSpikesVanish_1
       rect:
         serializedVersion: 2
-        x: 8
+        x: 12
         y: 0
-        width: 7
+        width: 11
         height: 320
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -172,38 +176,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e3598eba2ddf9b644b2bb82401650323
+      spriteID: bcb89976b1e783345a76e5feb982b5e8
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ForestSpawnerSpikesAppear_2
-      rect:
-        serializedVersion: 2
-        x: 16
-        y: 0
-        width: 7
-        height: 320
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a1ca5083418de7740a656291c51f6016
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ForestSpawnerSpikesAppear_3
+      name: ForestSpawnerSpikesVanish_2
       rect:
         serializedVersion: 2
         x: 24
         y: 0
-        width: 7
+        width: 11
         height: 320
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -212,7 +196,47 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1776b4965349d8c4fba6be4668a6605a
+      spriteID: 8035efe48e0d74141a5c161e8618a797
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ForestSpawnerSpikesVanish_3
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 0
+        width: 11
+        height: 320
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 694d5f26792c53c41831900524c8244d
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ForestSpawnerSpikesVanish_4
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 0
+        width: 11
+        height: 320
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd579203a7a27454485082519f8b3cd1
       vertices: []
       indices: 
       edges: []

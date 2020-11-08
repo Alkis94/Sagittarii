@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
+using Sirenix.Serialization;
 using UnityEngine;
 using System;
 
-public class Spawner : MonoBehaviour
+public class Spawner : SerializedMonoBehaviour
 {
-
     public event Action OnSpawnerFinished = delegate { };
 
     [SerializeField]
@@ -25,11 +26,8 @@ public class Spawner : MonoBehaviour
     private int minAmountOfEnemySpawns = 3;
     [SerializeField]
     private int maxAmountOfEnemySpawns = 5;
-    
 
-    [Header("Possible Enemy Spawns")]
-    [SerializeField]
-    private List<EnemySpawnInfo> enemySpawnInfos;
+    [OdinSerialize] public List<EnemySpawnInfo> EnemySpawnInfos { get; private set; }
     private List<EnemySpawnInfo> enemiesChosenToSpawn;
     private List<Transform> groundSpawnPoints;
     private List<FlyingSpawnPoint> flyingSpawnPoints;
@@ -66,8 +64,8 @@ public class Spawner : MonoBehaviour
 
             for (int i = 0; i < amountOfEnemySpawns; i++)
             {
-                int randomNumber = UnityEngine.Random.Range(0, enemySpawnInfos.Count);
-                enemiesChosenToSpawn.Add(enemySpawnInfos[randomNumber]);
+                int randomNumber = UnityEngine.Random.Range(0, EnemySpawnInfos.Count);
+                enemiesChosenToSpawn.Add(EnemySpawnInfos[randomNumber]);
             }
 
             for (int i = 0; i < enemiesChosenToSpawn.Count; i++)

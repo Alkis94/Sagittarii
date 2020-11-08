@@ -15,7 +15,8 @@ public class EnemyStats : SerializedMonoBehaviour , IDamageable
 
     [SerializeField]
     private EnemyData enemyData;
-    
+    [OdinSerialize] public string EnemyName{ get; private set; }
+
     [Title("Enemy Stats")]
     [OdinSerialize] private int health = 10;
     [OdinSerialize] public float Speed { get; private set; } = 2;
@@ -91,6 +92,7 @@ public class EnemyStats : SerializedMonoBehaviour , IDamageable
 
     private void LoadFromData()
     {
+        EnemyName = enemyData.EnemyName;
         health = enemyData.Health;
         Speed = enemyData.Speed;
         DelayBeforeFirstAttack = enemyData.DelayBeforeFirstAttack;
@@ -106,7 +108,6 @@ public class EnemyStats : SerializedMonoBehaviour , IDamageable
         GoldDropChance = enemyData.GoldDropChance;
         Relics = enemyData.Relics;
         RelicDropChance = enemyData.RelicDropChance;
-     
     }
 
     private void RandomizeDelayBeforeFirstAttack()

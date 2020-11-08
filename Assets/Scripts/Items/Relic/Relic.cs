@@ -9,8 +9,6 @@ public class Relic : MonoBehaviour
     private Rigidbody2D rigidbody2d;
 
     [SerializeField]
-    private int despawnDelay = 60;
-    [SerializeField]
     private string relicName = "";
     [SerializeField]
     private string relicDescription = "";
@@ -24,7 +22,6 @@ public class Relic : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         rigidbody2d = GetComponentInParent<Rigidbody2D>();
         StartCoroutine(MoveUpAndDOwn());
-        Destroy(transform.parent.gameObject, despawnDelay);
     }
 
     public void Initialize(Vector3 deadEnemyPosition)

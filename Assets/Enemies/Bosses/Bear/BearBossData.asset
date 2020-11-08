@@ -21,12 +21,15 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
+    - Name: EnemyName
+      Entry: 1
+      Data: BearBoss
     - Name: Health
       Entry: 3
-      Data: 10
+      Data: 600
     - Name: Speed
       Entry: 4
-      Data: 2
+      Data: 3
     - Name: DelayBeforeFirstAttack
       Entry: 4
       Data: 3
@@ -36,25 +39,63 @@ MonoBehaviour:
     - Name: Amputation
       Entry: 5
       Data: false
+    - Name: HasBlood
+      Entry: 5
+      Data: true
+    - Name: HasCriticalDeath
+      Entry: 5
+      Data: false
+    - Name: ShakeBeforeDeath
+      Entry: 5
+      Data: true
     - Name: ChangingDirections
       Entry: 5
       Data: false
     - Name: ChangeDirectionFrequency
       Entry: 4
-      Data: 0
+      Data: 3
     - Name: MinGoldGiven
       Entry: 3
-      Data: 5
+      Data: 200
     - Name: MaxGoldGiven
       Entry: 3
-      Data: 15
+      Data: 400
     - Name: GoldDropChance
       Entry: 4
-      Data: 0.1
-    - Name: Relic
-      Entry: 6
+      Data: 1
+    - Name: Relics
+      Entry: 7
+      Data: 0|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 1
+      Data: BearJaw
+    - Name: 
+      Entry: 1
+      Data: BearHeart
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
       Data: 
     - Name: RelicDropChance
+      Entry: 7
+      Data: 1|System.Collections.Generic.List`1[[System.Single, mscorlib]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
       Entry: 4
-      Data: 0.01
-  enemyName: BearBoss
+      Data: 0.1
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 

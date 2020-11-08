@@ -1,8 +1,12 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class BossEnemyLoader : EnemyLoader
 {
+    protected override void Awake()
+    {
+        base.Awake();
+    }
+
     public override void Load()
     {
         Vector3 originalPosition = transform.position;
@@ -23,12 +27,4 @@ public class BossEnemyLoader : EnemyLoader
         ES3.Save<Vector3>("Position" + EnemyKey, transform.position, "Saves/Profile" + SaveProfile.SaveID + "/Bosses/" + MapType);
         ES3.Save<Quaternion>("Rotation" + EnemyKey, transform.rotation, "Saves/Profile" + SaveProfile.SaveID + "/Bosses/" + MapType);
     }
-
-    //private void OnDestroy()
-    //{
-    //    ES3.Save<bool>("Dead" + EnemyKey, dead, "Saves/Profile" + SaveProfile.SaveID + "/Bosses/" + MapType);
-    //    ES3.Save<bool>("CriticalDeath" + EnemyKey, criticalDeath, "Saves/Profile" + SaveProfile.SaveID + "/Bosses/" + MapType);
-    //    ES3.Save<Vector3>("Position" + EnemyKey, transform.position, "Saves/Profile" + SaveProfile.SaveID + "/Bosses/" + MapType);
-    //    ES3.Save<Quaternion>("Rotation" + EnemyKey, transform.rotation, "Saves/Profile" + SaveProfile.SaveID + "/Bosses/" + MapType);
-    //}
 }

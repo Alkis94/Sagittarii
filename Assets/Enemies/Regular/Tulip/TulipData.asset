@@ -21,6 +21,9 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
+    - Name: EnemyName
+      Entry: 1
+      Data: Tulip
     - Name: Health
       Entry: 3
       Data: 10
@@ -56,10 +59,10 @@ MonoBehaviour:
       Data: 5
     - Name: MaxGoldGiven
       Entry: 3
-      Data: 15
+      Data: 35
     - Name: GoldDropChance
       Entry: 4
-      Data: 0.1
+      Data: 0.15
     - Name: Relics
       Entry: 7
       Data: 0|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
@@ -90,4 +93,3 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  enemyName: Tulip

@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameStateManager : MonoBehaviour
 {
-    public static GameManager Instance { get; private set; }
+    public static GameStateManager Instance { get; private set; }
     private static GameStateEnum gameState = GameStateEnum.unpaused;
 
     public static GameStateEnum GameState

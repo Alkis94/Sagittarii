@@ -9,8 +9,8 @@ using Newtonsoft.Json;
 [CreateAssetMenu(fileName = "EnemyData", menuName = "EnemyData", order = 2)]
 public class EnemyData : SerializedScriptableObject
 {
-    [SerializeField]
-    private string enemyName;
+
+    [OdinSerialize] public string EnemyName { get; private set; }
 
     [Title("Enemy Stats")]
     [OdinSerialize] public int Health { get; private set; } = 10;
@@ -44,7 +44,7 @@ public class EnemyData : SerializedScriptableObject
     {
         EnemyInfo enemyInfo;
         enemyInfo = new EnemyInfo();
-        var fileContent = File.ReadAllText(Application.streamingAssetsPath + "/Enemy/" + enemyName + "/" + enemyName + ".json");
+        var fileContent = File.ReadAllText(Application.streamingAssetsPath + "/Enemy/" + EnemyName + "/" + EnemyName + ".json");
         enemyInfo = JsonConvert.DeserializeObject<EnemyInfo>(fileContent);
 
         Health = enemyInfo.health;

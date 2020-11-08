@@ -14,7 +14,7 @@ public class Quit : MonoBehaviour
     {
         DestroyCurrentDontDestroy();
         SceneManager.LoadScene("MainMenu");
-        GameManager.GameState = GameStateEnum.unpaused;
+        GameStateManager.GameState = GameStateEnum.unpaused;
     }
 
     private void DestroyCurrentDontDestroy()

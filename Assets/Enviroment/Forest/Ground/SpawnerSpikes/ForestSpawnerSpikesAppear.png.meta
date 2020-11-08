@@ -1,18 +1,25 @@
 fileFormatVersion: 2
-guid: 123ae87480ebec842add1b947fb73969
+guid: e3e2bf085d467f64891c5b86deb925f1
 TextureImporter:
   fileIDToRecycleName:
     21300000: tileset1_0
     21300002: tileset1_1
-    21300004: tileset1_3
-    21300006: tileset1_4
-    21300008: tileset1_6
-    21300010: tileset1_7
-    21300012: ForestSpawnerSpikesVanish_0
-    21300014: ForestSpawnerSpikesVanish_1
-    21300016: ForestSpawnerSpikesVanish_2
-    21300018: ForestSpawnerSpikesVanish_3
-    21300020: ForestSpawnerSpikesVanish_4
+    21300004: tileset1_2
+    21300006: tileset1_3
+    21300008: tileset1_4
+    21300010: tileset1_5
+    21300012: tileset1_6
+    21300014: tileset1_7
+    21300016: tileset1_8
+    21300018: ForestSpawnerSpikesAppear_0
+    21300020: ForestSpawnerSpikesAppear_1
+    21300022: ForestSpawnerSpikesAppear_2
+    21300024: ForestSpawnerSpikesAppear_3
+    21300026: ForestSpawnerSpikesAppear_4
+    21300028: ForestSpawnerSpikesAppear_5
+    21300030: ForestSpawnerSpikesAppear_6
+    21300032: ForestSpawnerSpikesAppear_7
+    21300034: ForestSpawnerSpikesAppear_8
   externalObjects: {}
   serializedVersion: 9
   mipmaps:
@@ -139,12 +146,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ForestSpawnerSpikesVanish_0
+      name: ForestSpawnerSpikesAppear_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 7
+        width: 11
         height: 320
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -153,18 +160,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8e82b850139c77d4cae24c72c90165b6
+      spriteID: b294cafa4435e5745815e7cdd41e1541
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ForestSpawnerSpikesVanish_1
+      name: ForestSpawnerSpikesAppear_1
       rect:
         serializedVersion: 2
-        x: 8
+        x: 12
         y: 0
-        width: 7
+        width: 11
         height: 320
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -173,38 +180,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 877d958e1753fc043b8873185211b59a
+      spriteID: 1b7623bcde006e248b6236b9605e697b
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ForestSpawnerSpikesVanish_2
-      rect:
-        serializedVersion: 2
-        x: 16
-        y: 0
-        width: 7
-        height: 320
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ce1bee75b4496744492a0695835ce27a
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ForestSpawnerSpikesVanish_3
+      name: ForestSpawnerSpikesAppear_2
       rect:
         serializedVersion: 2
         x: 24
         y: 0
-        width: 7
+        width: 11
         height: 320
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -213,18 +200,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c5cb0c80343d6e7458d8b25aabed1ecd
+      spriteID: f19b0141f243a5341b225d55f1b8d5a6
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ForestSpawnerSpikesVanish_4
+      name: ForestSpawnerSpikesAppear_3
       rect:
         serializedVersion: 2
-        x: 32
+        x: 36
         y: 0
-        width: 7
+        width: 11
         height: 320
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -233,7 +220,107 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3dbfa2b5503e11541bd1b0832e0198e1
+      spriteID: 90a7dd59dab94a943aae35dff9086ce6
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ForestSpawnerSpikesAppear_4
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 0
+        width: 11
+        height: 320
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8f2fd7a1e40371b4397dbf33e673f25c
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ForestSpawnerSpikesAppear_5
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 0
+        width: 11
+        height: 320
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 355b99289e218c0468ed442a56f873d8
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ForestSpawnerSpikesAppear_6
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 0
+        width: 11
+        height: 320
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a2d31210e5f603b4faec96a3c72808b0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ForestSpawnerSpikesAppear_7
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 0
+        width: 11
+        height: 320
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff0fa6243e2b8e0479d0a055041b570f
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ForestSpawnerSpikesAppear_8
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 11
+        height: 320
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b08f436064db8844792a2ab268dcc016
       vertices: []
       indices: 
       edges: []

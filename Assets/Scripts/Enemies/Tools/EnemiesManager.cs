@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System;
+using System.Collections.Generic;
 
 public class EnemiesManager : MonoBehaviour
 {
@@ -9,6 +10,24 @@ public class EnemiesManager : MonoBehaviour
     private RoomType roomType;
     private int chosenGroupID;
     private GameObject chosenGroup;
+    private Spawner spawner;
+    private Dictionary<string,GameObject> spawnerEnemies;
+
+    private void Awake()
+    {
+        GameObject spawnerObject = GameObject.FindGameObjectWithTag("Spawner");
+        if (spawnerObject != null)
+        {
+            spawner = spawnerObject.GetComponent<Spawner>();
+            spawnerEnemies = new Dictionary<string, GameObject>();
+            
+            for(int i = 0; i < spawner.EnemySpawnInfos.Count; i++ )
+            {
+                spawnerEnemies.Add(spawner.EnemySpawnInfos[i].enemy.name, spawner.EnemySpawnInfos[i].enemy);
+                //Debug.Log(spawner.EnemySpawnInfos[i].enemy.name);
+            }
+        }
+    }
 
     private void Start()
     {
@@ -35,10 +54,9 @@ public class EnemiesManager : MonoBehaviour
         }
         if (roomType == RoomType.spawnRoom)
         {
-            if (ES3.FileExists("Saves/Profile" + SaveProfile.SaveID + "/Bosses/" + mapType))
+            if (ES3.FileExists("Levels/" + mapType + "/Room" + roomKey + "/Enemies"))
             {
-                chosenGroup = transform.GetChild(0).gameObject;
-                ReloadEnemies();
+                ReloadSpawnedEnemies();
             }
         }
         else
@@ -97,6 +115,32 @@ public class EnemiesManager : MonoBehaviour
         }
         chosenGroup.SetActive(true);
         CheckForAliveEnemies();
+    }
+
+    private void ReloadSpawnedEnemies()
+    {
+        int counter = 0;
+        while(true)
+        {
+            if(ES3.KeyExists("Dead" + counter, "Levels/" + mapType + "/Room" + roomKey + "/Enemies"))
+            {
+                string enemyName = ES3.Load<string>("EnemyName" + counter, "Levels/" + mapType + "/Room" + roomKey + "/Enemies");
+                Debug.Log(enemyName);
+                GameObject enemy = Instantiate(spawnerEnemies[enemyName]);
+                EnemyLoader enemyLoader = enemy.GetComponent<EnemyLoader>();
+                enemyLoader.EnemyKey = counter;
+                enemyLoader.MapType = mapType;
+                enemyLoader.RoomKey = roomKey;
+                enemyLoader.Load();
+                enemyLoader.IsDead();
+            }
+            else
+            {
+                break;
+            }
+
+            counter++;
+        }
     }
 
     private void CheckForAliveEnemies()

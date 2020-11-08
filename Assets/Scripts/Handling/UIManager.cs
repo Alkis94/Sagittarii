@@ -280,7 +280,7 @@ public class UIManager : MonoBehaviour
             blackDeathImage.color = new Color(0, 0, 0, alpha);
         }
 
-        GameManager.GameState = GameStateEnum.paused;
+        GameStateManager.GameState = GameStateEnum.paused;
         defeatMenu.SetActive(true);
     }
 

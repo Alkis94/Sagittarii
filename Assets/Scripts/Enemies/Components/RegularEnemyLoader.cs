@@ -1,7 +1,12 @@
 ﻿using UnityEngine;
 
 public class RegularEnemyLoader : EnemyLoader
-{ 
+{
+
+    protected override void Awake()
+    {
+        base.Awake();
+    }
 
     public override void Load()
     {
@@ -21,6 +26,7 @@ public class RegularEnemyLoader : EnemyLoader
 
     private void OnDestroy()
     {
+        ES3.Save<string>("EnemyName" + EnemyKey.ToString(), enemyStats.EnemyName, "Levels/" + MapType + "/Room" + RoomKey + "/Enemies");
         ES3.Save<bool>("Dead" + EnemyKey.ToString(), dead, "Levels/" + MapType + "/Room" + RoomKey + "/Enemies");
         ES3.Save<bool>("CriticalDeath" + EnemyKey.ToString(), criticalDeath, "Levels/" + MapType + "/Room" + RoomKey + "/Enemies");
         ES3.Save<Vector3>("Position" + EnemyKey.ToString(), transform.position, "Levels/" + MapType + "/Room" + RoomKey + "/Enemies");

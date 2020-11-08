@@ -16,7 +16,7 @@ namespace Factories
 
         public static GameObject CreateMenuAndPause(GameObject Menu)
         {
-            GameManager.GameState = GameStateEnum.paused;
+            GameStateManager.GameState = GameStateEnum.paused;
             someMenu = GameObject.Instantiate(Menu);
             someMenu.transform.position = new Vector2(Camera.main.pixelHeight / 2, Camera.main.pixelWidth / 2);
             return someMenu;
@@ -25,7 +25,7 @@ namespace Factories
         public static void DestroyMenuAndUnpause()
         {
             GameObject.Destroy(someMenu);
-            GameManager.GameState = GameStateEnum.unpaused;
+            GameStateManager.GameState = GameStateEnum.unpaused;
         }
     }
 }
