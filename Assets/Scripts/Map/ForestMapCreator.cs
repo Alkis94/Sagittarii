@@ -3,7 +3,7 @@
 public class ForestMapCreator : MapCreator
 {
     private static ForestMapCreator instance = null;
-    private const int Forest_Length = 6;
+    private const int Forest_Length = 20;
 
     private void Awake()
     {
@@ -67,7 +67,7 @@ public class ForestMapCreator : MapCreator
         
         map[normalRoomArrayCoordinates[randomNumber].x, 0].RoomName = RoomTracker.ForestSpawnRooms[randomNumber2];
         map[normalRoomArrayCoordinates[randomNumber].x, 0].RoomType = RoomType.spawnRoom;
-        Debug.Log("SpawnRoom added at randomNumber" + normalRoomArrayCoordinates[randomNumber].x);
+        //Debug.Log("SpawnRoom added at randomNumber" + normalRoomArrayCoordinates[randomNumber].x);
         normalRoomArrayCoordinates.RemoveAt(randomNumber);
     }
 }

@@ -81,7 +81,7 @@ public class MapManager : SerializedMonoBehaviour
         if (nextMap == MapType.town)
         {
             CurrentMap = MapType.town;
-            SceneManager.LoadScene("Town");
+            UIManager.Instance.LoadSceneWithFade("Town");
         }
         else if (currentMap == MapType.town && nextMap == MapType.forest)
         {
@@ -90,7 +90,7 @@ public class MapManager : SerializedMonoBehaviour
             map = forestMap;
 
 
-            SceneManager.LoadScene(map[forestFirstRoomCoordinates.x, forestFirstRoomCoordinates.y].RoomName);
+            UIManager.Instance.LoadSceneWithFade(map[forestFirstRoomCoordinates.x, forestFirstRoomCoordinates.y].RoomName);
             OnRoomChangeRenderMapPart();
             MoveCurrentPlayerPositionAndCenterMap();
 
@@ -115,7 +115,7 @@ public class MapManager : SerializedMonoBehaviour
             Vector2 mapCoordinates = new Vector2(80, -20);
             ExtensionMethods.InstantiateAtLocalPosition(rooms[(int)CurrentMap - 1][(int)RoomType.verticalRoad], mapTransform, mapCoordinates);
 
-            SceneManager.LoadScene(map[caveFirstRoomCoordinates.x, caveFirstRoomCoordinates.y].RoomName);
+            UIManager.Instance.LoadSceneWithFade(map[caveFirstRoomCoordinates.x, caveFirstRoomCoordinates.y].RoomName);
             OnRoomChangeRenderMapPart();
             MoveCurrentPlayerPositionAndCenterMap();
 
@@ -129,7 +129,7 @@ public class MapManager : SerializedMonoBehaviour
             CurrentMap = MapType.forest;
             CurrentMapCoords = forestFirstRoomCoordinates;
             map = forestMap;
-            SceneManager.LoadScene(map[forestFirstRoomCoordinates.x, forestFirstRoomCoordinates.y].RoomName);
+            UIManager.Instance.LoadSceneWithFade(map[forestFirstRoomCoordinates.x, forestFirstRoomCoordinates.y].RoomName);
             MoveCurrentPlayerPositionAndCenterMap();
         }
     }
@@ -158,7 +158,7 @@ public class MapManager : SerializedMonoBehaviour
       
         if (map[CurrentMapCoords.x, CurrentMapCoords.y].RoomName != null)
         {
-            SceneManager.LoadScene(map[CurrentMapCoords.x, CurrentMapCoords.y].RoomName);
+            UIManager.Instance.LoadSceneWithFade(map[CurrentMapCoords.x, CurrentMapCoords.y].RoomName);
             MoveCurrentPlayerPositionAndCenterMap();
             OnRoomChangeRenderMapPart();
         }
@@ -173,11 +173,11 @@ public class MapManager : SerializedMonoBehaviour
     {
         if (levelToLoad == "LastRoom")
         {
-            SceneManager.LoadScene(map[CurrentMapCoords.x, CurrentMapCoords.y].RoomName);
+            UIManager.Instance.LoadSceneWithFade(map[CurrentMapCoords.x, CurrentMapCoords.y].RoomName);
         }
         else
         {
-            SceneManager.LoadScene(levelToLoad);
+            UIManager.Instance.LoadSceneWithFade(levelToLoad);
         }
     }
 

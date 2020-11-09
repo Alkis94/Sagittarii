@@ -32,6 +32,8 @@ public class UIManager : MonoBehaviour
     private Image energyImage;
     [SerializeField]
     private Image specialImage;
+    [SerializeField]
+    private RectTransform fadeImage;
 
     private Coroutine energyCoroutine = null;
     private Coroutine healthCoroutine = null;
@@ -65,6 +67,19 @@ public class UIManager : MonoBehaviour
     private void Start ()
     {
         AudioListener.pause = false;
+    }
+
+    public void LoadSceneWithFade(string scene)
+    {
+        StartCoroutine(StartLoadSceneWithFade(scene));
+    }
+
+    IEnumerator StartLoadSceneWithFade(string scene)
+    {
+        LeanTween.alpha(fadeImage, 1f, 0.5f).setEase(LeanTweenType.linear);
+        yield return new WaitForSeconds(0.5f);
+        SceneManager.LoadScene(scene);
+        LeanTween.alpha(fadeImage, 0f, 0.5f).setEase(LeanTweenType.linear);
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -280,7 +295,7 @@ public class UIManager : MonoBehaviour
             blackDeathImage.color = new Color(0, 0, 0, alpha);
         }
 
-        GameStateManager.GameState = GameStateEnum.paused;
+        GameManager.GameState = GameStateEnum.paused;
         defeatMenu.SetActive(true);
     }
 

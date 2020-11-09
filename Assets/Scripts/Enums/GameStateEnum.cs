@@ -1,5 +1,6 @@
 ﻿public enum GameStateEnum
 {
     paused,
-    unpaused
+    unpaused,
+    slowed
 }

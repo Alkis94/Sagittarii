@@ -125,7 +125,6 @@ public class EnemiesManager : MonoBehaviour
             if(ES3.KeyExists("Dead" + counter, "Levels/" + mapType + "/Room" + roomKey + "/Enemies"))
             {
                 string enemyName = ES3.Load<string>("EnemyName" + counter, "Levels/" + mapType + "/Room" + roomKey + "/Enemies");
-                Debug.Log(enemyName);
                 GameObject enemy = Instantiate(spawnerEnemies[enemyName]);
                 EnemyLoader enemyLoader = enemy.GetComponent<EnemyLoader>();
                 enemyLoader.EnemyKey = counter;

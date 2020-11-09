@@ -17,7 +17,7 @@ public class PlayerLookAtMouse : MonoBehaviour
     {
         if (playerStats.CurrentHealth > 0)
         {
-            if (GameStateManager.GameState == GameStateEnum.unpaused)
+            if (GameManager.GameState == GameStateEnum.unpaused)
             {
                 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
