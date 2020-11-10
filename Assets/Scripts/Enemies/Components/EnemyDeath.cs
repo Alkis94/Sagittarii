@@ -68,7 +68,6 @@ public class EnemyDeath : SerializedMonoBehaviour
         gameObject.layer = 14;
         enemyGotShot.enabled = false;
         transform.localRotation = Quaternion.Euler(0, transform.localEulerAngles.y, 0);
-        GetComponent<EnemyLoader>().ChangeEnemyStatusToDead(diedFromCriticalHit);
         projectileVelocityOnHit = enemyGotShot.ProjectileVelocityOnHit;
         rigidbody2d.velocity = Vector2.zero;
 
@@ -76,6 +75,8 @@ public class EnemyDeath : SerializedMonoBehaviour
         {
             diedFromCriticalHit = true;
         }
+
+        GetComponent<EnemyLoader>().ChangeEnemyStatusToDead(diedFromCriticalHit);
 
         if (enemyBrain != null)
         {

@@ -10,8 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7507738168541130688}
   - component: {fileID: 8540377858866605007}
-  - component: {fileID: 791411071485537501}
-  - component: {fileID: 3097549296206594755}
+  - component: {fileID: 6224963734388430856}
   m_Layer: 0
   m_Name: Cloud
   m_TagString: Untagged
@@ -69,7 +68,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 2067085647
   m_SortingLayer: -3
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: 8a235c57ca26e2a459c64f924657e346, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -81,7 +80,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &791411071485537501
+--- !u!114 &6224963734388430856
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -90,21 +89,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 9125505083711860163}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: baaaa37521860004aa11f0828c856b29, type: 3}
+  m_Script: {fileID: 11500000, guid: 6561b86fb8929b34e8bf194b7d4fad79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destroyDelay: 300
---- !u!114 &3097549296206594755
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9125505083711860163}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: feab6a6fc11002d4b9b473c9ce4db9ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MoveX: -1
-  MoveY: 0

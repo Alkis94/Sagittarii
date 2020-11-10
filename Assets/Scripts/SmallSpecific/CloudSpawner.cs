@@ -7,15 +7,15 @@ public class CloudSpawner : MonoBehaviour
     [SerializeField]
     private float upperLimit = 8.5f;
     [SerializeField]
-    private float lowerLimit = 2.5f;
+    private float lowerLimit = 4f;
     [SerializeField]
-    private float spawnFrequency = 7f;
+    private float spawnFrequency = 3f;
     [SerializeField]
-    private float spawnRandomness = 10f;
+    private float spawnRandomness = 8f;
     [SerializeField]
-    private int sortingLayerMin = 0;
+    private float despawnTimer = 35f;
     [SerializeField]
-    private int sortingLayerMax = 5;
+    private float targetDistance = -20f;
 
     [SerializeField]
     private GameObject cloud;
@@ -54,7 +54,8 @@ public class CloudSpawner : MonoBehaviour
         Vector3 randomPosition = new Vector3(transform.position.x, Random.Range(lowerLimit, upperLimit), 0);
         GameObject tempCloud = Instantiate(cloud, randomPosition, Quaternion.identity);
         tempCloud.GetComponent<SpriteRenderer>().sprite = ReturnRandomSprite();
-        tempCloud.GetComponent<SpriteRenderer>().sortingOrder = Random.Range(sortingLayerMin, sortingLayerMax);
+        tempCloud.GetComponent<Cloud>().DespawnTimer = despawnTimer;
+        tempCloud.GetComponent<Cloud>().TargetDistance = targetDistance;
         return tempCloud;
     }
 

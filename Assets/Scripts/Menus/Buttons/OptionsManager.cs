@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
-using System.Collections;
 
 public class OptionsManager : MonoBehaviour
 {

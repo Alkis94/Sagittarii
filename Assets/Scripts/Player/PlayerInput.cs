@@ -234,7 +234,7 @@ public class PlayerInput : MonoBehaviour
         teleportCoroutine = null;
         if(playerStats.CurrentHealth > 0)
         {
-            SceneManager.LoadScene("Town");
+            UIManager.Instance.LoadSceneWithFade("Town");
         }
     }
 

@@ -37,6 +37,7 @@ public abstract class EnemyLoader : MonoBehaviour
             animator = GetComponent<Animator>();
             rigidbody2d = GetComponent<Rigidbody2D>();
             enemyGotShot = GetComponent<EnemyGotShot>();
+            enemyStats = GetComponent<EnemyStats>();
             animator.enabled = false;
 
             if (criticalDeath && enemyStats.HasCriticalDeath)
