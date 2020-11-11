@@ -9,20 +9,15 @@ public class ProjectileHandler: MonoBehaviour
     public event Action OnCollision = delegate { };
     [HideInInspector]
     public Vector2 velocityOnHit = Vector2.zero;
-
+    private Animator animator;
     private AudioSource audioSource;
     private Rigidbody2D rigidbody2d;
     [SerializeField]
     private AudioClip impactSound;
-    private float destroyDelay = 1;
-    [SerializeField]
-    private bool bulletSplits;
     [SerializeField]
     private bool isPenetrative = false;
-    [ShowIf("@ bulletSplits")]
-    [SerializeField] private EnemyAttackData attackData;
-
-    private Animator animator;
+    [SerializeField]
+    private bool ignoresCollisions = false;
 
     [SerializeField]
     private bool hasImpactAnimation = false;
@@ -36,10 +31,7 @@ public class ProjectileHandler: MonoBehaviour
 
     private void Start()
     {
-        destroyDelay = GetComponent<ProjectileDataInitializer>().DestroyDelay;
         audioSource = GetComponent<AudioSource>();
-        StartCoroutine(DestroyAndSplit());
-
         animator = GetComponent<Animator>();
 
         if (hasTravelAnimation)
@@ -50,16 +42,19 @@ public class ProjectileHandler: MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if(isPenetrative)
+        if (!ignoresCollisions)
         {
-            if(other.gameObject.layer == 8)
+            if (isPenetrative)
+            {
+                if (other.gameObject.layer == 8)
+                {
+                    HandleCollision();
+                }
+            }
+            else
             {
                 HandleCollision();
             }
-        }
-        else
-        {
-            HandleCollision();
         }
     }
 
@@ -81,13 +76,7 @@ public class ProjectileHandler: MonoBehaviour
             audioSource.Play();
         }
 
-        
         StopProjectile();
-
-        if (bulletSplits)
-        {
-            GetComponent<EnemyAttackHandler>().Attack(attackData);
-        }
 
         ParticleSystem particleSystem = GetComponentInChildren<ParticleSystem>();
         if(particleSystem != null)
@@ -106,15 +95,4 @@ public class ProjectileHandler: MonoBehaviour
         rigidbody2d.isKinematic = true;
         enabled = false;
     }
-
-    IEnumerator DestroyAndSplit()
-    {
-        yield return new WaitForSeconds(destroyDelay);
-        if(bulletSplits)
-        {
-            GetComponent<EnemyAttackHandler>().Attack(attackData);
-        }
-        Destroy(gameObject);
-    }
-
 }

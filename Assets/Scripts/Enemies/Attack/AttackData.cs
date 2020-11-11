@@ -9,10 +9,10 @@ using Newtonsoft.Json.Converters;
 public class AttackData : SerializedScriptableObject
 {
     //Attack Type
+    [OdinSerialize] public AttackTypeEnum AttackType { get; protected set; } = AttackTypeEnum.perimetrical;
     [OdinSerialize] public ProjectileMovementTypeEnum ProjectileMovementType { get; protected set; } = ProjectileMovementTypeEnum.straight;
     [ShowIf("@ ProjectileMovementType == ProjectileMovementTypeEnum.function")]
     [OdinSerialize] public FunctionMovementTypeEnum FunctionMovementType { get; protected set; } = FunctionMovementTypeEnum.sin;
-    [OdinSerialize] public AttackTypeEnum AttackType { get; protected set; } = AttackTypeEnum.perimetrical;
     [ShowIf("@ AttackType == AttackTypeEnum.perimetrical")]
     [OdinSerialize] public bool AttackIsDirectionDependant { get; protected set; } = false;
 

@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
+using System.Collections;
 
-public class BunnyBrain : GroundEnemyBrain
+public class WalkshroomBrain : GroundEnemyBrain
 {
-
     protected override void Awake()
     {
         base.Awake();
@@ -31,20 +31,14 @@ public class BunnyBrain : GroundEnemyBrain
         CheckCollisions();
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Walking"))
         {
-            Vector3 origin = new Vector3(transform.position.x, transform.position.y - 1, 0);
-            RaycastHit2D hit = Physics2D.Raycast(origin, transform.right, 10, 1 << LayerMask.NameToLayer("Player"));
-            if (hit)
+            //Vector3 origin = new Vector3(transform.position.x, transform.position.y - 1, 0);
+            bool result = Physics2D.OverlapCircle(transform.position, 2.5f, 1 << LayerMask.NameToLayer("Player"));
+            //RaycastHit2D hit = Physics2D.Raycast(origin, transform.right, 2, 1 << LayerMask.NameToLayer("Player"));
+            if (result)
             {
-                if (hit.distance < 5)
-                {
-                    StartAttackAnimation();
-                    enemyGroundMovement.Move(0);
-                    enemyAttackHandler.Attack(enemyStats.AttackData[0]);
-                }
-                else
-                {
-                    enemyGroundMovement.Move(enemyStats.Speed + 6);
-                }
+                StartAttackAnimation();
+                enemyGroundMovement.Move(0);
+                enemyAttackHandler.Attack(enemyStats.AttackData[0]);
             }
             else
             {

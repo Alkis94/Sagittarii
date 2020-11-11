@@ -22,6 +22,7 @@ public class ProjectileDataInitializer : MonoBehaviour
         Damage = damage;
         gameObject.layer = layer;
         gameObject.tag = tag;
+        Destroy(gameObject, DestroyDelay);
     }
 
     public void Initialize(Vector3 parentPosition, Vector3 spawnPositionOffset, float projectileSpeed, float projectileDestroyDelay, int damage, Quaternion projectileRotation, ProjectileMovementTypeEnum movementTypeEnum, int layer, string tag)
@@ -38,6 +39,7 @@ public class ProjectileDataInitializer : MonoBehaviour
         Damage = damage;
         gameObject.layer = layer;
         gameObject.tag = tag;
+        Destroy(gameObject, DestroyDelay);
     }
 
     public void Initialize(Vector3 parentPosition, Vector3 spawnPositionOffset, float projectileSpeed, float projectileDestroyDelay, int damage, float projectileRotation, ProjectileMovementTypeEnum movementTypeEnum, FunctionMovementTypeEnum functionMovementType, int layer, string tag)
@@ -55,6 +57,7 @@ public class ProjectileDataInitializer : MonoBehaviour
         FunctionMovementType = functionMovementType;
         gameObject.layer = layer;
         gameObject.tag = tag;
+        Destroy(gameObject, DestroyDelay);
     }
 
     private void AddMovementComponent(ProjectileMovementTypeEnum movementTypeEnum)
@@ -78,6 +81,8 @@ public class ProjectileDataInitializer : MonoBehaviour
                 break;
             case ProjectileMovementTypeEnum.function:
                 ProjectileFunctionMovement projectileFunctionMovement = gameObject.AddComponent<ProjectileFunctionMovement>() as ProjectileFunctionMovement;
+                break;
+            case ProjectileMovementTypeEnum.none:
                 break;
             default:
                 Debug.LogError("Error projectile movement type not found!");

@@ -5,5 +5,6 @@
     sin,
     circle,
     spiral,
-    function
+    function,
+    none
 }
