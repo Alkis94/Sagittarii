@@ -42,6 +42,7 @@ public class WolfBrain : GroundEnemyBrain
         if (collisionTracker.collisions.below)
         {
             enemyGroundMovement.Jump(4,5);
+            animator.SetFloat(animatorVelocityY_ID, rigidbody2d.velocity.y);
         }
     }
 
