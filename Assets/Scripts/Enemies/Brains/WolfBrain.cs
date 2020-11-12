@@ -3,15 +3,9 @@ using UnityEngine;
 
 public class WolfBrain : GroundEnemyBrain
 {
-    
-    private int animatorVelocityY_ID;
-
-
     protected override void Awake()
     {
         base.Awake();
-        enemyGroundMovement = GetComponent<EnemyGroundMovement>();
-        collisionTracker = GetComponentInChildren<CollisionTracker>();
     }
 
     protected override void OnEnable()
@@ -27,22 +21,51 @@ public class WolfBrain : GroundEnemyBrain
     protected override void Start()
     {
         base.Start();
-        animatorVelocityY_ID = Animator.StringToHash("VelocityY");
+        //InvokeRepeating("StartAttackAnimation", enemyStats.DelayBeforeFirstAttack, enemyStats.AttackData[0].AttackFrequency);
+        StartCoroutine(WolfAttack());
     }
 
-    protected override void FixedUpdate()
+    protected void FixedUpdate()
     {
-        base.FixedUpdate();
-        animator.SetFloat(animatorVelocityY_ID, rigidbody2d.velocity.y);
+        if (enemyStats.Health > 0)
+        {
+            enemyGroundMovement.Move(enemyStats.Speed);
+            raycaster.UpdateRaycastOrigins();
+            UpdateCollisionTracker();
+            HandleWalkingAnimation();
+
+            if (CheckHorizontalGround() && Time.time > cannotChangeDirectionTime)
+            {
+                cannotChangeDirectionTime = Time.time + 0.1f;
+                ChangeHorizontalDirection();
+            }
+            animator.SetFloat("VelocityY", rigidbody2d.velocity.y);
+        }
     }
 
     //Gets called from animation
     private void CallJump()
     {
-        if (collisionTracker.collisions.below)
+        enemyGroundMovement.Jump(5, 5);
+        animator.SetFloat("VelocityY", rigidbody2d.velocity.y);
+    }
+
+    IEnumerator WolfAttack()
+    {
+        yield return new WaitForSeconds(enemyStats.DelayBeforeFirstAttack);
+        while(true)
         {
-            enemyGroundMovement.Jump(4,5);
-            animator.SetFloat(animatorVelocityY_ID, rigidbody2d.velocity.y);
+            if (collisionTracker.collisions.below && animator.GetCurrentAnimatorStateInfo(0).IsName("Grounded"))
+            {
+                CallJump();
+                yield return new WaitForFixedUpdate();
+                animator.SetTrigger("Attack");
+                animator.SetFloat("VelocityY", rigidbody2d.velocity.y);
+                yield return new WaitForSeconds(0.5f);
+                CallMainAttack();
+            }
+
+            yield return new WaitForSeconds(enemyStats.AttackData[0].AttackFrequency);
         }
     }
 

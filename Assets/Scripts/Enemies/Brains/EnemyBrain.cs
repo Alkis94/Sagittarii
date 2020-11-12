@@ -3,17 +3,18 @@ using System.Collections;
 
 public abstract class  EnemyBrain : MonoBehaviour
 {
-    [SerializeField]
-    protected bool hasAttack = true;
-
     [HideInInspector]
     public EnemyStats enemyStats;
+    [HideInInspector]
+    public CollisionTracker collisionTracker;
+    [HideInInspector]
+    public Rigidbody2D rigidbody2d;
+    [HideInInspector]
+    public AudioSource audioSource;
     protected EnemyGotShot enemyGotShot;
     protected SpriteRenderer spriteRenderer;
-    protected Rigidbody2D rigidbody2d;
-    protected CollisionTracker collisionTracker;
     protected Raycaster raycaster;
-    protected AudioSource audioSource;
+    
     protected EnemyAttackHandler enemyAttackHandler;
 
     [HideInInspector]
@@ -46,29 +47,34 @@ public abstract class  EnemyBrain : MonoBehaviour
         enemyStats = GetComponent<EnemyStats>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         enemyAttackHandler = GetComponent<EnemyAttackHandler>();
+        collisionTracker = GetComponentInChildren<CollisionTracker>();
     }
 
     protected virtual void Start()
     {
-        collisionTracker = GetComponentInChildren<CollisionTracker>();
         raycaster = GetComponentInChildren<Raycaster>();
         rigidbody2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
 
-        if (enemyStats.ChangingDirections)
-        {
-            StartCoroutine(ChangingDirectionsOverTime(enemyStats.ChangeDirectionFrequency));
-        }
-
         StartFacingRandomDirection();
     }
 
-    protected abstract void ChangeHorizontalDirection();
+    public virtual void ChangeHorizontalDirection()
+    {
+        transform.localRotation = transform.localRotation.y == 0 ? Quaternion.Euler(0, 180, 0) : Quaternion.Euler(0, 0, 0);
+    }
 
     public virtual void LoadEnemyBrain(Vector3 originalPosition,bool dead)
     {
+        //is needed by some enemy brains to make changes when reloading an enemy
+    }
 
+    protected void UpdateCollisionTracker()
+    {
+        collisionTracker.collisions.Reset();
+        collisionTracker.TrackHorizontalCollisions();
+        collisionTracker.TrackVerticalCollisions(rigidbody2d.velocity.y);
     }
 
     public IEnumerator ChangingDirectionsOverTime(float changeDirectionFrequency)

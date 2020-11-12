@@ -52,10 +52,4 @@ public class SpiderBrain : EnemyBrain
             audioSource.Play();
         }
     }
-
-    protected override void ChangeHorizontalDirection()
-    {
-
-    }
-
 }

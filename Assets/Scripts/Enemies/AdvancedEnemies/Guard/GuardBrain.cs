@@ -88,9 +88,4 @@ public class GuardBrain : EnemyBrain
         yield return new WaitForSeconds(0.2f);
         enemyGroundMovement.Jump(5 , 0);
     }
-
-    protected override void ChangeHorizontalDirection()
-    {
-        
-    }
 }

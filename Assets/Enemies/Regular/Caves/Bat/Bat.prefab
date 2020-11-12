@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1767405963}
   - component: {fileID: 1767405960}
   - component: {fileID: 8172285348222263284}
-  - component: {fileID: 6026461623799748943}
+  - component: {fileID: 4779040501902984996}
   - component: {fileID: 1767405955}
   - component: {fileID: 5623888009569000007}
   - component: {fileID: 7817322822323997714}
@@ -333,7 +333,7 @@ MonoBehaviour:
       Entry: 3
       Data: 10
   enemyData: {fileID: 11400000, guid: e98a4f5f3655f5e4b939709e37a22398, type: 2}
---- !u!114 &6026461623799748943
+--- !u!114 &4779040501902984996
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -342,11 +342,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1767405952}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc23ffc019ed47e4aa0077b115d21db4, type: 3}
+  m_Script: {fileID: 11500000, guid: 74b9b9726e61bf84999673955dc3aae6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hasAttack: 1
   enemyStats: {fileID: 0}
+  collisionTracker: {fileID: 0}
+  rigidbody2d: {fileID: 0}
 --- !u!114 &1767405955
 MonoBehaviour:
   m_ObjectHideFlags: 0

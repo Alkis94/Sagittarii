@@ -56,7 +56,7 @@ public class TulipBrain : EnemyBrain
         }
     }
 
-    protected override void ChangeHorizontalDirection()
+    public override void ChangeHorizontalDirection()
     {
         if (horizontalDirection == -1)
         {

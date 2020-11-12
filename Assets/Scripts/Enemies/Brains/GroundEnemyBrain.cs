@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 
-public class GroundEnemyBrain : EnemyBrain
+public abstract class GroundEnemyBrain : EnemyBrain
 {
     
-    protected EnemyGroundMovement enemyGroundMovement;
-    protected int animatorIsGrounded_ID;
+    [HideInInspector]
+    public EnemyGroundMovement enemyGroundMovement;
 
     protected override void Awake()
     {
@@ -22,58 +22,37 @@ public class GroundEnemyBrain : EnemyBrain
         base.OnDisable();
     }
 
-    public override void LoadEnemyBrain(Vector3 originalPosition, bool dead)
-    {
-
-    }
-
     protected override void Start()
     {
         base.Start();
-        animatorIsGrounded_ID = Animator.StringToHash("IsGrounded");
-        InvokeRepeating("StartAttackAnimation", enemyStats.DelayBeforeFirstAttack, enemyStats.AttackData[0].AttackFrequency);  
     }
 
-    protected virtual void FixedUpdate()
+    public bool CheckHorizontalGround ()
     {
-        if (enemyStats.Health > 0)
+        if (collisionTracker.collisions.left || collisionTracker.collisions.right || collisionTracker.CloseToGroundEdge())
         {
-            enemyGroundMovement.Move(enemyStats.Speed);
-            CheckCollisions();
+            return true;
         }
+
+        return false;
     }
 
-    protected virtual void CheckCollisions()
-    {
-        raycaster.UpdateRaycastOrigins();
-        collisionTracker.collisions.Reset();
-        collisionTracker.TrackHorizontalCollisions();
-        collisionTracker.TrackVerticalCollisions(rigidbody2d.velocity.y);
-        HandleWalkingAnimation();
+    //public override void ChangeHorizontalDirection()
+    //{
+    //    enemyGroundMovement.ChangeHorizontalDirection();
+    //}
 
-        if ((collisionTracker.collisions.left || collisionTracker.collisions.right || collisionTracker.CloseToGroundEdge()) && Time.time > cannotChangeDirectionTime)
-        {
-            cannotChangeDirectionTime = Time.time + 0.1f;
-            ChangeHorizontalDirection();
-        }
-    }
-
-    protected override void ChangeHorizontalDirection()
-    {
-        enemyGroundMovement.ChangeHorizontalDirection();
-    }
-
-    protected virtual void HandleWalkingAnimation()
+    protected void HandleWalkingAnimation()
     {
         if (collisionTracker.collisions.below)
         {
 
-            animator.SetBool(animatorIsGrounded_ID, true);
+            animator.SetBool("IsGrounded", true);
         }
         else
         {
 
-            animator.SetBool(animatorIsGrounded_ID, false);
+            animator.SetBool("IsGrounded", false);
         }
     }
 

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using StateMachineNamespace;
 
-public class OwlBrain : EnemyBrain
+public class OwlBrain : FlyingEnemyBrain
 {
     [HideInInspector]
     public StateMachine<OwlBrain> stateMachine;
@@ -9,13 +9,6 @@ public class OwlBrain : EnemyBrain
     public OwlWonderState wonderState;
     [HideInInspector]
     public OwlHuntAttackState huntAttackState;
-
-    [HideInInspector]
-    public int horizontalDirection = 1;
-    [HideInInspector]
-    public int verticalDirection = 1;
-
-
 
     protected override void Awake()
     {
@@ -49,13 +42,13 @@ public class OwlBrain : EnemyBrain
         UpdateCollisionTracker();
         raycaster.UpdateRaycastOrigins();
 
-        if (collisionTracker.collisions.left || collisionTracker.collisions.right && Time.time > cannotChangeDirectionTime)
+        if (HorizontalCollisions() && Time.time > cannotChangeDirectionTime)
         {
             ChangeHorizontalDirection();
             cannotChangeDirectionTime = Time.time + 0.05f;
         }
 
-        if (collisionTracker.collisions.above || collisionTracker.collisions.below && Time.time > cannotChangeDirectionTime)
+        if (VerticalCollisions() && Time.time > cannotChangeDirectionTime)
         {
             verticalDirection *= -1;
             cannotChangeDirectionTime = Time.time + 0.05f;
@@ -68,28 +61,6 @@ public class OwlBrain : EnemyBrain
         stateMachine.FixedUpdate();
     }
 
-    private void UpdateCollisionTracker()
-    {
-        collisionTracker.collisions.Reset();
-        collisionTracker.TrackHorizontalCollisions();
-        collisionTracker.TrackVerticalCollisions(rigidbody2d.velocity.y);
-    }
-
-    protected override void ChangeHorizontalDirection()
-    {
-        horizontalDirection *= -1;
-        if (horizontalDirection == -1)
-        {
-            transform.localRotation = Quaternion.Euler(0, 180, 0);
-        }
-        else if (horizontalDirection == 1)
-        {
-
-            transform.localRotation = Quaternion.Euler(0, 0, 0);
-        }
-    }
-
-
     //Called from Animation
     public void CallAttack()
     {
@@ -99,7 +70,6 @@ public class OwlBrain : EnemyBrain
     //Called from Animation
     public void CallDive()
     {
-
         rigidbody2d.AddForce(new Vector2(0, -8), ForceMode2D.Impulse);
     }
 

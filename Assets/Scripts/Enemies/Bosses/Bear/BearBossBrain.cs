@@ -71,18 +71,10 @@ public class BearBossBrain : EnemyBrain
         }
     }
 
-
-    protected override void ChangeHorizontalDirection()
-    {
-        enemyGroundMovement.ChangeHorizontalDirection();
-    }
-
     private void CheckCollisions()
     {
-        collisionTracker.collisions.Reset();
-        collisionTracker.TrackHorizontalCollisions();
-        collisionTracker.TrackVerticalCollisions(rigidbody2d.velocity.y);
-        
+        UpdateCollisionTracker();
+
         if ((collisionTracker.collisions.left || collisionTracker.collisions.right || collisionTracker.CloseToGroundEdge()))
         {
             ableToMove = false;

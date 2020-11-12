@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using StateMachineNamespace;
 
-public class BatBossBrain : EnemyBrain
+public class BatBossBrain : FlyingEnemyBrain
 {
 
     [HideInInspector]
@@ -12,12 +12,7 @@ public class BatBossBrain : EnemyBrain
     public BatBossCalmState calmState;
     [HideInInspector]
     public BatBossEnragedState enragedState;
-
     public GameObject smallBat;
-    [HideInInspector]
-    public int horizontalDirection = 1;
-    [HideInInspector]
-    public int verticalDirection = 1;
     public float spawnSmallBatFrequency = 5.5f;
     [HideInInspector]
     public float speedBoost = 0;
@@ -41,8 +36,6 @@ public class BatBossBrain : EnemyBrain
         base.OnDisable();
     }
 
-    
-
     protected override void Start()
     {
         base.Start();
@@ -54,8 +47,8 @@ public class BatBossBrain : EnemyBrain
 
         stateMachine = new StateMachine<BatBossBrain>(this);
         stateMachine.ChangeState(calmState);
+        StartCoroutine(ChangingDirectionsOverTime(10));
     }
-
 
     private void Update()
     {
@@ -81,35 +74,12 @@ public class BatBossBrain : EnemyBrain
 
     private void FixedUpdate()
     {
-        
-
         if (enemyStats.Health > 0)
         {
             MovementPatterns[0].Move(enemyStats.Speed + speedBoost, verticalDirection);
         }
 
         stateMachine.FixedUpdate();
-    }
-
-    private void UpdateCollisionTracker()
-    {
-        collisionTracker.collisions.Reset();
-        collisionTracker.TrackHorizontalCollisions();
-        collisionTracker.TrackVerticalCollisions(rigidbody2d.velocity.y);
-    }
-
-    protected override void ChangeHorizontalDirection()
-    {
-        horizontalDirection *= -1;
-        if (horizontalDirection == -1)
-        {
-            transform.localRotation = Quaternion.Euler(0, 180, 0);
-        }
-        else if (horizontalDirection == 1)
-        {
-
-            transform.localRotation = Quaternion.Euler(0, 0, 0);
-        }
     }
 
     public IEnumerator SpawnSmallBats(float spawnFrequency)

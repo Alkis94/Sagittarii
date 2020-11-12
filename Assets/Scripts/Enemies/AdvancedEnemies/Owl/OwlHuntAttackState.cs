@@ -5,16 +5,12 @@ using StateMachineNamespace;
 
 public class OwlHuntAttackState : State<OwlBrain>
 {
-    private Vector3 playerPosition;
+    private Transform player;
 
     public OwlHuntAttackState(OwlBrain stateOwner)
     {
         this.stateOwner = stateOwner;
-    }
-
-    public override void EnterState()
-    {
-
+        player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     public override void FixedUpdateState()
@@ -24,33 +20,29 @@ public class OwlHuntAttackState : State<OwlBrain>
             return;
         }
 
-        playerPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
-
-        if (playerPosition.y + 1 > stateOwner.transform.position.y || playerPosition.x - 10 > stateOwner.transform.position.x || playerPosition.x + 10 < stateOwner.transform.position.x)
+        if (player.position.y + 1 > stateOwner.transform.position.y || player.position.x - 10 > stateOwner.transform.position.x || player.position.x + 10 < stateOwner.transform.position.x)
         {
             stateOwner.stateMachine.ChangeState(stateOwner.wonderState);
         }
 
-
-        if (stateOwner.transform.position.x < playerPosition.x)
+        if (player.position.x > stateOwner.transform.position.x)
         {
-            stateOwner.horizontalDirection = stateOwner.transform.right.x > 0 ? 1 : -1;
+            stateOwner.transform.localRotation = Quaternion.Euler(0, 0, 0);
         }
-        else if (stateOwner.transform.position.x > playerPosition.x)
+        else
         {
-            stateOwner.horizontalDirection = stateOwner.transform.right.x < 0 ? 1 : -1;
+            stateOwner.transform.localRotation = Quaternion.Euler(0, 180, 0);
         }
 
-        if (playerPosition.x - 0.5f < stateOwner.transform.position.x && stateOwner.transform.position.x < playerPosition.x + 0.5f)
+        if (player.position.x - 0.5f < stateOwner.transform.position.x && stateOwner.transform.position.x < player.position.x + 0.5f)
         {
             stateOwner.animator.SetTrigger("Attack");
-            stateOwner.MovementPatterns[1].Move(0, stateOwner.verticalDirection, stateOwner.horizontalDirection);
+            stateOwner.MovementPatterns[1].Move(0, stateOwner.verticalDirection, 1);
         }
         else 
         {
-            stateOwner.MovementPatterns[1].Move(stateOwner.enemyStats.Speed + 2, stateOwner.verticalDirection, stateOwner.horizontalDirection);
+            stateOwner.MovementPatterns[1].Move(stateOwner.enemyStats.Speed + 2, stateOwner.verticalDirection, 1);
         }
-
     }
 
     public override void ExitState()

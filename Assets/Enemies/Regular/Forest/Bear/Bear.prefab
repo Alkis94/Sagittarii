@@ -74,6 +74,7 @@ MonoBehaviour:
   collisionMask:
     serializedVersion: 2
     m_Bits: 1179904
+  horizontalRayLength: 0.1
 --- !u!114 &3054776417738735895
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -234,7 +235,7 @@ GameObject:
   - component: {fileID: 3054776419552895602}
   - component: {fileID: 3054776419552895603}
   - component: {fileID: 3054776419552895564}
-  - component: {fileID: 5486470984898563233}
+  - component: {fileID: 3493181388899660377}
   - component: {fileID: 3054776419552895611}
   - component: {fileID: 3054776419552895605}
   - component: {fileID: 3054776419552895606}
@@ -472,6 +473,9 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
+    - Name: EnemyName
+      Entry: 1
+      Data: Bear
     - Name: Speed
       Entry: 4
       Data: 2
@@ -534,7 +538,7 @@ MonoBehaviour:
       Entry: 3
       Data: 30
   enemyData: {fileID: 11400000, guid: 40af189957134214dbc836a6213e822b, type: 2}
---- !u!114 &5486470984898563233
+--- !u!114 &3493181388899660377
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -543,7 +547,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3054776419552895565}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 50f29edbf0272db409bbb9a0b135aefa, type: 3}
+  m_Script: {fileID: 11500000, guid: a2fcd36de2d99364284ead4693c12c9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   hasAttack: 1

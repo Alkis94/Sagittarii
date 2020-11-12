@@ -17,11 +17,6 @@ public class EnemyGroundMovement : MonoBehaviour
         }
     }
 
-    public void ChangeHorizontalDirection()
-    {
-        transform.localRotation = transform.localRotation.y == 0 ? Quaternion.Euler(0, 180, 0) : Quaternion.Euler(0, 0, 0);
-    }
-
     public void Jump(float horizontalForce, float verticalForce)
     {
         int horizontalDirection = transform.localRotation.y == 0 ? 1 : -1;

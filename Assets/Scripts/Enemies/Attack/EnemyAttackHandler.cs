@@ -87,7 +87,15 @@ public class EnemyAttackHandler: MonoBehaviour
 
         if (attackData.AttackType == AttackTypeEnum.perimetrical || attackData.AttackType == AttackTypeEnum.aimed)
         {
-            attackInfo.rotation = attackData.ProjectileRotations[i] + rotationRandomness;
+            if (attackData.AttackIsDirectionDependant)
+            {
+                attackInfo.rotation = attackData.ProjectileRotations[i] + rotationRandomness;
+                attackInfo.rotation *= transform.right.x; 
+            }
+            else
+            {
+                attackInfo.rotation = attackData.ProjectileRotations[i] + rotationRandomness;
+            } 
         }
         else
         {

@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿
 using UnityEngine;
 
 public class StraightMovement : MovementPattern
 {
-
     private Rigidbody2D rigidbody2d;
 
     [SerializeField]
@@ -16,7 +14,6 @@ public class StraightMovement : MovementPattern
         rigidbody2d = GetComponent<Rigidbody2D>();
         transform.localRotation = Quaternion.Euler(0f, 0f, rotation);
     }
-
 
     public override void Move(float speed,int verticalDirection,int horizontalDirection)
     {

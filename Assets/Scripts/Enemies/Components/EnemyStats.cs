@@ -29,10 +29,6 @@ public class EnemyStats : SerializedMonoBehaviour , IDamageable
     [OdinSerialize] public bool HasBlood { get; private set; } = true;
     [OdinSerialize] public bool HasCriticalDeath { get; private set; } = false;
     [OdinSerialize] public bool ShakeBeforeDeath { get; private set; } = false;
-    [OdinSerialize] public bool ChangingDirections { get; private set; } = false;
-
-    [ShowIf("@ ChangingDirections")]
-    [OdinSerialize] public float ChangeDirectionFrequency { get; private set; } = 0;
 
     [Title("Drops")]
     [OdinSerialize] public int MinGoldGiven { get; private set; } = 5;
@@ -96,13 +92,10 @@ public class EnemyStats : SerializedMonoBehaviour , IDamageable
         health = enemyData.Health;
         Speed = enemyData.Speed;
         DelayBeforeFirstAttack = enemyData.DelayBeforeFirstAttack;
-        Damageable = enemyData.Damageable;
         Amputation = enemyData.Amputation;
         HasBlood = enemyData.HasBlood;
         HasCriticalDeath = enemyData.HasCriticalDeath;
         ShakeBeforeDeath = enemyData.ShakeBeforeDeath;
-        ChangingDirections = enemyData.ChangingDirections;
-        ChangeDirectionFrequency = enemyData.ChangeDirectionFrequency;
         MinGoldGiven = enemyData.MinGoldGiven;
         MaxGoldGiven = enemyData.MaxGoldGiven;
         GoldDropChance = enemyData.GoldDropChance;
