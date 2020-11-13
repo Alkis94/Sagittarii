@@ -32,15 +32,7 @@ public class BoarIdleState : State<BoarBrain>
                 stateOwner.stateMachine.ChangeState(stateOwner.chargeState);
             }
 
-            if (player.position.x > stateOwner.transform.position.x)
-            {
-                stateOwner.transform.localRotation = Quaternion.Euler(0, 0, 0);
-            }
-            else
-            {
-                stateOwner.transform.localRotation = Quaternion.Euler(0, 180, 0);
-            }
-
+            stateOwner.LookTowardsPlayer(stateOwner.transform, player.position);
         }
     }
 

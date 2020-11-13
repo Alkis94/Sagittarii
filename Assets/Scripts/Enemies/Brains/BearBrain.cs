@@ -28,7 +28,7 @@ public class BearBrain : GroundEnemyBrain
     {
         if (enemyStats.Health > 0)
         {
-            enemyGroundMovement.Move(enemyStats.Speed);
+            Move(enemyStats.Speed);
             raycaster.UpdateRaycastOrigins();
             UpdateCollisionTracker();
             HandleWalkingAnimation();

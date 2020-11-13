@@ -4,7 +4,6 @@ using System.Collections;
 public class TulipBrain : EnemyBrain
 {
     private Transform player;
-    private int horizontalDirection = 1;
 
     protected override void Awake()
     {
@@ -30,16 +29,7 @@ public class TulipBrain : EnemyBrain
 
     private void FixedUpdate()
     {
-        if(player.position.x > transform.position.x)
-        {
-            horizontalDirection = 1;
-        }
-        else
-        {
-            horizontalDirection = -1;
-        }
-
-        ChangeHorizontalDirection();
+        LookTowardsPlayer(transform, player.position);
     }
 
     private IEnumerator Attack ()
@@ -49,22 +39,10 @@ public class TulipBrain : EnemyBrain
             RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right, 40, 1 << LayerMask.NameToLayer("Player"));
             if (hit)
             {
-                StartAttackAnimation();
+                animator.SetTrigger("Attack");
                 yield return new WaitForSeconds(enemyStats.AttackData[0].AttackFrequency);
             }
             yield return new WaitForSeconds(0.25f);
-        }
-    }
-
-    public override void ChangeHorizontalDirection()
-    {
-        if (horizontalDirection == -1)
-        {
-            transform.localRotation = Quaternion.Euler(0, 180, -transform.localEulerAngles.z);
-        }
-        else if (horizontalDirection == 1)
-        {
-            transform.localRotation = Quaternion.Euler(0, 0, transform.localEulerAngles.z);
         }
     }
 }

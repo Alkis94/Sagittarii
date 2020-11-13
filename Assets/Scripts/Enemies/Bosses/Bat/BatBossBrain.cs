@@ -5,7 +5,6 @@ using StateMachineNamespace;
 
 public class BatBossBrain : FlyingEnemyBrain
 {
-
     [HideInInspector]
     public StateMachine<BatBossBrain> stateMachine;
     [HideInInspector]

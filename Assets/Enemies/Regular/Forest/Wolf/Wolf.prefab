@@ -90,6 +90,7 @@ MonoBehaviour:
   collisionMask:
     serializedVersion: 2
     m_Bits: 1179904
+  horizontalRayLength: 0.1
 --- !u!1 &2778422067885702636
 GameObject:
   m_ObjectHideFlags: 0
@@ -176,7 +177,6 @@ GameObject:
   - component: {fileID: 2834187655867753583}
   - component: {fileID: 2046918722190791161}
   - component: {fileID: 3457750228986333712}
-  - component: {fileID: 6757743525015241999}
   - component: {fileID: 879409717}
   - component: {fileID: 6205051828286625437}
   - component: {fileID: 2062515885578635173}
@@ -410,6 +410,9 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
+    - Name: EnemyName
+      Entry: 6
+      Data: 
     - Name: Speed
       Entry: 4
       Data: 2
@@ -431,12 +434,6 @@ MonoBehaviour:
     - Name: ShakeBeforeDeath
       Entry: 5
       Data: false
-    - Name: ChangingDirections
-      Entry: 5
-      Data: false
-    - Name: ChangeDirectionFrequency
-      Entry: 4
-      Data: 0
     - Name: MinGoldGiven
       Entry: 3
       Data: 5
@@ -484,8 +481,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e78ae028003f3454fa935b6cf2c2520d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hasAttack: 1
   enemyStats: {fileID: 0}
+  collisionTracker: {fileID: 0}
+  rigidbody2d: {fileID: 0}
+  audioSource: {fileID: 0}
 --- !u!114 &3457750228986333712
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -509,18 +508,6 @@ MonoBehaviour:
     SerializationNodes: []
   deathCry: {fileID: 8300000, guid: 145ddaa27cd6f194496cfc3f4356c589, type: 3}
   amputationPart: {fileID: 0}
---- !u!114 &6757743525015241999
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3457750228986333725}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a3d02f176d3ecb4d9cd3164a4d203d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &879409717
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -84,8 +84,8 @@ GameObject:
   - component: {fileID: 1711974927117555752}
   - component: {fileID: 1608022620636357762}
   - component: {fileID: 4298671398135464255}
-  - component: {fileID: 1651605479553341530}
   - component: {fileID: 7887175159084135298}
+  - component: {fileID: 1651605479553341530}
   - component: {fileID: 7401401717359768655}
   - component: {fileID: 4721040675297899107}
   - component: {fileID: 3321119795371479868}
@@ -342,12 +342,6 @@ MonoBehaviour:
     - Name: ShakeBeforeDeath
       Entry: 5
       Data: false
-    - Name: ChangingDirections
-      Entry: 5
-      Data: false
-    - Name: ChangeDirectionFrequency
-      Entry: 4
-      Data: 0
     - Name: MinGoldGiven
       Entry: 3
       Data: 5
@@ -383,6 +377,23 @@ MonoBehaviour:
       Entry: 3
       Data: 10
   enemyData: {fileID: 11400000, guid: 551bf28b46bcb494db104637e04a7164, type: 2}
+--- !u!114 &7887175159084135298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1688857693048517404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bcfbf9bb7b03ac47a59af87183252a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyStats: {fileID: 0}
+  collisionTracker: {fileID: 0}
+  rigidbody2d: {fileID: 0}
+  audioSource: {fileID: 0}
+  web: {fileID: 5111895986864084250, guid: 718a1141f7ea7f64ab14622a07d8b4d1, type: 3}
 --- !u!114 &1651605479553341530
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -406,21 +417,6 @@ MonoBehaviour:
     SerializationNodes: []
   deathCry: {fileID: 8300000, guid: 62526eb89e8d99140a22dc9406f66451, type: 3}
   amputationPart: {fileID: 0}
---- !u!114 &7887175159084135298
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1688857693048517404}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8bcfbf9bb7b03ac47a59af87183252a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hasAttack: 1
-  enemyStats: {fileID: 0}
-  web: {fileID: 5111895986864084250, guid: 718a1141f7ea7f64ab14622a07d8b4d1, type: 3}
 --- !u!114 &7401401717359768655
 MonoBehaviour:
   m_ObjectHideFlags: 0

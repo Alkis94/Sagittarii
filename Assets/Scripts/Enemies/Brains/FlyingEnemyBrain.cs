@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 
-public abstract class FlyingEnemyBrain : EnemyBrain
+//Should be abstract but unity throws a lot of wrong warnings if you have it abstract.
+public class FlyingEnemyBrain : EnemyBrain
 {
     [HideInInspector]
     public int verticalDirection = 1;
@@ -43,24 +44,4 @@ public abstract class FlyingEnemyBrain : EnemyBrain
         }
         return false;
     }
-
-    //Direction Changing needs more work for flying enemies.
-    //public  void ChangeHorizontalDirection2()
-    //{
-    //    horizontalDirection *= -1;
-
-    //    if (horizontalDirection == -1)
-    //    {
-    //        transform.localRotation = Quaternion.Euler(0, 180, -transform.localEulerAngles.z);
-    //    }
-    //    else if (horizontalDirection == 1)
-    //    {
-    //        transform.localRotation = Quaternion.Euler(0, 0, transform.localEulerAngles.z);
-    //    }
-    //}
-
-    //public override void ChangeHorizontalDirection()
-    //{
-    //    transform.localRotation = transform.localRotation.y == 0 ? Quaternion.Euler(0, 180, 0) : Quaternion.Euler(0, 0, 0);
-    //}
 }

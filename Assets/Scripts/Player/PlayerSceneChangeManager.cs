@@ -5,6 +5,7 @@ public class PlayerSceneChangeManager : MonoBehaviour
 {
     private GameObject hands;
     private Animator animator;
+    private Rigidbody2D rigidbody2d;
     private PlayerStats playerStats;
     [SerializeField]
     private RuntimeAnimatorController townController;
@@ -19,6 +20,7 @@ public class PlayerSceneChangeManager : MonoBehaviour
         playerStats = GetComponent<PlayerStats>();
         hands = transform.GetChild(0).gameObject;
         animator = GetComponent<Animator>();
+        rigidbody2d = GetComponent<Rigidbody2D>();
         SceneManager.sceneLoaded += OnSceneLoaded;
         RoomChanger.OnRoomChangerEntered += NextPlayerSpawnPointDirection;
         MapChanger.OnMapChangerEnteredPlayerDirection += NextPlayerSpawnPointDirection;
@@ -50,6 +52,8 @@ public class PlayerSceneChangeManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        rigidbody2d.gravityScale = 3;
+
         if (scene.name == "Town")
         {
             MakeChangesForTown();
@@ -65,8 +69,8 @@ public class PlayerSceneChangeManager : MonoBehaviour
 
     private void MakeChangesForTown()
     {
-        hands.SetActive(false);
         animator.runtimeAnimatorController = townController;
+        hands.SetActive(false);
     }
 
     private void NextPlayerSpawnPointDirection(string levelToLoad = null)
@@ -81,7 +85,6 @@ public class PlayerSceneChangeManager : MonoBehaviour
 
     private Vector3 NextPlayerSpawnPointPosition()
     {
-        
         //Try to find the correct next spawn depending on the last door taken.
         if (lastDoorTakenPlacement == Direction.east)
         {
@@ -155,6 +158,14 @@ public class PlayerSceneChangeManager : MonoBehaviour
         
         Debug.Log("No player spawn position found in the scene!");
         return transform.position;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "DoorNorth" && enabled == true)
+        {
+            rigidbody2d.gravityScale = 0;
+        }
     }
 
 }

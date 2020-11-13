@@ -17,7 +17,7 @@ public class BoarChargeState : State<BoarBrain>
 
     public override void ExitState()
     {
-        stateOwner.enemyGroundMovement.Move(0);
+        stateOwner.Move(0);
         stateOwner.rigidbody2d.velocity =  Vector3.zero;
         stateOwner.audioSource.Stop();
     }
@@ -33,7 +33,7 @@ public class BoarChargeState : State<BoarBrain>
                 stateOwner.stateMachine.ChangeState(stateOwner.stunnedState);
             }
 
-            stateOwner.enemyGroundMovement.Move(stateOwner.enemyStats.Speed);
+            stateOwner.Move(stateOwner.enemyStats.Speed);
 
             if ((stateOwner.collisionTracker.collisions.left || stateOwner.collisionTracker.collisions.right || stateOwner.collisionTracker.CloseToGroundEdge()))
             {

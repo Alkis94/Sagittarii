@@ -112,4 +112,16 @@ public abstract class  EnemyBrain : MonoBehaviour
     {
         animator.SetTrigger("Attack");
     }
+
+    public void LookTowardsPlayer(Transform enemy,Vector3 playerPosition)
+    {
+        if (playerPosition.x > enemy.position.x)
+        {
+            enemy.localRotation = Quaternion.Euler(0, 0, 0);
+        }
+        else
+        {
+            enemy.transform.localRotation = Quaternion.Euler(0, 180, 0);
+        }
+    }
 }

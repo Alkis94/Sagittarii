@@ -1,15 +1,11 @@
 ﻿using UnityEngine;
 
-public abstract class GroundEnemyBrain : EnemyBrain
+//Should be abstract but unity throws a lot of wrong warnings if you have it abstract.
+public class GroundEnemyBrain : EnemyBrain
 {
-    
-    [HideInInspector]
-    public EnemyGroundMovement enemyGroundMovement;
-
     protected override void Awake()
     {
         base.Awake();
-        enemyGroundMovement = GetComponent<EnemyGroundMovement>();
     }
 
     protected override void OnEnable()
@@ -27,6 +23,20 @@ public abstract class GroundEnemyBrain : EnemyBrain
         base.Start();
     }
 
+    public void Move(float speed)
+    {
+        if (rigidbody2d.velocity.y == 0)
+        {
+            rigidbody2d.velocity = new Vector2(transform.right.x * speed, rigidbody2d.velocity.y);
+        }
+    }
+
+    public void Jump(float horizontalForce, float verticalForce)
+    {
+        int horizontalDirection = transform.localRotation.y == 0 ? 1 : -1;
+        rigidbody2d.AddForce(new Vector2(horizontalForce * horizontalDirection, verticalForce), ForceMode2D.Impulse);
+    }
+
     public bool CheckHorizontalGround ()
     {
         if (collisionTracker.collisions.left || collisionTracker.collisions.right || collisionTracker.CloseToGroundEdge())
@@ -37,12 +47,7 @@ public abstract class GroundEnemyBrain : EnemyBrain
         return false;
     }
 
-    //public override void ChangeHorizontalDirection()
-    //{
-    //    enemyGroundMovement.ChangeHorizontalDirection();
-    //}
-
-    protected void HandleWalkingAnimation()
+    protected virtual void HandleWalkingAnimation()
     {
         if (collisionTracker.collisions.below)
         {
@@ -55,5 +60,4 @@ public abstract class GroundEnemyBrain : EnemyBrain
             animator.SetBool("IsGrounded", false);
         }
     }
-
 }

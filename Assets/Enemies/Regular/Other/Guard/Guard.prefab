@@ -308,7 +308,6 @@ GameObject:
   - component: {fileID: 2902877441415142611}
   - component: {fileID: 1075717829982596489}
   - component: {fileID: 2502481007338123841}
-  - component: {fileID: 1892518967122474525}
   m_Layer: 12
   m_Name: Guard
   m_TagString: Enemies
@@ -565,6 +564,9 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
+    - Name: EnemyName
+      Entry: 6
+      Data: 
     - Name: Speed
       Entry: 4
       Data: 6
@@ -586,12 +588,6 @@ MonoBehaviour:
     - Name: ShakeBeforeDeath
       Entry: 5
       Data: false
-    - Name: ChangingDirections
-      Entry: 5
-      Data: false
-    - Name: ChangeDirectionFrequency
-      Entry: 4
-      Data: 0
     - Name: MinGoldGiven
       Entry: 3
       Data: 0
@@ -664,20 +660,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25563c7675a97b34884eebc257299f47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hasAttack: 1
   enemyStats: {fileID: 0}
---- !u!114 &1892518967122474525
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6112859251357942033}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a3d02f176d3ecb4d9cd3164a4d203d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  collisionTracker: {fileID: 0}
+  rigidbody2d: {fileID: 0}
+  audioSource: {fileID: 0}
 --- !u!1 &6191684761469462357
 GameObject:
   m_ObjectHideFlags: 0

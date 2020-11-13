@@ -136,7 +136,6 @@ GameObject:
   - component: {fileID: 6322348383030942069}
   - component: {fileID: 3154934772658238055}
   - component: {fileID: 1292161362102898180}
-  - component: {fileID: 1248024708841591270}
   - component: {fileID: 7381703897808603995}
   - component: {fileID: 1471221887}
   - component: {fileID: 5182200612906122127}
@@ -374,6 +373,9 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
+    - Name: EnemyName
+      Entry: 6
+      Data: 
     - Name: Speed
       Entry: 4
       Data: 2
@@ -395,12 +397,6 @@ MonoBehaviour:
     - Name: ShakeBeforeDeath
       Entry: 5
       Data: false
-    - Name: ChangingDirections
-      Entry: 5
-      Data: false
-    - Name: ChangeDirectionFrequency
-      Entry: 4
-      Data: 0
     - Name: MinGoldGiven
       Entry: 3
       Data: 5
@@ -475,18 +471,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gotHitSound: {fileID: 8300000, guid: 2fbfe53a4c6bee34eadfc65f216cb17c, type: 3}
---- !u!114 &1248024708841591270
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5296110209441186540}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a3d02f176d3ecb4d9cd3164a4d203d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &7381703897808603995
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -499,8 +483,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be3afc18ee59c57439c13b29b93e42b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hasAttack: 1
   enemyStats: {fileID: 0}
+  collisionTracker: {fileID: 0}
+  rigidbody2d: {fileID: 0}
+  audioSource: {fileID: 0}
   teleport: {fileID: 2089284342073273242, guid: 7835795ad097d4b4cb7c1f074be28cfc,
     type: 3}
   wakeUpSound: {fileID: 8300000, guid: bb44a92bac1e3294c817229e74899bdb, type: 3}
@@ -658,6 +644,7 @@ MonoBehaviour:
   collisionMask:
     serializedVersion: 2
     m_Bits: 1179904
+  horizontalRayLength: 0.1
 --- !u!114 &1445340355002932567
 MonoBehaviour:
   m_ObjectHideFlags: 0

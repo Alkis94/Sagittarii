@@ -177,7 +177,6 @@ GameObject:
   - component: {fileID: 3054776419552895564}
   - component: {fileID: 3965716452602050499}
   - component: {fileID: 3054776419552895611}
-  - component: {fileID: 3054776419552895605}
   - component: {fileID: 3054776419552895606}
   - component: {fileID: 519184866756575959}
   - component: {fileID: 4566916770378122861}
@@ -486,7 +485,6 @@ MonoBehaviour:
   collisionTracker: {fileID: 0}
   rigidbody2d: {fileID: 0}
   audioSource: {fileID: 0}
-  enemyGroundMovement: {fileID: 0}
 --- !u!114 &3054776419552895611
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -510,18 +508,6 @@ MonoBehaviour:
     SerializationNodes: []
   deathCry: {fileID: 8300000, guid: 399b76b46c074714b972ec7ab3964171, type: 3}
   amputationPart: {fileID: 0}
---- !u!114 &3054776419552895605
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3054776419552895565}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a3d02f176d3ecb4d9cd3164a4d203d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &3054776419552895606
 MonoBehaviour:
   m_ObjectHideFlags: 0

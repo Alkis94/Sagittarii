@@ -42,18 +42,18 @@ public class BunnyBrain : GroundEnemyBrain
             {
                 if (hit.distance < 5)
                 {
-                    StartAttackAnimation();
-                    enemyGroundMovement.Move(0);
+                    animator.SetTrigger("Attack");
+                    Move(0);
                     enemyAttackHandler.Attack(enemyStats.AttackData[0]);
                 }
                 else
                 {
-                    enemyGroundMovement.Move(enemyStats.Speed + 6);
+                    Move(enemyStats.Speed + 6);
                 }
             }
             else
             {
-                enemyGroundMovement.Move(enemyStats.Speed);
+                Move(enemyStats.Speed);
             }
         }
     }

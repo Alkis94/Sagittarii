@@ -14,11 +14,11 @@ GameObject:
   - component: {fileID: 2882280072731344872}
   - component: {fileID: 2882280072731344875}
   - component: {fileID: 6239209850210097559}
+  - component: {fileID: 1825717709}
   - component: {fileID: 2882280072731344864}
   - component: {fileID: 1654654146056201865}
   - component: {fileID: 7634720868630699044}
   - component: {fileID: 5441298073167055473}
-  - component: {fileID: 1825717709}
   - component: {fileID: 3745124472492121522}
   - component: {fileID: 6257899514310587309}
   m_Layer: 12
@@ -274,12 +274,6 @@ MonoBehaviour:
     - Name: ShakeBeforeDeath
       Entry: 5
       Data: false
-    - Name: ChangingDirections
-      Entry: 5
-      Data: false
-    - Name: ChangeDirectionFrequency
-      Entry: 4
-      Data: 0
     - Name: MinGoldGiven
       Entry: 3
       Data: 5
@@ -315,6 +309,23 @@ MonoBehaviour:
       Entry: 3
       Data: 10
   enemyData: {fileID: 11400000, guid: 6eead03b37f0e7041bdfc357ddec89b1, type: 2}
+--- !u!114 &1825717709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2882280072731344867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60e91c4325e80ee468350f2f7f068813, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyStats: {fileID: 0}
+  collisionTracker: {fileID: 0}
+  rigidbody2d: {fileID: 0}
+  audioSource: {fileID: 0}
+  verticalDirection: 1
 --- !u!114 &2882280072731344864
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -377,22 +388,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gotHitSound: {fileID: 0}
---- !u!114 &1825717709
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2882280072731344867}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60e91c4325e80ee468350f2f7f068813, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hasAttack: 1
-  enemyStats: {fileID: 0}
-  horizontalDirection: 1
-  verticalDirection: 1
 --- !u!114 &3745124472492121522
 MonoBehaviour:
   m_ObjectHideFlags: 0

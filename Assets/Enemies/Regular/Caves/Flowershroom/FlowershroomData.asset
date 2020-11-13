@@ -1,0 +1,95 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8402b5d53daa674a977692c818d9482, type: 3}
+  m_Name: FlowershroomData
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: EnemyName
+      Entry: 1
+      Data: Flowershroom
+    - Name: Health
+      Entry: 3
+      Data: 10
+    - Name: Speed
+      Entry: 4
+      Data: 0
+    - Name: DelayBeforeFirstAttack
+      Entry: 4
+      Data: 3
+    - Name: Damageable
+      Entry: 5
+      Data: false
+    - Name: Amputation
+      Entry: 5
+      Data: false
+    - Name: HasBlood
+      Entry: 5
+      Data: false
+    - Name: HasCriticalDeath
+      Entry: 5
+      Data: false
+    - Name: ShakeBeforeDeath
+      Entry: 5
+      Data: false
+    - Name: ChangingDirections
+      Entry: 5
+      Data: false
+    - Name: ChangeDirectionFrequency
+      Entry: 4
+      Data: 0
+    - Name: MinGoldGiven
+      Entry: 3
+      Data: 5
+    - Name: MaxGoldGiven
+      Entry: 3
+      Data: 35
+    - Name: GoldDropChance
+      Entry: 4
+      Data: 0.15
+    - Name: Relics
+      Entry: 7
+      Data: 0|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 1
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: RelicDropChance
+      Entry: 7
+      Data: 1|System.Collections.Generic.List`1[[System.Single, mscorlib]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 

@@ -237,7 +237,6 @@ GameObject:
   - component: {fileID: 3054776419552895564}
   - component: {fileID: 3493181388899660377}
   - component: {fileID: 3054776419552895611}
-  - component: {fileID: 3054776419552895605}
   - component: {fileID: 3054776419552895606}
   - component: {fileID: 519184866756575959}
   - component: {fileID: 4566916770378122861}
@@ -497,12 +496,6 @@ MonoBehaviour:
     - Name: ShakeBeforeDeath
       Entry: 5
       Data: false
-    - Name: ChangingDirections
-      Entry: 5
-      Data: false
-    - Name: ChangeDirectionFrequency
-      Entry: 4
-      Data: 0
     - Name: MinGoldGiven
       Entry: 3
       Data: 5
@@ -550,8 +543,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2fcd36de2d99364284ead4693c12c9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hasAttack: 1
   enemyStats: {fileID: 0}
+  collisionTracker: {fileID: 0}
+  rigidbody2d: {fileID: 0}
+  audioSource: {fileID: 0}
 --- !u!114 &3054776419552895611
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -575,18 +570,6 @@ MonoBehaviour:
     SerializationNodes: []
   deathCry: {fileID: 8300000, guid: 6b4f050e74182454f8824328041ec75c, type: 3}
   amputationPart: {fileID: 6248712968822842458}
---- !u!114 &3054776419552895605
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3054776419552895565}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a3d02f176d3ecb4d9cd3164a4d203d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &3054776419552895606
 MonoBehaviour:
   m_ObjectHideFlags: 0

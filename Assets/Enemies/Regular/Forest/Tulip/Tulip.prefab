@@ -210,7 +210,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 8f6dda4fbf2d7694a9d6bef89e0173eb, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -318,6 +318,9 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
+    - Name: EnemyName
+      Entry: 6
+      Data: 
     - Name: Speed
       Entry: 4
       Data: 2
@@ -339,12 +342,6 @@ MonoBehaviour:
     - Name: ShakeBeforeDeath
       Entry: 5
       Data: false
-    - Name: ChangingDirections
-      Entry: 5
-      Data: false
-    - Name: ChangeDirectionFrequency
-      Entry: 4
-      Data: 0
     - Name: MinGoldGiven
       Entry: 3
       Data: 5
@@ -392,8 +389,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28d7de4324aacb748b60f907cb1c31fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hasAttack: 1
   enemyStats: {fileID: 0}
+  collisionTracker: {fileID: 0}
+  rigidbody2d: {fileID: 0}
+  audioSource: {fileID: 0}
 --- !u!114 &1651605479553341530
 MonoBehaviour:
   m_ObjectHideFlags: 0

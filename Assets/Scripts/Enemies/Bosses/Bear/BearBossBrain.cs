@@ -1,10 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-
-public class BearBossBrain : EnemyBrain
+public class BearBossBrain : GroundEnemyBrain
 {
-    private EnemyGroundMovement enemyGroundMovement;
     private Transform player;
     [SerializeField]
     private GameObject teleport;
@@ -24,7 +22,6 @@ public class BearBossBrain : EnemyBrain
     protected override void Awake()
     {
         base.Awake();
-        enemyGroundMovement = GetComponent<EnemyGroundMovement>();
     }
 
     protected override void OnEnable()
@@ -67,7 +64,7 @@ public class BearBossBrain : EnemyBrain
     {
         if (enemyStats.Health > 0 && animator.GetCurrentAnimatorStateInfo(0).IsName("BearBossWalking"))
         {
-            enemyGroundMovement.Move(enemyStats.Speed);
+            Move(enemyStats.Speed);
         }
     }
 
@@ -87,7 +84,7 @@ public class BearBossBrain : EnemyBrain
         HandleWalkingAnimation();
     }
 
-    private void HandleWalkingAnimation()
+    protected override void HandleWalkingAnimation()
     {
         if (collisionTracker.collisions.below && ableToMove)
         {
@@ -126,7 +123,7 @@ public class BearBossBrain : EnemyBrain
                 }
                 else
                 {
-                    StartAttackAnimation();
+                    animator.SetTrigger("Attack");
                     randomTime = Random.Range(1, 2f);
                 }
             }

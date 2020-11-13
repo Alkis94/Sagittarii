@@ -74,6 +74,7 @@ MonoBehaviour:
   collisionMask:
     serializedVersion: 2
     m_Bits: 1179904
+  horizontalRayLength: 0.1
 --- !u!114 &3054776417738735895
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -236,7 +237,6 @@ GameObject:
   - component: {fileID: 3054776419552895564}
   - component: {fileID: 266541342245178901}
   - component: {fileID: 3054776419552895611}
-  - component: {fileID: 3054776419552895605}
   - component: {fileID: 3054776419552895606}
   - component: {fileID: 519184866756575959}
   - component: {fileID: 4566916770378122861}
@@ -472,6 +472,9 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
+    - Name: EnemyName
+      Entry: 6
+      Data: 
     - Name: Speed
       Entry: 4
       Data: 2
@@ -493,12 +496,6 @@ MonoBehaviour:
     - Name: ShakeBeforeDeath
       Entry: 5
       Data: false
-    - Name: ChangingDirections
-      Entry: 5
-      Data: false
-    - Name: ChangeDirectionFrequency
-      Entry: 4
-      Data: 0
     - Name: MinGoldGiven
       Entry: 3
       Data: 5
@@ -546,8 +543,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13c77fee2b3a267468947dc305b09bfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hasAttack: 1
   enemyStats: {fileID: 0}
+  collisionTracker: {fileID: 0}
+  rigidbody2d: {fileID: 0}
+  audioSource: {fileID: 0}
 --- !u!114 &3054776419552895611
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -571,18 +570,6 @@ MonoBehaviour:
     SerializationNodes: []
   deathCry: {fileID: 8300000, guid: ca793b146b2016c459f55eee8dd91dc0, type: 3}
   amputationPart: {fileID: 6248712968822842458}
---- !u!114 &3054776419552895605
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3054776419552895565}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a3d02f176d3ecb4d9cd3164a4d203d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &3054776419552895606
 MonoBehaviour:
   m_ObjectHideFlags: 0

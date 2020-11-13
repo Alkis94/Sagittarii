@@ -21,7 +21,6 @@ public class WolfBrain : GroundEnemyBrain
     protected override void Start()
     {
         base.Start();
-        //InvokeRepeating("StartAttackAnimation", enemyStats.DelayBeforeFirstAttack, enemyStats.AttackData[0].AttackFrequency);
         StartCoroutine(WolfAttack());
     }
 
@@ -29,7 +28,7 @@ public class WolfBrain : GroundEnemyBrain
     {
         if (enemyStats.Health > 0)
         {
-            enemyGroundMovement.Move(enemyStats.Speed);
+            Move(enemyStats.Speed);
             raycaster.UpdateRaycastOrigins();
             UpdateCollisionTracker();
             HandleWalkingAnimation();
@@ -46,7 +45,7 @@ public class WolfBrain : GroundEnemyBrain
     //Gets called from animation
     private void CallJump()
     {
-        enemyGroundMovement.Jump(5, 5);
+        Jump(5, 5);
         animator.SetFloat("VelocityY", rigidbody2d.velocity.y);
     }
 
