@@ -10,12 +10,13 @@ GameObject:
   m_Component:
   - component: {fileID: 4000011388994116}
   - component: {fileID: 212000011340507066}
+  - component: {fileID: 3465489684649975057}
   - component: {fileID: 50000010810412982}
   - component: {fileID: 8514959629957062832}
   - component: {fileID: 114515642773749994}
   - component: {fileID: 4985087820134665635}
   m_Layer: 13
-  m_Name: RedCircleProjectile
+  m_Name: RedCircle
   m_TagString: EnemyProjectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -72,17 +73,36 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 1fec11c20af2861408cc9b7f8cc96db9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 979365bff76cc904ea099d79b89a4592, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.08, y: 0.06}
+  m_Size: {x: 0.6, y: 0.6}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &3465489684649975057
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000012292187914}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3c022eae0be452b4b82f895e8f065315, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!50 &50000010810412982
 Rigidbody2D:
   serializedVersion: 4
@@ -145,5 +165,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   velocityOnHit: {x: 0, y: 0}
-  impact: {fileID: 0}
-  impactDestroyDelay: 0
+  impactSound: {fileID: 0}
+  isPenetrative: 0
+  ignoresCollisions: 0
+  hasImpactAnimation: 1
+  hasTravelAnimation: 0
