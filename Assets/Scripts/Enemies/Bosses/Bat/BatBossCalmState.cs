@@ -1,10 +1,7 @@
-﻿using UnityEngine;
-using StateMachineNamespace;
-
+﻿
 public class BatBossCalmState : State<BatBossBrain>
 {
-    private float nextAttackTime;
-
+  
     public BatBossCalmState(BatBossBrain stateOwner)
     {
         this.stateOwner = stateOwner;
@@ -28,7 +25,4 @@ public class BatBossCalmState : State<BatBossBrain>
     {
         stateOwner.StopAllCoroutines();
     }
-
-    
-
 }

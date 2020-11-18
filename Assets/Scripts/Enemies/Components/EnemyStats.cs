@@ -3,8 +3,6 @@ using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using System.Collections.Generic;
 using UnityEngine;
-using System.IO;
-using Newtonsoft.Json;
 
 [ShowOdinSerializedPropertiesInInspector]
 public class EnemyStats : SerializedMonoBehaviour , IDamageable
@@ -20,7 +18,7 @@ public class EnemyStats : SerializedMonoBehaviour , IDamageable
     [Title("Enemy Stats")]
     [OdinSerialize] private int health = 10;
     [OdinSerialize] public float Speed { get; private set; } = 2;
-    [OdinSerialize] public float DelayBeforeFirstAttack { get; private set; } = 3;
+    [OdinSerialize] public float DelayBeforeFirstAttack { get; private set; } = 0.5f;
     
 
     [Title("Bools")]
@@ -91,7 +89,6 @@ public class EnemyStats : SerializedMonoBehaviour , IDamageable
         EnemyName = enemyData.EnemyName;
         health = enemyData.Health;
         Speed = enemyData.Speed;
-        DelayBeforeFirstAttack = enemyData.DelayBeforeFirstAttack;
         Amputation = enemyData.Amputation;
         HasBlood = enemyData.HasBlood;
         HasCriticalDeath = enemyData.HasCriticalDeath;
@@ -105,7 +102,7 @@ public class EnemyStats : SerializedMonoBehaviour , IDamageable
 
     private void RandomizeDelayBeforeFirstAttack()
     {
-        float randomizer = UnityEngine.Random.Range(-2.8f, 1f);
+        float randomizer = UnityEngine.Random.Range(0, 1.5f);
         DelayBeforeFirstAttack += randomizer;
     }
 }

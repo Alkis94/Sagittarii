@@ -4,30 +4,29 @@ using System.Collections;
 public abstract class  EnemyBrain : MonoBehaviour
 {
     [HideInInspector]
-    public EnemyStats enemyStats;
+    public EnemyStats enemyStats { get; protected set; }
     [HideInInspector]
-    public CollisionTracker collisionTracker;
+    public CollisionTracker collisionTracker { get; protected set; }
     [HideInInspector]
-    public Rigidbody2D rigidbody2d;
+    public Rigidbody2D rigidbody2d { get; protected set; }
     [HideInInspector]
-    public AudioSource audioSource;
-    protected EnemyGotShot enemyGotShot;
-    protected SpriteRenderer spriteRenderer;
-    protected Raycaster raycaster;
-    
-    protected EnemyAttackHandler enemyAttackHandler;
-
+    public AudioSource audioSource { get; protected set; }
+    [HideInInspector]
+    public EnemyGotShot enemyGotShot { get; protected set; }
+    [HideInInspector]
+    public SpriteRenderer spriteRenderer { get; protected set; }
+    [HideInInspector]
+    public Raycaster raycaster { get; protected set; }
+    [HideInInspector]
+    public EnemyAttackHandler enemyAttackHandler { get; protected set; }
     [HideInInspector]
     public Animator animator { get; protected set; }
-    
     [HideInInspector]
     public MovementPattern[] MovementPatterns { get; protected set; }
 
-
     //This timer will help enemies that get stuck somewhere not to change directions too rapidly
-    protected float cannotChangeDirectionTime = 0f;
-
-    protected float speed;
+    [HideInInspector]
+    public float cannotChangeDirectionTime = 0f;
 
     protected virtual void OnEnable()
     {
@@ -70,7 +69,7 @@ public abstract class  EnemyBrain : MonoBehaviour
         //is needed by some enemy brains to make changes when reloading an enemy
     }
 
-    protected void UpdateCollisionTracker()
+    public void UpdateCollisionTracker()
     {
         collisionTracker.collisions.Reset();
         collisionTracker.TrackHorizontalCollisions();

@@ -1,20 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using StateMachineNamespace;
-
+﻿
 public class BatBossWakingState : State<BatBossBrain>
 {
-   
-
     public BatBossWakingState(BatBossBrain stateOwner)
     {
         this.stateOwner = stateOwner;
-    }
-
-    public override void EnterState()
-    {
-
     }
 
     public override void FixedUpdateState()

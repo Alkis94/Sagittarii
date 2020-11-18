@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using StateMachineNamespace;
 
 public class OwlBrain : FlyingEnemyBrain
 {

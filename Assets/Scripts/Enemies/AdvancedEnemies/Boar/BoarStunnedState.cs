@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using StateMachineNamespace;
 
 public class BoarStunnedState : State<BoarBrain>
 {

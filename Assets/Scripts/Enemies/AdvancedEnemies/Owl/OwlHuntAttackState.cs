@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using StateMachineNamespace;
+﻿using UnityEngine;
 
 public class OwlHuntAttackState : State<OwlBrain>
 {

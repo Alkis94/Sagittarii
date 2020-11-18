@@ -1,9 +1,7 @@
 ﻿using UnityEngine;
-using StateMachineNamespace;
 
 public class JumpingState : State<PlayerMovement>
 {
-    
     public float jumpForce = 15f;            //Initial force of jump
     public float jumpHoldForce = 2.5f;		//Incremental force when jump is held
     private float jumpExtraPush = 0;
@@ -12,7 +10,6 @@ public class JumpingState : State<PlayerMovement>
     private bool jumpHeldContiniously;
     private float bouncyMushroomCooldown = 0;
  
-
     public JumpingState(PlayerMovement owner)
     {
         stateOwner = owner;

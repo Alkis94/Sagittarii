@@ -1,71 +1,44 @@
-﻿namespace StateMachineNamespace
+﻿
+public class StateMachine<T>
 {
-    public class StateMachine<T>
+    public State<T> currentState { get; private set; }
+    public State<T> previousState { get; private set; }
+
+    public StateMachine(T owner)
     {
-        public State<T> currentState { get; private set; }
-        public State<T> previousState { get; private set; }
-
-        public StateMachine(T owner)
-        {
-            currentState = null;
-            previousState = null;
-        }
-
-        public void ChangeState(State<T> newstate)
-        {
-            if (currentState != null)
-            {
-                currentState.ExitState();
-                previousState = currentState;
-            }
-
-            currentState = newstate;
-
-            if (newstate != null)
-            {
-                currentState.EnterState();
-            }
-        }
-
-        public void Update()
-        {
-            if (currentState != null)
-                currentState.UpdateState();
-        }
-
-        public void FixedUpdate()
-        {
-            if (currentState != null)
-                currentState.FixedUpdateState();
-        }
-
+        currentState = null;
+        previousState = null;
     }
 
-    public abstract class State<T>
+    public void ChangeState(State<T> newstate)
     {
-        protected T stateOwner;
-
-       
-        public virtual void EnterState()
+        if (currentState != null)
         {
-
+            currentState.ExitState();
+            previousState = currentState;
         }
 
-        public virtual void ExitState()
+        currentState = newstate;
+
+        if (newstate != null)
         {
-
+            currentState.EnterState();
         }
+    }
 
-        public  virtual  void UpdateState()
-        {
+    public void Update()
+    {
+        if (currentState != null)
+            currentState.UpdateState();
+    }
 
-        }
-
-        public virtual void FixedUpdateState()
-        {
-
-        }
+    public void FixedUpdate()
+    {
+        if (currentState != null)
+            currentState.FixedUpdateState();
     }
 }
+
+
 
 

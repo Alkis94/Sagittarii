@@ -728,6 +728,26 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5060117036905097974, guid: 3c485888d2a73f649b36dc47db91afcb,
         type: 3}
+    - target: {fileID: 5060117036905097974, guid: 3c485888d2a73f649b36dc47db91afcb,
+        type: 3}
+      propertyPath: currentHealth
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5060117036905097974, guid: 3c485888d2a73f649b36dc47db91afcb,
+        type: 3}
+      propertyPath: maximumHealth
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5060117036905097974, guid: 3c485888d2a73f649b36dc47db91afcb,
+        type: 3}
+      propertyPath: ammo
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5060117036905097974, guid: 3c485888d2a73f649b36dc47db91afcb,
+        type: 3}
+      propertyPath: damage
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 6112859251357942033, guid: 3c485888d2a73f649b36dc47db91afcb,
         type: 3}
       propertyPath: m_Name
@@ -825,6 +845,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1436613686757595705, guid: 191d4c03ff0ad3d4cb571a4cdf3016f8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2437280791577414316, guid: 191d4c03ff0ad3d4cb571a4cdf3016f8,
         type: 3}
       propertyPath: m_Enabled
@@ -885,6 +910,11 @@ PrefabInstance:
       propertyPath: m_textInfo.pageCount
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3195492362714904889, guid: 191d4c03ff0ad3d4cb571a4cdf3016f8,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4154521797363175195, guid: 191d4c03ff0ad3d4cb571a4cdf3016f8,
         type: 3}
       propertyPath: m_Enabled
@@ -893,7 +923,7 @@ PrefabInstance:
     - target: {fileID: 4154521797363175195, guid: 191d4c03ff0ad3d4cb571a4cdf3016f8,
         type: 3}
       propertyPath: m_padding
-      value: 1.25
+      value: 2.6
       objectReference: {fileID: 0}
     - target: {fileID: 4154521797363175195, guid: 191d4c03ff0ad3d4cb571a4cdf3016f8,
         type: 3}

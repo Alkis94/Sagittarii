@@ -1,5 +1,4 @@
-﻿using System;
-using Sirenix.OdinInspector;
+﻿using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using System.Collections.Generic;
 using UnityEngine;
@@ -35,8 +34,11 @@ public class EnemyData : SerializedScriptableObject
     [OdinSerialize] public List<string> Relics { get; private set; }
     [OdinSerialize] public List<float> RelicDropChance { get; private set; }
 
+
+
     private void OnEnable()
     {
+        EnemyName = name.Substring(0, name.Length - 4);
         LoadFromJSON();
     }
 

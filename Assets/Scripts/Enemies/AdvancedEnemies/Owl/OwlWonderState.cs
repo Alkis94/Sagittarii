@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using StateMachineNamespace;
 
 public class OwlWonderState: State<OwlBrain>
 {
