@@ -17,7 +17,7 @@ MonoBehaviour:
     SerializedBytes: 
     ReferencedUnityObjects:
     - {fileID: 1000012292187914, guid: 429440d9da6f749418bee6f7e5e70732, type: 3}
-    - {fileID: 8300000, guid: 9e40a9f54c0c78249b63198a7bef3672, type: 3}
+    - {fileID: 8300000, guid: 7c368bd49be519c49b2bb1970203675f, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -34,22 +34,31 @@ MonoBehaviour:
       Data: 0
     - Name: AttackIsDirectionDependant
       Entry: 5
-      Data: true
+      Data: false
     - Name: ConsecutiveAttacks
       Entry: 3
       Data: 1
     - Name: ConsecutiveAttackDelay
       Entry: 4
-      Data: 0.15
+      Data: 0.25
     - Name: ProjectileRotations
       Entry: 7
       Data: 0|System.Collections.Generic.List`1[[System.Single, mscorlib]], mscorlib
     - Name: 
       Entry: 12
-      Data: 1
+      Data: 4
     - Name: 
       Entry: 4
       Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 180
+    - Name: 
+      Entry: 4
+      Data: 180
     - Name: 
       Entry: 13
       Data: 
@@ -62,7 +71,7 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 12
-      Data: 1
+      Data: 4
     - Name: 
       Entry: 7
       Data: UnityEngine.Vector3, UnityEngine.CoreModule
@@ -72,6 +81,51 @@ MonoBehaviour:
     - Name: 
       Entry: 4
       Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 4.5
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 4.5
     - Name: 
       Entry: 4
       Data: 0
@@ -92,7 +146,7 @@ MonoBehaviour:
       Data: 0
     - Name: 
       Entry: 4
-      Data: -1
+      Data: -2
     - Name: 
       Entry: 4
       Data: 0
@@ -125,7 +179,7 @@ MonoBehaviour:
       Data: 1
     - Name: ProjectileAmount
       Entry: 3
-      Data: 1
+      Data: 4
     - Name: AttackFrequency
       Entry: 4
       Data: 5
@@ -134,7 +188,7 @@ MonoBehaviour:
       Data: 30
     - Name: ProjectileSpeed
       Entry: 4
-      Data: 9
+      Data: 12
     - Name: Damage
       Entry: 3
       Data: 50

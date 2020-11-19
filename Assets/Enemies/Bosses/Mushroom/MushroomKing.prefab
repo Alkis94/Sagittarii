@@ -140,7 +140,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -607018307
   m_SortingLayer: -1
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300018, guid: 5f5a0f1b7a5f9e147bdee38f98133301, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -203,8 +203,8 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 243167415347350056, guid: bb9be695547233747b430024ce61251c,
     type: 2}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 0
+  m_audioClip: {fileID: 8300000, guid: ef38a9d3392e9764295fd81e685db83e, type: 3}
+  m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -391,6 +391,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cannotChangeDirectionTime: 0
+  impulseSource: {fileID: 0}
   phase2Controller: {fileID: 9100000, guid: 8913e6e08caacc243b44a8ba84a403f2, type: 2}
   walkShroom: {fileID: 3054776419552895565, guid: 37d6943530bdb274c90707074cd3a3c0,
     type: 3}
@@ -415,7 +416,7 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  deathCry: {fileID: 8300000, guid: 241798ad13f207341ad4464babc1fbe5, type: 3}
+  deathCry: {fileID: 8300000, guid: 53fc129cfb0e4f945afd5623e88fef84, type: 3}
   amputationPart: {fileID: 0}
 --- !u!114 &1292161362102898180
 MonoBehaviour:
@@ -429,7 +430,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7aca9d8ff8ab559438987759caa9d2d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gotHitSound: {fileID: 8300000, guid: 2fbfe53a4c6bee34eadfc65f216cb17c, type: 3}
+  gotHitSound: {fileID: 0}
 --- !u!114 &1471221887
 MonoBehaviour:
   m_ObjectHideFlags: 0

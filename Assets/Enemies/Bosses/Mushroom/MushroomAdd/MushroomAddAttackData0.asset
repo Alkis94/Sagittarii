@@ -17,7 +17,7 @@ MonoBehaviour:
     SerializedBytes: 
     ReferencedUnityObjects:
     - {fileID: 1000012292187914, guid: 397fba1b478484b4db2ef82bee43ddb2, type: 3}
-    - {fileID: 8300000, guid: 8f6dda4fbf2d7694a9d6bef89e0173eb, type: 3}
+    - {fileID: 8300000, guid: 470c2aa23099389458aac0451b639bfb, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -239,10 +239,10 @@ MonoBehaviour:
       Data: 0
     - Name: RandomRotationFactorMin
       Entry: 4
-      Data: 0
+      Data: -20
     - Name: RandomRotationFactorMax
       Entry: 4
-      Data: 0
+      Data: 20
     - Name: Projectile
       Entry: 10
       Data: 0
@@ -254,7 +254,7 @@ MonoBehaviour:
       Data: 8
     - Name: AttackFrequency
       Entry: 4
-      Data: 7
+      Data: 5
     - Name: ProjectileDestroyDelay
       Entry: 4
       Data: 10

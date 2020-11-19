@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 297317692280176375}
   - component: {fileID: 8184361130262881610}
   - component: {fileID: 297317692280176372}
-  - component: {fileID: 8024046488873831897}
+  - component: {fileID: 8833880199205549020}
   m_Layer: 23
   m_Name: CaveBossDoor2Inside
   m_TagString: Untagged
@@ -72,7 +72,7 @@ SpriteRenderer:
   m_SortingLayerID: 2067085647
   m_SortingLayer: -3
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300018, guid: c97cc34eb25b20848a12c35e2572746f, type: 3}
+  m_Sprite: {fileID: 21300024, guid: c97cc34eb25b20848a12c35e2572746f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -128,7 +128,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.2937026, y: 2.097871}
   m_EdgeRadius: 0
---- !u!114 &8024046488873831897
+--- !u!114 &8833880199205549020
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -137,13 +137,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 297317692280176373}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1b3193554cb54949a23832aa13aa659, type: 3}
+  m_Script: {fileID: 11500000, guid: 4146c1c299b2adf4d9e83853cbbfd76a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelToLoad: CaveBoss
-  isOpen: 0
-  isInside: 0
-  changeDoorStateOnStart: 0
 --- !u!1 &6929576640272162107
 GameObject:
   m_ObjectHideFlags: 0

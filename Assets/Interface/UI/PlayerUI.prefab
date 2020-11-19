@@ -58,7 +58,6 @@ MonoBehaviour:
   healthImage: {fileID: 2964611009006273844}
   energyImage: {fileID: 5892459839506553399}
   specialImage: {fileID: 464182087703389688}
-  fadeImage: {fileID: 3707822745833703473}
   bossHealthImage: {fileID: 6226018475214785239}
   bossHealthBar: {fileID: 8920195542711798159}
   defeatMenu: {fileID: 4630461975351058740}
@@ -1133,6 +1132,7 @@ GameObject:
   - component: {fileID: 6940096988456057035}
   - component: {fileID: 3576732825208081888}
   - component: {fileID: 4977641296537919155}
+  - component: {fileID: 7537560184795560776}
   m_Layer: 5
   m_Name: SceneFade
   m_TagString: Untagged
@@ -1227,6 +1227,18 @@ CanvasGroup:
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
+--- !u!114 &7537560184795560776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2162913814576894195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e42489a5c62b4a144a66c6400e7ed368, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2456106144496545611
 GameObject:
   m_ObjectHideFlags: 0

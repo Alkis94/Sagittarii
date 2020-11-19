@@ -104,6 +104,8 @@ public class EnemyDeath : SerializedMonoBehaviour
         animator.SetTrigger("ShakeBeforeDeath");
         CinemachineImpulseSource impulseSource;
         impulseSource = GetComponent<CinemachineImpulseSource>();
+        impulseSource.m_ImpulseDefinition.m_TimeEnvelope.m_SustainTime = 4f;
+        impulseSource.m_ImpulseDefinition.m_TimeEnvelope.m_DecayTime   = 1f;
         impulseSource.GenerateImpulse();
 
         Color red = new Color(1f, 0f, 0f);

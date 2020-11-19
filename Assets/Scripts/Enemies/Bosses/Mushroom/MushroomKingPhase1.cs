@@ -11,6 +11,7 @@ public class MushroomKingPhase1 : State<MushroomKingBrain>
     public override void EnterState()
     {
         EnemyStats.OnEnemyWasKilled += CountEemiesTillChange;
+        stateOwner.impulseSource.GenerateImpulse();
         stateOwner.InvokeRepeating("StartAttackAnimation", 1f, stateOwner.enemyStats.AttackData[0].AttackFrequency);
     }
 

@@ -32,8 +32,6 @@ public class UIManager : MonoBehaviour
     private Image energyImage;
     [SerializeField]
     private Image specialImage;
-    [SerializeField]
-    private RectTransform fadeImage;
 
     private Coroutine energyCoroutine = null;
     private Coroutine healthCoroutine = null;
@@ -64,30 +62,19 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
     private void Start ()
     {
         AudioListener.pause = false;
-    }
-
-    public void LoadSceneWithFade(string scene)
-    {
-        StartCoroutine(StartLoadSceneWithFade(scene));
-    }
-
-    IEnumerator StartLoadSceneWithFade(string scene)
-    {
-        LeanTween.alpha(fadeImage, 1f, 0.5f).setEase(LeanTweenType.linear);
-        yield return new WaitForSeconds(0.5f);
-        SceneManager.LoadScene(scene);
-        LeanTween.alpha(fadeImage, 0f, 0.5f).setEase(LeanTweenType.linear);
-    }
-
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        if (scene.name == "Town")
-        {
-            gameObject.SetActive(true);
-        }
     }
 
     public void UpdateHealth(int health, int maxHealth)
@@ -233,6 +220,12 @@ public class UIManager : MonoBehaviour
         bossHealthImage.fillAmount = 1f;
     }
 
+    private void DeactiveBossHealthBar()
+    {
+        bossHealthBar.SetActive(false);
+        bossHealthImage.fillAmount = 1f;
+    }
+
     public void CallItemTexts(string relicName, string relicDescription, RelicRarity relicRarity)
     {
         switch((int)relicRarity)
@@ -297,6 +290,14 @@ public class UIManager : MonoBehaviour
 
         GameManager.GameState = GameStateEnum.paused;
         defeatMenu.SetActive(true);
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "Town")
+        {
+            DeactiveBossHealthBar();
+        }
     }
 
 }

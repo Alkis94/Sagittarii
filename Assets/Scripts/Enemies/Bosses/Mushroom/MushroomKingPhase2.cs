@@ -13,7 +13,7 @@ public class MushroomKingPhase2 : State<MushroomKingBrain>
         stateOwner.enemyStats.Damageable = true;
         stateOwner.rigidbody2d.gravityScale = 1;
         stateOwner.StartCoroutine(DoRandomAttack());
-        stateOwner.InvokeRepeating("SpawnWalkshroom", 2, 7);
+        stateOwner.InvokeRepeating("SpawnWalkshroom", 5, 7);
     }
 
     public override void FixedUpdateState()

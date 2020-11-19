@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Cinemachine;
 
 public class MushroomKingBrain : GroundEnemyBrain
 {
@@ -8,15 +9,20 @@ public class MushroomKingBrain : GroundEnemyBrain
     public MushroomKingPhase1 mushroomKingPhase1;
     [HideInInspector]
     public MushroomKingPhase2 mushroomKingPhase2;
+    [HideInInspector]
+    public CinemachineImpulseSource impulseSource;
     public RuntimeAnimatorController phase2Controller;
     [SerializeField]
     private GameObject walkShroom;
+    
+    
 
     protected override void Awake()
     {
         base.Awake();
         mushroomKingPhase1 = new MushroomKingPhase1(this);
         mushroomKingPhase2 = new MushroomKingPhase2(this);
+        impulseSource = GetComponent<CinemachineImpulseSource>();
     }
 
     protected override void OnEnable()
@@ -63,7 +69,7 @@ public class MushroomKingBrain : GroundEnemyBrain
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Ground")
+        if (collision.gameObject.tag == "Ground" && enabled)
         {
             animator.SetTrigger("GroundCollision");
         }
