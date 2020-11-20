@@ -5,11 +5,12 @@ public class BossDoor : MonoBehaviour
 {
 
     public static event Action<string> DoorEntered = delegate { };
-
     protected MapType mapType;
     protected BoxCollider2D boxCollider2D;
     protected Animator animator;
     protected bool isOpen = true;
+    [SerializeField]
+    protected string bossName;
 
     protected virtual void Start()
     {

@@ -116,7 +116,8 @@ public class ItemShop : MonoBehaviour, IInteractable
 
     private GameObject SpawnShopItem(int i)
     {
-        GameObject chosenItem = Instantiate(chosenItems[i], transform.position, Quaternion.identity); ;
+        Vector3 spawnPosition = new Vector3(transform.position.x + 2 * i, transform.position.y, 0);
+        GameObject chosenItem = Instantiate(chosenItems[i], spawnPosition, Quaternion.identity); ;
         chosenItem.transform.GetChild(0).gameObject.SetActive(false);
         return chosenItem;
     }

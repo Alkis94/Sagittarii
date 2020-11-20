@@ -4,12 +4,12 @@ using UnityEngine;
 public class BossDoorOutside : BossDoor, IInteractable
 {
     [SerializeField]
-    private string levelToLoad;
+    private bool isLocked;
 
     protected override void Start()
     {
         base.Start();
-        isOpen = true;
+        isOpen = !isLocked;
         animator.SetBool("isOpen", isOpen);
     }
 
@@ -17,7 +17,7 @@ public class BossDoorOutside : BossDoor, IInteractable
     {
         if (isOpen)
         {
-            DoorEnter(levelToLoad);
+            DoorEnter(bossName);
         }
     }
 }

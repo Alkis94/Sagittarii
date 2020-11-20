@@ -20,7 +20,7 @@ public class BossDoorInside : BossDoor, IInteractable
         boxCollider2D = GetComponent<BoxCollider2D>();
         animator = GetComponent<Animator>();
  
-        if (!ES3.FileExists("Saves/Profile" + SaveProfile.SaveID + "/Bosses/" + mapType))
+        if (!ES3.FileExists("Saves/Profile" + SaveProfile.SaveID + "/Bosses/" + bossName))
         {
             ChangeDoorState();
         }

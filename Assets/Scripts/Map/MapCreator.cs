@@ -233,20 +233,8 @@ public abstract class MapCreator : MonoBehaviour
         }
     }
 
-    protected string ReturnCorrectBossRoom(bool north, bool south, bool east, bool west, MapType mapType)
+    protected string ReturnCorrectBossRoom(bool north, bool south, bool east, bool west, string roomPrefix)
     {
-        string roomPrefix = "";
-
-        switch(mapType)
-        {
-            case MapType.cave:
-                roomPrefix = "Cave";
-                break;
-            default:
-                //Debug.LogError("Map type not found! Check MapCreator!");
-                break;
-        }
-
         if (north)
         {
             return roomPrefix + "BossDoorN";

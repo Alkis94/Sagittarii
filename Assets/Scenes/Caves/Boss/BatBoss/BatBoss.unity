@@ -410,7 +410,7 @@ MonoBehaviour:
     - {fileID: 1927337072}
     - {fileID: 11500000, guid: c1b3193554cb54949a23832aa13aa659, type: 3}
     - {fileID: 8024046488873831897, guid: c3062dfe277629340a7af4c44657a268, type: 3}
-    - {fileID: 1927337073}
+    - {fileID: 0}
     - {fileID: 11500000, guid: 3208f291997f79e4fab4bbda89d1533a, type: 3}
     - {fileID: 11500000, guid: b7f59e54f2bfd184b9dd451a678d089b, type: 3}
     - {fileID: 11500000, guid: 2dcfb23501b394b4084b9bdae1f590e0, type: 3}
@@ -30859,18 +30859,6 @@ SpriteRenderer:
     type: 3}
   m_PrefabInstance: {fileID: 1927337071}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1927337073 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8024046488873831897, guid: c3062dfe277629340a7af4c44657a268,
-    type: 3}
-  m_PrefabInstance: {fileID: 1927337071}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1927337076}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1b3193554cb54949a23832aa13aa659, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!61 &1927337074 stripped
 BoxCollider2D:
   m_CorrespondingSourceObject: {fileID: 297317692280176372, guid: c3062dfe277629340a7af4c44657a268,
@@ -31019,7 +31007,7 @@ PrefabInstance:
     - target: {fileID: 1499141357242650371, guid: 8c330cc8ae86e434695ed3b4b055f3c5,
         type: 3}
       propertyPath: m_Name
-      value: EnemiesManager (1)
+      value: EnemiesManager
       objectReference: {fileID: 0}
     - target: {fileID: 4384568627883303892, guid: 8c330cc8ae86e434695ed3b4b055f3c5,
         type: 3}

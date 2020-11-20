@@ -4,31 +4,31 @@ using System;
 public class BossHealth : MonoBehaviour
 {
 
-    private EnemyStats EnemyStats;
+    private EnemyStats enemyStats;
     private int previousHealth;
     
     private void OnEnable()
     {
-        EnemyStats = GetComponent<EnemyStats>();
-        EnemyStats.EnemyHealthChanged += OnBossHealthChanged;
+        enemyStats = GetComponent<EnemyStats>();
+        enemyStats.EnemyHealthChanged += OnBossHealthChanged;
     }
 
     private void OnDisable()
     {
-        EnemyStats.EnemyHealthChanged -= OnBossHealthChanged;
+        enemyStats.EnemyHealthChanged -= OnBossHealthChanged;
     }
 
     // Use this for initialization
     void Start()
     {
-        previousHealth = EnemyStats.Health;
-        UIManager.Instance.EnableBossHealth(EnemyStats.Health);
+        previousHealth = enemyStats.Health;
+        UIManager.Instance.EnableBossHealth(enemyStats.Health);
     }
 
     private void OnBossHealthChanged()
     {
-        int damage = previousHealth - EnemyStats.Health;
+        int damage = previousHealth - enemyStats.Health;
         UIManager.Instance.UpdateBossHealth(damage);
-        previousHealth = EnemyStats.Health;
+        previousHealth = enemyStats.Health;
     }
 }

@@ -84,7 +84,7 @@ public class EnemyStats : SerializedMonoBehaviour , IDamageable
         RandomizeDelayBeforeFirstAttack();
     }
 
-    private void LoadFromData()
+    public void LoadFromData()
     {
         EnemyName = enemyData.EnemyName;
         health = enemyData.Health;
@@ -105,4 +105,6 @@ public class EnemyStats : SerializedMonoBehaviour , IDamageable
         float randomizer = UnityEngine.Random.Range(0, 1.5f);
         DelayBeforeFirstAttack += randomizer;
     }
+
+
 }

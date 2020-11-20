@@ -24,7 +24,7 @@ public class MushroomKingdom : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
-        if (ES3.FileExists("Saves/Profile" + SaveProfile.SaveID + "/Bosses/" + mapType))
+        if (ES3.FileExists("Saves/Profile" + SaveProfile.SaveID + "/Bosses/MushroomBoss"))
         {
             gameObject.SetActive(false);
         }

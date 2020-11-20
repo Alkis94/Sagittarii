@@ -10,10 +10,14 @@ public class BossEnemyLoader : EnemyLoader
     public override void Load()
     {
         Vector3 originalPosition = transform.position;
-        dead = ES3.Load<bool>("Dead" + EnemyKey, "Saves/Profile" + SaveProfile.SaveID + "/Bosses/" + MapType);
-        criticalDeath = ES3.Load<bool>("CriticalDeath" + EnemyKey, "Saves/Profile" + SaveProfile.SaveID + "/Bosses/" + MapType);
-        transform.position = ES3.Load<Vector3>("Position" + EnemyKey, "Saves/Profile" + SaveProfile.SaveID + "/Bosses/" + MapType);
-        transform.rotation = ES3.Load<Quaternion>("Rotation" + EnemyKey, "Saves/Profile" + SaveProfile.SaveID + "/Bosses/" + MapType);
+        enemyStats = GetComponent<EnemyStats>();
+        enemyStats.LoadFromData();
+        //Debug.Log(enemyStats);
+        //Debug.Log(enemyStats.EnemyName);
+        dead = ES3.Load<bool>("Dead" + EnemyKey, "Saves/Profile" + SaveProfile.SaveID + "/Bosses/" + enemyStats.EnemyName);
+        criticalDeath = ES3.Load<bool>("CriticalDeath" + EnemyKey, "Saves/Profile" + SaveProfile.SaveID + "/Bosses/" + enemyStats.EnemyName);
+        transform.position = ES3.Load<Vector3>("Position" + EnemyKey, "Saves/Profile" + SaveProfile.SaveID + "/Bosses/" + enemyStats.EnemyName);
+        transform.rotation = ES3.Load<Quaternion>("Rotation" + EnemyKey, "Saves/Profile" + SaveProfile.SaveID + "/Bosses/" + enemyStats.EnemyName);
         GetComponent<EnemyBrain>().LoadEnemyBrain(originalPosition, dead);
         GetComponent<BossHealth>().enabled = false;
     }
@@ -22,9 +26,9 @@ public class BossEnemyLoader : EnemyLoader
     {
         dead = true;
         this.criticalDeath = criticalDeath;
-        ES3.Save<bool>("Dead" + EnemyKey, dead, "Saves/Profile" + SaveProfile.SaveID + "/Bosses/" + MapType);
-        ES3.Save<bool>("CriticalDeath" + EnemyKey, criticalDeath, "Saves/Profile" + SaveProfile.SaveID + "/Bosses/" + MapType);
-        ES3.Save<Vector3>("Position" + EnemyKey, transform.position, "Saves/Profile" + SaveProfile.SaveID + "/Bosses/" + MapType);
-        ES3.Save<Quaternion>("Rotation" + EnemyKey, transform.rotation, "Saves/Profile" + SaveProfile.SaveID + "/Bosses/" + MapType);
+        ES3.Save<bool>("Dead" + EnemyKey, dead, "Saves/Profile" + SaveProfile.SaveID + "/Bosses/" + enemyStats.EnemyName);
+        ES3.Save<bool>("CriticalDeath" + EnemyKey, criticalDeath, "Saves/Profile" + SaveProfile.SaveID + "/Bosses/" + enemyStats.EnemyName);
+        ES3.Save<Vector3>("Position" + EnemyKey, transform.position, "Saves/Profile" + SaveProfile.SaveID + "/Bosses/" + enemyStats.EnemyName);
+        ES3.Save<Quaternion>("Rotation" + EnemyKey, transform.rotation, "Saves/Profile" + SaveProfile.SaveID + "/Bosses/" + enemyStats.EnemyName);
     }
 }

@@ -3,7 +3,7 @@
 public class ForestMapCreator : MapCreator
 {
     private static ForestMapCreator instance = null;
-    private const int Forest_Length = 15;
+    private const int Forest_Length = 2;
 
     private void Awake()
     {
@@ -52,11 +52,11 @@ public class ForestMapCreator : MapCreator
             }
             else if (map[i, 0].RoomType == RoomType.bossRoom)
             {
-                map[i, 0].RoomName = "ForestBossDoor";
+                map[i, 0].RoomName = "BearBossDoor";
             }
         }
 
-        AddSpawnRoom();
+        //AddSpawnRoom();
         AddTreasures(2, normalRoomArrayCoordinates);
     }
 

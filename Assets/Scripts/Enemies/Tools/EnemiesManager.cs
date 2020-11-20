@@ -1,6 +1,8 @@
-﻿using UnityEngine;
-using System;
+﻿using System;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections.Generic;
+
 
 public class EnemiesManager : MonoBehaviour
 {
@@ -20,11 +22,10 @@ public class EnemiesManager : MonoBehaviour
         {
             spawner = spawnerObject.GetComponent<Spawner>();
             spawnerEnemies = new Dictionary<string, GameObject>();
-            
-            for(int i = 0; i < spawner.EnemySpawnInfos.Count; i++ )
+
+            for (int i = 0; i < spawner.EnemySpawnInfos.Count; i++)
             {
                 spawnerEnemies.Add(spawner.EnemySpawnInfos[i].enemy.name, spawner.EnemySpawnInfos[i].enemy);
-                //Debug.Log(spawner.EnemySpawnInfos[i].enemy.name);
             }
         }
     }
@@ -41,14 +42,14 @@ public class EnemiesManager : MonoBehaviour
     {
         if(roomType == RoomType.bossRoom)
         {
-            if (ES3.FileExists("Saves/Profile" + SaveProfile.SaveID + "/Bosses/" + mapType))
+            chosenGroup = transform.GetChild(0).gameObject;
+            
+            if (ES3.FileExists("Saves/Profile" + SaveProfile.SaveID + "/Bosses/" + SceneManager.GetActiveScene().name))
             {
-                chosenGroup = transform.GetChild(0).gameObject;
                 ReloadEnemies();
             }
             else
             {
-                chosenGroup = transform.GetChild(0).gameObject;
                 LoadEnemies();
             }
         }

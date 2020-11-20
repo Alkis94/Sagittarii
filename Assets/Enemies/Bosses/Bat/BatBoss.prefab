@@ -84,7 +84,7 @@ GameObject:
   - component: {fileID: 2836377522156278932}
   m_Layer: 12
   m_Name: BatBoss
-  m_TagString: Enemy
+  m_TagString: BossEnemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -313,6 +313,9 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
+    - Name: EnemyName
+      Entry: 6
+      Data: 
     - Name: Speed
       Entry: 4
       Data: 2
@@ -334,12 +337,6 @@ MonoBehaviour:
     - Name: ShakeBeforeDeath
       Entry: 5
       Data: false
-    - Name: ChangingDirections
-      Entry: 5
-      Data: false
-    - Name: ChangeDirectionFrequency
-      Entry: 4
-      Data: 0
     - Name: MinGoldGiven
       Entry: 3
       Data: 5
@@ -390,11 +387,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fca6e7a329b045c409938c8cd34b5e3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hasAttack: 1
-  enemyStats: {fileID: 0}
-  smallBat: {fileID: 1767405952, guid: 311a69c7bda174a488b521dd5a36cc10, type: 3}
-  horizontalDirection: 1
+  cannotChangeDirectionTime: 0
   verticalDirection: 1
+  smallBat: {fileID: 1767405952, guid: 311a69c7bda174a488b521dd5a36cc10, type: 3}
   spawnSmallBatFrequency: 6
   speedBoost: 0
 --- !u!114 &3154934772658238055
@@ -615,3 +610,4 @@ MonoBehaviour:
   collisionMask:
     serializedVersion: 2
     m_Bits: 131328
+  horizontalRayLength: 0.1

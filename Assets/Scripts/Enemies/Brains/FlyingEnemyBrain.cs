@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 
-//Should be abstract but unity throws a lot of wrong warnings if you have it abstract.
-public class FlyingEnemyBrain : EnemyBrain
+public abstract class FlyingEnemyBrain : EnemyBrain
 {
     [HideInInspector]
     public int verticalDirection = 1;

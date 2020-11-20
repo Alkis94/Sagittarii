@@ -143,7 +143,7 @@ GameObject:
   - component: {fileID: 1617814756607602882}
   m_Layer: 12
   m_Name: BearBoss
-  m_TagString: Enemy
+  m_TagString: BossEnemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -483,10 +483,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be3afc18ee59c57439c13b29b93e42b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyStats: {fileID: 0}
-  collisionTracker: {fileID: 0}
-  rigidbody2d: {fileID: 0}
-  audioSource: {fileID: 0}
+  cannotChangeDirectionTime: 0
   teleport: {fileID: 2089284342073273242, guid: 7835795ad097d4b4cb7c1f074be28cfc,
     type: 3}
   wakeUpSound: {fileID: 8300000, guid: bb44a92bac1e3294c817229e74899bdb, type: 3}

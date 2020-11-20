@@ -35,11 +35,11 @@ public class CaveMapCreator : MapCreator
     {
         map[10, 0].RoomType = RoomType.normalRoom;
         map[10, 1].RoomType = RoomType.verticalRoad;
-        bossRoomCoordinates = CreatePathToBoss(15,new Vector2Int(10,2),false);
-        CreateRandomPaths(5,8);
+        bossRoomCoordinates = CreatePathToBoss(8,new Vector2Int(10,2),false);
+        CreateRandomPaths(3,5);
         AssignRooms();
         AssignBossRoom();
-        AddTreasures(4, normalRoomArrayCoordinates);
+        AddTreasures(3, normalRoomArrayCoordinates);
 
         map[10, 0].RoomName = "CaveToForest";
     }
@@ -77,7 +77,7 @@ public class CaveMapCreator : MapCreator
         bool east = false;
         bool west = false;
         FindConnectedRoadDirections(ref north, ref south, ref east, ref west, bossRoomCoordinates.x, bossRoomCoordinates.y);
-        map[bossRoomCoordinates.x, bossRoomCoordinates.y].RoomName = ReturnCorrectBossRoom(north, south, east, west, MapType.cave);
+        map[bossRoomCoordinates.x, bossRoomCoordinates.y].RoomName = ReturnCorrectBossRoom(north, south, east, west, "Mushroom");
     }
 
     private void AddCaveMapLists()

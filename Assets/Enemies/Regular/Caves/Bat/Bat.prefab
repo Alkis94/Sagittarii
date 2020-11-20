@@ -78,7 +78,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -607018307
-  m_SortingLayer: 2
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300006, guid: 9bf20f6d183a3ca489cf4571316104fe, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -274,12 +274,6 @@ MonoBehaviour:
     - Name: ShakeBeforeDeath
       Entry: 5
       Data: false
-    - Name: ChangingDirections
-      Entry: 5
-      Data: false
-    - Name: ChangeDirectionFrequency
-      Entry: 4
-      Data: 0
     - Name: MinGoldGiven
       Entry: 3
       Data: 5
@@ -345,9 +339,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74b9b9726e61bf84999673955dc3aae6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyStats: {fileID: 0}
-  collisionTracker: {fileID: 0}
-  rigidbody2d: {fileID: 0}
+  cannotChangeDirectionTime: 0
+  verticalDirection: 1
 --- !u!114 &1767405955
 MonoBehaviour:
   m_ObjectHideFlags: 0
