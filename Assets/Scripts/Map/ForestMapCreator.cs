@@ -3,7 +3,7 @@
 public class ForestMapCreator : MapCreator
 {
     private static ForestMapCreator instance = null;
-    private const int Forest_Length = 2;
+    private const int Forest_Length = 15;
     private readonly Vector2Int startRoomCoordinates = new Vector2Int(4, 0);
 
     private void Awake()

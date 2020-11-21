@@ -18,7 +18,7 @@ public class EnemyStats : SerializedMonoBehaviour , IDamageable
     [Title("Enemy Stats")]
     [OdinSerialize] private int health = 10;
     [OdinSerialize] public float Speed { get; private set; } = 2;
-    [OdinSerialize] public float DelayBeforeFirstAttack { get; private set; } = 0.5f;
+    public float DelayBeforeFirstAttack { get; private set; } = 0.5f;
     
 
     [Title("Bools")]
@@ -102,8 +102,15 @@ public class EnemyStats : SerializedMonoBehaviour , IDamageable
 
     private void RandomizeDelayBeforeFirstAttack()
     {
-        float randomizer = UnityEngine.Random.Range(0, 1.5f);
-        DelayBeforeFirstAttack += randomizer;
+        float extraRandomDelay = 0;
+        float randomizer = UnityEngine.Random.Range(0, 1f);
+        float randomΝumber = UnityEngine.Random.Range(0, 1f);
+        
+        if(randomΝumber < 0.5f)
+        {
+            extraRandomDelay = UnityEngine.Random.Range(0, 1f);
+        }
+        DelayBeforeFirstAttack += randomizer + extraRandomDelay;
     }
 
 
