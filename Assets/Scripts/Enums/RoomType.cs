@@ -12,7 +12,10 @@
     //These type of rooms should be only assigned in even numbers on map arrays
 
     normalRoom,
+    bossRoom,
+
+
     spawnRoom,
     challengeRoom,
-    bossRoom
+    startingRoom
 }

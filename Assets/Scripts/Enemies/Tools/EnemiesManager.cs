@@ -43,10 +43,18 @@ public class EnemiesManager : MonoBehaviour
         if(roomType == RoomType.bossRoom)
         {
             chosenGroup = transform.GetChild(0).gameObject;
-            
-            if (ES3.FileExists("Saves/Profile" + SaveProfile.SaveID + "/Bosses/" + SceneManager.GetActiveScene().name))
+
+            if(ES3.KeyExists("Dead0", "Saves/Profile" + SaveProfile.SaveID + "/Bosses/" + SceneManager.GetActiveScene().name))
             {
-                ReloadEnemies();
+                bool dead = ES3.Load<bool>("Dead0", "Saves/Profile" + SaveProfile.SaveID + "/Bosses/" + SceneManager.GetActiveScene().name);
+                if(dead)
+                {
+                    ReloadEnemies();
+                }
+                else
+                {
+                    LoadEnemies();
+                }
             }
             else
             {

@@ -4,6 +4,7 @@ public class ForestMapCreator : MapCreator
 {
     private static ForestMapCreator instance = null;
     private const int Forest_Length = 2;
+    private readonly Vector2Int startRoomCoordinates = new Vector2Int(4, 0);
 
     private void Awake()
     {
@@ -28,21 +29,20 @@ public class ForestMapCreator : MapCreator
         MapCreated(MapType.forest);
     }
 
-    protected override void CreateMap()
+    private void CreateMap()
     {
         map[0, 0].RoomType = RoomType.horizontalRoad;
         map[1, 0].RoomType = RoomType.horizontalRoad;
-
-        map[2, 0].RoomType = RoomType.normalRoom;
+        map[2, 0].RoomType = RoomType.startingRoom;
         map[2, 0].RoomName = "ForestEntrance";
-
         map[3, 0].RoomType = RoomType.horizontalRoad;
 
-        CreatePathToBoss(Forest_Length, new Vector2Int(4, 0), false, false, false, true);
+        CreatePathToBoss(Forest_Length, startRoomCoordinates, false, false, false, true);
+        AssignRoomOpenings();
 
         int randomNumber;
         int numberOfForestRooms = RoomTracker.ForestRooms.Count;
-        for (int i = 4; i < 40; i++)
+        for (int i = 0; i < 40; i++)
         {
             if(map[i,0].RoomType == RoomType.normalRoom)
             {
@@ -67,7 +67,6 @@ public class ForestMapCreator : MapCreator
         
         map[normalRoomArrayCoordinates[randomNumber].x, 0].RoomName = RoomTracker.ForestSpawnRooms[randomNumber2];
         map[normalRoomArrayCoordinates[randomNumber].x, 0].RoomType = RoomType.spawnRoom;
-        //Debug.Log("SpawnRoom added at randomNumber" + normalRoomArrayCoordinates[randomNumber].x);
         normalRoomArrayCoordinates.RemoveAt(randomNumber);
     }
 }

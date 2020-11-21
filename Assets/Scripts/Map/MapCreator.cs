@@ -13,13 +13,11 @@ public abstract class MapCreator : MonoBehaviour
     protected int numberOfTreasures = 0;
 
     protected List<Vector2Int> normalRoomArrayCoordinates;
-    protected abstract void CreateMap();
     public static event Action<Room[,],MapType> OnMapCreated = delegate { };
 
     protected virtual void Start()
     {
         normalRoomArrayCoordinates = new List<Vector2Int>();
-       
     }
 
     protected void CreatePath(int roadLength, Vector2Int startCoordinates, bool directRoadNorth = true, bool directRoadSouth = true, bool directRoadWest = true, bool directRoadEast = true)
@@ -29,7 +27,6 @@ public abstract class MapCreator : MonoBehaviour
 
         Vector2Int currentCoordinates = startCoordinates;
         map[currentCoordinates.x, currentCoordinates.y].RoomType = RoomType.normalRoom;
-
 
         while (i < roadLength)
         {
@@ -95,22 +92,36 @@ public abstract class MapCreator : MonoBehaviour
         }
     }
 
-    protected void CreateRandomPaths(int aproxNumberOfPaths, int maxPathLength)
+    protected void CreateRandomPaths(int numberOfPaths, int averagePathLength)
     {
-        int randomAmountOfRoads = UnityEngine.Random.Range(aproxNumberOfPaths, aproxNumberOfPaths + 5);
-        int i = 0;
-        while ( i < randomAmountOfRoads)
+        List<int> uncheckedNormalRooms = new List<int>();
+        for(int j = 0; j < normalRoomArrayCoordinates.Count; j++)
         {
-            int randomRoadLength = UnityEngine.Random.Range(1, maxPathLength);
-            int randomNormalRoomID = UnityEngine.Random.Range(0, normalRoomArrayCoordinates.Count);
-            Vector2Int randomNormalRoom = normalRoomArrayCoordinates[randomNormalRoomID];
+            uncheckedNormalRooms.Add(j);
+        }
+
+        int i = 0;
+        int minPathLength = averagePathLength - averagePathLength / 2;
+        int maxPathLength = averagePathLength + averagePathLength / 2;
+        while ( i < numberOfPaths)
+        {
+            if (uncheckedNormalRooms.Count <= 0)
+            {
+                Debug.LogError(i + " paths created instead of " + numberOfPaths);
+                break;
+            }
+
+            int randomRoadLength = UnityEngine.Random.Range(minPathLength, maxPathLength);
+            int randomUncheckedRoomID = UnityEngine.Random.Range(0, uncheckedNormalRooms.Count);
+            int chosenRoomID = uncheckedNormalRooms[randomUncheckedRoomID];
+            uncheckedNormalRooms.RemoveAt(randomUncheckedRoomID);
+            Vector2Int randomNormalRoom = normalRoomArrayCoordinates[chosenRoomID];
 
             if(HasSpaceAroundForRoom(randomNormalRoom))
             {
                 CreatePath(randomRoadLength, randomNormalRoom);
                 i++;
             }
-            
         }
     }
 
@@ -132,122 +143,141 @@ public abstract class MapCreator : MonoBehaviour
         }
     }
 
-    protected void FindConnectedRoadDirections(ref bool north, ref bool south, ref bool east, ref bool west, int coordinatesX, int coordinatesY)
+    protected RoomOpenings ReturnCorrectRoomOpening(int coordinatesX, int coordinatesY)
     {
-        if (coordinatesY > 0)
+        bool north = false, south = false, east = false, west = false;
+
+        if (coordinatesY - 1 > 0)
         {
             if (map[coordinatesX, coordinatesY - 1].RoomType > 0)
             {
                 north = true;
             }
         }
-        if (coordinatesY < map.GetLength(1))
+        if (coordinatesY + 1 < map.GetLength(1))
         {
             if (map[coordinatesX, coordinatesY + 1].RoomType > 0)
             {
                 south = true;
             }
         }
-        if (coordinatesX > 0)
+        if (coordinatesX - 1 > 0)
         {
             if (map[coordinatesX - 1, coordinatesY].RoomType > 0)
             {
                 west = true;
             }
         }
-        if (coordinatesX < map.GetLength(0))
+        if (coordinatesX + 1 < map.GetLength(0))
         {
             if (map[coordinatesX + 1, coordinatesY].RoomType > 0)
             {
                 east = true;
             }
         }
-    }
 
-    protected int ReturnCorrectRoomOpenings(bool north, bool south, bool east, bool west)
-    {
         if (north && south && east && west)
         {
-            return (int)RoomOpenings.NSWE;
+            return RoomOpenings.NSWE;
         }
         else if (north && south && !east && west)
         {
-            return (int)RoomOpenings.NSW;
+            return RoomOpenings.NSW;
         }
         else if (north && south && east && !west)
         {
-            return (int)RoomOpenings.NSE;
+            return RoomOpenings.NSE;
         }
         else if (north && !south && east && west)
         {
-            return (int)RoomOpenings.NWE;
+            return RoomOpenings.NWE;
         }
         else if (!north && south && east && west)
         {
-            return (int)RoomOpenings.SWE;
+            return RoomOpenings.SWE;
         }
         else if (north && south && !east && !west)
         {
-            return (int)RoomOpenings.NS;
+            return RoomOpenings.NS;
         }
         else if (north && !south && !east && west)
         {
-            return (int)RoomOpenings.NW;
+            return RoomOpenings.NW;
         }
         else if (north && !south && east && !west)
         {
-            return (int)RoomOpenings.NE;
+            return RoomOpenings.NE;
         }
         else if (!north && south && !east && west)
         {
-            return (int)RoomOpenings.SW;
+            return RoomOpenings.SW;
         }
         else if (!north && south && east && !west)
         {
-            return (int)RoomOpenings.SE;
+            return RoomOpenings.SE;
         }
         else if (!north && !south && east && west)
         {
-            return (int)RoomOpenings.WE;
+            return RoomOpenings.WE;
         }
         else if (north && !south && !east && !west)
         {
-            return (int)RoomOpenings.N;
+            return RoomOpenings.N;
         }
         else if (!north && south && !east && !west)
         {
-            return (int)RoomOpenings.S;
+            return RoomOpenings.S;
         }
         else if (!north && !south && !east && west)
         {
-            return (int)RoomOpenings.W;
+            return RoomOpenings.W;
         }
         if (!north && !south && east && !west)
         {
-            return (int)RoomOpenings.E;
+            return RoomOpenings.E;
         }
         else
         {
             Debug.LogError("ReturnCorrectRoom from MapCreator failed!");
-            return -1;
+            return RoomOpenings.E;
         }
     }
 
-    protected string ReturnCorrectBossRoom(bool north, bool south, bool east, bool west, string roomPrefix)
+
+    /// <summary>
+    ///  Should be called after creating map layout has 
+    ///  finished to determine the room openings.
+    /// </summary>
+    protected void AssignRoomOpenings()
     {
-        if (north)
+        for (int i = 0; i < map.GetLength(0); i++)
+        {
+            for (int j = 0; j < map.GetLength(1); j++)
+            {
+                //mapLayout[i, j] > 2 check means that inside the map there is a room, not a road or no room.
+                if ((int)map[i, j].RoomType > 2)
+                {
+                    map[i, j].RoomOpenings = ReturnCorrectRoomOpening(i, j);
+                }
+            }
+        }
+    }
+
+    protected string ReturnCorrectBossRoom(RoomOpenings roomOpenings, string roomPrefix)
+    {
+        if (roomOpenings == RoomOpenings.N)
         {
             return roomPrefix + "BossDoorN";
         }
-        else if (south)
+        else if (roomOpenings == RoomOpenings.S)
         {
             return roomPrefix + "BossDoorS";
         }
-        else if (east)
+        else if (roomOpenings == RoomOpenings.E)
         {
             return roomPrefix + "BossDoorE";
         }
-        else if (west)
+        else if (roomOpenings == RoomOpenings.W)
         {
             return roomPrefix + "BossDoorW";
         }
@@ -308,7 +338,7 @@ public abstract class MapCreator : MonoBehaviour
     protected bool HasSpaceAroundForRoom(Vector2Int room)
     {
         if (!HasSpaceForRoomWest(room) && !HasSpaceForRoomEast(room) &&
-                    !HasSpaceForRoomNorth(room) && !HasSpaceForRoomSouth(room))
+            !HasSpaceForRoomNorth(room) && !HasSpaceForRoomSouth(room))
         {
             return false;
         }
@@ -328,8 +358,15 @@ public abstract class MapCreator : MonoBehaviour
             for (int j = 0; j < map.GetLength(1); j++)
             {
                 map[i, j] = new Room();
+                map[i, j].RoomArrayCoords = new Vector2(i, j);
             }
         }
+    }
+
+    protected string AssignCorrectRoom(int openings, List<List<string>> roomLevels)
+    {
+        int randomNumber = UnityEngine.Random.Range(0, roomLevels[openings].Count);
+        return roomLevels[openings][randomNumber];
     }
 
     protected void MapCreated(MapType mapType)

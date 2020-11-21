@@ -12,8 +12,6 @@ public class BossEnemyLoader : EnemyLoader
         Vector3 originalPosition = transform.position;
         enemyStats = GetComponent<EnemyStats>();
         enemyStats.LoadFromData();
-        //Debug.Log(enemyStats);
-        //Debug.Log(enemyStats.EnemyName);
         dead = ES3.Load<bool>("Dead" + EnemyKey, "Saves/Profile" + SaveProfile.SaveID + "/Bosses/" + enemyStats.EnemyName);
         criticalDeath = ES3.Load<bool>("CriticalDeath" + EnemyKey, "Saves/Profile" + SaveProfile.SaveID + "/Bosses/" + enemyStats.EnemyName);
         transform.position = ES3.Load<Vector3>("Position" + EnemyKey, "Saves/Profile" + SaveProfile.SaveID + "/Bosses/" + enemyStats.EnemyName);

@@ -31,8 +31,7 @@ public class MapManager : SerializedMonoBehaviour
     public MapType CurrentMap { get; private set; } = MapType.town;
 
     [NonSerialized, OdinSerialize]
-    private List<List<GameObject>> rooms;
-
+    private List<List<GameObject>> roomIcons;
     [SerializeField]
     private Transform mapTransform;
     [SerializeField]
@@ -96,7 +95,7 @@ public class MapManager : SerializedMonoBehaviour
 
             //We put an extra road to connect forest and town, and avoid having a room that collides on the town.
             Vector3 mapCoordinates = ConvertArrayCoordinates(0, 0);
-            ExtensionMethods.InstantiateAtLocalPosition(rooms[(int)CurrentMap - 1] [(int)RoomType.horizontalRoad], mapTransform, mapCoordinates);
+            ExtensionMethods.InstantiateAtLocalPosition(roomIcons[(int)CurrentMap - 1] [(int)RoomType.horizontalRoad], mapTransform, mapCoordinates);
 
             if(renderFullMap)
             {
@@ -113,7 +112,7 @@ public class MapManager : SerializedMonoBehaviour
             //We put this road to connect forest and caves. This roads is not inside mapLayout. We do it this way so
             //no rooms of caves collide with forrest rooms.
             Vector2 mapCoordinates = new Vector2(80, -20);
-            ExtensionMethods.InstantiateAtLocalPosition(rooms[(int)CurrentMap - 1][(int)RoomType.verticalRoad], mapTransform, mapCoordinates);
+            ExtensionMethods.InstantiateAtLocalPosition(roomIcons[(int)CurrentMap - 1][(int)RoomType.verticalRoad], mapTransform, mapCoordinates);
 
             SceneFader.Instance.LoadSceneWithFade(map[caveFirstRoomCoordinates.x, caveFirstRoomCoordinates.y].RoomName);
             OnRoomChangeRenderMapPart();
@@ -164,7 +163,7 @@ public class MapManager : SerializedMonoBehaviour
         }
         else
         {
-            Debug.LogError("Room Not Found");
+            Debug.LogError("Room Not Found! CurrentMapCoords : " + CurrentMapCoords);
             CurrentMapCoords = previousMapCoords;
         }
     }
@@ -226,8 +225,7 @@ public class MapManager : SerializedMonoBehaviour
 
     private GameObject PlaceMapPart(int coordX, int coordY)
     {
-        Vector2 mapCoordinates = ConvertArrayCoordinates(coordX, coordY);
-        GameObject roomIcon = ExtensionMethods.InstantiateAtLocalPosition(rooms[(int)CurrentMap - 1][(int)map[coordX, coordY].RoomType], mapTransform, mapCoordinates);
+        GameObject roomIcon = ReturnCorrectMapIcon(coordX, coordY);
         if ((int)map[coordX, coordY].RoomType > 2)
         {
             if (map[coordX, coordY].IsUnexplored)
@@ -243,10 +241,35 @@ public class MapManager : SerializedMonoBehaviour
         return roomIcon;
     }
 
+    private GameObject ReturnCorrectMapIcon(int coordX, int coordY)
+    {
+        GameObject icon = null;
+        switch(map[coordX, coordY].RoomType)
+        {
+            case RoomType.noRoom:
+                return null;
+            case RoomType.horizontalRoad:
+                icon = roomIcons[(int)CurrentMap - 1][(int)RoomType.horizontalRoad];
+                break;
+            case RoomType.verticalRoad:
+                icon = roomIcons[(int)CurrentMap - 1][(int)RoomType.verticalRoad];
+                break;
+            case RoomType.bossRoom:
+                icon = roomIcons[(int)CurrentMap - 1][(int)RoomType.bossRoom];
+                break;
+            default:
+                icon = roomIcons[(int)CurrentMap - 1][(int)RoomType.normalRoom];
+                break;
+        }
+
+        Vector2 mapCoordinates = ConvertArrayCoordinates(coordX, coordY);
+        return ExtensionMethods.InstantiateAtLocalPosition(icon, mapTransform, mapCoordinates);
+    }
+
     private void RenderNeighborUnexploredRooms()
     {
          //Draw East
-        if (CurrentMapCoords.x + 1 < map.GetLength(0))
+        if (CurrentMapCoords.x + 2 < map.GetLength(0))
         {
             if(map[CurrentMapCoords.x + 1, CurrentMapCoords.y].RoomType > 0)
             {
@@ -258,7 +281,7 @@ public class MapManager : SerializedMonoBehaviour
             }
         }
         //Draw West
-        if (CurrentMapCoords.x - 1 >= 0)
+        if (CurrentMapCoords.x - 2 >= 0)
         {
             if (map[CurrentMapCoords.x - 1, CurrentMapCoords.y].RoomType > 0)
             {
@@ -270,7 +293,7 @@ public class MapManager : SerializedMonoBehaviour
             }
         }
         //Draw South
-        if (CurrentMapCoords.y + 1 < map.GetLength(1))
+        if (CurrentMapCoords.y + 2 < map.GetLength(1))
         {
             if (map[CurrentMapCoords.x, CurrentMapCoords.y + 1].RoomType > 0)
             {
@@ -282,7 +305,7 @@ public class MapManager : SerializedMonoBehaviour
             }
         }
         //Draw North
-        if (CurrentMapCoords.y - 1 >= 0)
+        if (CurrentMapCoords.y - 2 >= 0)
         {
             if (map[CurrentMapCoords.x, CurrentMapCoords.y - 1].RoomType > 0)
             {
@@ -334,7 +357,7 @@ public class MapManager : SerializedMonoBehaviour
                 {
                     Vector2 mapCoordinates = ConvertArrayCoordinates(i, j);
 
-                    GameObject room = rooms[(int)CurrentMap - 1][(int)map[i, j].RoomType];
+                    GameObject room = ReturnCorrectMapIcon(i, j);
                     room.GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f, 1);
                     ExtensionMethods.InstantiateAtLocalPosition(room, mapTransform, mapCoordinates);
                 }
