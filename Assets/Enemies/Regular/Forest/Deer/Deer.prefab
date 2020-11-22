@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 577030629}
-  - component: {fileID: 577030632}
+  - component: {fileID: 1959175763747768782}
   - component: {fileID: 577030631}
   - component: {fileID: 577030630}
   m_Layer: 16
@@ -27,13 +27,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 577030628}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.004, y: -0.14, z: -47.097656}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3457750228986333726}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &577030632
+--- !u!61 &1959175763747768782
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -46,18 +46,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.28552365, y: -0.033071518}
+  m_Offset: {x: -0.12281102, y: -0.101287365}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.2, y: 0.9}
-    newSize: {x: 1.2, y: 0.9}
-    adaptiveTilingThreshold: 0.5
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.3760295, y: 0.8380599}
+  m_Size: {x: 1.3013297, y: 1.2025747}
   m_EdgeRadius: 0
 --- !u!114 &577030631
 MonoBehaviour:
@@ -136,7 +136,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.28020048, y: -0.028096855}
+  m_Offset: {x: -0.14930588, y: -0.08972162}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -147,7 +147,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.3761854, y: 0.44682753}
+  m_Size: {x: 0.95041406, y: 0.323578}
   m_EdgeRadius: 0
 --- !u!114 &1847706369096611337
 MonoBehaviour:
@@ -175,13 +175,13 @@ GameObject:
   - component: {fileID: 5479387137857257788}
   - component: {fileID: 5665686741376172791}
   - component: {fileID: 2834187655867753583}
-  - component: {fileID: 2046918722190791161}
+  - component: {fileID: 6703737908313676666}
   - component: {fileID: 3457750228986333712}
   - component: {fileID: 879409717}
   - component: {fileID: 6205051828286625437}
   - component: {fileID: 2062515885578635173}
   m_Layer: 12
-  m_Name: Wolf
+  m_Name: Deer
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -240,7 +240,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300008, guid: 01624f58e1986a04d9087c9a2764f40a, type: 3}
+  m_Sprite: {fileID: 21300006, guid: 4041ce1be5d3d714c99e93a3d372687d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -261,7 +261,7 @@ Animator:
   m_GameObject: {fileID: 3457750228986333725}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: d6241096a41a96b45af58b22cb7a297a, type: 2}
+  m_Controller: {fileID: 9100000, guid: 36f0cf93372e2524098adc464be68061, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -404,7 +404,7 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 11400000, guid: dffcf27635b5c3f4a89acf1891659367, type: 2}
+    - {fileID: 11400000, guid: cb682435242e6ca488892706eb6d0050, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -465,8 +465,8 @@ MonoBehaviour:
     - Name: health
       Entry: 3
       Data: 10
-  enemyData: {fileID: 11400000, guid: c5f7ab7cf0f58b947ba4501710a4138d, type: 2}
---- !u!114 &2046918722190791161
+  enemyData: {fileID: 11400000, guid: 819d794b87c5c9a4ab750428d904e13b, type: 2}
+--- !u!114 &6703737908313676666
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -475,7 +475,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3457750228986333725}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e78ae028003f3454fa935b6cf2c2520d, type: 3}
+  m_Script: {fileID: 11500000, guid: afdfd7a5f282e294290067c0aa48c954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cannotChangeDirectionTime: 0
@@ -500,7 +500,7 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  deathCry: {fileID: 8300000, guid: 145ddaa27cd6f194496cfc3f4356c589, type: 3}
+  deathCry: {fileID: 0}
   amputationPart: {fileID: 0}
 --- !u!114 &879409717
 MonoBehaviour:
@@ -527,7 +527,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2964bbbfeb949f346a27dfc029e23b14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deadEnemySprite: {fileID: 21300012, guid: 63c36e09d92b5934c8af34e04de7e0f6, type: 3}
+  deadEnemySprite: {fileID: 21300014, guid: ffdd6ff1c106ebe4596afb599c6bf8f3, type: 3}
   criticalDeathEnemySprite: {fileID: 0}
 --- !u!114 &2062515885578635173
 MonoBehaviour:
