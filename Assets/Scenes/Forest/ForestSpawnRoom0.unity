@@ -3661,7 +3661,7 @@ PrefabInstance:
     - target: {fileID: 4563255990075995335, guid: 85126ff5993a4694d949e965b360fb94,
         type: 3}
       propertyPath: serializationData.PrefabModifications.Array.size
-      value: 21
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 4563255990075995335, guid: 85126ff5993a4694d949e965b360fb94,
         type: 3}
@@ -3706,30 +3706,31 @@ PrefabInstance:
         type: 3}
       propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.data[4]
       value: 
-      objectReference: {fileID: 3054776419552895565, guid: 78b61ecf29dadc24e9db10e0a1ac607b,
+      objectReference: {fileID: 3054776419552895565, guid: 53a12eb30a5bc7e48b170129d892cc35,
         type: 3}
     - target: {fileID: 4563255990075995335, guid: 85126ff5993a4694d949e965b360fb94,
         type: 3}
       propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.data[5]
       value: 
-      objectReference: {fileID: 1688857693048517404, guid: de27e89231196de4daf798383559ad9a,
+      objectReference: {fileID: 3457750228986333725, guid: 78a5b1b84f04fdf40ace46597a46e263,
         type: 3}
     - target: {fileID: 4563255990075995335, guid: 85126ff5993a4694d949e965b360fb94,
         type: 3}
       propertyPath: serializationData.PrefabModifications.Array.data[0]
       value: '"path":"EnemySpawnInfos","value":{"$id":0,"$type":"System.Collections.Generic.List`1[[EnemySpawnInfo,
-        Assembly-CSharp]], mscorlib","$rlength":5,"$rcontent":[{"$id":1,"$type":"EnemySpawnInfo,
-        Assembly-CSharp","enemy":$eref:0,"enemySpawnFrequency":7,"enemyType":1},{"$id":2,"$type":"EnemySpawnInfo,
-        Assembly-CSharp","enemy":$eref:1,"enemySpawnFrequency":8,"enemyType":1},{"$id":3,"$type":"EnemySpawnInfo,
-        Assembly-CSharp","enemy":$eref:2,"enemySpawnFrequency":9,"enemyType":0},{"$id":4,"$type":"EnemySpawnInfo,
+        Assembly-CSharp]], mscorlib","$rlength":6,"$rcontent":[{"$id":1,"$type":"EnemySpawnInfo,
+        Assembly-CSharp","enemy":$eref:0,"enemySpawnFrequency":5,"enemyType":1},{"$id":2,"$type":"EnemySpawnInfo,
+        Assembly-CSharp","enemy":$eref:1,"enemySpawnFrequency":7,"enemyType":1},{"$id":3,"$type":"EnemySpawnInfo,
+        Assembly-CSharp","enemy":$eref:2,"enemySpawnFrequency":6,"enemyType":0},{"$id":4,"$type":"EnemySpawnInfo,
         Assembly-CSharp","enemy":$eref:3,"enemySpawnFrequency":8,"enemyType":0},{"$id":5,"$type":"EnemySpawnInfo,
-        Assembly-CSharp","enemy":$eref:4,"enemySpawnFrequency":7,"enemyType":0}]}'
+        Assembly-CSharp","enemy":$eref:4,"enemySpawnFrequency":7,"enemyType":0},{"$id":6,"$type":"EnemySpawnInfo,
+        Assembly-CSharp","enemy":$eref:5,"enemySpawnFrequency":7,"enemyType":0}]}'
       objectReference: {fileID: 0}
     - target: {fileID: 4563255990075995335, guid: 85126ff5993a4694d949e965b360fb94,
         type: 3}
       propertyPath: serializationData.PrefabModifications.Array.data[1]
       value: '"path":"EnemySpawnInfos.[0]","value":{"$id":0,"$type":"EnemySpawnInfo,
-        Assembly-CSharp","enemy":$eref:0,"enemySpawnFrequency":7,"enemyType":1}'
+        Assembly-CSharp","enemy":$eref:0,"enemySpawnFrequency":5,"enemyType":1}'
       objectReference: {fileID: 0}
     - target: {fileID: 4563255990075995335, guid: 85126ff5993a4694d949e965b360fb94,
         type: 3}
@@ -3740,7 +3741,7 @@ PrefabInstance:
         type: 3}
       propertyPath: serializationData.PrefabModifications.Array.data[3]
       value: '"path":"EnemySpawnInfos.[0].enemySpawnFrequency","value":{"$id":0,"$type":"System.Single,
-        mscorlib",7}'
+        mscorlib",5}'
       objectReference: {fileID: 0}
     - target: {fileID: 4563255990075995335, guid: 85126ff5993a4694d949e965b360fb94,
         type: 3}
@@ -3752,7 +3753,7 @@ PrefabInstance:
         type: 3}
       propertyPath: serializationData.PrefabModifications.Array.data[5]
       value: '"path":"EnemySpawnInfos.[1]","value":{"$id":0,"$type":"EnemySpawnInfo,
-        Assembly-CSharp","enemy":$eref:1,"enemySpawnFrequency":8,"enemyType":1}'
+        Assembly-CSharp","enemy":$eref:1,"enemySpawnFrequency":7,"enemyType":1}'
       objectReference: {fileID: 0}
     - target: {fileID: 4563255990075995335, guid: 85126ff5993a4694d949e965b360fb94,
         type: 3}
@@ -3763,7 +3764,7 @@ PrefabInstance:
         type: 3}
       propertyPath: serializationData.PrefabModifications.Array.data[7]
       value: '"path":"EnemySpawnInfos.[1].enemySpawnFrequency","value":{"$id":0,"$type":"System.Single,
-        mscorlib",8}'
+        mscorlib",7}'
       objectReference: {fileID: 0}
     - target: {fileID: 4563255990075995335, guid: 85126ff5993a4694d949e965b360fb94,
         type: 3}
@@ -3775,7 +3776,7 @@ PrefabInstance:
         type: 3}
       propertyPath: serializationData.PrefabModifications.Array.data[9]
       value: '"path":"EnemySpawnInfos.[2]","value":{"$id":0,"$type":"EnemySpawnInfo,
-        Assembly-CSharp","enemy":$eref:5,"enemySpawnFrequency":6,"enemyType":1}'
+        Assembly-CSharp","enemy":$eref:2,"enemySpawnFrequency":6,"enemyType":0}'
       objectReference: {fileID: 0}
     - target: {fileID: 4563255990075995335, guid: 85126ff5993a4694d949e965b360fb94,
         type: 3}
@@ -3786,7 +3787,7 @@ PrefabInstance:
         type: 3}
       propertyPath: serializationData.PrefabModifications.Array.data[11]
       value: '"path":"EnemySpawnInfos.[2].enemySpawnFrequency","value":{"$id":0,"$type":"System.Single,
-        mscorlib",9}'
+        mscorlib",6}'
       objectReference: {fileID: 0}
     - target: {fileID: 4563255990075995335, guid: 85126ff5993a4694d949e965b360fb94,
         type: 3}
@@ -3798,7 +3799,7 @@ PrefabInstance:
         type: 3}
       propertyPath: serializationData.PrefabModifications.Array.data[13]
       value: '"path":"EnemySpawnInfos.[3]","value":{"$id":0,"$type":"EnemySpawnInfo,
-        Assembly-CSharp","enemy":$eref:2,"enemySpawnFrequency":9,"enemyType":0}'
+        Assembly-CSharp","enemy":$eref:3,"enemySpawnFrequency":8,"enemyType":0}'
       objectReference: {fileID: 0}
     - target: {fileID: 4563255990075995335, guid: 85126ff5993a4694d949e965b360fb94,
         type: 3}
@@ -3821,7 +3822,7 @@ PrefabInstance:
         type: 3}
       propertyPath: serializationData.PrefabModifications.Array.data[17]
       value: '"path":"EnemySpawnInfos.[4]","value":{"$id":0,"$type":"EnemySpawnInfo,
-        Assembly-CSharp","enemy":$eref:3,"enemySpawnFrequency":8,"enemyType":0}'
+        Assembly-CSharp","enemy":$eref:4,"enemySpawnFrequency":7,"enemyType":0}'
       objectReference: {fileID: 0}
     - target: {fileID: 4563255990075995335, guid: 85126ff5993a4694d949e965b360fb94,
         type: 3}
@@ -3838,6 +3839,29 @@ PrefabInstance:
         type: 3}
       propertyPath: serializationData.PrefabModifications.Array.data[20]
       value: '"path":"EnemySpawnInfos.[4].enemyType","value":{"$id":0,"$type":"EnemyType,
+        Assembly-CSharp",0}'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4563255990075995335, guid: 85126ff5993a4694d949e965b360fb94,
+        type: 3}
+      propertyPath: serializationData.PrefabModifications.Array.data[21]
+      value: '"path":"EnemySpawnInfos.[5]","value":{"$id":0,"$type":"EnemySpawnInfo,
+        Assembly-CSharp","enemy":$eref:5,"enemySpawnFrequency":7,"enemyType":0}'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4563255990075995335, guid: 85126ff5993a4694d949e965b360fb94,
+        type: 3}
+      propertyPath: serializationData.PrefabModifications.Array.data[22]
+      value: '"path":"EnemySpawnInfos.[5].enemy","value":$eref:5'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4563255990075995335, guid: 85126ff5993a4694d949e965b360fb94,
+        type: 3}
+      propertyPath: serializationData.PrefabModifications.Array.data[23]
+      value: '"path":"EnemySpawnInfos.[5].enemySpawnFrequency","value":{"$id":0,"$type":"System.Single,
+        mscorlib",7}'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4563255990075995335, guid: 85126ff5993a4694d949e965b360fb94,
+        type: 3}
+      propertyPath: serializationData.PrefabModifications.Array.data[24]
+      value: '"path":"EnemySpawnInfos.[5].enemyType","value":{"$id":0,"$type":"EnemyType,
         Assembly-CSharp",0}'
       objectReference: {fileID: 0}
     - target: {fileID: 4563255990075995337, guid: 85126ff5993a4694d949e965b360fb94,
