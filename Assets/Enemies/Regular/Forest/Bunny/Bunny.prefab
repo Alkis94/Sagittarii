@@ -300,7 +300,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -607018307
-  m_SortingLayer: 2
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300018, guid: d81598d5e1779d74792d42600a9e5830, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -478,9 +478,6 @@ MonoBehaviour:
     - Name: Speed
       Entry: 4
       Data: 2
-    - Name: DelayBeforeFirstAttack
-      Entry: 4
-      Data: 3
     - Name: Damageable
       Entry: 5
       Data: true
@@ -543,10 +540,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13c77fee2b3a267468947dc305b09bfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyStats: {fileID: 0}
-  collisionTracker: {fileID: 0}
-  rigidbody2d: {fileID: 0}
-  audioSource: {fileID: 0}
+  cannotChangeDirectionTime: 0
+  rayOriginOffset: -1
 --- !u!114 &3054776419552895611
 MonoBehaviour:
   m_ObjectHideFlags: 0
