@@ -49,6 +49,10 @@ public class ItemStatsChanger : MonoBehaviour
     private int townTax = 0;
     [SerializeField]
     private int restCost = 0;
+    [SerializeField]
+    private float cooldown = 0;
+    [SerializeField]
+    private int extraLives = 0;
 
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -79,6 +83,8 @@ public class ItemStatsChanger : MonoBehaviour
             playerStats.TimeLimit += timeLimit;
             playerStats.TownTax += townTax;
             playerStats.RestCost += restCost;
+            playerStats.Cooldown += cooldown;
+            playerStats.ExtraLives += extraLives;
         }
     }
 

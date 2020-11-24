@@ -16,6 +16,7 @@ public abstract class SpecialAbility : MonoBehaviour
     {
         playerStats = GetComponent<PlayerStats>();
         audioSource = GetComponent<AudioSource>();
+        Cooldown = playerStats.Cooldown;
     }
 
     public abstract void CastSpecialAbility();

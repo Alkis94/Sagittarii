@@ -50,7 +50,11 @@ public class PlayerStats : MonoBehaviour, IDamageable
     private int townTax = 100;
     [SerializeField]
     private int restCost = 10;
-    
+    [SerializeField]
+    private float cooldown = 10;
+    [SerializeField]
+    private int extraLives = 0;
+
 
 
     private DamageSource lastDamageSource = DamageSource.projectile;
@@ -58,13 +62,21 @@ public class PlayerStats : MonoBehaviour, IDamageable
     private void OnEnable()
     {
         EnemiesManager.OnRoomHasAliveEnemies += EnteredRoomWithEnemies;
-        EnemyStats.OnEnemyWasKilled += EnemyWasKilled;      
+        EnemyStats.OnEnemyWasKilled += EnemyWasKilled;
+        PlayerDeath.OnPlayerRessurected += Ressurection;
     }
 
     private void OnDisable()
     {
         EnemiesManager.OnRoomHasAliveEnemies -= EnteredRoomWithEnemies;
         EnemyStats.OnEnemyWasKilled -= EnemyWasKilled;
+        PlayerDeath.OnPlayerRessurected += Ressurection;
+    }
+
+    private void Ressurection ()
+    {
+        CurrentHealth = MaximumHealth;
+        CurrentEnergy = MaximumEnergy;
     }
 
     private void EnemyWasKilled (DamageSource damageSource)
@@ -464,10 +476,40 @@ public class PlayerStats : MonoBehaviour, IDamageable
         }
     }
 
+    public float Cooldown
+    {
+        get
+        {
+            return cooldown;
+        }
+
+        set
+        {
+            cooldown = value;
+            GetComponent<SpecialAbility>().Cooldown = cooldown;
+        }
+    }
+
+    public int ExtraLives
+    {
+        get
+        {
+            return extraLives;
+        }
+
+        set
+        {
+            extraLives = value;
+        }
+    }
+
+
     private void EnteredRoomWithEnemies()
     {
         CurrentEnergy --;
     }
+
+    
 
 }
 
