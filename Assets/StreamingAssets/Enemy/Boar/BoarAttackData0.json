@@ -8,16 +8,16 @@
   "ConsecutiveAttackDelay" : 0.15,
   "AttackFrequency" : 0,
   "Damage" : 20,
-  "ProjectileSpeed" : 8,
+  "ProjectileSpeed" : 12,
   "ProjectileDestroyDelay" : 15,
-  "ProjectileRotations" : [0, 10, 20],
+  "ProjectileRotations" : [0, 20, 40],
   "ProjectileSpawnPositionOffset": [ { "x": 0, "y" : 0, "z" : 0 } ],
   "UniversalSpawnPositionOffset" : { "x": 0, "y" : 0, "z" : 0 },
   "RandomHorizontalFactorMin" : 0,
   "RandomHorizontalFactorMax" : 0,
   "RandomVerticalFactorMin" : 0,
   "RandomVerticalFactorMax" : 0,
-  "RandomRotationFactorMin" : 0,
-  "RandomRotationFactorMax" : 10
+  "RandomRotationFactorMin" : -10,
+  "RandomRotationFactorMax" : 20
   
 }

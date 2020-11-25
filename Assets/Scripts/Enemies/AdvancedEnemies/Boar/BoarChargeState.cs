@@ -24,7 +24,8 @@ public class BoarChargeState : State<BoarBrain>
     {
         if (stateOwner.enemyStats.Health > 0)
         {
-            RaycastHit2D hit = Physics2D.Raycast(stateOwner.transform.position, stateOwner.transform.right, 3, 1 << LayerMask.NameToLayer("Player"));
+            //RaycastHit2D hit = Physics2D.Raycast(stateOwner.transform.position, stateOwner.transform.right, 3, 1 << LayerMask.NameToLayer("Player"));
+            bool hit = Physics2D.OverlapCircle(stateOwner.transform.position, 4, 1 << LayerMask.NameToLayer("Player"));
             if (hit)
             {
                 stateOwner.animator.SetTrigger("Attack");

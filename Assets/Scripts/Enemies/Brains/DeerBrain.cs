@@ -53,10 +53,14 @@ public class DeerBrain : GroundEnemyBrain
     {
         if (enemyStats.Health > 0 && collision.gameObject.tag != "Spikes")
         {
-            if (rigidbody2d.velocity.y <= 0)
+            if (rigidbody2d.velocity.y <= 0 && collisionTracker.collisions.below)
             {
                 animator.SetTrigger("Jumping");
                 Jump(1, 8);
+            }
+            else if(collisionTracker.collisions.above)
+            {
+                rigidbody2d.velocity = new Vector2(rigidbody2d.velocity.x, -1);
             }
         }
     }
