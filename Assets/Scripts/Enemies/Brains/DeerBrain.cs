@@ -22,7 +22,6 @@ public class DeerBrain : GroundEnemyBrain
     protected override void Start()
     {
         base.Start();
-        InvokeRepeating("CallMainAttack", enemyStats.DelayBeforeFirstAttack, enemyStats.AttackData[0].AttackFrequency);
     }
 
     protected void FixedUpdate()
@@ -51,12 +50,13 @@ public class DeerBrain : GroundEnemyBrain
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if (enemyStats.Health > 0 && collision.gameObject.tag != "Spikes")
+        if (enemyStats.Health > 0)
         {
             if (rigidbody2d.velocity.y <= 0 && collisionTracker.collisions.below)
             {
                 animator.SetTrigger("Jumping");
                 Jump(1, 8);
+                CallMainAttack();
             }
             else if(collisionTracker.collisions.above)
             {

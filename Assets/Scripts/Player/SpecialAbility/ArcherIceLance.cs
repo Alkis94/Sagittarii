@@ -30,7 +30,7 @@ public class ArcherIceLance : SpecialAbility
                 audioSource.PlayOneShot(specialAbilitySound);
             }
             animator.SetTrigger("Special");
-            playerAttackHandler.SpecialAttack(playerAttackData, 3, 3);
+            playerAttackHandler.SpecialAttack(playerAttackData, 2, 3);
             timeTillNextCast = Time.time + Cooldown;
             playerStats.CurrentEnergy--;
             UIManager.Instance.UpdateSpecial(Cooldown);
