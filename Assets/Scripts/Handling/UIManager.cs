@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using TMPro;
+using System;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections;
@@ -10,6 +11,8 @@ public class UIManager : MonoBehaviour
 
     public static UIManager Instance { get; private set; } = null;
 
+    private int goldGained;
+
     [SerializeField]
     private TextMeshProUGUI energyText;
     [SerializeField]
@@ -18,6 +21,8 @@ public class UIManager : MonoBehaviour
     private TextMeshProUGUI ammoText;
     [SerializeField]
     private TextMeshProUGUI goldText;
+    [SerializeField]
+    private TextMeshProUGUI goldGainedText;
     [SerializeField]
     private TextMeshProUGUI relicNameText;
     [SerializeField]
@@ -36,6 +41,7 @@ public class UIManager : MonoBehaviour
     private Coroutine energyCoroutine = null;
     private Coroutine healthCoroutine = null;
     private Coroutine bossHealthCoroutine = null;
+    private Coroutine goldGainedCoroutine = null;
 
     [SerializeField]
     private Image bossHealthImage;
@@ -48,8 +54,7 @@ public class UIManager : MonoBehaviour
 
     private int bossMaxHealth;
     private int bossCurrentHealth;
-
-
+    
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -114,6 +119,47 @@ public class UIManager : MonoBehaviour
     public void UpdateGold(int gold)
     {
         goldText.text = gold.ToString();
+    }
+
+    public int GoldGained
+    {
+        get
+        {
+            return goldGained;
+        }
+
+        set
+        {
+            if (goldGainedCoroutine != null)
+            {
+                StopCoroutine(goldGainedCoroutine);
+            }
+
+            goldGained = value;
+            goldGainedText.enabled = true;
+
+            if (goldGained >= 0)
+            {
+                goldGainedText.text = "+" + GoldGained;
+            }
+            else
+            {
+                goldGainedText.text = "" + GoldGained;
+            }
+
+            goldGainedCoroutine = StartCoroutine(DisableGoldGained());
+        }
+    }
+
+    private IEnumerator DisableGoldGained()
+    {
+        yield return new WaitForSeconds(3f);
+        int gold = 0;
+        Int32.TryParse(goldText.text, out gold);
+        gold += GoldGained;
+        goldText.text = gold.ToString();
+        goldGainedText.enabled = false;
+        goldGained = 0;
     }
 
     public void UpdateSpecial(float cooldown)
@@ -260,7 +306,6 @@ public class UIManager : MonoBehaviour
 
     private IEnumerator MoveItemTexts()
     {
-
         LeanTween.moveLocalX(relicNameText.gameObject, 45, 0.5f).setEaseInOutCubic();
         LeanTween.moveLocalX(relicDescriptionText.gameObject, 45, 0.5f).setEaseInOutCubic();
         LeanTween.moveLocalX(relicTextBackground, 45, 0.5f).setEaseInOutCubic();

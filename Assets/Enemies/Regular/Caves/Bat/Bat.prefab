@@ -256,9 +256,6 @@ MonoBehaviour:
     - Name: Speed
       Entry: 4
       Data: 2
-    - Name: DelayBeforeFirstAttack
-      Entry: 4
-      Data: 3
     - Name: Damageable
       Entry: 5
       Data: true
@@ -478,7 +475,9 @@ PolygonCollider2D:
       - {x: -0.04389572, y: 0.13720322}
       - {x: -0.04374695, y: -0.015850544}
       - {x: -0.1203413, y: -0.1022172}
-      - {x: -0.11824608, y: -0.20589161}
+      - {x: -0.2963904, y: -0.21598385}
+      - {x: -0.29157475, y: -0.3414435}
+      - {x: -0.15537204, y: -0.34448797}
       - {x: 0.08540201, y: -0.19610947}
       - {x: 0.21137285, y: 0.004388809}
 --- !u!114 &5307266703334876319
@@ -539,7 +538,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.01929748, y: -0.08322045}
+  m_Offset: {x: -0.14373857, y: -0.07988736}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -550,7 +549,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.45704627, y: 0.37655538}
+  m_Size: {x: 0.7059285, y: 0.6276595}
   m_EdgeRadius: 0
 --- !u!114 &1395304471295538219
 MonoBehaviour:

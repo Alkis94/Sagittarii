@@ -80,7 +80,7 @@ public class PlayerLoader : MonoBehaviour
         playerStats.HealthMultiplier = ES3.Load<float>("HealthMultiplier", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
         playerStats.MaximumEnergy = ES3.Load<int>("MaximumEnergy", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
         playerStats.CurrentEnergy = ES3.Load<int>("CurrentEnergy", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-        playerStats.Gold = ES3.Load<int>("Gold", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
+        playerStats.GoldWithoutGainedGold = ES3.Load<int>("Gold", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
         playerStats.Ammo = ES3.Load<int>("Ammo", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
         playerStats.Damage = ES3.Load<int>("Damage", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
         playerStats.DamageMultiplier = ES3.Load<float>("DamageMultiplier", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");

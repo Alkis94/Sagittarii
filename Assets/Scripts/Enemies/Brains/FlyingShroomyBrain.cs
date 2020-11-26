@@ -32,10 +32,9 @@ public class FlyingShroomyBrain : FlyingEnemyBrain
         UpdateCollisionTracker();
         raycaster.UpdateRaycastOrigins();
 
-        //if (VerticalCollisions() && Time.time > cannotChangeDirectionTime)
+        //if (collisionTracker.collisions.above && Time.time > cannotChangeDirectionTime)
         //{
-        //    verticalDirection *= -1;
-        //    ChangeHorizontalDirection();
+            
         //    cannotChangeDirectionTime = Time.time + 0.05f;
         //}
     }
@@ -58,7 +57,6 @@ public class FlyingShroomyBrain : FlyingEnemyBrain
             }
             else
             {
-                
                 rigidbody2d.velocity = new Vector2(0, 1.9f);
                 yield return new WaitForFixedUpdate();
             }

@@ -60284,18 +60284,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 488018844}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &488018846 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8024046488873831897, guid: c3062dfe277629340a7af4c44657a268,
-    type: 3}
-  m_PrefabInstance: {fileID: 488018844}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 488018845}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1b3193554cb54949a23832aa13aa659, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!61 &488018847 stripped
 BoxCollider2D:
   m_CorrespondingSourceObject: {fileID: 297317692280176372, guid: c3062dfe277629340a7af4c44657a268,
@@ -61538,7 +61526,7 @@ MonoBehaviour:
     - {fileID: 488018850}
     - {fileID: 488018845}
     - {fileID: 488018847}
-    - {fileID: 488018846}
+    - {fileID: 0}
     - {fileID: 2800000, guid: 624be60db6885e841a1aa291688ff2bf, type: 3}
     - {fileID: 21300018, guid: 624be60db6885e841a1aa291688ff2bf, type: 3}
     - {fileID: 9100000, guid: dea042b105eed8f418f0c5a319b1d8ea, type: 2}
@@ -62144,7 +62132,7 @@ PrefabInstance:
     - target: {fileID: 629202849756676017, guid: c87a1fb76da5eff47a014ca47105728a,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 16.5
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 2800838404993818519, guid: c87a1fb76da5eff47a014ca47105728a,
         type: 3}

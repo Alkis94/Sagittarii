@@ -56,7 +56,8 @@ public class DeerBrain : GroundEnemyBrain
             {
                 animator.SetTrigger("Jumping");
                 Jump(1, 8);
-                CallMainAttack();
+                float randomDelay = Random.Range(0.25f, 0.75f); 
+                Invoke("CallMainAttack",randomDelay);
             }
             else if(collisionTracker.collisions.above)
             {

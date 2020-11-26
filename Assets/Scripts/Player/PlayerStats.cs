@@ -380,8 +380,21 @@ public class PlayerStats : MonoBehaviour, IDamageable
 
         set
         {
+            UIManager.Instance.GoldGained += value - gold;
             gold = value;
-            UIManager.Instance.UpdateGold(Gold);
+        }
+    }
+
+    public int GoldWithoutGainedGold
+    {
+        get
+        {
+            return gold;
+        }
+
+        set
+        {
+            gold = value;
         }
     }
 
