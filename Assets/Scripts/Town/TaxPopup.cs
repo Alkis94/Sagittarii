@@ -14,4 +14,12 @@ public class TaxPopup : MonoBehaviour
         }
     }
 
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "Player")
+        {
+            transform.GetChild(0).gameObject.SetActive(false);
+        }
+    }
+
 }

@@ -37,6 +37,10 @@ public class UIManager : MonoBehaviour
     private Image energyImage;
     [SerializeField]
     private Image specialImage;
+    [SerializeField]
+    private TextMeshProUGUI locationText;
+    [SerializeField]
+    private CanvasGroup locationGroup;
 
     private Coroutine energyCoroutine = null;
     private Coroutine healthCoroutine = null;
@@ -320,7 +324,7 @@ public class UIManager : MonoBehaviour
         StartCoroutine(ActivateDeathUI());
     }
 
-    IEnumerator ActivateDeathUI()
+    private IEnumerator ActivateDeathUI()
     {
         blackDeathImage.enabled = true;
         float delay = Time.time + 2f;
@@ -334,6 +338,20 @@ public class UIManager : MonoBehaviour
 
         GameManager.GameState = GameStateEnum.paused;
         defeatMenu.SetActive(true);
+    }
+
+    public void CallLocationText(string location)
+    {
+        StartCoroutine(ShowLocation(location));
+    }
+
+    private IEnumerator ShowLocation(string location)
+    {
+        yield return new WaitForSeconds(0.5f);
+        locationText.text = location;
+        LeanTween.alphaCanvas(locationGroup, 1f, 1.5f).setEase(LeanTweenType.easeInCirc);
+        yield return new WaitForSeconds(3f);
+        LeanTween.alphaCanvas(locationGroup, 0f, 0.25f).setEase(LeanTweenType.linear);
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)

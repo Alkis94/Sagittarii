@@ -81,6 +81,7 @@ public class MapManager : SerializedMonoBehaviour
         {
             CurrentMap = MapType.town;
             SceneFader.Instance.LoadSceneWithFade("Town");
+            UIManager.Instance.CallLocationText("Floyd's Rest");
         }
         else if (currentMap == MapType.town && nextMap == MapType.forest)
         {
@@ -90,6 +91,7 @@ public class MapManager : SerializedMonoBehaviour
 
 
             SceneFader.Instance.LoadSceneWithFade(map[forestFirstRoomCoordinates.x, forestFirstRoomCoordinates.y].RoomName);
+            UIManager.Instance.CallLocationText("Woods of Astrea");
             OnRoomChangeRenderMapPart();
             MoveCurrentPlayerPositionAndCenterMap();
 
@@ -115,6 +117,7 @@ public class MapManager : SerializedMonoBehaviour
             ExtensionMethods.InstantiateAtLocalPosition(roomIcons[(int)CurrentMap - 1][(int)RoomType.verticalRoad], mapTransform, mapCoordinates);
 
             SceneFader.Instance.LoadSceneWithFade(map[caveFirstRoomCoordinates.x, caveFirstRoomCoordinates.y].RoomName);
+            UIManager.Instance.CallLocationText("Mushroom Caverns");
             OnRoomChangeRenderMapPart();
             MoveCurrentPlayerPositionAndCenterMap();
 
@@ -129,6 +132,7 @@ public class MapManager : SerializedMonoBehaviour
             CurrentMapCoords = forestFirstRoomCoordinates;
             map = forestMap;
             SceneFader.Instance.LoadSceneWithFade(map[forestFirstRoomCoordinates.x, forestFirstRoomCoordinates.y].RoomName);
+            UIManager.Instance.CallLocationText("Woods of Astrea");
             MoveCurrentPlayerPositionAndCenterMap();
         }
     }

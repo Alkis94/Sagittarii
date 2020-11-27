@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1124311174864453900}
   - component: {fileID: 6294488779518343959}
-  - component: {fileID: 3940621234184241025}
+  - component: {fileID: 5583084836717408498}
   - component: {fileID: 1124311174864453901}
   m_Layer: 23
-  m_Name: ForestChest
+  m_Name: CaveChest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -60,7 +60,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.25, y: 0.75}
   m_EdgeRadius: 0
---- !u!82 &3940621234184241025
+--- !u!82 &5583084836717408498
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -169,8 +169,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 334544dab1324424ab287058e5b4a90a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minGoldDrop: 30
-  maxGoldDrop: 80
+  minGoldDrop: 50
+  maxGoldDrop: 100
 --- !u!1 &2983830562050375256
 GameObject:
   m_ObjectHideFlags: 0
@@ -237,10 +237,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 2067085647
-  m_SortingLayer: -3
-  m_SortingOrder: 5
-  m_Sprite: {fileID: 21300006, guid: 7717e2defac02384f8471e666f0fa211, type: 3}
+  m_SortingLayerID: 1720406023
+  m_SortingLayer: -2
+  m_SortingOrder: 1
+  m_Sprite: {fileID: 21300006, guid: 4f678406ea3709d4f8357bf93bde650e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -261,7 +261,7 @@ Animator:
   m_GameObject: {fileID: 2983830562050375256}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: ea43d9dae4dc40c489ebb0d4bb2d581a, type: 2}
+  m_Controller: {fileID: 9100000, guid: fb47e8a50ac15294ca340abf29ce5718, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

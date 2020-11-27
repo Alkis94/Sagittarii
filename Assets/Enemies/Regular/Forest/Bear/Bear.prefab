@@ -46,7 +46,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.17455482, y: -0.044053376}
+  m_Offset: {x: -0.17455482, y: -0.040880382}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -57,7 +57,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.7081871, y: 1.534928}
+  m_Size: {x: 0.7081871, y: 1.528582}
   m_EdgeRadius: 0
 --- !u!114 &3054776417738735894
 MonoBehaviour:
@@ -300,7 +300,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -607018307
-  m_SortingLayer: 2
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300014, guid: b11aea4edd3c52c43bbdf543f4acc178, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -478,9 +478,6 @@ MonoBehaviour:
     - Name: Speed
       Entry: 4
       Data: 2
-    - Name: DelayBeforeFirstAttack
-      Entry: 4
-      Data: 3
     - Name: Damageable
       Entry: 5
       Data: true
@@ -543,10 +540,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2fcd36de2d99364284ead4693c12c9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyStats: {fileID: 0}
-  collisionTracker: {fileID: 0}
-  rigidbody2d: {fileID: 0}
-  audioSource: {fileID: 0}
+  cannotChangeDirectionTime: 0
 --- !u!114 &3054776419552895611
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -648,7 +642,7 @@ PrefabInstance:
     - target: {fileID: 1693456610043604578, guid: 8c343278596b39a4a9787d883cfe4b8e,
         type: 3}
       propertyPath: m_SortingLayer
-      value: 2
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5970716360217621940, guid: 8c343278596b39a4a9787d883cfe4b8e,
         type: 3}

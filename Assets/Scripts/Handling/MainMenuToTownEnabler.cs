@@ -5,7 +5,7 @@ using System.Collections;
 public class MainMenuToTownEnabler : MonoBehaviour
 {
     [SerializeField]
-    private GameObject UI;
+    private GameObject playerUI;
     [SerializeField]
     private GameObject character;
     [SerializeField]
@@ -27,7 +27,7 @@ public class MainMenuToTownEnabler : MonoBehaviour
     {
         if (scene.name == "Town")
         {
-            UI.SetActive(true);
+            playerUI.SetActive(true);
             playerCamera.SetActive(true);
             character.transform.GetChild(0).gameObject.SetActive(true);
             itemFactories.SetActive(true);

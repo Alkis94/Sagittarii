@@ -50,7 +50,9 @@ public class SaveProfile : MonoBehaviour
         else
         {
             FindObjectOfType<CharacterChooser>().CharacterClassChosen = (CharacterClass)hero;
-            SceneManager.LoadScene("Town");
+            SceneFader.Instance.LoadSceneWithFade("Town");
+            UIManager.Instance.CallLocationText("Floyd's Rest");
+
         }
     }
 

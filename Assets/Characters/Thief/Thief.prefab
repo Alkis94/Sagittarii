@@ -646,19 +646,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterClass: 1
-  currentHealth: 50
-  maximumHealth: 50
-  healthMultiplier: 1
+  currentHealth: 80
+  maximumHealth: 80
+  healthMultiplier: 0.8
   currentEnergy: 30
   maximumEnergy: 30
   ammo: 500
-  gold: 0
+  gold: 100
   armor: 0
   luck: 0.05
   speed: 8
   projectileSpeed: 15
   damage: 10
-  damageMultiplier: 1
+  damageMultiplier: 1.2
   damageTakenMultiplier: 1
   lifesteal: 0
   lifestealChance: 0
@@ -667,6 +667,8 @@ MonoBehaviour:
   timeLimit: 600
   townTax: 100
   restCost: 10
+  cooldown: 10
+  extraLives: 0
 --- !u!114 &8746986526224764410
 MonoBehaviour:
   m_ObjectHideFlags: 0

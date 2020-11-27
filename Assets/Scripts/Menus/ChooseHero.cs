@@ -10,6 +10,7 @@ public class ChooseHero : MonoBehaviour
     public void OnChoosePress()
     {
         FindObjectOfType<CharacterChooser>().CharacterClassChosen = characterClass;
-        SceneManager.LoadScene("Town");
+        SceneFader.Instance.LoadSceneWithFade("Town");
+        UIManager.Instance.CallLocationText("Floyd's Rest");
     }
 }

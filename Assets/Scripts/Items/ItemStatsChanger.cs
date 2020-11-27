@@ -22,7 +22,7 @@ public class ItemStatsChanger : MonoBehaviour
     [SerializeField]
     private int damage = 0;
     [SerializeField]
-    private float damagePercentageIncrease = 0;
+    private int damagePercentageIncrease = 0;
     [SerializeField]
     private float damageMultiplier = 0f;
     [SerializeField]
@@ -68,8 +68,8 @@ public class ItemStatsChanger : MonoBehaviour
             playerStats.MaximumEnergy += maxEnergy;
             playerStats.CurrentEnergy += currentEnergy;
             playerStats.Speed += speed;
-            playerStats.Damage += damage;
-            playerStats.IncreaseDamageByPercentage(damagePercentageIncrease);
+            playerStats.AddDamage(damage, false);
+            playerStats.AddDamage(damagePercentageIncrease, true);
             playerStats.DamageMultiplier += damageMultiplier;
             playerStats.DamageTakenMultiplier += damageTakenMultiplier;
             playerStats.Ammo += ammo;

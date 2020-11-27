@@ -37,7 +37,7 @@ public class CaveMapCreator : MapCreator
         //Creating map layout
         map[10, 0].RoomType = RoomType.startingRoom;
         map[10, 1].RoomType = RoomType.verticalRoad;
-        bossRoomCoordinates = CreatePathToBoss(8, startRoomCoordinates, false);
+        bossRoomCoordinates = CreatePathToBoss(10, startRoomCoordinates, false);
         CreateRandomPaths(6, 3);
 
         //Assigning rooms-levels.

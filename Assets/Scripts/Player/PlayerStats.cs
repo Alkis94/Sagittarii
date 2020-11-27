@@ -155,9 +155,17 @@ public class PlayerStats : MonoBehaviour, IDamageable
         }
     }
 
-    public void IncreaseDamageByPercentage(float percentage)
+    public void AddDamage(int damageAmount, bool isPercentage)
     {
-        Damage += (int)(Damage * percentage / 100);
+        if(isPercentage)
+        {
+            Damage += (Damage * damageAmount / 100);
+        }
+        else
+        {
+            Damage += (int)(damageAmount * DamageMultiplier);
+        }
+        
     }
 
     public CharacterClass CharacterClass
@@ -380,7 +388,10 @@ public class PlayerStats : MonoBehaviour, IDamageable
 
         set
         {
-            UIManager.Instance.GoldGained += value - gold;
+            if(value - gold != 0)
+            {
+                UIManager.Instance.GoldGained += value - gold;
+            }
             gold = value;
         }
     }
