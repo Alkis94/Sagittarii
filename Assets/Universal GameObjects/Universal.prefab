@@ -256,6 +256,7 @@ MonoBehaviour:
   character: {fileID: 1456814328454883797}
   playerCamera: {fileID: 33156507}
   itemFactories: {fileID: 5772333893187830919}
+  musicManager: {fileID: 5711659144302067199}
 --- !u!1 &2963892804944081556
 GameObject:
   m_ObjectHideFlags: 0
@@ -406,10 +407,11 @@ AudioSource:
   m_GameObject: {fileID: 5711659144302067199}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 243265798069924560, guid: bb9be695547233747b430024ce61251c,
+    type: 2}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 0.2
+  m_PlayOnAwake: 0
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -505,8 +507,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09443b7047757b740b2d4a967386247e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forestMusic: {fileID: 8300000, guid: 0c125d3898df26746a3a5f03b2766390, type: 3}
-  townMusic: {fileID: 8300000, guid: fea44e4e75f766c45b15850b598c8ecc, type: 3}
+  townMusic: {fileID: 8300000, guid: 665dce2a6768fb04ca7e231617397526, type: 3}
+  forestMusic: {fileID: 8300000, guid: 29f376698c926f345adb570d6eefc862, type: 3}
+  bearBossMusic: {fileID: 8300000, guid: d29ffe2e3f5a37644a0259d8815ad37b, type: 3}
+  caveMusic: {fileID: 8300000, guid: 3326be7a0be3955478c5eacddcacf196, type: 3}
 --- !u!1001 &57344795
 PrefabInstance:
   m_ObjectHideFlags: 0

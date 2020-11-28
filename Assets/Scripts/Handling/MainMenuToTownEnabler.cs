@@ -12,6 +12,8 @@ public class MainMenuToTownEnabler : MonoBehaviour
     private GameObject playerCamera;
     [SerializeField]
     private GameObject itemFactories;
+    [SerializeField]
+    private GameObject musicManager;
 
     private void OnEnable()
     {
@@ -31,6 +33,7 @@ public class MainMenuToTownEnabler : MonoBehaviour
             playerCamera.SetActive(true);
             character.transform.GetChild(0).gameObject.SetActive(true);
             itemFactories.SetActive(true);
+            musicManager.SetActive(true);
             Destroy(gameObject);
         }
     }

@@ -39,6 +39,11 @@ public class MainMenuManager : MonoBehaviour
         optionsMenu.SetActive(!optionsMenu.activeInHierarchy);
     }
 
+    public void OnFeedbackPress()
+    {
+        Application.OpenURL("https://docs.google.com/forms/d/1zuaQ0tMaZlLFDh1UJgHT0XTXcimbO7o1S9BPaQ4GNkE/edit?usp=sharing");
+    }
+
     public void OnQuitPress()
     {
         quitMenu.SetActive(true);

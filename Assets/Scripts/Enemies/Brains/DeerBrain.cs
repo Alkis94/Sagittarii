@@ -50,6 +50,11 @@ public class DeerBrain : GroundEnemyBrain
 
     private void OnCollisionStay2D(Collision2D collision)
     {
+        if(!enabled)
+        {
+            return;
+        }
+
         if (enemyStats.Health > 0)
         {
             if (rigidbody2d.velocity.y <= 0 && collisionTracker.collisions.below)

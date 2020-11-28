@@ -8,9 +8,17 @@ public class MusicManager : MonoBehaviour
     private AudioSource audioSource;
 
     [SerializeField]
+    private AudioClip townMusic;
+    [SerializeField]
     private AudioClip forestMusic;
     [SerializeField]
-    private AudioClip townMusic;
+    private AudioClip bearBossMusic;
+    [SerializeField]
+    private AudioClip caveMusic;
+
+    private MapType mapType;
+    private RoomType roomType;
+
 
     void Awake()
     {
@@ -20,6 +28,7 @@ public class MusicManager : MonoBehaviour
     void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
+        PlayTheRightMusic(SceneManager.GetActiveScene());
     }
 
     void OnDisable()
@@ -29,26 +38,42 @@ public class MusicManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if(SceneManager.GetActiveScene().name == "Town" )
+        mapType = MapManager.Instance.CurrentMap;
+        roomType = MapManager.Instance.GetMapRoomType();
+        PlayTheRightMusic(scene);
+    }
+
+    private void PlayTheRightMusic(Scene scene)
+    {
+        if (scene.name == "Town")
         {
             if (audioSource.clip != townMusic)
             {
-                StartCoroutine(PlayMusicWithDelay(townMusic, 5));
+                StartCoroutine(PlayMusicWithDelay(townMusic, 1));
             }
         }
-        else if(SceneManager.GetActiveScene().name == "MainMenu")
+        else if (scene.name == "BearBoss")
         {
-            audioSource.Stop();
-        }
-        else
-        {
-            if(audioSource.clip != forestMusic)
+            if (audioSource.clip != bearBossMusic)
             {
-                StartCoroutine(PlayMusicWithDelay(forestMusic, 3));
+                StartCoroutine(PlayMusicWithDelay(bearBossMusic, 1));
+            }
+        }
+        else if (mapType == MapType.forest)
+        {
+            if (audioSource.clip != forestMusic)
+            {
+                StartCoroutine(PlayMusicWithDelay(forestMusic, 2));
+            }
+        }
+        else if (mapType == MapType.cave)
+        {
+            if (audioSource.clip != caveMusic)
+            {
+                StartCoroutine(PlayMusicWithDelay(caveMusic, 2));
             }
         }
     }
-
 
     IEnumerator PlayMusicWithDelay(AudioClip audioClip,float delay)
     {
