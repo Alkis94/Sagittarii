@@ -275,9 +275,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb2828587ef49cb4b89a153fd8797b69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  despawnDelay: 120
   relicName: Banana
   relicDescription: Good monkey! Health increased!
+  relicRarity: 0
 --- !u!114 &6273039365728452543
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -292,8 +292,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthPercentageHeal: 0
   maxHealthPercentageIncrease: 0
-  currentHealth: 3
-  maxHealth: 3
+  currentHealth: 5
+  maxHealth: 5
   healthMultiplier: 0
   currentEnergy: 0
   maxEnergy: 0
@@ -313,6 +313,8 @@ MonoBehaviour:
   timeLimit: 0
   townTax: 0
   restCost: 0
+  cooldown: 0
+  extraLives: 0
 --- !u!114 &5026641197495105443
 MonoBehaviour:
   m_ObjectHideFlags: 0

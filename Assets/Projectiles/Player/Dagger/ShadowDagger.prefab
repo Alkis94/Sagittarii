@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 114515642773749994}
   - component: {fileID: 1540781080456918716}
   m_Layer: 13
-  m_Name: Dagger
+  m_Name: ShadowDagger
   m_TagString: EnemyProjectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,12 +74,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 6d9a1c80c4f8125488bec2a3434041ff, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d9e68330c7a27064ea238ac36cd0baa8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.5, y: 0.45}
+  m_Size: {x: 0.9, y: 0.55}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -138,18 +138,18 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.07642594, y: 0}
+  m_Offset: {x: 0.13821203, y: 0.022556782}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.55, y: 0.55}
-    newSize: {x: 0.5, y: 0.45}
+    oldSize: {x: 0.9, y: 0.55}
+    newSize: {x: 0.9, y: 0.55}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.402018, y: 0.25}
+  m_Size: {x: 0.5255902, y: 0.4010327}
   m_EdgeRadius: 0
 --- !u!82 &4598157385205579857
 AudioSource:
@@ -274,8 +274,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   velocityOnHit: {x: 0, y: 0}
   impactSound: {fileID: 8300000, guid: d063e0f11bb465a48b09aad373d01738, type: 3}
-  bulletSplits: 0
   isPenetrative: 0
-  attackData: {fileID: 0}
+  ignoresCollisions: 0
   hasImpactAnimation: 1
-  hasTravelAnimation: 0
+  hasTravelAnimation: 1

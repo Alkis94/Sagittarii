@@ -79,7 +79,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 200
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -169,8 +169,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 334544dab1324424ab287058e5b4a90a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minGoldDrop: 50
-  maxGoldDrop: 100
+  minGoldDrop: 75
+  maxGoldDrop: 150
 --- !u!1 &2983830562050375256
 GameObject:
   m_ObjectHideFlags: 0

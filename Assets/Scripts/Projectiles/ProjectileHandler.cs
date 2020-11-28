@@ -84,7 +84,7 @@ public class ProjectileHandler: MonoBehaviour
             particleSystem.Stop();
         }
 
-        Destroy(gameObject, impactDestroyDelay);
+        Destroy(gameObject, impactDestroyDelay + 0.2f);
     }
 
     private void StopProjectile()

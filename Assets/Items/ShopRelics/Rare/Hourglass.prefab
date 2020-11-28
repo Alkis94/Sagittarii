@@ -275,7 +275,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb2828587ef49cb4b89a153fd8797b69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  despawnDelay: 120
   relicName: Hourglass
   relicDescription: Time is the death of us all..
   relicRarity: 1
@@ -314,6 +313,8 @@ MonoBehaviour:
   timeLimit: 60
   townTax: 0
   restCost: 0
+  cooldown: 0
+  extraLives: 0
 --- !u!114 &3229535350977851422
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -326,7 +327,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f54d5381393586649a7d4a6fcde97e0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: 300
+  cost: 500
 --- !u!1 &3923862190139915852
 GameObject:
   m_ObjectHideFlags: 0

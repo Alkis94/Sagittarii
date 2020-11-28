@@ -173,8 +173,7 @@ public class PlayerAttackHandler : MonoBehaviour
     private void CalculateNewPlayerAttackData(PlayerAttackHolder playerAttackHolder, PlayerAttackData attackData, bool isMainAttack = false)
     {
         playerAttackHolder.ConsecutiveAttacks = attackData.ConsecutiveAttacks > playerAttackHolder.ConsecutiveAttacks ? attackData.ConsecutiveAttacks : playerAttackHolder.ConsecutiveAttacks;
-        playerAttackHolder.ConsecutiveAttackDelay = attackData.ConsecutiveAttackDelay < playerAttackHolder.ConsecutiveAttackDelay ? attackData.ConsecutiveAttackDelay : playerAttackHolder.ConsecutiveAttackDelay;
-        playerAttackHolder.ConsecutiveAttackDelay = playerAttackHolder.ConsecutiveAttackDelay < 0.1f ? 0.1f : playerAttackHolder.ConsecutiveAttackDelay;
+        playerAttackHolder.ConsecutiveAttackDelay = attackData.ConsecutiveAttackDelay;
         playerAttackHolder.ProjectileRotations = attackData.ProjectileRotations.Union(attackData.ProjectileRotations).ToList();
         playerAttackHolder.ProjectileAmount = attackData.ProjectileRotations.Count;
         playerAttackHolder.UniversalSpawnPositionOffset = Vector3.zero;

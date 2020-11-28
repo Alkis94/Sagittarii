@@ -97,7 +97,7 @@ public class DoctorShop : MonoBehaviour, IInteractable
         {
             playerStats.ApplyHeal(healAmount * playerStats.MaximumHealth / 100);
             playerStats.Gold -= healCost;
-            healthMenu.SetActive(false);
+            ResetHealthMenu();
         }
     }
 
@@ -105,8 +105,17 @@ public class DoctorShop : MonoBehaviour, IInteractable
     {
         if (collision.tag == "Player")
         {
-            healthMenu.SetActive(false);
+            ResetHealthMenu();
         }
+    }
+
+    private void ResetHealthMenu()
+    {
+        healAmount = 0;
+        healCost = 0;
+        healAmountText.text =  "0%";
+        healCostText.text = "0";
+        healthMenu.SetActive(false);
     }
 
 }

@@ -38,8 +38,11 @@ public class MusicManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        mapType = MapManager.Instance.CurrentMap;
-        roomType = MapManager.Instance.GetMapRoomType();
+        if (scene.name != "Town")
+        {
+            mapType = MapManager.Instance.CurrentMap;
+            roomType = MapManager.Instance.GetMapRoomType();
+        }
         PlayTheRightMusic(scene);
     }
 
