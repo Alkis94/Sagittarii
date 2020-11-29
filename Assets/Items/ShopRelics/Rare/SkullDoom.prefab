@@ -292,8 +292,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthPercentageHeal: 0
   maxHealthPercentageIncrease: 0
-  currentHealth: 0
-  maxHealth: 0
+  currentHealth: -10
+  maxHealth: -10
   healthMultiplier: 0
   currentEnergy: 0
   maxEnergy: 0
@@ -327,7 +327,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f54d5381393586649a7d4a6fcde97e0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: 750
+  cost: 850
 --- !u!1 &3923862190139915852
 GameObject:
   m_ObjectHideFlags: 0

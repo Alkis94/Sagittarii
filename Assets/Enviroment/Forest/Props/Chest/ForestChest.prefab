@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1124311174864453900}
   - component: {fileID: 6294488779518343959}
-  - component: {fileID: 3940621234184241025}
+  - component: {fileID: 788374238285245288}
   - component: {fileID: 1124311174864453901}
   m_Layer: 23
   m_Name: ForestChest
@@ -60,7 +60,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.25, y: 0.75}
   m_EdgeRadius: 0
---- !u!82 &3940621234184241025
+--- !u!82 &788374238285245288
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -73,18 +73,18 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 8300000, guid: 81f42d9bab127d34f890e09340501146, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 200
+  Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 50
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -132,7 +132,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.5
       inSlope: 0
       outSlope: 0
       tangentMode: 0

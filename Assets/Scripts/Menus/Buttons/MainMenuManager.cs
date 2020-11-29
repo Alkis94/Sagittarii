@@ -41,7 +41,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void OnFeedbackPress()
     {
-        Application.OpenURL("https://docs.google.com/forms/d/1zuaQ0tMaZlLFDh1UJgHT0XTXcimbO7o1S9BPaQ4GNkE/edit?usp=sharing");
+        Application.OpenURL("https://docs.google.com/forms/d/e/1FAIpQLSeh8mK7OmkDzpzj1dnIaeTQ7_w8CZTfgyQgHpa0gMru9Ud9ow/viewform");
     }
 
     public void OnQuitPress()

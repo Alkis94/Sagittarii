@@ -147,7 +147,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -607018307
-  m_SortingLayer: 2
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300012, guid: 63346d4c8fe60ab49b8478a40cf068c4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -209,7 +209,8 @@ AudioSource:
   m_GameObject: {fileID: 1688857693048517404}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 243167415347350056, guid: bb9be695547233747b430024ce61251c,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: 8f6dda4fbf2d7694a9d6bef89e0173eb, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -324,9 +325,6 @@ MonoBehaviour:
     - Name: Speed
       Entry: 4
       Data: 2
-    - Name: DelayBeforeFirstAttack
-      Entry: 4
-      Data: 3
     - Name: Damageable
       Entry: 5
       Data: true
@@ -389,10 +387,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bcfbf9bb7b03ac47a59af87183252a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyStats: {fileID: 0}
-  collisionTracker: {fileID: 0}
-  rigidbody2d: {fileID: 0}
-  audioSource: {fileID: 0}
+  cannotChangeDirectionTime: 0
   web: {fileID: 5111895986864084250, guid: 718a1141f7ea7f64ab14622a07d8b4d1, type: 3}
 --- !u!114 &1651605479553341530
 MonoBehaviour:

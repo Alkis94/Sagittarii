@@ -11,7 +11,6 @@ public class PlayerSceneChangeManager : MonoBehaviour
     private RuntimeAnimatorController townController;
     [SerializeField]
     private RuntimeAnimatorController bodyController;
-
     private Direction lastDoorTakenPlacement;
 
 

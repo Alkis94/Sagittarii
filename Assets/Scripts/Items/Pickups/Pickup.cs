@@ -28,6 +28,7 @@ public class Pickup : MonoBehaviour
     {
         gameObject.layer = 14;
         spriteRenderer.enabled = false;
+        audioSource.enabled = true;
         audioSource.Play();
         Destroy(gameObject, 0.3f);
     }
