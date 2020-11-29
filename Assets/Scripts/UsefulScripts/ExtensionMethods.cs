@@ -66,4 +66,23 @@ public static class ExtensionMethods
         return (bCounter == bLength);
     }
 
+    public static void FadeOut(this AudioSource audioSource, float duration)
+    {
+        audioSource.GetComponent<MonoBehaviour>().StartCoroutine(FadeOutCore(audioSource, duration));
+    }
+
+    private static IEnumerator FadeOutCore(AudioSource audioSource, float duration)
+    {
+        float startVolume = audioSource.volume;
+
+        while (audioSource.volume > 0)
+        {
+            audioSource.volume -= startVolume * Time.deltaTime / duration;
+            yield return new WaitForEndOfFrame();
+        }
+
+        audioSource.Stop();
+        audioSource.volume = startVolume;
+    }
+
 }

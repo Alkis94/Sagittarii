@@ -43,6 +43,8 @@ public class DoctorShop : MonoBehaviour, IInteractable
 
     public void OnMaxClick()
     {
+        float currentHealthPercentage = (float)playerStats.CurrentHealth / (float)playerStats.MaximumHealth * 100;
+        missingHealthPercentage = 100 - (int)(currentHealthPercentage);
         healAmount = missingHealthPercentage;
         healCost = missingHealthPercentage;
         if(healAmount > playerStats.Gold)
@@ -95,7 +97,7 @@ public class DoctorShop : MonoBehaviour, IInteractable
     {
         if (playerStats.Gold >= healCost)
         {
-            playerStats.ApplyHeal(healAmount * playerStats.MaximumHealth / 100);
+            playerStats.ApplyHeal(healAmount,true);
             playerStats.Gold -= healCost;
             ResetHealthMenu();
         }

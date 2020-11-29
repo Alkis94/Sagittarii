@@ -36,11 +36,6 @@ public class PlayerSceneChangeManager : MonoBehaviour
         BossDoor.DoorEntered -= NextPlayerSpawnPointDirection;
     }
 
-    private void Awake()
-    {
-        lastDoorTakenPlacement = Direction.west;
-    }
-
     private void Start()
     {
         if(SceneManager.GetActiveScene().name == "Town")
@@ -72,7 +67,7 @@ public class PlayerSceneChangeManager : MonoBehaviour
         hands.SetActive(false);
     }
 
-    private void NextPlayerSpawnPointDirection(string levelToLoad = null)
+    public void NextPlayerSpawnPointDirection(string levelToLoad = null)
     {
         lastDoorTakenPlacement = Direction.middle;
     }

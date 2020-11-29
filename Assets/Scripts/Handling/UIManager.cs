@@ -313,7 +313,7 @@ public class UIManager : MonoBehaviour
         LeanTween.moveLocalX(relicNameText.gameObject, 45, 0.5f).setEaseInOutCubic();
         LeanTween.moveLocalX(relicDescriptionText.gameObject, 45, 0.5f).setEaseInOutCubic();
         LeanTween.moveLocalX(relicTextBackground, 45, 0.5f).setEaseInOutCubic();
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(3f);
         LeanTween.moveLocalX(relicNameText.gameObject, 600, 0.5f).setEaseInOutBack();
         LeanTween.moveLocalX(relicDescriptionText.gameObject, 600, 0.5f).setEaseInOutBack();
         LeanTween.moveLocalX(relicTextBackground, 600, 0.5f).setEaseInOutBack();

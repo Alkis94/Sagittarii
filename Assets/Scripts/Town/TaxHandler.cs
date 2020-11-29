@@ -6,7 +6,7 @@ public class TaxHandler : MonoBehaviour
     public bool TaxWasPaid { get; private set; } = false;
 
     private PlayerStats playerStats;
-    private int tax = 11;
+    private int tax = 100;
     [SerializeField]
     private TextMeshProUGUI costText;
    

@@ -302,7 +302,6 @@ GameObject:
   - component: {fileID: 3287006706152302980}
   - component: {fileID: 7193315508333828462}
   - component: {fileID: 1814911171299523150}
-  - component: {fileID: 5953550548956530663}
   - component: {fileID: 861896868}
   - component: {fileID: 4155311743462907061}
   - component: {fileID: 2902877441415142611}
@@ -348,7 +347,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c562cd910234aaa4c9c61c35cbbc69e5, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -366,7 +365,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -607018307
-  m_SortingLayer: 2
+  m_SortingLayer: -1
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: d8052661e3ba7e84298c0dadc97a6bcd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -406,7 +405,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6112859251357942033}
-  m_BodyType: 0
+  m_BodyType: 2
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -419,32 +418,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!61 &5953550548956530663
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6112859251357942033}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 6200000, guid: c243a64a7d4e3e64288caeb5a22e6c78, type: 2}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.019465014, y: -0.048551083}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.95, y: 1.5}
-    newSize: {x: 1.25, y: 1.75}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.39935347, y: 1.3066902}
-  m_EdgeRadius: 0
 --- !u!82 &861896868
 AudioSource:
   m_ObjectHideFlags: 0
@@ -570,9 +543,6 @@ MonoBehaviour:
     - Name: Speed
       Entry: 4
       Data: 6
-    - Name: DelayBeforeFirstAttack
-      Entry: 4
-      Data: 3
     - Name: Damageable
       Entry: 5
       Data: false
@@ -660,10 +630,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25563c7675a97b34884eebc257299f47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyStats: {fileID: 0}
-  collisionTracker: {fileID: 0}
-  rigidbody2d: {fileID: 0}
-  audioSource: {fileID: 0}
+  cannotChangeDirectionTime: 0
 --- !u!1 &6191684761469462357
 GameObject:
   m_ObjectHideFlags: 0
@@ -710,7 +677,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.018648311, y: -0.04730898}
+  m_Offset: {x: 0.030122057, y: -0.05950147}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -721,7 +688,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.3979229, y: 1.3077427}
+  m_Size: {x: 0.49546364, y: 1.3321277}
   m_EdgeRadius: 0
 --- !u!114 &7671294595727706717
 MonoBehaviour:

@@ -35,6 +35,7 @@ public class PlayerInput : MonoBehaviour
     private Animator animator;
     private AudioSource audioSource;
     private float timePassedHoldingAttack = 0;
+    private float cheatDelay = 0;
 
     private void Awake()
     {
@@ -162,6 +163,22 @@ public class PlayerInput : MonoBehaviour
                     teleportCoroutine = StartCoroutine(Teleport());
                 }
             }
+
+            //Cheat for testing
+
+            if (Input.GetKey(KeyCode.O))
+            {
+                cheatDelay += Time.deltaTime;
+                
+            }
+            if(Input.GetKeyUp(KeyCode.O))
+            {
+                if (cheatDelay > 5)
+                {
+                    Cheat();
+                }
+                cheatDelay = 0;
+            }
         }
         else if (GameManager.GameState == GameStateEnum.paused)
         {
@@ -234,6 +251,7 @@ public class PlayerInput : MonoBehaviour
         teleportCoroutine = null;
         if(playerStats.CurrentHealth > 0)
         {
+            GetComponent<PlayerSceneChangeManager>().NextPlayerSpawnPointDirection();
             SceneFader.Instance.LoadSceneWithFade("Town");
         }
     }
@@ -261,6 +279,20 @@ public class PlayerInput : MonoBehaviour
         {
             animator.SetTrigger("ResetHands");
         }
+    }
+
+    private void Cheat()
+    {
+        playerStats.AddMaxHealth(9899);
+        playerStats.ApplyHeal(9899);
+        playerStats.MaximumEnergy += 70;
+        playerStats.CurrentEnergy += 70;
+        playerStats.AddDamage(100, false);
+        playerStats.Ammo += 500;
+        playerStats.Gold += 9999;
+        playerStats.Armor += 50;
+        playerStats.TimeLimit += 300;
+        playerStats.Cooldown += -10;
     }
 
 }

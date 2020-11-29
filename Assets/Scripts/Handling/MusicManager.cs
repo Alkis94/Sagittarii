@@ -52,35 +52,38 @@ public class MusicManager : MonoBehaviour
         {
             if (audioSource.clip != townMusic)
             {
-                StartCoroutine(PlayMusicWithDelay(townMusic, 1));
+                audioSource.FadeOut(2);
+                StartCoroutine(PlayMusicWithDelay(townMusic, 3));
             }
         }
         else if (scene.name == "BearBoss")
         {
             if (audioSource.clip != bearBossMusic)
             {
-                StartCoroutine(PlayMusicWithDelay(bearBossMusic, 1));
+                audioSource.FadeOut(2);
+                StartCoroutine(PlayMusicWithDelay(bearBossMusic, 3));
             }
         }
         else if (mapType == MapType.forest)
         {
             if (audioSource.clip != forestMusic)
             {
-                StartCoroutine(PlayMusicWithDelay(forestMusic, 2));
+                audioSource.FadeOut(2);
+                StartCoroutine(PlayMusicWithDelay(forestMusic, 3));
             }
         }
         else if (mapType == MapType.cave)
         {
             if (audioSource.clip != caveMusic)
             {
-                StartCoroutine(PlayMusicWithDelay(caveMusic, 2));
+                audioSource.FadeOut(2);
+                StartCoroutine(PlayMusicWithDelay(caveMusic, 3));
             }
         }
     }
 
     IEnumerator PlayMusicWithDelay(AudioClip audioClip,float delay)
     {
-        audioSource.Stop();
         yield return new WaitForSeconds(delay);
         audioSource.clip = audioClip;
         audioSource.Play();

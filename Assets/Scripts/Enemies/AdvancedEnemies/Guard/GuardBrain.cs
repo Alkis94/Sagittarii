@@ -5,12 +5,19 @@ public class GuardBrain : GroundEnemyBrain
 {
     private Transform player;
     private Rigidbody2D rigidBody2d;
+    public float ExtraDinstance { get; set; } = 0;
+
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        rigidBody2d = GetComponent<Rigidbody2D>();
+        rigidBody2d.bodyType = RigidbodyType2D.Dynamic;
+    }
 
     protected override void Start()
     {
         base.Start();
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        rigidBody2d = GetComponent<Rigidbody2D>();
     }
 
     private void Update()
@@ -21,10 +28,12 @@ public class GuardBrain : GroundEnemyBrain
 
     protected void FixedUpdate()
     {
-        if (Mathf.Abs(transform.position.x - player.position.x) > 2)
+        CheckCollisions();
+
+        if (Mathf.Abs(transform.position.x - player.position.x) > 2 + ExtraDinstance)
         {
             Move(enemyStats.Speed);
-            CheckCollisions();
+            CheckForJump();
         }
         else
         {
@@ -39,10 +48,13 @@ public class GuardBrain : GroundEnemyBrain
         raycaster.UpdateRaycastOrigins();
         UpdateCollisionTracker();
         HandleWalkingAnimation();
+    }
 
+    private void CheckForJump()
+    {
         if ((collisionTracker.collisions.left || collisionTracker.collisions.right || collisionTracker.CloseToGroundEdge()) && Time.time > cannotChangeDirectionTime)
         {
-            if(collisionTracker.collisions.below)
+            if (collisionTracker.collisions.below)
             {
                 StartCoroutine(GuardJump());
             }
