@@ -14,14 +14,14 @@ public class MapManager : SerializedMonoBehaviour
     public static event Action<MapType,string,RoomType> OnRoomLoaded = delegate { };
 
     [SerializeField]
-    private bool renderFullMap = false;
+    private readonly bool renderFullMap = false;
     private bool caveMapExists = false;
     private bool forestMapExists = false;
     private bool currentPlayerLocationInitialized = false;
 
     private Room[,] map;
-    private Room[,] forestMap = new Room[40, 1];
-    private Room[,] caveMap = new Room[20, 40];
+    private readonly Room[,] forestMap = new Room[40, 1];
+    private readonly Room[,] caveMap = new Room[20, 40];
 
 
     private readonly Vector2Int forestFirstRoomCoordinates = new Vector2Int(2, 0);
@@ -33,11 +33,11 @@ public class MapManager : SerializedMonoBehaviour
     [NonSerialized, OdinSerialize]
     private List<List<GameObject>> roomIcons;
     [SerializeField]
-    private Transform mapTransform;
+    private readonly Transform mapTransform;
     [SerializeField]
-    private GameObject playerCurrentMapLocationPrefab;
+    private readonly GameObject playerCurrentMapLocationPrefab;
     [SerializeField]
-    private GameObject townIcon;
+    private readonly GameObject townIcon;
     private GameObject playerCurrentMapLocation;
 
     private void Awake()
@@ -95,7 +95,7 @@ public class MapManager : SerializedMonoBehaviour
             OnRoomChangeRenderMapPart();
             MoveCurrentPlayerPositionAndCenterMap();
 
-            //We put an extra road to connect forest and town, and avoid having a room that collides on the town.
+            // We put an extra road to connect forest and town, and avoid having a room that collides on the town.
             Vector3 mapCoordinates = ConvertArrayCoordinates(0, 0);
             ExtensionMethods.InstantiateAtLocalPosition(roomIcons[(int)CurrentMap - 1] [(int)RoomType.horizontalRoad], mapTransform, mapCoordinates);
 
@@ -111,9 +111,9 @@ public class MapManager : SerializedMonoBehaviour
             CurrentMapCoords = caveFirstRoomCoordinates;
             map = caveMap;
 
-            //We put this road to connect forest and caves. This roads is not inside mapLayout. We do it this way so
-            //no rooms of caves collide with forrest rooms.
-            Vector2 mapCoordinates = new Vector2(80, -20);
+            // We put this road to connect forest and caves. This roads is not inside mapLayout.
+            // We do it this way so no rooms of caves collide with forest rooms.
+            var mapCoordinates = new Vector2(80, -20);
             ExtensionMethods.InstantiateAtLocalPosition(roomIcons[(int)CurrentMap - 1][(int)RoomType.verticalRoad], mapTransform, mapCoordinates);
 
             SceneFader.Instance.LoadSceneWithFade(map[caveFirstRoomCoordinates.x, caveFirstRoomCoordinates.y].RoomName);
@@ -218,7 +218,6 @@ public class MapManager : SerializedMonoBehaviour
 
     private void OnRoomChangeRenderMapPart()
     {
-        Vector2 mapCoordinates = Vector2.zero;
         if (map[CurrentMapCoords.x, CurrentMapCoords.y].IsUnexplored)
         {
             map[CurrentMapCoords.x, CurrentMapCoords.y].IsUnexplored = false;
@@ -267,12 +266,12 @@ public class MapManager : SerializedMonoBehaviour
         }
 
         Vector2 mapCoordinates = ConvertArrayCoordinates(coordX, coordY);
-        return ExtensionMethods.InstantiateAtLocalPosition(icon, mapTransform, mapCoordinates);
+        return ExtensionMethods.InstantiateAtLocalPosition(null, mapTransform, mapCoordinates);
     }
 
     private void RenderNeighborUnexploredRooms()
     {
-         //Draw East
+         // Draw East
         if (CurrentMapCoords.x + 2 < map.GetLength(0))
         {
             if(map[CurrentMapCoords.x + 1, CurrentMapCoords.y].RoomType > 0)
@@ -284,7 +283,7 @@ public class MapManager : SerializedMonoBehaviour
                 }
             }
         }
-        //Draw West
+        // Draw West
         if (CurrentMapCoords.x - 2 >= 0)
         {
             if (map[CurrentMapCoords.x - 1, CurrentMapCoords.y].RoomType > 0)
@@ -296,7 +295,7 @@ public class MapManager : SerializedMonoBehaviour
                 }
             }
         }
-        //Draw South
+        // Draw South
         if (CurrentMapCoords.y + 2 < map.GetLength(1))
         {
             if (map[CurrentMapCoords.x, CurrentMapCoords.y + 1].RoomType > 0)
@@ -336,12 +335,12 @@ public class MapManager : SerializedMonoBehaviour
     {
         if (CurrentMap == MapType.forest)
         {
-            Vector2 mapCoordinates = new Vector2(40 + x * 20, 0);
+            var mapCoordinates = new Vector2(40 + x * 20, 0);
             return mapCoordinates;
         }
         else if (CurrentMap == MapType.cave)
         {
-            Vector2 mapCoordinates = new Vector2(-120 + x * 20, -40 - y * 20);
+            var mapCoordinates = new Vector2(-120 + x * 20, -40 - y * 20);
             return mapCoordinates;
         }
         else

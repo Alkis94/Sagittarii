@@ -19,6 +19,7 @@ public class CaveMapCreator : MapCreator
         {
             instance = this;
         }
+
         caveRooms = new List<List<string>>();
     }
 

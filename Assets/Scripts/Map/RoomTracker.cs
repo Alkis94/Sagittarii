@@ -7,7 +7,6 @@ public class RoomTracker
 {
     public static List<string> ForestRooms { get; private set; }
     public static List<string> ForestSpawnRooms { get; private set; }
-
     public static List<string> CaveRoomsNSWE { get; private set; }
     public static List<string> CaveRoomsNWE { get; private set; }
     public static List<string> CaveRoomsNSE { get; private set; }
