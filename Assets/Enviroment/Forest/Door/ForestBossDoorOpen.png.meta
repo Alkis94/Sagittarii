@@ -1,26 +1,60 @@
 fileFormatVersion: 2
 guid: 495324c92fb6fcc49a4390a05ac8625e
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: tileset1_0
-    21300002: tileset1_1
-    21300004: tileset1_2
-    21300006: tileset1_3
-    21300008: tileset1_4
-    21300010: tileset1_5
-    21300012: tileset1_6
-    21300014: tileset1_7
-    21300016: tileset1_8
-    21300018: ForestBossDoorOpen_0
-    21300020: ForestBossDoorOpen_1
-    21300022: ForestBossDoorOpen_2
-    21300024: ForestBossDoorOpen_3
-    21300026: ForestBossDoorOpen_4
-    21300028: ForestBossDoorOpen_5
-    21300030: ForestBossDoorOpen_6
-    21300032: ForestBossDoorOpen_7
+  internalIDToNameTable:
+  - first:
+      213: 21300000
+    second: tileset1_0
+  - first:
+      213: 21300002
+    second: tileset1_1
+  - first:
+      213: 21300004
+    second: tileset1_2
+  - first:
+      213: 21300006
+    second: tileset1_3
+  - first:
+      213: 21300008
+    second: tileset1_4
+  - first:
+      213: 21300010
+    second: tileset1_5
+  - first:
+      213: 21300012
+    second: tileset1_6
+  - first:
+      213: 21300014
+    second: tileset1_7
+  - first:
+      213: 21300016
+    second: tileset1_8
+  - first:
+      213: 21300018
+    second: ForestBossDoorOpen_0
+  - first:
+      213: 21300020
+    second: ForestBossDoorOpen_1
+  - first:
+      213: 21300022
+    second: ForestBossDoorOpen_2
+  - first:
+      213: 21300024
+    second: ForestBossDoorOpen_3
+  - first:
+      213: 21300026
+    second: ForestBossDoorOpen_4
+  - first:
+      213: 21300028
+    second: ForestBossDoorOpen_5
+  - first:
+      213: 21300030
+    second: ForestBossDoorOpen_6
+  - first:
+      213: 21300032
+    second: ForestBossDoorOpen_7
   externalObjects: {}
-  serializedVersion: 9
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -40,6 +74,8 @@ TextureImporter:
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -49,8 +85,8 @@ TextureImporter:
   textureSettings:
     serializedVersion: 2
     filterMode: 0
-    aniso: -1
-    mipBias: -100
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 1
@@ -71,11 +107,16 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 1
+  cookieLightType: 1
   platformSettings:
-  - serializedVersion: 2
+  - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -86,7 +127,8 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-  - serializedVersion: 2
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
     buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -97,7 +139,8 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-  - serializedVersion: 2
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
     buildTarget: iPhone
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -108,7 +151,8 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-  - serializedVersion: 2
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
     buildTarget: tvOS
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -119,7 +163,8 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-  - serializedVersion: 2
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
     buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -130,7 +175,8 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-  - serializedVersion: 2
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
     buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -141,6 +187,7 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -160,6 +207,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 190d153dacad77e4691b2ce5e2a9f6c1
+      internalID: 21300018
       vertices: []
       indices: 
       edges: []
@@ -180,6 +228,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 5796986841163c64aa3dcfeb0d7d6fd4
+      internalID: 21300020
       vertices: []
       indices: 
       edges: []
@@ -200,6 +249,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 1fc9fab0384ebec499e65c48ee22bc0c
+      internalID: 21300022
       vertices: []
       indices: 
       edges: []
@@ -220,6 +270,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 3e3f0437f9b8f8f4a8112f5f0d1ec4e9
+      internalID: 21300024
       vertices: []
       indices: 
       edges: []
@@ -240,6 +291,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: ac9b61bb751785044b94d95e8c80b03b
+      internalID: 21300026
       vertices: []
       indices: 
       edges: []
@@ -260,6 +312,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 5d2ba7bc42ccfb043953cc3e58fd2516
+      internalID: 21300028
       vertices: []
       indices: 
       edges: []
@@ -280,6 +333,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 8149986e153bd82439accd4a16725ef6
+      internalID: 21300030
       vertices: []
       indices: 
       edges: []
@@ -300,6 +354,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 2ec43b43e872b1a468e6fc033a86714b
+      internalID: 21300032
       vertices: []
       indices: 
       edges: []
@@ -308,10 +363,21 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: 7a1be4ade4f5a4a418ff1a8308ab881c
+    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      ForestBossDoorOpen_0: 21300018
+      ForestBossDoorOpen_1: 21300020
+      ForestBossDoorOpen_2: 21300022
+      ForestBossDoorOpen_3: 21300024
+      ForestBossDoorOpen_4: 21300026
+      ForestBossDoorOpen_5: 21300028
+      ForestBossDoorOpen_6: 21300030
+      ForestBossDoorOpen_7: 21300032
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

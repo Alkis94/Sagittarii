@@ -14,18 +14,18 @@ public class MapManager : SerializedMonoBehaviour
     public static event Action<MapType,string,RoomType> OnRoomLoaded = delegate { };
 
     [SerializeField]
-    private readonly bool renderFullMap = false;
+    private bool renderFullMap = false;
     private bool caveMapExists = false;
     private bool forestMapExists = false;
     private bool currentPlayerLocationInitialized = false;
 
     private Room[,] map;
-    private readonly Room[,] forestMap = new Room[40, 1];
-    private readonly Room[,] caveMap = new Room[20, 40];
+    private Room[,] forestMap = new Room[40, 1];
+    private Room[,] caveMap = new Room[20, 40];
 
 
-    private readonly Vector2Int forestFirstRoomCoordinates = new Vector2Int(2, 0);
-    private readonly Vector2Int caveFirstRoomCoordinates = new Vector2Int(10, 0);
+    private readonly Vector2Int forestFirstRoomCoordinates = new(2, 0);
+    private readonly Vector2Int caveFirstRoomCoordinates = new(10, 0);
 
     public Vector2Int CurrentMapCoords { get; private set; } = new Vector2Int(-1, 0);
     public MapType CurrentMap { get; private set; } = MapType.town;
@@ -33,11 +33,11 @@ public class MapManager : SerializedMonoBehaviour
     [NonSerialized, OdinSerialize]
     private List<List<GameObject>> roomIcons;
     [SerializeField]
-    private readonly Transform mapTransform;
+    private Transform mapTransform;
     [SerializeField]
-    private readonly GameObject playerCurrentMapLocationPrefab;
+    private GameObject playerCurrentMapLocationPrefab;
     [SerializeField]
-    private readonly GameObject townIcon;
+    private GameObject townIcon;
     private GameObject playerCurrentMapLocation;
 
     private void Awake()
@@ -97,7 +97,7 @@ public class MapManager : SerializedMonoBehaviour
 
             // We put an extra road to connect forest and town, and avoid having a room that collides on the town.
             Vector3 mapCoordinates = ConvertArrayCoordinates(0, 0);
-            ExtensionMethods.InstantiateAtLocalPosition(roomIcons[(int)CurrentMap - 1] [(int)RoomType.horizontalRoad], mapTransform, mapCoordinates);
+            ExtensionMethods.InstantiateAtLocalPosition(roomIcons[(int)CurrentMap - 1] [(int)RoomType.HorizontalRoad], mapTransform, mapCoordinates);
 
             if(renderFullMap)
             {
@@ -114,7 +114,7 @@ public class MapManager : SerializedMonoBehaviour
             // We put this road to connect forest and caves. This roads is not inside mapLayout.
             // We do it this way so no rooms of caves collide with forest rooms.
             var mapCoordinates = new Vector2(80, -20);
-            ExtensionMethods.InstantiateAtLocalPosition(roomIcons[(int)CurrentMap - 1][(int)RoomType.verticalRoad], mapTransform, mapCoordinates);
+            ExtensionMethods.InstantiateAtLocalPosition(roomIcons[(int)CurrentMap - 1][(int)RoomType.VerticalRoad], mapTransform, mapCoordinates);
 
             SceneFader.Instance.LoadSceneWithFade(map[caveFirstRoomCoordinates.x, caveFirstRoomCoordinates.y].RoomName);
             UIManager.Instance.CallLocationText("Mushroom Caverns");
@@ -142,19 +142,19 @@ public class MapManager : SerializedMonoBehaviour
 
         Vector2Int previousMapCoords = CurrentMapCoords;
 
-        if (doorPlacement == Direction.west)
+        if (doorPlacement == Direction.West)
         {
             CurrentMapCoords = new Vector2Int(CurrentMapCoords.x - 2, CurrentMapCoords.y);
         }
-        else if (doorPlacement == Direction.east)
+        else if (doorPlacement == Direction.East)
         {
             CurrentMapCoords = new Vector2Int(CurrentMapCoords.x + 2, CurrentMapCoords.y);
         }
-        else if (doorPlacement == Direction.north)
+        else if (doorPlacement == Direction.North)
         {
             CurrentMapCoords = new Vector2Int(CurrentMapCoords.x, CurrentMapCoords.y - 2);
         }
-        else if (doorPlacement == Direction.south)
+        else if (doorPlacement == Direction.South)
         {
             CurrentMapCoords = new Vector2Int(CurrentMapCoords.x, CurrentMapCoords.y + 2);
         }
@@ -249,19 +249,19 @@ public class MapManager : SerializedMonoBehaviour
         GameObject icon = null;
         switch(map[coordX, coordY].RoomType)
         {
-            case RoomType.noRoom:
+            case RoomType.NoRoom:
                 return null;
-            case RoomType.horizontalRoad:
-                icon = roomIcons[(int)CurrentMap - 1][(int)RoomType.horizontalRoad];
+            case RoomType.HorizontalRoad:
+                icon = roomIcons[(int)CurrentMap - 1][(int)RoomType.HorizontalRoad];
                 break;
-            case RoomType.verticalRoad:
-                icon = roomIcons[(int)CurrentMap - 1][(int)RoomType.verticalRoad];
+            case RoomType.VerticalRoad:
+                icon = roomIcons[(int)CurrentMap - 1][(int)RoomType.VerticalRoad];
                 break;
-            case RoomType.bossRoom:
-                icon = roomIcons[(int)CurrentMap - 1][(int)RoomType.bossRoom];
+            case RoomType.BossRoom:
+                icon = roomIcons[(int)CurrentMap - 1][(int)RoomType.BossRoom];
                 break;
             default:
-                icon = roomIcons[(int)CurrentMap - 1][(int)RoomType.normalRoom];
+                icon = roomIcons[(int)CurrentMap - 1][(int)RoomType.NormalRoom];
                 break;
         }
 
@@ -307,7 +307,7 @@ public class MapManager : SerializedMonoBehaviour
                 }
             }
         }
-        //Draw North
+        // Draw North
         if (CurrentMapCoords.y - 2 >= 0)
         {
             if (map[CurrentMapCoords.x, CurrentMapCoords.y - 1].RoomType > 0)
@@ -356,7 +356,7 @@ public class MapManager : SerializedMonoBehaviour
         {
             for (int j = 0; j < map.GetLength(1); j++)
             {
-                if (map[i, j].RoomType != RoomType.noRoom)
+                if (map[i, j].RoomType != RoomType.NoRoom)
                 {
                     Vector2 mapCoordinates = ConvertArrayCoordinates(i, j);
 

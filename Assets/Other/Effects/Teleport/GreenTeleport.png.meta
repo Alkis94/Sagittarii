@@ -1,21 +1,45 @@
 fileFormatVersion: 2
 guid: 3f3cbec82fa10e240ad0215d60a39911
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: tileset1_3
-    21300002: tileset1_4
-    21300004: tileset1_5
-    21300006: tileset1_6
-    21300008: tileset1_7
-    21300010: tileset1_8
-    21300012: BearBossTeleport2_0
-    21300014: BearBossTeleport2_1
-    21300016: BearBossTeleport2_2
-    21300018: BearBossTeleport2_3
-    21300020: BearBossTeleport2_4
-    21300022: BearBossTeleport2_5
+  internalIDToNameTable:
+  - first:
+      213: 21300000
+    second: tileset1_3
+  - first:
+      213: 21300002
+    second: tileset1_4
+  - first:
+      213: 21300004
+    second: tileset1_5
+  - first:
+      213: 21300006
+    second: tileset1_6
+  - first:
+      213: 21300008
+    second: tileset1_7
+  - first:
+      213: 21300010
+    second: tileset1_8
+  - first:
+      213: 21300012
+    second: BearBossTeleport2_0
+  - first:
+      213: 21300014
+    second: BearBossTeleport2_1
+  - first:
+      213: 21300016
+    second: BearBossTeleport2_2
+  - first:
+      213: 21300018
+    second: BearBossTeleport2_3
+  - first:
+      213: 21300020
+    second: BearBossTeleport2_4
+  - first:
+      213: 21300022
+    second: BearBossTeleport2_5
   externalObjects: {}
-  serializedVersion: 9
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -35,6 +59,8 @@ TextureImporter:
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -44,8 +70,8 @@ TextureImporter:
   textureSettings:
     serializedVersion: 2
     filterMode: 0
-    aniso: -1
-    mipBias: -100
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 1
@@ -66,11 +92,16 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 1
+  cookieLightType: 1
   platformSettings:
-  - serializedVersion: 2
+  - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -81,7 +112,8 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-  - serializedVersion: 2
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
     buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -92,7 +124,8 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-  - serializedVersion: 2
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
     buildTarget: iPhone
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -103,7 +136,8 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-  - serializedVersion: 2
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
     buildTarget: tvOS
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -114,7 +148,8 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-  - serializedVersion: 2
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
     buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -125,7 +160,8 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-  - serializedVersion: 2
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
     buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -136,6 +172,7 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -155,6 +192,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: a4528a45d1d4f7644bb05f111a7a9cba
+      internalID: 21300012
       vertices: []
       indices: 
       edges: []
@@ -175,6 +213,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 420fd6d37bb1aec4fa5e3ecd3ede3387
+      internalID: 21300014
       vertices: []
       indices: 
       edges: []
@@ -195,6 +234,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 62e002992be32e14b997be5cd9b16da8
+      internalID: 21300016
       vertices: []
       indices: 
       edges: []
@@ -215,6 +255,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: a1320d533a2c5d449a02f299765d86c8
+      internalID: 21300018
       vertices: []
       indices: 
       edges: []
@@ -235,6 +276,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: efa9e7c15c23e6b4791e2976541a2401
+      internalID: 21300020
       vertices: []
       indices: 
       edges: []
@@ -255,6 +297,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: f86a8833431ffd4428605bc1a2a4fe4d
+      internalID: 21300022
       vertices: []
       indices: 
       edges: []
@@ -263,10 +306,19 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: 7a1be4ade4f5a4a418ff1a8308ab881c
+    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      BearBossTeleport2_0: 21300012
+      BearBossTeleport2_1: 21300014
+      BearBossTeleport2_2: 21300016
+      BearBossTeleport2_3: 21300018
+      BearBossTeleport2_4: 21300020
+      BearBossTeleport2_5: 21300022
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -1,26 +1,60 @@
 fileFormatVersion: 2
 guid: b7859cb849a88cd498583483bc430954
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: tileset1_0
-    21300002: tileset1_1
-    21300004: tileset1_2
-    21300006: tileset1_3
-    21300008: tileset1_4
-    21300010: tileset1_5
-    21300012: tileset1_6
-    21300014: tileset1_7
-    21300016: tileset1_8
-    21300018: BearBossWaking_0
-    21300020: BearBossWaking_1
-    21300022: BearBossWaking_2
-    21300024: BearBossWaking_3
-    21300026: BearBossWaking_4
-    21300028: BearBossWaking_5
-    21300030: BearBossWaking_6
-    21300032: BearBossWaking_7
+  internalIDToNameTable:
+  - first:
+      213: 21300000
+    second: tileset1_0
+  - first:
+      213: 21300002
+    second: tileset1_1
+  - first:
+      213: 21300004
+    second: tileset1_2
+  - first:
+      213: 21300006
+    second: tileset1_3
+  - first:
+      213: 21300008
+    second: tileset1_4
+  - first:
+      213: 21300010
+    second: tileset1_5
+  - first:
+      213: 21300012
+    second: tileset1_6
+  - first:
+      213: 21300014
+    second: tileset1_7
+  - first:
+      213: 21300016
+    second: tileset1_8
+  - first:
+      213: 21300018
+    second: BearBossWaking_0
+  - first:
+      213: 21300020
+    second: BearBossWaking_1
+  - first:
+      213: 21300022
+    second: BearBossWaking_2
+  - first:
+      213: 21300024
+    second: BearBossWaking_3
+  - first:
+      213: 21300026
+    second: BearBossWaking_4
+  - first:
+      213: 21300028
+    second: BearBossWaking_5
+  - first:
+      213: 21300030
+    second: BearBossWaking_6
+  - first:
+      213: 21300032
+    second: BearBossWaking_7
   externalObjects: {}
-  serializedVersion: 9
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -40,6 +74,8 @@ TextureImporter:
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -49,8 +85,8 @@ TextureImporter:
   textureSettings:
     serializedVersion: 2
     filterMode: 0
-    aniso: -1
-    mipBias: -100
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 1
@@ -71,11 +107,16 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 1
+  cookieLightType: 1
   platformSettings:
-  - serializedVersion: 2
+  - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -86,7 +127,8 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-  - serializedVersion: 2
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
     buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -97,7 +139,8 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-  - serializedVersion: 2
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
     buildTarget: iPhone
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -108,7 +151,8 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-  - serializedVersion: 2
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
     buildTarget: tvOS
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -119,7 +163,8 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-  - serializedVersion: 2
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
     buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -130,7 +175,8 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-  - serializedVersion: 2
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
     buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -141,6 +187,7 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -160,6 +207,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 7e4e85034db250c48960142cbbb997f4
+      internalID: 21300018
       vertices: []
       indices: 
       edges: []
@@ -180,6 +228,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: c81280ca7ef64504196c7c64bdb504e5
+      internalID: 21300020
       vertices: []
       indices: 
       edges: []
@@ -200,6 +249,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 4d7d532b8b6fb914ea3893a937b03714
+      internalID: 21300022
       vertices: []
       indices: 
       edges: []
@@ -220,6 +270,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 05d392e949252a84a8c313eba6ad51b4
+      internalID: 21300024
       vertices: []
       indices: 
       edges: []
@@ -240,6 +291,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 6f94c0cf9a7c06043923bdedc889507f
+      internalID: 21300026
       vertices: []
       indices: 
       edges: []
@@ -260,6 +312,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 335aa0fb652773046bf50d16d604540f
+      internalID: 21300028
       vertices: []
       indices: 
       edges: []
@@ -280,6 +333,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: c8a7d9d6c8b423149b7745616439c855
+      internalID: 21300030
       vertices: []
       indices: 
       edges: []
@@ -300,6 +354,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 9b3312d91abbbd748bed7a022fddd18d
+      internalID: 21300032
       vertices: []
       indices: 
       edges: []
@@ -308,10 +363,21 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: 7a1be4ade4f5a4a418ff1a8308ab881c
+    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      BearBossWaking_0: 21300018
+      BearBossWaking_1: 21300020
+      BearBossWaking_2: 21300022
+      BearBossWaking_3: 21300024
+      BearBossWaking_4: 21300026
+      BearBossWaking_5: 21300028
+      BearBossWaking_6: 21300030
+      BearBossWaking_7: 21300032
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

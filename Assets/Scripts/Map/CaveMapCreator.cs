@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class CaveMapCreator : MapCreator
 {
     private static CaveMapCreator instance = null;
-    private readonly Vector2Int startRoomCoordinates = new Vector2Int(10, 2);
+    private readonly Vector2Int startRoomCoordinates = new(10, 2);
     private Vector2Int bossRoomCoordinates;
     private List<List<string>> caveRooms;
 
@@ -23,9 +23,8 @@ public class CaveMapCreator : MapCreator
         caveRooms = new List<List<string>>();
     }
 
-    protected override void Start()
+    protected void Start()
     {
-        base.Start();
         map = new Room[20, 40];
         FillArrayWithRooms();
         AddCaveMapLists();
@@ -35,13 +34,13 @@ public class CaveMapCreator : MapCreator
 
     private void CreateMap()
     {
-        //Creating map layout
-        map[10, 0].RoomType = RoomType.startingRoom;
-        map[10, 1].RoomType = RoomType.verticalRoad;
-        bossRoomCoordinates = CreatePathToBoss(10, startRoomCoordinates, false);
+        // Creating map layout
+        map[10, 0].RoomType = RoomType.StartingRoom;
+        map[10, 1].RoomType = RoomType.VerticalRoad;
+        bossRoomCoordinates = CreatePathToBoss(new PathInfo(10, startRoomCoordinates, false, true, true, true));
         CreateRandomPaths(6, 3);
 
-        //Assigning rooms-levels.
+        // Assigning rooms-levels.
         AssignRoomOpenings();
         AssignRooms();
         AddTreasures(3, normalRoomArrayCoordinates);
@@ -95,7 +94,7 @@ public class CaveMapCreator : MapCreator
         {
             for (int j = 0; j < map.GetLength(1); j++)
             {
-                if (map[i, j].RoomType == RoomType.normalRoom)
+                if (map[i, j].RoomType == RoomType.NormalRoom)
                 {
                     if (map[i, j].RoomOpenings == RoomOpenings.N || map[i, j].RoomOpenings == RoomOpenings.S || map[i, j].RoomOpenings == RoomOpenings.W || map[i, j].RoomOpenings == RoomOpenings.E)
                     {

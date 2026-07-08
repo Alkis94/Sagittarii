@@ -1,13 +1,21 @@
 fileFormatVersion: 2
 guid: cea2c9bf87b0c4dfdafb697a3ff00959
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: WingPersonSprites_0
-    21300002: WingPersonSprites_1
-    21300004: WingPersonSprites_2
-    21300006: WingPersonSprites_3
+  internalIDToNameTable:
+  - first:
+      213: 21300000
+    second: WingPersonSprites_0
+  - first:
+      213: 21300002
+    second: WingPersonSprites_1
+  - first:
+      213: 21300004
+    second: WingPersonSprites_2
+  - first:
+      213: 21300006
+    second: WingPersonSprites_3
   externalObjects: {}
-  serializedVersion: 9
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 1
@@ -27,6 +35,8 @@ TextureImporter:
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -35,9 +45,9 @@ TextureImporter:
   maxTextureSize: 1024
   textureSettings:
     serializedVersion: 2
-    filterMode: -1
+    filterMode: 1
     aniso: 16
-    mipBias: -100
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 1
@@ -58,11 +68,16 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 1
+  cookieLightType: 1
   platformSettings:
-  - serializedVersion: 2
+  - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 1024
     resizeAlgorithm: 0
@@ -73,6 +88,19 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 1024
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -92,6 +120,7 @@ TextureImporter:
       tessellationDetail: -1
       bones: []
       spriteID: 8c0d3b287d83f2d419e3bbe089009a66
+      internalID: 21300000
       vertices: []
       indices: 
       edges: []
@@ -112,6 +141,7 @@ TextureImporter:
       tessellationDetail: -1
       bones: []
       spriteID: 08294bd2e94b0c1458904ca1bb152f5b
+      internalID: 21300002
       vertices: []
       indices: 
       edges: []
@@ -132,6 +162,7 @@ TextureImporter:
       tessellationDetail: -1
       bones: []
       spriteID: 242e3acfbfc7dca43aaf0d55fbb5ece5
+      internalID: 21300004
       vertices: []
       indices: 
       edges: []
@@ -152,6 +183,7 @@ TextureImporter:
       tessellationDetail: -1
       bones: []
       spriteID: 262cf565cc063d14c9eeecaf321e15ea
+      internalID: 21300006
       vertices: []
       indices: 
       edges: []
@@ -160,10 +192,17 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: 
+    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      WingPersonSprites_0: 21300000
+      WingPersonSprites_1: 21300002
+      WingPersonSprites_2: 21300004
+      WingPersonSprites_3: 21300006
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

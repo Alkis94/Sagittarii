@@ -1,14 +1,24 @@
 fileFormatVersion: 2
 guid: 6d9a1c80c4f8125488bec2a3434041ff
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: DaggerImpact_0
-    21300002: DaggerImpact_1
-    21300004: DaggerImpact_2
-    21300006: DaggerImpact_3
-    21300008: DaggerImpact_4
+  internalIDToNameTable:
+  - first:
+      213: 21300000
+    second: DaggerImpact_0
+  - first:
+      213: 21300002
+    second: DaggerImpact_1
+  - first:
+      213: 21300004
+    second: DaggerImpact_2
+  - first:
+      213: 21300006
+    second: DaggerImpact_3
+  - first:
+      213: 21300008
+    second: DaggerImpact_4
   externalObjects: {}
-  serializedVersion: 9
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -28,6 +38,8 @@ TextureImporter:
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -37,8 +49,8 @@ TextureImporter:
   textureSettings:
     serializedVersion: 2
     filterMode: 0
-    aniso: -1
-    mipBias: -100
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 1
@@ -59,11 +71,16 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 1
+  cookieLightType: 1
   platformSettings:
-  - serializedVersion: 2
+  - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -74,7 +91,8 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-  - serializedVersion: 2
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
     buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -85,7 +103,8 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-  - serializedVersion: 2
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
     buildTarget: iPhone
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -96,7 +115,8 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-  - serializedVersion: 2
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
     buildTarget: tvOS
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -107,7 +127,8 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-  - serializedVersion: 2
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
     buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -118,7 +139,8 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-  - serializedVersion: 2
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
     buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -129,6 +151,7 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -148,6 +171,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 4f04749aac2a8ba4083587e51090bf61
+      internalID: 21300000
       vertices: []
       indices: 
       edges: []
@@ -168,6 +192,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 985125c810b4a8f4b87fd06f1d088cc2
+      internalID: 21300002
       vertices: []
       indices: 
       edges: []
@@ -188,6 +213,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: d24f62661cbe1e9459fe01ed582f09d3
+      internalID: 21300004
       vertices: []
       indices: 
       edges: []
@@ -208,6 +234,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: c6ee7ee1adc9b5a4aae858b698ecbe68
+      internalID: 21300006
       vertices: []
       indices: 
       edges: []
@@ -228,6 +255,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 4c95c1701b7695f4fa4468a7e89819f8
+      internalID: 21300008
       vertices: []
       indices: 
       edges: []
@@ -236,10 +264,18 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: 7a1be4ade4f5a4a418ff1a8308ab881c
+    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      DaggerImpact_0: 21300000
+      DaggerImpact_1: 21300002
+      DaggerImpact_2: 21300004
+      DaggerImpact_3: 21300006
+      DaggerImpact_4: 21300008
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

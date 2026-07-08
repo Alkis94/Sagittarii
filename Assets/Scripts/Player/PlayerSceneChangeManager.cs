@@ -69,7 +69,7 @@ public class PlayerSceneChangeManager : MonoBehaviour
 
     public void NextPlayerSpawnPointDirection(string levelToLoad = null)
     {
-        lastDoorTakenPlacement = Direction.middle;
+        lastDoorTakenPlacement = Direction.Middle;
     }
 
     private void NextPlayerSpawnPointDirection(Direction lastDoorTakenPlacement)
@@ -80,7 +80,7 @@ public class PlayerSceneChangeManager : MonoBehaviour
     private Vector3 NextPlayerSpawnPointPosition()
     {
         //Try to find the correct next spawn depending on the last door taken.
-        if (lastDoorTakenPlacement == Direction.east)
+        if (lastDoorTakenPlacement == Direction.East)
         {
             GameObject thisSpawn = GameObject.FindGameObjectWithTag("PlayerSpawnWest");
             if(thisSpawn != null)
@@ -88,7 +88,7 @@ public class PlayerSceneChangeManager : MonoBehaviour
                 return thisSpawn.transform.position;
             }
         }
-        else if (lastDoorTakenPlacement == Direction.west)
+        else if (lastDoorTakenPlacement == Direction.West)
         {
             GameObject thisSpawn = GameObject.FindGameObjectWithTag("PlayerSpawnEast");
             if (thisSpawn != null)
@@ -96,7 +96,7 @@ public class PlayerSceneChangeManager : MonoBehaviour
                 return thisSpawn.transform.position;
             }
         }
-        else if (lastDoorTakenPlacement == Direction.north)
+        else if (lastDoorTakenPlacement == Direction.North)
         {
             GameObject thisSpawn = GameObject.FindGameObjectWithTag("PlayerSpawnSouth");
             if (thisSpawn != null)
@@ -104,7 +104,7 @@ public class PlayerSceneChangeManager : MonoBehaviour
                 return thisSpawn.transform.position;
             }
         }
-        else if (lastDoorTakenPlacement == Direction.south)
+        else if (lastDoorTakenPlacement == Direction.South)
         {
             GameObject thisSpawn = GameObject.FindGameObjectWithTag("PlayerSpawnNorth");
             if (thisSpawn != null)
@@ -112,7 +112,7 @@ public class PlayerSceneChangeManager : MonoBehaviour
                 return thisSpawn.transform.position;
             }
         }
-        else if (lastDoorTakenPlacement == Direction.middle)
+        else if (lastDoorTakenPlacement == Direction.Middle)
         {
             GameObject thisSpawn = GameObject.FindGameObjectWithTag("PlayerSpawnMiddle");
             if (thisSpawn != null)

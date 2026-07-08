@@ -1,28 +1,66 @@
 fileFormatVersion: 2
 guid: 4231a0483610f3440b732ada6408ba10
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: tileset1_0
-    21300002: tileset1_1
-    21300004: tileset1_2
-    21300006: tileset1_3
-    21300008: tileset1_4
-    21300010: tileset1_5
-    21300012: tileset1_6
-    21300014: tileset1_7
-    21300016: tileset1_8
-    21300018: MushroomTower_0
-    21300020: MushroomTower_1
-    21300022: MushroomTower_2
-    21300024: MushroomTower_3
-    21300026: MushroomTower_4
-    21300028: MushroomTower_5
-    21300030: MushroomTower_6
-    21300032: MushroomTower_7
-    21300034: MushroomTower_8
-    21300036: MushroomTower_9
+  internalIDToNameTable:
+  - first:
+      213: 21300000
+    second: tileset1_0
+  - first:
+      213: 21300002
+    second: tileset1_1
+  - first:
+      213: 21300004
+    second: tileset1_2
+  - first:
+      213: 21300006
+    second: tileset1_3
+  - first:
+      213: 21300008
+    second: tileset1_4
+  - first:
+      213: 21300010
+    second: tileset1_5
+  - first:
+      213: 21300012
+    second: tileset1_6
+  - first:
+      213: 21300014
+    second: tileset1_7
+  - first:
+      213: 21300016
+    second: tileset1_8
+  - first:
+      213: 21300018
+    second: MushroomTower_0
+  - first:
+      213: 21300020
+    second: MushroomTower_1
+  - first:
+      213: 21300022
+    second: MushroomTower_2
+  - first:
+      213: 21300024
+    second: MushroomTower_3
+  - first:
+      213: 21300026
+    second: MushroomTower_4
+  - first:
+      213: 21300028
+    second: MushroomTower_5
+  - first:
+      213: 21300030
+    second: MushroomTower_6
+  - first:
+      213: 21300032
+    second: MushroomTower_7
+  - first:
+      213: 21300034
+    second: MushroomTower_8
+  - first:
+      213: 21300036
+    second: MushroomTower_9
   externalObjects: {}
-  serializedVersion: 9
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -42,6 +80,8 @@ TextureImporter:
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -51,8 +91,8 @@ TextureImporter:
   textureSettings:
     serializedVersion: 2
     filterMode: 0
-    aniso: -1
-    mipBias: -100
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 1
@@ -73,11 +113,16 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 1
+  cookieLightType: 1
   platformSettings:
-  - serializedVersion: 2
+  - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 4096
     resizeAlgorithm: 0
@@ -88,7 +133,8 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-  - serializedVersion: 2
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
     buildTarget: Standalone
     maxTextureSize: 4096
     resizeAlgorithm: 0
@@ -99,7 +145,8 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-  - serializedVersion: 2
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
     buildTarget: iPhone
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -110,7 +157,8 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-  - serializedVersion: 2
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
     buildTarget: tvOS
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -121,7 +169,8 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-  - serializedVersion: 2
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
     buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -132,7 +181,8 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-  - serializedVersion: 2
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
     buildTarget: WebGL
     maxTextureSize: 4096
     resizeAlgorithm: 0
@@ -143,6 +193,7 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -162,6 +213,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 3ea815355c4cb6b40899d5997ca80d67
+      internalID: 21300018
       vertices: []
       indices: 
       edges: []
@@ -182,6 +234,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: fb708355d85a3ab4bb6724d9bea03a8b
+      internalID: 21300020
       vertices: []
       indices: 
       edges: []
@@ -202,6 +255,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 07f8418169343bc4f9dfa81a68f6e762
+      internalID: 21300022
       vertices: []
       indices: 
       edges: []
@@ -222,6 +276,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 0e3cfb6be4cd0974297ae93bd52222ba
+      internalID: 21300024
       vertices: []
       indices: 
       edges: []
@@ -242,6 +297,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 257a5470627b5db49bfc407c25f3ce53
+      internalID: 21300026
       vertices: []
       indices: 
       edges: []
@@ -262,6 +318,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: d2a6e3964b2dd2041bde431bacb17d91
+      internalID: 21300028
       vertices: []
       indices: 
       edges: []
@@ -282,6 +339,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: b99d552d4f5e972408a3a202a00a597a
+      internalID: 21300030
       vertices: []
       indices: 
       edges: []
@@ -302,6 +360,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 19b94c424be517e448d181777d833ebd
+      internalID: 21300032
       vertices: []
       indices: 
       edges: []
@@ -322,6 +381,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: d417e4ef85bac464e8805f54219e2f35
+      internalID: 21300034
       vertices: []
       indices: 
       edges: []
@@ -342,6 +402,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: fbde4179e77bd1947825d7b4bf5ed611
+      internalID: 21300036
       vertices: []
       indices: 
       edges: []
@@ -350,10 +411,23 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: 7a1be4ade4f5a4a418ff1a8308ab881c
+    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      MushroomTower_0: 21300018
+      MushroomTower_1: 21300020
+      MushroomTower_2: 21300022
+      MushroomTower_3: 21300024
+      MushroomTower_4: 21300026
+      MushroomTower_5: 21300028
+      MushroomTower_6: 21300030
+      MushroomTower_7: 21300032
+      MushroomTower_8: 21300034
+      MushroomTower_9: 21300036
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

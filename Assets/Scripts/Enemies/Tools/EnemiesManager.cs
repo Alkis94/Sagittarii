@@ -40,7 +40,7 @@ public class EnemiesManager : MonoBehaviour
 
     private void ChooseAndLoad()
     {
-        if(roomType == RoomType.bossRoom)
+        if(roomType == RoomType.BossRoom)
         {
             chosenGroup = transform.GetChild(0).gameObject;
 
@@ -61,7 +61,7 @@ public class EnemiesManager : MonoBehaviour
                 LoadEnemies();
             }
         }
-        if (roomType == RoomType.spawnRoom)
+        if (roomType == RoomType.SpawnRoom)
         {
             if (ES3.FileExists("Levels/" + mapType + "/Room" + roomKey + "/Enemies"))
             {

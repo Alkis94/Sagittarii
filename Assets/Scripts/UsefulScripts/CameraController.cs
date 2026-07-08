@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using Cinemachine;
 
@@ -19,12 +17,11 @@ public class CameraController : MonoBehaviour
         SceneManager.sceneLoaded += OnSceneLoaded;
         GetConfiner();
 
-        CharacterChooser characterChooser = FindObjectOfType<CharacterChooser>();
+        var characterChooser = FindObjectOfType<CharacterChooser>();
         if (characterChooser != null)
         {
             GetComponent<CinemachineVirtualCamera>().Follow = characterChooser.transform.GetChild(0);
         }
-        
     }
 
     void OnDisable()
@@ -39,13 +36,12 @@ public class CameraController : MonoBehaviour
 
     private void GetConfiner()
     {
-        GameObject tempConfiner = GameObject.FindGameObjectWithTag("CameraConfiner");
-        if (tempConfiner != null)
+        var confiner = GameObject.FindGameObjectWithTag("CameraConfiner");
+        if (confiner != null)
         {
-            cameraConfiner = tempConfiner.GetComponent<PolygonCollider2D>();
+            cameraConfiner = confiner.GetComponent<PolygonCollider2D>();
             cinemachineConfiner.m_BoundingShape2D = cameraConfiner;
             cinemachineConfiner.InvalidatePathCache();
         }
     }
-
 }
