@@ -1,11 +1,8 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using Sirenix.OdinInspector;
-using Sirenix.Serialization;
-
 
 [DefaultExecutionOrder(-99)]
 public class MapManager : SerializedMonoBehaviour
@@ -13,32 +10,16 @@ public class MapManager : SerializedMonoBehaviour
     public static MapManager Instance = null;
     public static event Action<MapType,string,RoomType> OnRoomLoaded = delegate { };
 
+    public CurrentMapInfo CurrentMapInfo { get; private set; } = new();
+
     [SerializeField]
     private bool renderFullMap = false;
-    private bool caveMapExists = false;
-    private bool forestMapExists = false;
-    private bool currentPlayerLocationInitialized = false;
-
-    private Room[,] map;
-    private Room[,] forestMap = new Room[40, 1];
-    private Room[,] caveMap = new Room[20, 40];
-
-
-    private readonly Vector2Int forestFirstRoomCoordinates = new(2, 0);
-    private readonly Vector2Int caveFirstRoomCoordinates = new(10, 0);
-
-    public Vector2Int CurrentMapCoords { get; private set; } = new Vector2Int(-1, 0);
-    public MapType CurrentMap { get; private set; } = MapType.town;
-
-    [NonSerialized, OdinSerialize]
-    private List<List<GameObject>> roomIcons;
     [SerializeField]
     private Transform mapTransform;
     [SerializeField]
     private GameObject playerCurrentMapLocationPrefab;
     [SerializeField]
     private GameObject townIcon;
-    private GameObject playerCurrentMapLocation;
 
     private void Awake()
     {
@@ -57,7 +38,6 @@ public class MapManager : SerializedMonoBehaviour
         SceneManager.sceneLoaded += OnSceneLoaded;
         RoomChanger.OnRoomChangerEntered += ChangeRoom;
         MapChanger.OnMapChangerEntered += ChangeMap;
-        MapCreator.OnMapCreated += SetMap;
         BossDoor.DoorEntered += OnDoorEntered;
     }
 
@@ -66,109 +46,86 @@ public class MapManager : SerializedMonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoaded;
         RoomChanger.OnRoomChangerEntered -= ChangeRoom;
         MapChanger.OnMapChangerEntered -= ChangeMap;
-        MapCreator.OnMapCreated -= SetMap;
         BossDoor.DoorEntered -= OnDoorEntered;
     }
 
     private void Start()
     {
         ExtensionMethods.InstantiateAtLocalPosition(townIcon, mapTransform, Vector2Int.zero);
+
+        ForestMapCreator.Instance.CreateMap();
+        CaveMapCreator.Instance.CreateMap();
     }
 
     private void ChangeMap(MapType currentMap, MapType nextMap)
     {
-        if (nextMap == MapType.town)
+        if (nextMap == MapType.Town)
         {
-            CurrentMap = MapType.town;
+            CurrentMapInfo.SetCurrentMap(MapType.Town);
             SceneFader.Instance.LoadSceneWithFade("Town");
             UIManager.Instance.CallLocationText("Floyd's Rest");
         }
-        else if (currentMap == MapType.town && nextMap == MapType.forest)
+        else if (nextMap == MapType.Forest)
         {
-            CurrentMapCoords = forestFirstRoomCoordinates;
-            CurrentMap = MapType.forest;
-            map = forestMap;
+            // We put an extra road to connect forest and town, and avoid having a room that collides on the town.
+            var mapCoordinates = ConvertArrayCoordinates(0, 0);
+            ExtensionMethods.InstantiateAtLocalPosition(CurrentMapInfo.Icons.HorizontalRoad, mapTransform, mapCoordinates);
 
-
-            SceneFader.Instance.LoadSceneWithFade(map[forestFirstRoomCoordinates.x, forestFirstRoomCoordinates.y].RoomName);
-            UIManager.Instance.CallLocationText("Woods of Astrea");
+            CurrentMapInfo.SetCurrentMap(MapType.Forest, ForestMapCreator.Instance.Map, ForestMapCreator.Instance.ForestFirstRoomCoordinates, ForestMapCreator.Instance.ForestIcons);
+            SceneFader.Instance.LoadSceneWithFade(CurrentMapInfo.Map[CurrentMapInfo.Coords.x, CurrentMapInfo.Coords.y].Room.Name);
+            UIManager.Instance.CallLocationText("Lost Woods");
             OnRoomChangeRenderMapPart();
             MoveCurrentPlayerPositionAndCenterMap();
 
-            // We put an extra road to connect forest and town, and avoid having a room that collides on the town.
-            Vector3 mapCoordinates = ConvertArrayCoordinates(0, 0);
-            ExtensionMethods.InstantiateAtLocalPosition(roomIcons[(int)CurrentMap - 1] [(int)RoomType.HorizontalRoad], mapTransform, mapCoordinates);
-
             if(renderFullMap)
             {
-                RenderMap();
+                RenderFullMap();
             }
-
         }
-        else if (currentMap == MapType.forest && nextMap == MapType.cave)
+        else if (nextMap == MapType.Cave)
         {
-            CurrentMap = MapType.cave;
-            CurrentMapCoords = caveFirstRoomCoordinates;
-            map = caveMap;
+            CurrentMapInfo.SetCurrentMap(MapType.Cave, CaveMapCreator.Instance.Map, CaveMapCreator.Instance.CaveFirstRoomCoordinates, CaveMapCreator.Instance.CaveIcons);
 
             // We put this road to connect forest and caves. This roads is not inside mapLayout.
             // We do it this way so no rooms of caves collide with forest rooms.
             var mapCoordinates = new Vector2(80, -20);
-            ExtensionMethods.InstantiateAtLocalPosition(roomIcons[(int)CurrentMap - 1][(int)RoomType.VerticalRoad], mapTransform, mapCoordinates);
+            ExtensionMethods.InstantiateAtLocalPosition(CurrentMapInfo.Icons.VerticalRoad, mapTransform, mapCoordinates);
 
-            SceneFader.Instance.LoadSceneWithFade(map[caveFirstRoomCoordinates.x, caveFirstRoomCoordinates.y].RoomName);
+            SceneFader.Instance.LoadSceneWithFade(CurrentMapInfo.Map[CurrentMapInfo.Coords.x, CurrentMapInfo.Coords.y].Room.Name);
             UIManager.Instance.CallLocationText("Mushroom Caverns");
             OnRoomChangeRenderMapPart();
             MoveCurrentPlayerPositionAndCenterMap();
 
             if (renderFullMap)
             {
-                RenderMap();
+                RenderFullMap();
             }
-        }
-        else if (currentMap == MapType.cave && nextMap == MapType.forest)
-        {
-            CurrentMap = MapType.forest;
-            CurrentMapCoords = forestFirstRoomCoordinates;
-            map = forestMap;
-            SceneFader.Instance.LoadSceneWithFade(map[forestFirstRoomCoordinates.x, forestFirstRoomCoordinates.y].RoomName);
-            UIManager.Instance.CallLocationText("Woods of Astrea");
-            MoveCurrentPlayerPositionAndCenterMap();
         }
     }
 
     private void ChangeRoom(Direction doorPlacement)
     {
+        var previousMapCoords = CurrentMapInfo.Coords;
 
-        Vector2Int previousMapCoords = CurrentMapCoords;
+        CurrentMapInfo.Coords = doorPlacement switch
+        {
+            Direction.West => new Vector2Int(CurrentMapInfo.Coords.x - 2, CurrentMapInfo.Coords.y),
+            Direction.East => new Vector2Int(CurrentMapInfo.Coords.x + 2, CurrentMapInfo.Coords.y),
+            Direction.North => new Vector2Int(CurrentMapInfo.Coords.x, CurrentMapInfo.Coords.y - 2),
+            Direction.South => new Vector2Int(CurrentMapInfo.Coords.x, CurrentMapInfo.Coords.y + 2),
+            _ => CurrentMapInfo.Coords
+        };
 
-        if (doorPlacement == Direction.West)
+        if (CurrentMapInfo.Map[CurrentMapInfo.Coords.x, CurrentMapInfo.Coords.y].Room != null)
         {
-            CurrentMapCoords = new Vector2Int(CurrentMapCoords.x - 2, CurrentMapCoords.y);
-        }
-        else if (doorPlacement == Direction.East)
-        {
-            CurrentMapCoords = new Vector2Int(CurrentMapCoords.x + 2, CurrentMapCoords.y);
-        }
-        else if (doorPlacement == Direction.North)
-        {
-            CurrentMapCoords = new Vector2Int(CurrentMapCoords.x, CurrentMapCoords.y - 2);
-        }
-        else if (doorPlacement == Direction.South)
-        {
-            CurrentMapCoords = new Vector2Int(CurrentMapCoords.x, CurrentMapCoords.y + 2);
-        }
-      
-        if (map[CurrentMapCoords.x, CurrentMapCoords.y].RoomName != null)
-        {
-            SceneFader.Instance.LoadSceneWithFade(map[CurrentMapCoords.x, CurrentMapCoords.y].RoomName);
+            SceneFader.Instance.LoadSceneWithFade(CurrentMapInfo.Map[CurrentMapInfo.Coords.x, CurrentMapInfo.Coords.y].Room.Name);
             MoveCurrentPlayerPositionAndCenterMap();
             OnRoomChangeRenderMapPart();
         }
         else
         {
-            Debug.LogError("Room Not Found! CurrentMapCoords : " + CurrentMapCoords);
-            CurrentMapCoords = previousMapCoords;
+            Debug.LogError("Room Not Found! CurrentMapCoords : " + CurrentMapInfo.Coords);
+            CurrentMapInfo.Coords = previousMapCoords;
         }
     }
 
@@ -176,7 +133,7 @@ public class MapManager : SerializedMonoBehaviour
     {
         if (levelToLoad == "LastRoom")
         {
-            SceneFader.Instance.LoadSceneWithFade(map[CurrentMapCoords.x, CurrentMapCoords.y].RoomName);
+            SceneFader.Instance.LoadSceneWithFade(CurrentMapInfo.Map[CurrentMapInfo.Coords.x, CurrentMapInfo.Coords.y].Room.Name);
         }
         else
         {
@@ -186,136 +143,128 @@ public class MapManager : SerializedMonoBehaviour
 
     private void MoveCurrentPlayerPositionAndCenterMap()
     {
-        //we change the location of red indication of the player in the map 
-        if (currentPlayerLocationInitialized)
+        if (CurrentMapInfo.PlayerLocation != null)
         {
-            Vector3 mapCoordinates = ConvertArrayCoordinates(CurrentMapCoords.x, CurrentMapCoords.y);
-            playerCurrentMapLocation.transform.localPosition = mapCoordinates;
+            var mapCoordinates = ConvertArrayCoordinates(CurrentMapInfo.Coords.x, CurrentMapInfo.Coords.y);
+            CurrentMapInfo.PlayerLocation.transform.localPosition = mapCoordinates;
             mapTransform.localPosition = new Vector3(-mapCoordinates.x, -mapCoordinates.y, 0);
         }
         else
         {
-            Vector2 mapCoordinates = ConvertArrayCoordinates(CurrentMapCoords.x, CurrentMapCoords.y);
-            playerCurrentMapLocation = ExtensionMethods.InstantiateAtLocalPosition(playerCurrentMapLocationPrefab, mapTransform, mapCoordinates);
+            var mapCoordinates = ConvertArrayCoordinates(CurrentMapInfo.Coords.x, CurrentMapInfo.Coords.y);
+            CurrentMapInfo.PlayerLocation = ExtensionMethods.InstantiateAtLocalPosition(playerCurrentMapLocationPrefab, mapTransform, mapCoordinates);
             mapTransform.localPosition = new Vector3(-mapCoordinates.x, -mapCoordinates.y, 0);
-            currentPlayerLocationInitialized = true;
-        }
-    }
-
-    public void SetMap(Room[,] map, MapType mapType)
-    {
-        if (mapType == MapType.forest && !forestMapExists)
-        {
-            Array.Copy(map, 0, forestMap, 0, map.Length);
-            forestMapExists = true;
-        }
-        else if (mapType == MapType.cave && !caveMapExists)
-        {
-            Array.Copy(map, 0, caveMap, 0, map.Length);
-            caveMapExists = true;
         }
     }
 
     private void OnRoomChangeRenderMapPart()
     {
-        if (map[CurrentMapCoords.x, CurrentMapCoords.y].IsUnexplored)
+        if (CurrentMapInfo.Map[CurrentMapInfo.Coords.x, CurrentMapInfo.Coords.y].Room != null && CurrentMapInfo.Map[CurrentMapInfo.Coords.x, CurrentMapInfo.Coords.y].Room.Unexplored)
         {
-            map[CurrentMapCoords.x, CurrentMapCoords.y].IsUnexplored = false;
-            PlaceMapPart(CurrentMapCoords.x, CurrentMapCoords.y);
+            CurrentMapInfo.Map[CurrentMapInfo.Coords.x, CurrentMapInfo.Coords.y].Room.Unexplored = false;
+            PlaceMapPart(CurrentMapInfo.Coords.x, CurrentMapInfo.Coords.y);
             RenderNeighborUnexploredRooms();
         }
     }
 
-    private GameObject PlaceMapPart(int coordX, int coordY)
+    private void PlaceMapPart(int coordX, int coordY)
     {
-        GameObject roomIcon = ReturnCorrectMapIcon(coordX, coordY);
-        if ((int)map[coordX, coordY].RoomType > 2)
+        var cell = CurrentMapInfo.Map[coordX, coordY];
+        var roomIcon = ReturnCorrectMapIcon(cell);
+        var mapCoordinates = ConvertArrayCoordinates(coordX, coordY);
+        ExtensionMethods.InstantiateAtLocalPosition(roomIcon, mapTransform, mapCoordinates);
+        if (CurrentMapInfo.Map[coordX, coordY].CellType == MapCellType.Room)
         {
-            if (map[coordX, coordY].IsUnexplored)
+            if (CurrentMapInfo.Map[coordX, coordY].Room.Unexplored)
             {
                 roomIcon.GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f, 1);
             }
             else
             {
-                Destroy(map[coordX, coordY].Icon);
+                Destroy(CurrentMapInfo.Map[coordX, coordY].Icon);
             }
         }
-        map[coordX, coordY].Icon = roomIcon;
-        return roomIcon;
+
+        CurrentMapInfo.Map[coordX, coordY].Icon = roomIcon;
     }
 
-    private GameObject ReturnCorrectMapIcon(int coordX, int coordY)
+    private GameObject ReturnCorrectMapIcon(MapCell cell)
     {
-        GameObject icon = null;
-        switch(map[coordX, coordY].RoomType)
+        if (cell.CellType == MapCellType.Road)
         {
-            case RoomType.NoRoom:
-                return null;
-            case RoomType.HorizontalRoad:
-                icon = roomIcons[(int)CurrentMap - 1][(int)RoomType.HorizontalRoad];
-                break;
-            case RoomType.VerticalRoad:
-                icon = roomIcons[(int)CurrentMap - 1][(int)RoomType.VerticalRoad];
-                break;
-            case RoomType.BossRoom:
-                icon = roomIcons[(int)CurrentMap - 1][(int)RoomType.BossRoom];
-                break;
-            default:
-                icon = roomIcons[(int)CurrentMap - 1][(int)RoomType.NormalRoom];
-                break;
+            switch (cell.RoadType)
+            {
+                case RoadType.None:
+                    return null;
+                case RoadType.Horizontal:
+                    return CurrentMapInfo.Icons.HorizontalRoad;
+                case RoadType.Vertical:
+                    return CurrentMapInfo.Icons.VerticalRoad;
+            }
+        }
+        else if (cell.CellType == MapCellType.Room)
+        {
+            switch (cell.Room.Type)
+            {
+                case RoomType.None:
+                    return null;
+                case RoomType.NormalRoom:
+                    return CurrentMapInfo.Icons.NormalRoom;
+                case RoomType.BossRoom:
+                    return CurrentMapInfo.Icons.BossRoom;
+            }
         }
 
-        Vector2 mapCoordinates = ConvertArrayCoordinates(coordX, coordY);
-        return ExtensionMethods.InstantiateAtLocalPosition(null, mapTransform, mapCoordinates);
+        return null;
     }
 
     private void RenderNeighborUnexploredRooms()
     {
          // Draw East
-        if (CurrentMapCoords.x + 2 < map.GetLength(0))
+        if (CurrentMapInfo.Coords.x + 2 < CurrentMapInfo.Map.GetLength(0))
         {
-            if(map[CurrentMapCoords.x + 1, CurrentMapCoords.y].RoomType > 0)
+            if(CurrentMapInfo.Map[CurrentMapInfo.Coords.x + 1, CurrentMapInfo.Coords.y].CellType != MapCellType.None)
             {
-                if(map[CurrentMapCoords.x + 2, CurrentMapCoords.y].IsUnexplored)
+                if(CurrentMapInfo.Map[CurrentMapInfo.Coords.x + 2, CurrentMapInfo.Coords.y].Room.Unexplored)
                 {
-                    PlaceMapPart(CurrentMapCoords.x + 1, CurrentMapCoords.y);
-                    PlaceMapPart(CurrentMapCoords.x + 2, CurrentMapCoords.y);
+                    PlaceMapPart(CurrentMapInfo.Coords.x + 1, CurrentMapInfo.Coords.y);
+                    PlaceMapPart(CurrentMapInfo.Coords.x + 2, CurrentMapInfo.Coords.y);
                 }
             }
         }
         // Draw West
-        if (CurrentMapCoords.x - 2 >= 0)
+        if (CurrentMapInfo.Coords.x - 2 >= 0)
         {
-            if (map[CurrentMapCoords.x - 1, CurrentMapCoords.y].RoomType > 0)
+            if (CurrentMapInfo.Map[CurrentMapInfo.Coords.x - 1, CurrentMapInfo.Coords.y].CellType != MapCellType.None)
             {
-                if (map[CurrentMapCoords.x - 2, CurrentMapCoords.y].IsUnexplored)
+                if (CurrentMapInfo.Map[CurrentMapInfo.Coords.x - 2, CurrentMapInfo.Coords.y].Room.Unexplored)
                 {
-                    PlaceMapPart(CurrentMapCoords.x - 1, CurrentMapCoords.y);
-                    PlaceMapPart(CurrentMapCoords.x - 2, CurrentMapCoords.y);
+                    PlaceMapPart(CurrentMapInfo.Coords.x - 1, CurrentMapInfo.Coords.y);
+                    PlaceMapPart(CurrentMapInfo.Coords.x - 2, CurrentMapInfo.Coords.y);
                 }
             }
         }
         // Draw South
-        if (CurrentMapCoords.y + 2 < map.GetLength(1))
+        if (CurrentMapInfo.Coords.y + 2 < CurrentMapInfo.Map.GetLength(1))
         {
-            if (map[CurrentMapCoords.x, CurrentMapCoords.y + 1].RoomType > 0)
+            if (CurrentMapInfo.Map[CurrentMapInfo.Coords.x, CurrentMapInfo.Coords.y + 1].CellType != MapCellType.None)
             {
-                if (map[CurrentMapCoords.x, CurrentMapCoords.y + 1].IsUnexplored)
+                if (CurrentMapInfo.Map[CurrentMapInfo.Coords.x, CurrentMapInfo.Coords.y + 2].Room.Unexplored)
                 {
-                    PlaceMapPart(CurrentMapCoords.x, CurrentMapCoords.y + 1);
-                    PlaceMapPart(CurrentMapCoords.x, CurrentMapCoords.y + 2);
+                    PlaceMapPart(CurrentMapInfo.Coords.x, CurrentMapInfo.Coords.y + 1);
+                    PlaceMapPart(CurrentMapInfo.Coords.x, CurrentMapInfo.Coords.y + 2);
                 }
             }
         }
         // Draw North
-        if (CurrentMapCoords.y - 2 >= 0)
+        if (CurrentMapInfo.Coords.y - 2 >= 0)
         {
-            if (map[CurrentMapCoords.x, CurrentMapCoords.y - 1].RoomType > 0)
+            if (CurrentMapInfo.Map[CurrentMapInfo.Coords.x, CurrentMapInfo.Coords.y - 1].CellType != MapCellType.None)
             {
-                if (map[CurrentMapCoords.x, CurrentMapCoords.y - 1].IsUnexplored)
+                if (CurrentMapInfo.Map[CurrentMapInfo.Coords.x, CurrentMapInfo.Coords.y - 2].Room.Unexplored)
                 {
-                    PlaceMapPart(CurrentMapCoords.x, CurrentMapCoords.y - 1);
-                    PlaceMapPart(CurrentMapCoords.x, CurrentMapCoords.y - 2);
+                    PlaceMapPart(CurrentMapInfo.Coords.x, CurrentMapInfo.Coords.y - 1);
+                    PlaceMapPart(CurrentMapInfo.Coords.x, CurrentMapInfo.Coords.y - 2);
                 }
             }
         }
@@ -325,20 +274,18 @@ public class MapManager : SerializedMonoBehaviour
     {
         mapTransform.DestroyAllChildren();
         ExtensionMethods.InstantiateAtLocalPosition(townIcon, mapTransform, Vector2Int.zero);
-        caveMapExists = false;
-        forestMapExists = false;
-        currentPlayerLocationInitialized = false;
-        map = null;
+        CurrentMapInfo.PlayerLocation = null;
+        CurrentMapInfo.SetCurrentMap(MapType.Town);
     }
 
     private Vector2 ConvertArrayCoordinates(int x, int y)
     {
-        if (CurrentMap == MapType.forest)
+        if (CurrentMapInfo.Type == MapType.Forest)
         {
             var mapCoordinates = new Vector2(40 + x * 20, 0);
             return mapCoordinates;
         }
-        else if (CurrentMap == MapType.cave)
+        else if (CurrentMapInfo.Type == MapType.Cave)
         {
             var mapCoordinates = new Vector2(-120 + x * 20, -40 - y * 20);
             return mapCoordinates;
@@ -350,17 +297,16 @@ public class MapManager : SerializedMonoBehaviour
         }
     }
 
-    private void RenderMap()
+    private void RenderFullMap()
     {
-        for (int i = 0; i < map.GetLength(0); i++)
+        for (int i = 0; i < CurrentMapInfo.Map.GetLength(0); i++)
         {
-            for (int j = 0; j < map.GetLength(1); j++)
+            for (int j = 0; j < CurrentMapInfo.Map.GetLength(1); j++)
             {
-                if (map[i, j].RoomType != RoomType.NoRoom)
+                if (CurrentMapInfo.Map[i, j].CellType != MapCellType.None)
                 {
-                    Vector2 mapCoordinates = ConvertArrayCoordinates(i, j);
-
-                    GameObject room = ReturnCorrectMapIcon(i, j);
+                    var mapCoordinates = ConvertArrayCoordinates(i, j);
+                    var room = ReturnCorrectMapIcon(CurrentMapInfo.Map[i, j]);
                     room.GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f, 1);
                     ExtensionMethods.InstantiateAtLocalPosition(room, mapTransform, mapCoordinates);
                 }
@@ -380,26 +326,44 @@ public class MapManager : SerializedMonoBehaviour
             }
         }
 
-        if (map == null)
+        if (CurrentMapInfo.Map == null)
         {
             return;
         }
 
-        if(map[CurrentMapCoords.x, CurrentMapCoords.y].HasTreasure)
+        if(CurrentMapInfo.Map[CurrentMapInfo.Coords.x, CurrentMapInfo.Coords.y].CellType == MapCellType.Room && 
+           CurrentMapInfo.Map[CurrentMapInfo.Coords.x, CurrentMapInfo.Coords.y].Room.HasTreasure)
         {
-            TreasureChest treasureChest = FindObjectOfType<TreasureChest>();
+            var treasureChest = FindObjectOfType<TreasureChest>();
             if (treasureChest != null)
             {
                 treasureChest.EnableChest();
             }
         }
 
-        string roomKey = CurrentMapCoords.x.ToString() + CurrentMapCoords.y.ToString();
-        OnRoomLoaded?.Invoke(CurrentMap, roomKey, map[CurrentMapCoords.x,CurrentMapCoords.y].RoomType);
+        var roomKey = CurrentMapInfo.Coords.x.ToString() + CurrentMapInfo.Coords.y.ToString();
+        OnRoomLoaded?.Invoke(CurrentMapInfo.Type, roomKey, CurrentMapInfo.Map[CurrentMapInfo.Coords.x,CurrentMapInfo.Coords.y].Room.Type);
     }
 
     public RoomType GetMapRoomType()
     {
-        return map[CurrentMapCoords.x, CurrentMapCoords.y].RoomType;
+        return CurrentMapInfo.Map[CurrentMapInfo.Coords.x, CurrentMapInfo.Coords.y].Room.Type;
+    }
+}
+
+public class CurrentMapInfo
+{
+    public MapCell[,] Map { get; set; }
+    public MapType Type { get; set; } = MapType.Town;
+    public Vector2Int Coords { get; set; }
+    public MapIcons Icons { get; set; }
+    public GameObject PlayerLocation { get; set; } = null;
+
+    public void SetCurrentMap(MapType type, MapCell[,] map = null, Vector2Int coords = default, MapIcons icons = null)
+    {
+        Map = map;
+        Type = type;
+        Coords = coords;
+        Icons = icons;
     }
 }

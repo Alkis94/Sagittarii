@@ -2,70 +2,61 @@
 
 public class ForestMapCreator : MapCreator
 {
-    private static ForestMapCreator instance = null;
-    private const int forestLength = 15;
+    public static ForestMapCreator Instance { get; private set; }
+
+    public Vector2Int ForestFirstRoomCoordinates { get; private set; } = new(2, 0);
+    public MapIcons ForestIcons { get; private set; }
+
+    private const int forestLength = 10;
     private readonly Vector2Int startRoomCoordinates = new(4, 0);
 
-    private void Awake()
+    public ForestMapCreator()
     {
-        if (instance != null && instance != this)
+        if (Instance != null)
         {
-            Destroy(gameObject);
+            return;
         }
-        else
-        {
-            instance = this;
-        }
-        
+
+        Instance = this;
     }
 
-    protected void Start()
+    public void CreateMap()
     {
-        map = new Room[40, 1];
-        FillArrayWithRooms();
+        ForestIcons = new MapIcons("Forest");
+        InitializeMapArray(40, 1);
         TreasureCount = 2;
-        CreateMap();
-        MapCreated(MapType.forest);
-    }
 
-    private void CreateMap()
-    {
-        map[0, 0].RoomType = RoomType.HorizontalRoad;
-        map[1, 0].RoomType = RoomType.HorizontalRoad;
-        map[2, 0].RoomType = RoomType.StartingRoom;
-        map[2, 0].RoomName = "ForestEntrance";
-        map[3, 0].RoomType = RoomType.HorizontalRoad;
+        Map[0, 0].AddRoad(RoadType.Horizontal);
+        Map[1, 0].AddRoad(RoadType.Horizontal);
+        Map[2, 0].AddNormallRoom();
+        Map[2, 0].AddCustomRoom(new Room
+        {
+            Name = "ForestEntrance"
+        });
+        Map[3, 0].AddRoad(RoadType.Horizontal);
 
         CreatePathToBoss(new PathInfo(forestLength, startRoomCoordinates, false, false, false, true));
         AssignRoomOpenings();
 
-        int randomNumber;
-        int numberOfForestRooms = RoomTracker.ForestRooms.Count;
         for (int i = 0; i < 40; i++)
         {
-            if(map[i,0].RoomType == RoomType.NormalRoom)
+            if (Map[i, 0].Room == null)
             {
-                randomNumber = Random.Range(0, numberOfForestRooms);
-                map[i, 0].RoomName = RoomTracker.ForestRooms[randomNumber];
+                continue;
+            }
+
+            if(Map[i,0].Room.Type == RoomType.NormalRoom)
+            {
+                var randomNumber = Random.Range(0, RoomTracker.ForestRooms.Count);
+                Map[i, 0].Room.Name = RoomTracker.ForestRooms[randomNumber];
                 normalRoomArrayCoordinates.Add(new Vector2Int(i, 0));
             }
-            else if (map[i, 0].RoomType == RoomType.BossRoom)
+            else if (Map[i, 0].Room.Type == RoomType.BossRoom)
             {
-                map[i, 0].RoomName = "BearBossDoor";
+                Map[i, 0].Room.Name = "BearBossDoor";
             }
         }
 
-        //AddSpawnRoom();
         AddTreasures(2, normalRoomArrayCoordinates);
-    }
-
-    private void AddSpawnRoom ()
-    {
-        int randomNumber = Random.Range(0, normalRoomArrayCoordinates.Count);
-        int randomNumber2 = Random.Range(0, RoomTracker.ForestSpawnRooms.Count);
-        
-        map[normalRoomArrayCoordinates[randomNumber].x, 0].RoomName = RoomTracker.ForestSpawnRooms[randomNumber2];
-        map[normalRoomArrayCoordinates[randomNumber].x, 0].RoomType = RoomType.SpawnRoom;
-        normalRoomArrayCoordinates.RemoveAt(randomNumber);
     }
 }

@@ -37,8 +37,8 @@ public class Spawner : SerializedMonoBehaviour
         groundSpawnPoints = new List<Transform>();
         flyingSpawnPoints = new List<FlyingSpawnPoint>();
         enemiesChosenToSpawn = new List<EnemySpawnInfo>();
-        mapType = MapManager.Instance.CurrentMap;
-        roomKey = MapManager.Instance.CurrentMapCoords.x.ToString() + MapManager.Instance.CurrentMapCoords.y.ToString();
+        mapType = MapManager.Instance.CurrentMapInfo.Type;
+        roomKey = MapManager.Instance.CurrentMapInfo.Coords.x.ToString() + MapManager.Instance.CurrentMapInfo.Coords.y.ToString();
 
         foreach(Transform spawnPoint in transform)
         {
@@ -97,7 +97,6 @@ public class Spawner : SerializedMonoBehaviour
             yield return  null;
         }
     }
-
 
     IEnumerator SpawnGroundEnemy(GameObject enemy,float enemySpawnFrequency)
     {

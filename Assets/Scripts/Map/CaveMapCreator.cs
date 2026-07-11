@@ -1,43 +1,36 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 
 public class CaveMapCreator : MapCreator
 {
-    private static CaveMapCreator instance = null;
+    public static CaveMapCreator Instance { get; private set; }
+
+    public Vector2Int CaveFirstRoomCoordinates { get; private set; } = new(10, 0);
+    public MapIcons CaveIcons { get; private set; }
+
     private readonly Vector2Int startRoomCoordinates = new(10, 2);
     private Vector2Int bossRoomCoordinates;
-    private List<List<string>> caveRooms;
 
-    private void Awake()
+    public CaveMapCreator()
     {
-        if (instance != null && instance != this)
+        if (Instance != null)
         {
-            Destroy(gameObject);
-        }
-        else
-        {
-            instance = this;
+            return;
         }
 
-        caveRooms = new List<List<string>>();
+        Instance = this;
     }
 
-    protected void Start()
+    public void CreateMap()
     {
-        map = new Room[20, 40];
-        FillArrayWithRooms();
-        AddCaveMapLists();
-        CreateMap();
-        MapCreated(MapType.cave);
-    }
+        CaveIcons = new MapIcons("Cave");
+        InitializeMapArray(20, 40);
 
-    private void CreateMap()
-    {
         // Creating map layout
-        map[10, 0].RoomType = RoomType.StartingRoom;
-        map[10, 1].RoomType = RoomType.VerticalRoad;
+        Map[10, 0].AddCustomRoom(new Room { Name = "CaveToForest", Type = RoomType.StartingRoom });
+        Map[10, 1].AddRoad(RoadType.Vertical);
         bossRoomCoordinates = CreatePathToBoss(new PathInfo(10, startRoomCoordinates, false, true, true, true));
+        Map[bossRoomCoordinates.x, bossRoomCoordinates.y].Room.Name = ReturnCorrectBossRoom(Map[bossRoomCoordinates.x, bossRoomCoordinates.y].Room.RoomOpenings, "Mushroom");
         CreateRandomPaths(6, 3);
 
         // Assigning rooms-levels.
@@ -45,99 +38,73 @@ public class CaveMapCreator : MapCreator
         AssignRooms();
         AddTreasures(3, normalRoomArrayCoordinates);
         AssignMushroomTowers();
-        map[10, 0].RoomName = "CaveToForest";
-
     }
 
     private void AssignRooms()
     {
-        for (int i = 0; i < map.GetLength(0); i++)
+        for (var i = 0; i < Map.GetLength(0); i++)
         {
-            for (int j = 0; j < map.GetLength(1); j++)
+            for (var j = 0; j < Map.GetLength(1); j++)
             {
-                //mapLayout[i, j] > 2 check means that inside the map there is a room, not a road or no room.
-                if ((int)map[i, j].RoomType > 2)
+                if (Map[i, j].CellType == MapCellType.Room && Map[i, j].Room.Type == RoomType.NormalRoom)
                 {
-                    map[i, j].RoomName = AssignCorrectRoom((int)map[i, j].RoomOpenings, caveRooms);
+                    Map[i, j].Room.Name = AssignCorrectRoom(Map[i, j].Room.RoomOpenings);
                 }
             }
         }
-
-        map[bossRoomCoordinates.x, bossRoomCoordinates.y].RoomName = ReturnCorrectBossRoom(map[bossRoomCoordinates.x, bossRoomCoordinates.y].RoomOpenings, "Mushroom");
     }
 
-    private void AddCaveMapLists()
+    protected string AssignCorrectRoom(RoomOpenings openings)
     {
-        caveRooms.Add(RoomTracker.CaveRoomsNSWE);
-        caveRooms.Add(RoomTracker.CaveRoomsNSW);
-        caveRooms.Add(RoomTracker.CaveRoomsNSE);
-        caveRooms.Add(RoomTracker.CaveRoomsNWE);
-        caveRooms.Add(RoomTracker.CaveRoomsSWE);
-        caveRooms.Add(RoomTracker.CaveRoomsNS);
-        caveRooms.Add(RoomTracker.CaveRoomsNW);
-        caveRooms.Add(RoomTracker.CaveRoomsNE);
-        caveRooms.Add(RoomTracker.CaveRoomsSW);
-        caveRooms.Add(RoomTracker.CaveRoomsSE);
-        caveRooms.Add(RoomTracker.CaveRoomsWE);
-        caveRooms.Add(RoomTracker.CaveRoomsN);
-        caveRooms.Add(RoomTracker.CaveRoomsS);
-        caveRooms.Add(RoomTracker.CaveRoomsW);
-        caveRooms.Add(RoomTracker.CaveRoomsE);
+        if (openings == RoomOpenings.None)
+        {
+            return "";
+        }
+
+        var randomNumber = Random.Range(0, RoomTracker.CaveRoomLists[$"CaveRoom{openings}"].Count);
+        return RoomTracker.CaveRoomLists[$"CaveRoom{openings}"][randomNumber];
     }
 
     private void AssignMushroomTowers()
     {
+        var edgeRooms = new List<Room>();
 
-        List<Room> edgeRooms = new List<Room>();
-
-        for (int i = 0; i < map.GetLength(0); i++)
+        for (var i = 0; i < Map.GetLength(0); i++)
         {
-            for (int j = 0; j < map.GetLength(1); j++)
+            for (var j = 0; j < Map.GetLength(1); j++)
             {
-                if (map[i, j].RoomType == RoomType.NormalRoom)
+                if (Map[i, j].Room.Type == RoomType.NormalRoom)
                 {
-                    if (map[i, j].RoomOpenings == RoomOpenings.N || map[i, j].RoomOpenings == RoomOpenings.S || map[i, j].RoomOpenings == RoomOpenings.W || map[i, j].RoomOpenings == RoomOpenings.E)
+                    if (Map[i, j].Room.RoomOpenings == RoomOpenings.N || Map[i, j].Room.RoomOpenings == RoomOpenings.S || 
+                        Map[i, j].Room.RoomOpenings == RoomOpenings.W || Map[i, j].Room.RoomOpenings == RoomOpenings.E)
                     {
-                        edgeRooms.Add(map[i, j]);
+                        edgeRooms.Add(Map[i, j].Room);
                     }
                 }
             }
         }
 
-        int numberOfTowers = 3;
+        var numberOfTowers = 3;
         if (ES3.KeyExists("MushroomsDestroyed", "Saves/Profile" + SaveProfile.SaveID + "/Bosses/MushroomBoss"))
         {
-            int mushroomsDestroyed = ES3.Load<int>("MushroomsDestroyed", "Saves/Profile" + SaveProfile.SaveID + "/Bosses/MushroomBoss");
+            var mushroomsDestroyed = ES3.Load<int>("MushroomsDestroyed", "Saves/Profile" + SaveProfile.SaveID + "/Bosses/MushroomBoss");
             numberOfTowers -= mushroomsDestroyed;
         }
 
-        for (int i = 0; i < numberOfTowers; i++)
+        for (var i = 0; i < numberOfTowers; i++)
         {
-            int randomNumber = Random.Range(0, edgeRooms.Count);
+            var randomNumber = Random.Range(0, edgeRooms.Count);
 
-            if (edgeRooms[randomNumber].RoomOpenings == RoomOpenings.N)
+            edgeRooms[randomNumber].Name = edgeRooms[randomNumber].RoomOpenings switch
             {
-                edgeRooms[randomNumber].RoomName = "MushroomTowerN";
-            }
-            else if (edgeRooms[randomNumber].RoomOpenings == RoomOpenings.S)
-            {
-                edgeRooms[randomNumber].RoomName = "MushroomTowerS";
-            }
-            else if (edgeRooms[randomNumber].RoomOpenings == RoomOpenings.W)
-            {
-                edgeRooms[randomNumber].RoomName = "MushroomTowerW";
-            }
-            else if (edgeRooms[randomNumber].RoomOpenings == RoomOpenings.E)
-            {
-                edgeRooms[randomNumber].RoomName = "MushroomTowerE";
-            }
-            else
-            {
-                Debug.LogError("Problem with assigning mushroom towers");
-            }
+                RoomOpenings.N => "MushroomTowerN",
+                RoomOpenings.S => "MushroomTowerS",
+                RoomOpenings.W => "MushroomTowerW",
+                RoomOpenings.E => "MushroomTowerE",
+                _ => throw new System.InvalidOperationException("Problem with assigning mushroom towers")
+            };
 
             edgeRooms.RemoveAt(randomNumber);
         }
     }
-
 }

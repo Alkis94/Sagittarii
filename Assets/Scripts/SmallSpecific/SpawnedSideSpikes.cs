@@ -1,12 +1,9 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class SpawnedSideSpikes : MonoBehaviour
 {
     private Animator animator;
     private BoxCollider2D boxCollider2D;
-    private MapType mapType;
-    private string roomKey;
 
     private void OnEnable()
     {
@@ -18,11 +15,10 @@ public class SpawnedSideSpikes : MonoBehaviour
         RoomManager.OnRoomFinished -= RemoveSpikes;
     }
 
-    // Use this for initialization
     void Start()
     {
-        mapType = MapManager.Instance.CurrentMap;
-        roomKey = MapManager.Instance.CurrentMapCoords.x.ToString() + MapManager.Instance.CurrentMapCoords.y.ToString();
+        var mapType = MapManager.Instance.CurrentMapInfo.Type;
+        var roomKey = MapManager.Instance.CurrentMapInfo.Coords.x.ToString() + MapManager.Instance.CurrentMapInfo.Coords.y.ToString();
 
         if (ES3.FileExists("Levels/" + mapType + "/Room" + roomKey + "/Enemies"))
         {
@@ -38,5 +34,4 @@ public class SpawnedSideSpikes : MonoBehaviour
         animator.SetTrigger("Vanish");
         boxCollider2D.enabled = false;
     }
-
 }

@@ -16,10 +16,6 @@ public class MusicManager : MonoBehaviour
     [SerializeField]
     private AudioClip caveMusic;
 
-    private MapType mapType;
-    private RoomType roomType;
-
-
     void Awake()
     {
         audioSource = GetComponent<AudioSource>();
@@ -28,7 +24,7 @@ public class MusicManager : MonoBehaviour
     void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
-        PlayTheRightMusic(SceneManager.GetActiveScene());
+        ChooseMusic(SceneManager.GetActiveScene());
     }
 
     void OnDisable()
@@ -38,15 +34,10 @@ public class MusicManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name != "Town")
-        {
-            mapType = MapManager.Instance.CurrentMap;
-            roomType = MapManager.Instance.GetMapRoomType();
-        }
-        PlayTheRightMusic(scene);
+        ChooseMusic(scene);
     }
 
-    private void PlayTheRightMusic(Scene scene)
+    private void ChooseMusic(Scene scene)
     {
         if (scene.name == "Town")
         {
@@ -64,7 +55,7 @@ public class MusicManager : MonoBehaviour
                 StartCoroutine(PlayMusicWithDelay(bearBossMusic, 3));
             }
         }
-        else if (mapType == MapType.forest)
+        else if (MapManager.Instance.CurrentMapInfo.Type == MapType.Forest)
         {
             if (audioSource.clip != forestMusic)
             {
@@ -72,7 +63,7 @@ public class MusicManager : MonoBehaviour
                 StartCoroutine(PlayMusicWithDelay(forestMusic, 3));
             }
         }
-        else if (mapType == MapType.cave)
+        else if (MapManager.Instance.CurrentMapInfo.Type == MapType.Cave)
         {
             if (audioSource.clip != caveMusic)
             {

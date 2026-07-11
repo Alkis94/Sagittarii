@@ -32,9 +32,9 @@ public class EnemiesManager : MonoBehaviour
 
     private void Start()
     {
-        mapType = MapManager.Instance.CurrentMap;
-        roomKey = MapManager.Instance.CurrentMapCoords.x.ToString() + MapManager.Instance.CurrentMapCoords.y.ToString();
-        roomType = MapManager.Instance.GetMapRoomType();
+        mapType = MapManager.Instance.CurrentMapInfo.Type;
+        roomKey = MapManager.Instance.CurrentMapInfo.Coords.x.ToString() + MapManager.Instance.CurrentMapInfo.Coords.y.ToString();
+        roomType = MapManager.Instance.CurrentMapInfo.Map[MapManager.Instance.CurrentMapInfo.Coords.x, MapManager.Instance.CurrentMapInfo.Coords.y].Room.Type;
         ChooseAndLoad();
     }
 
@@ -59,13 +59,6 @@ public class EnemiesManager : MonoBehaviour
             else
             {
                 LoadEnemies();
-            }
-        }
-        if (roomType == RoomType.SpawnRoom)
-        {
-            if (ES3.FileExists("Levels/" + mapType + "/Room" + roomKey + "/Enemies"))
-            {
-                ReloadSpawnedEnemies();
             }
         }
         else
@@ -163,5 +156,4 @@ public class EnemiesManager : MonoBehaviour
     {
         ES3.Save<int>("ChosenGroupID", chosenGroupID, "Levels/" + mapType + "/Room" + roomKey + "/Enemies");
     }
-
 }

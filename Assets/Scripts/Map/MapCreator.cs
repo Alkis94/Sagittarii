@@ -1,24 +1,17 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using System;
 
-public abstract class MapCreator : MonoBehaviour
+public abstract class MapCreator
 {
-
-    private const int distanceBetweenRooms = 40;
-    private const int distanceBetweenRoomAndRoad = 20;
-
-    protected Room[,] map;
-    [SerializeField]
+    public MapCell[,] Map { get; private set; }
     protected int TreasureCount = 0;
 
     protected List<Vector2Int> normalRoomArrayCoordinates = new();
-    public static event Action<Room[,],MapType> OnMapCreated = delegate { };
 
     protected void CreatePath(PathInfo pathInfo)
     {
         var currentCoordinates = pathInfo.StartCoordinates;
-        map[currentCoordinates.x, currentCoordinates.y].RoomType = RoomType.NormalRoom;
+        Map[currentCoordinates.x, currentCoordinates.y].AddNormallRoom();
 
         for (int i = 1; i < pathInfo.Length; i++)
         {
@@ -46,31 +39,31 @@ public abstract class MapCreator : MonoBehaviour
                 break;
             }
 
-            var randomDirection = availableDirections[UnityEngine.Random.Range(0, availableDirections.Count)];
+            var randomDirection = availableDirections[Random.Range(0, availableDirections.Count)];
 
             switch (randomDirection)
             {
                 case Direction.West:
-                    map[currentCoordinates.x - 1, currentCoordinates.y].RoomType = RoomType.HorizontalRoad;
-                    map[currentCoordinates.x - 2, currentCoordinates.y].RoomType = RoomType.NormalRoom;
+                    Map[currentCoordinates.x - 1, currentCoordinates.y].AddRoad(RoadType.Horizontal);
+                    Map[currentCoordinates.x - 2, currentCoordinates.y].AddNormallRoom();
                     currentCoordinates.x -= 2;
                     normalRoomArrayCoordinates.Add(new Vector2Int(currentCoordinates.x, currentCoordinates.y));
                     break;
                 case Direction.East:
-                    map[currentCoordinates.x + 1, currentCoordinates.y].RoomType = RoomType.HorizontalRoad;
-                    map[currentCoordinates.x + 2, currentCoordinates.y].RoomType = RoomType.NormalRoom;
+                    Map[currentCoordinates.x + 1, currentCoordinates.y].AddRoad(RoadType.Horizontal);
+                    Map[currentCoordinates.x + 2, currentCoordinates.y].AddNormallRoom();
                     currentCoordinates.x += 2;
                     normalRoomArrayCoordinates.Add(new Vector2Int(currentCoordinates.x, currentCoordinates.y));
                     break;
                 case Direction.North:
-                    map[currentCoordinates.x, currentCoordinates.y - 1].RoomType = RoomType.VerticalRoad;
-                    map[currentCoordinates.x, currentCoordinates.y - 2].RoomType = RoomType.NormalRoom;
+                    Map[currentCoordinates.x, currentCoordinates.y - 1].AddRoad(RoadType.Vertical);
+                    Map[currentCoordinates.x, currentCoordinates.y - 2].AddNormallRoom();
                     currentCoordinates.y -= 2;
                     normalRoomArrayCoordinates.Add(new Vector2Int(currentCoordinates.x, currentCoordinates.y));
                     break;
                 case Direction.South:
-                    map[currentCoordinates.x, currentCoordinates.y + 1].RoomType = RoomType.VerticalRoad;
-                    map[currentCoordinates.x, currentCoordinates.y + 2].RoomType = RoomType.NormalRoom;
+                    Map[currentCoordinates.x, currentCoordinates.y + 1].AddRoad(RoadType.Vertical);
+                    Map[currentCoordinates.x, currentCoordinates.y + 2].AddNormallRoom();
                     currentCoordinates.y += 2;
                     normalRoomArrayCoordinates.Add(new Vector2Int(currentCoordinates.x, currentCoordinates.y));
                     break;
@@ -82,7 +75,7 @@ public abstract class MapCreator : MonoBehaviour
     {
         var uncheckedNormalRooms = new List<int>();
 
-        for(var j = 0; j < normalRoomArrayCoordinates.Count; j++)
+        for (var j = 0; j < normalRoomArrayCoordinates.Count; j++)
         {
             uncheckedNormalRooms.Add(j);
         }
@@ -97,13 +90,13 @@ public abstract class MapCreator : MonoBehaviour
                 break;
             }
 
-            var randomRoadLength = UnityEngine.Random.Range(minPathLength, maxPathLength);
-            var randomUncheckedRoomID = UnityEngine.Random.Range(0, uncheckedNormalRooms.Count);
+            var randomRoadLength = Random.Range(minPathLength, maxPathLength);
+            var randomUncheckedRoomID = Random.Range(0, uncheckedNormalRooms.Count);
             var chosenRoomID = uncheckedNormalRooms[randomUncheckedRoomID];
             uncheckedNormalRooms.RemoveAt(randomUncheckedRoomID);
             var randomNormalRoom = normalRoomArrayCoordinates[chosenRoomID];
 
-            if(HasSpaceAnyAroundForRoom(randomNormalRoom))
+            if (HasSpaceAnyAroundForRoom(randomNormalRoom))
             {
                 var pathParams = new PathInfo(randomRoadLength, randomNormalRoom);
                 CreatePath(pathParams);
@@ -116,7 +109,7 @@ public abstract class MapCreator : MonoBehaviour
         CreatePath(pathInfo);
         var bossRoomCoordinates = normalRoomArrayCoordinates[normalRoomArrayCoordinates.Count - 1];
         normalRoomArrayCoordinates.RemoveAt(normalRoomArrayCoordinates.Count - 1);
-        map[bossRoomCoordinates.x, bossRoomCoordinates.y].RoomType = RoomType.BossRoom;
+        Map[bossRoomCoordinates.x, bossRoomCoordinates.y].AddBossRoom();
         return bossRoomCoordinates;
     }
 
@@ -124,17 +117,17 @@ public abstract class MapCreator : MonoBehaviour
     {
         for (var i = 0; i < TreasuresAmount; i++)
         {
-            var randomNumber = UnityEngine.Random.Range(0, normalRoomArrayCoordinates.Count);
-            map[normalRoomArrayCoordinates[randomNumber].x, normalRoomArrayCoordinates[randomNumber].y].HasTreasure = true;
+            var randomNumber = Random.Range(0, normalRoomArrayCoordinates.Count);
+            Map[normalRoomArrayCoordinates[randomNumber].x, normalRoomArrayCoordinates[randomNumber].y].Room.HasTreasure = true;
         }
     }
 
     protected RoomOpenings ReturnCorrectRoomOpening(int coordinatesX, int coordinatesY)
     {
-        var north = coordinatesY - 1 > 0 && map[coordinatesX, coordinatesY - 1].RoomType > 0;
-        var south = coordinatesY + 1 < map.GetLength(1) && map[coordinatesX, coordinatesY + 1].RoomType > 0;
-        var west = coordinatesX - 1 > 0 && map[coordinatesX - 1, coordinatesY].RoomType > 0;
-        var east = coordinatesX + 1 < map.GetLength(0) && map[coordinatesX + 1, coordinatesY].RoomType > 0;
+        var north = coordinatesY - 1 > 0 && Map[coordinatesX, coordinatesY - 1].CellType == MapCellType.Road;
+        var south = coordinatesY + 1 < Map.GetLength(1) && Map[coordinatesX, coordinatesY + 1].CellType == MapCellType.Road;
+        var west = coordinatesX - 1 > 0 && Map[coordinatesX - 1, coordinatesY].CellType == MapCellType.Road;
+        var east = coordinatesX + 1 < Map.GetLength(0) && Map[coordinatesX + 1, coordinatesY].CellType == MapCellType.Road;
 
         return (north, south, east, west) switch
         {
@@ -163,14 +156,13 @@ public abstract class MapCreator : MonoBehaviour
     /// </summary>
     protected void AssignRoomOpenings()
     {
-        for (var i = 0; i < map.GetLength(0); i++)
+        for (var i = 0; i < Map.GetLength(0); i++)
         {
-            for (var j = 0; j < map.GetLength(1); j++)
+            for (var j = 0; j < Map.GetLength(1); j++)
             {
-                // mapLayout[i, j] > 2 check means that inside the map there is a room, not a road or no room.
-                if ((int)map[i, j].RoomType > 2)
+                if (Map[i, j].CellType == MapCellType.Room)
                 {
-                    map[i, j].RoomOpenings = ReturnCorrectRoomOpening(i, j);
+                    Map[i, j].Room.RoomOpenings = ReturnCorrectRoomOpening(i, j);
                 }
             }
         }
@@ -192,10 +184,10 @@ public abstract class MapCreator : MonoBehaviour
     {
         return direction switch
         {
-            Direction.West => room.x - 2 >= 0 && map[room.x - 2, room.y].RoomType == RoomType.NoRoom,
-            Direction.East => room.x + 2 < map.GetLength(0) && map[room.x + 2, room.y].RoomType == RoomType.NoRoom,
-            Direction.North => room.y - 2 >= 0 && map[room.x, room.y - 2].RoomType == RoomType.NoRoom,
-            Direction.South => room.y + 2 < map.GetLength(1) && map[room.x, room.y + 2].RoomType == RoomType.NoRoom,
+            Direction.West => room.x - 2 >= 0 && Map[room.x - 2, room.y].CellType == MapCellType.None,
+            Direction.East => room.x + 2 < Map.GetLength(0) && Map[room.x + 2, room.y].CellType == MapCellType.None,
+            Direction.North => room.y - 2 >= 0 && Map[room.x, room.y - 2].CellType == MapCellType.None,
+            Direction.South => room.y + 2 < Map.GetLength(1) && Map[room.x, room.y + 2].CellType == MapCellType.None,
             _ => false
         };
     }
@@ -211,29 +203,17 @@ public abstract class MapCreator : MonoBehaviour
         return new Vector2(offsetX - 145 + (x + 1) * 20, offsetY + 75 - (y + 1) * 20);
     }
 
-    protected void FillArrayWithRooms()
+    protected void InitializeMapArray(int rows, int columns)
     {
-        for(var i = 0; i < map.GetLength(0); i++)
+        Map = new MapCell[rows, columns];
+
+        for (var i = 0; i < Map.GetLength(0); i++)
         {
-            for (var j = 0; j < map.GetLength(1); j++)
+            for (var j = 0; j < Map.GetLength(1); j++)
             {
-                map[i, j] = new Room
-                {
-                    RoomArrayCoords = new Vector2(i, j)
-                };
+                Map[i, j] = new MapCell();
             }
         }
-    }
-
-    protected string AssignCorrectRoom(int openings, List<List<string>> roomLevels)
-    {
-        var randomNumber = UnityEngine.Random.Range(0, roomLevels[openings].Count);
-        return roomLevels[openings][randomNumber];
-    }
-
-    protected void MapCreated(MapType mapType)
-    {
-        OnMapCreated?.Invoke(map, mapType);
     }
 }
 
@@ -246,9 +226,9 @@ public struct PathInfo
     public bool AllowWest;
     public bool AllowEast;
 
-    public PathInfo(int Length, Vector2Int startCoordinates, bool allowNorth = true, bool allowSouth = true, bool allowWest = true, bool allowEast = true)
+    public PathInfo(int length, Vector2Int startCoordinates, bool allowNorth = true, bool allowSouth = true, bool allowWest = true, bool allowEast = true)
     {
-        this.Length = Length;
+        Length = length;
         StartCoordinates = startCoordinates;
         AllowNorth = allowNorth;
         AllowSouth = allowSouth;
