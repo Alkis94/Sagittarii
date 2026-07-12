@@ -157,8 +157,7 @@ public class UIManager : MonoBehaviour
     private IEnumerator DisableGoldGained()
     {
         yield return new WaitForSeconds(3f);
-        int gold = 0;
-        Int32.TryParse(goldText.text, out gold);
+        Int32.TryParse(goldText.text, out int gold);
         gold += GoldGained;
         goldText.text = gold.ToString();
         goldGainedText.enabled = false;
@@ -211,7 +210,7 @@ public class UIManager : MonoBehaviour
 
     IEnumerator FillBar(float imageFillAmount,Image image)
     {
-        float fillAmountDifference = imageFillAmount - image.fillAmount;
+        var fillAmountDifference = imageFillAmount - image.fillAmount;
         while(imageFillAmount > image.fillAmount)
         {
             image.fillAmount += 0.05f * fillAmountDifference;
@@ -221,7 +220,7 @@ public class UIManager : MonoBehaviour
 
     IEnumerator DepleteBar(float imageFillAmount, Image image)
     {
-        float fillAmountDifference = image.fillAmount - imageFillAmount;
+        var fillAmountDifference = image.fillAmount - imageFillAmount;
         while (imageFillAmount < image.fillAmount)
         {
             image.fillAmount -= 0.05f * fillAmountDifference;
@@ -277,21 +276,13 @@ public class UIManager : MonoBehaviour
 
     public void CallItemTexts(string relicName, string relicDescription, RelicRarity relicRarity)
     {
-        switch((int)relicRarity)
+        relicNameText.color = relicRarity switch
         {
-            case 0:
-                relicNameText.color = Color.green;
-                break;
-            case 1:
-                relicNameText.color = Color.blue;
-                break;
-            case 2:
-                relicNameText.color = Color.magenta;
-                break;
-            default:
-                relicNameText.color = Color.green;
-                break;
-        }
+            RelicRarity.Common => Color.green,
+            RelicRarity.Rare => Color.blue,
+            RelicRarity.Epic => Color.magenta,
+            _ => Color.green,
+        };
 
         relicNameText.transform.localPosition = new Vector3(600, relicNameText.transform.localPosition.y, 0);
         relicDescriptionText.transform.localPosition = new Vector3(600, relicDescriptionText.transform.localPosition.y, 0);
@@ -326,8 +317,8 @@ public class UIManager : MonoBehaviour
     private IEnumerator ActivateDeathUI()
     {
         blackDeathImage.enabled = true;
-        float delay = Time.time + 2f;
-        float alpha = 0;
+        var delay = Time.time + 2f;
+        var alpha = 0f;
         while (delay > Time.time)
         {
             yield return new WaitForSeconds(0.025f);

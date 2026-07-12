@@ -13,7 +13,7 @@ public class Relic : MonoBehaviour
     [SerializeField]
     private string relicDescription = "";
     [SerializeField]
-    private RelicRarity relicRarity = RelicRarity.common;
+    private RelicRarity relicRarity = RelicRarity.Common;
 
     private void Start()
     {

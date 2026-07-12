@@ -67,8 +67,6 @@ public class MapManager : SerializedMonoBehaviour
             CurrentMapInfo.SetCurrentMap(MapType.Forest, ForestMapCreator.Instance.Map, ForestMapCreator.Instance.ForestFirstRoomCoordinates, ForestMapCreator.Instance.ForestIcons);
 
             // We put an extra road to connect forest and town, and avoid having a room that collides on the town.
-            // var mapCoordinates = ConvertArrayCoordinates(0, 0);
-            // ExtensionMethods.InstantiateAtLocalPosition(CurrentMapInfo.Icons.HorizontalRoad, mapTransform, mapCoordinates);
 
             if (renderFullMap)
             {

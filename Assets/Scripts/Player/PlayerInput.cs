@@ -261,7 +261,7 @@ public class PlayerInput : MonoBehaviour
         float returnDelay = Time.time + .5f;
         while (true)
         {
-            //we stop the player from being able to jump while falling, so he doesn't bug jump through the platform.
+            // we stop the player from being able to jump while falling, so he doesn't bug jump through the platform.
             jumpPressed = false;
             jumpHeld = false;
             if (Time.time > returnDelay)
@@ -291,10 +291,8 @@ public class PlayerInput : MonoBehaviour
         playerStats.Ammo += 500;
         playerStats.Gold += 9999;
         playerStats.Armor += 50;
-        playerStats.TimeLimit += 300;
         playerStats.Cooldown += -10;
     }
-
 }
 
 

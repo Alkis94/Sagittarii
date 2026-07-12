@@ -1,6 +1,6 @@
 ﻿public enum RelicRarity
 {
-    common,
-    rare,
-    epic
+    Common,
+    Rare,
+    Epic
 }

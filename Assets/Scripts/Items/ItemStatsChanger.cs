@@ -44,8 +44,6 @@ public class ItemStatsChanger : MonoBehaviour
     [SerializeField]
     private float energystealChance = 0;
     [SerializeField]
-    private int timeLimit = 0;
-    [SerializeField]
     private int townTax = 0;
     [SerializeField]
     private int restCost = 0;
@@ -80,7 +78,6 @@ public class ItemStatsChanger : MonoBehaviour
             playerStats.LifestealChance += lifestealChance;
             playerStats.Energysteal += energysteal;
             playerStats.EnergystealChance += energystealChance;
-            playerStats.TimeLimit += timeLimit;
             playerStats.TownTax += townTax;
             playerStats.RestCost += restCost;
             playerStats.Cooldown += cooldown;

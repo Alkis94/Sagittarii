@@ -45,9 +45,7 @@ public class PlayerStats : MonoBehaviour, IDamageable
     [SerializeField]
     private float energystealChance = 0;
     [SerializeField]
-    private int timeLimit = 600;
-    [SerializeField]
-    private int townTax = 100;
+    private int townTax = 10;
     [SerializeField]
     private int restCost = 10;
     [SerializeField]
@@ -461,19 +459,6 @@ public class PlayerStats : MonoBehaviour, IDamageable
         }
     }
 
-    public int TimeLimit
-    {
-        get
-        {
-            return timeLimit;
-        }
-
-        set
-        {
-            timeLimit = value > 180 ? value : 180;
-        }
-    }
-
     public int TownTax
     {
         get
@@ -532,8 +517,5 @@ public class PlayerStats : MonoBehaviour, IDamageable
     {
         CurrentEnergy --;
     }
-
-    
-
 }
 
