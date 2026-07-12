@@ -5,7 +5,6 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections;
 
-
 public class UIManager : MonoBehaviour
 {
 
@@ -336,7 +335,7 @@ public class UIManager : MonoBehaviour
             blackDeathImage.color = new Color(0, 0, 0, alpha);
         }
 
-        GameManager.GameState = GameStateEnum.paused;
+        GameManager.GameState = GameStateEnum.Paused;
         defeatMenu.SetActive(true);
     }
 

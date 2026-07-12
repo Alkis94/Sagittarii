@@ -6,28 +6,38 @@ public class CaveMapCreator : MapCreator
     public static CaveMapCreator Instance { get; private set; }
 
     public Vector2Int CaveFirstRoomCoordinates { get; private set; } = new(10, 0);
-    public MapIcons CaveIcons { get; private set; }
+    public MapIcons CaveIcons { get; private set; } = new MapIcons();
 
     private readonly Vector2Int startRoomCoordinates = new(10, 2);
     private Vector2Int bossRoomCoordinates;
 
-    public CaveMapCreator()
+    private void Awake()
     {
-        if (Instance != null)
+        if (Instance != null && Instance != this)
         {
-            return;
+            Destroy(gameObject);
         }
+        else
+        {
+            Instance = this;
+        }
+    }
 
-        Instance = this;
+    private void Start()
+    {
+        CaveIcons.LoadIcons("Cave");
     }
 
     public void CreateMap()
     {
-        CaveIcons = new MapIcons("Cave");
         InitializeMapArray(20, 40);
 
         // Creating map layout
-        Map[10, 0].AddCustomRoom(new Room { Name = "CaveToForest", Type = RoomType.StartingRoom });
+        Map[10, 0].AddCustomRoom(new Room
+        {
+            Name = "CaveToForest",
+            Type = RoomType.StartingRoom
+        });
         Map[10, 1].AddRoad(RoadType.Vertical);
         bossRoomCoordinates = CreatePathToBoss(new PathInfo(10, startRoomCoordinates, false, true, true, true));
         Map[bossRoomCoordinates.x, bossRoomCoordinates.y].Room.Name = ReturnCorrectBossRoom(Map[bossRoomCoordinates.x, bossRoomCoordinates.y].Room.RoomOpenings, "Mushroom");
@@ -73,7 +83,7 @@ public class CaveMapCreator : MapCreator
         {
             for (var j = 0; j < Map.GetLength(1); j++)
             {
-                if (Map[i, j].Room.Type == RoomType.NormalRoom)
+                if (Map[i,j].CellType == MapCellType.Room && Map[i, j].Room.Type == RoomType.NormalRoom)
                 {
                     if (Map[i, j].Room.RoomOpenings == RoomOpenings.N || Map[i, j].Room.RoomOpenings == RoomOpenings.S || 
                         Map[i, j].Room.RoomOpenings == RoomOpenings.W || Map[i, j].Room.RoomOpenings == RoomOpenings.E)

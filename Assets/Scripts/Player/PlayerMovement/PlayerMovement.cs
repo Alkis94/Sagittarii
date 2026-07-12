@@ -26,8 +26,9 @@ public class PlayerMovement : MonoBehaviour
 
     private const float skinWidth = .015f;
     [SerializeField]
-    private LayerMask groundLayer;          
-    private const float groundDistance = 0.1f;        //Distance player is considered to be on the ground
+    private LayerMask groundLayer;
+    // Distance player is considered to be on the ground
+    private const float groundDistance = 0.1f;        
     [SerializeField]
     private LayerMask bouncyBallLayer;
 

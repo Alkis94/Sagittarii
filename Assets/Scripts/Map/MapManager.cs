@@ -8,7 +8,7 @@ using Sirenix.OdinInspector;
 public class MapManager : SerializedMonoBehaviour
 {
     public static MapManager Instance = null;
-    public static event Action<MapType,string,RoomType> OnRoomLoaded = delegate { };
+    public static event Action<MapType, string,RoomType> OnRoomLoaded = delegate { };
 
     public CurrentMapInfo CurrentMapInfo { get; private set; } = new();
 
@@ -52,9 +52,6 @@ public class MapManager : SerializedMonoBehaviour
     private void Start()
     {
         ExtensionMethods.InstantiateAtLocalPosition(townIcon, mapTransform, Vector2Int.zero);
-
-        ForestMapCreator.Instance.CreateMap();
-        CaveMapCreator.Instance.CreateMap();
     }
 
     private void ChangeMap(MapType currentMap, MapType nextMap)
@@ -67,26 +64,35 @@ public class MapManager : SerializedMonoBehaviour
         }
         else if (nextMap == MapType.Forest)
         {
-            // We put an extra road to connect forest and town, and avoid having a room that collides on the town.
-            var mapCoordinates = ConvertArrayCoordinates(0, 0);
-            ExtensionMethods.InstantiateAtLocalPosition(CurrentMapInfo.Icons.HorizontalRoad, mapTransform, mapCoordinates);
-
             CurrentMapInfo.SetCurrentMap(MapType.Forest, ForestMapCreator.Instance.Map, ForestMapCreator.Instance.ForestFirstRoomCoordinates, ForestMapCreator.Instance.ForestIcons);
-            SceneFader.Instance.LoadSceneWithFade(CurrentMapInfo.Map[CurrentMapInfo.Coords.x, CurrentMapInfo.Coords.y].Room.Name);
-            UIManager.Instance.CallLocationText("Lost Woods");
-            OnRoomChangeRenderMapPart();
+
+            // We put an extra road to connect forest and town, and avoid having a room that collides on the town.
+            // var mapCoordinates = ConvertArrayCoordinates(0, 0);
+            // ExtensionMethods.InstantiateAtLocalPosition(CurrentMapInfo.Icons.HorizontalRoad, mapTransform, mapCoordinates);
+
+            if (renderFullMap)
+            {
+                DrawFullMap();
+            }
+            else
+            {
+                DrawMapPart(0, 0);
+                DrawMapPart(1, 0);
+                DrawMapPart(2, 0);
+                DrawMapPart(3, 0);
+                DrawMapPart(4, 0);
+            }
+
             MoveCurrentPlayerPositionAndCenterMap();
 
-            if(renderFullMap)
-            {
-                RenderFullMap();
-            }
+            SceneFader.Instance.LoadSceneWithFade(CurrentMapInfo.Map[CurrentMapInfo.Coords.x, CurrentMapInfo.Coords.y].Room.Name);
+            UIManager.Instance.CallLocationText("Lost Woods");
         }
         else if (nextMap == MapType.Cave)
         {
             CurrentMapInfo.SetCurrentMap(MapType.Cave, CaveMapCreator.Instance.Map, CaveMapCreator.Instance.CaveFirstRoomCoordinates, CaveMapCreator.Instance.CaveIcons);
 
-            // We put this road to connect forest and caves. This roads is not inside mapLayout.
+            // We put this road to connect forest and caves.
             // We do it this way so no rooms of caves collide with forest rooms.
             var mapCoordinates = new Vector2(80, -20);
             ExtensionMethods.InstantiateAtLocalPosition(CurrentMapInfo.Icons.VerticalRoad, mapTransform, mapCoordinates);
@@ -98,7 +104,7 @@ public class MapManager : SerializedMonoBehaviour
 
             if (renderFullMap)
             {
-                RenderFullMap();
+                DrawFullMap();
             }
         }
     }
@@ -162,30 +168,9 @@ public class MapManager : SerializedMonoBehaviour
         if (CurrentMapInfo.Map[CurrentMapInfo.Coords.x, CurrentMapInfo.Coords.y].Room != null && CurrentMapInfo.Map[CurrentMapInfo.Coords.x, CurrentMapInfo.Coords.y].Room.Unexplored)
         {
             CurrentMapInfo.Map[CurrentMapInfo.Coords.x, CurrentMapInfo.Coords.y].Room.Unexplored = false;
-            PlaceMapPart(CurrentMapInfo.Coords.x, CurrentMapInfo.Coords.y);
-            RenderNeighborUnexploredRooms();
+            // DrawMapPart(CurrentMapInfo.Coords.x, CurrentMapInfo.Coords.y);
+            DrawNeighborUnexploredRooms();
         }
-    }
-
-    private void PlaceMapPart(int coordX, int coordY)
-    {
-        var cell = CurrentMapInfo.Map[coordX, coordY];
-        var roomIcon = ReturnCorrectMapIcon(cell);
-        var mapCoordinates = ConvertArrayCoordinates(coordX, coordY);
-        ExtensionMethods.InstantiateAtLocalPosition(roomIcon, mapTransform, mapCoordinates);
-        if (CurrentMapInfo.Map[coordX, coordY].CellType == MapCellType.Room)
-        {
-            if (CurrentMapInfo.Map[coordX, coordY].Room.Unexplored)
-            {
-                roomIcon.GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f, 1);
-            }
-            else
-            {
-                Destroy(CurrentMapInfo.Map[coordX, coordY].Icon);
-            }
-        }
-
-        CurrentMapInfo.Map[coordX, coordY].Icon = roomIcon;
     }
 
     private GameObject ReturnCorrectMapIcon(MapCell cell)
@@ -194,8 +179,6 @@ public class MapManager : SerializedMonoBehaviour
         {
             switch (cell.RoadType)
             {
-                case RoadType.None:
-                    return null;
                 case RoadType.Horizontal:
                     return CurrentMapInfo.Icons.HorizontalRoad;
                 case RoadType.Vertical:
@@ -206,8 +189,7 @@ public class MapManager : SerializedMonoBehaviour
         {
             switch (cell.Room.Type)
             {
-                case RoomType.None:
-                    return null;
+                case RoomType.StartingRoom:
                 case RoomType.NormalRoom:
                     return CurrentMapInfo.Icons.NormalRoom;
                 case RoomType.BossRoom:
@@ -218,64 +200,48 @@ public class MapManager : SerializedMonoBehaviour
         return null;
     }
 
-    private void RenderNeighborUnexploredRooms()
+    private void DrawNeighborUnexploredRooms()
     {
-         // Draw East
+        // Draw East
         if (CurrentMapInfo.Coords.x + 2 < CurrentMapInfo.Map.GetLength(0))
         {
-            if(CurrentMapInfo.Map[CurrentMapInfo.Coords.x + 1, CurrentMapInfo.Coords.y].CellType != MapCellType.None)
+            if (CurrentMapInfo.Map[CurrentMapInfo.Coords.x + 2, CurrentMapInfo.Coords.y].CellType == MapCellType.Room &&
+                CurrentMapInfo.Map[CurrentMapInfo.Coords.x + 2, CurrentMapInfo.Coords.y].Room.Unexplored)
             {
-                if(CurrentMapInfo.Map[CurrentMapInfo.Coords.x + 2, CurrentMapInfo.Coords.y].Room.Unexplored)
-                {
-                    PlaceMapPart(CurrentMapInfo.Coords.x + 1, CurrentMapInfo.Coords.y);
-                    PlaceMapPart(CurrentMapInfo.Coords.x + 2, CurrentMapInfo.Coords.y);
-                }
+                DrawMapPart(CurrentMapInfo.Coords.x + 1, CurrentMapInfo.Coords.y);
+                DrawMapPart(CurrentMapInfo.Coords.x + 2, CurrentMapInfo.Coords.y);
             }
         }
         // Draw West
         if (CurrentMapInfo.Coords.x - 2 >= 0)
         {
-            if (CurrentMapInfo.Map[CurrentMapInfo.Coords.x - 1, CurrentMapInfo.Coords.y].CellType != MapCellType.None)
+            if (CurrentMapInfo.Map[CurrentMapInfo.Coords.x - 2, CurrentMapInfo.Coords.y].CellType == MapCellType.Room &&
+                CurrentMapInfo.Map[CurrentMapInfo.Coords.x - 2, CurrentMapInfo.Coords.y].Room.Unexplored)
             {
-                if (CurrentMapInfo.Map[CurrentMapInfo.Coords.x - 2, CurrentMapInfo.Coords.y].Room.Unexplored)
-                {
-                    PlaceMapPart(CurrentMapInfo.Coords.x - 1, CurrentMapInfo.Coords.y);
-                    PlaceMapPart(CurrentMapInfo.Coords.x - 2, CurrentMapInfo.Coords.y);
-                }
+                DrawMapPart(CurrentMapInfo.Coords.x - 1, CurrentMapInfo.Coords.y);
+                DrawMapPart(CurrentMapInfo.Coords.x - 2, CurrentMapInfo.Coords.y);
             }
         }
         // Draw South
         if (CurrentMapInfo.Coords.y + 2 < CurrentMapInfo.Map.GetLength(1))
         {
-            if (CurrentMapInfo.Map[CurrentMapInfo.Coords.x, CurrentMapInfo.Coords.y + 1].CellType != MapCellType.None)
+            if (CurrentMapInfo.Map[CurrentMapInfo.Coords.x, CurrentMapInfo.Coords.y + 2].CellType == MapCellType.Room &&
+                CurrentMapInfo.Map[CurrentMapInfo.Coords.x, CurrentMapInfo.Coords.y + 2].Room.Unexplored)
             {
-                if (CurrentMapInfo.Map[CurrentMapInfo.Coords.x, CurrentMapInfo.Coords.y + 2].Room.Unexplored)
-                {
-                    PlaceMapPart(CurrentMapInfo.Coords.x, CurrentMapInfo.Coords.y + 1);
-                    PlaceMapPart(CurrentMapInfo.Coords.x, CurrentMapInfo.Coords.y + 2);
-                }
+                DrawMapPart(CurrentMapInfo.Coords.x, CurrentMapInfo.Coords.y + 1);
+                DrawMapPart(CurrentMapInfo.Coords.x, CurrentMapInfo.Coords.y + 2);
             }
         }
         // Draw North
         if (CurrentMapInfo.Coords.y - 2 >= 0)
         {
-            if (CurrentMapInfo.Map[CurrentMapInfo.Coords.x, CurrentMapInfo.Coords.y - 1].CellType != MapCellType.None)
+            if (CurrentMapInfo.Map[CurrentMapInfo.Coords.x, CurrentMapInfo.Coords.y - 2].CellType == MapCellType.Room &&
+                CurrentMapInfo.Map[CurrentMapInfo.Coords.x, CurrentMapInfo.Coords.y - 2].Room.Unexplored)
             {
-                if (CurrentMapInfo.Map[CurrentMapInfo.Coords.x, CurrentMapInfo.Coords.y - 2].Room.Unexplored)
-                {
-                    PlaceMapPart(CurrentMapInfo.Coords.x, CurrentMapInfo.Coords.y - 1);
-                    PlaceMapPart(CurrentMapInfo.Coords.x, CurrentMapInfo.Coords.y - 2);
-                }
+                DrawMapPart(CurrentMapInfo.Coords.x, CurrentMapInfo.Coords.y - 1);
+                DrawMapPart(CurrentMapInfo.Coords.x, CurrentMapInfo.Coords.y - 2);
             }
         }
-    }
-
-    private void ResetMap()
-    {
-        mapTransform.DestroyAllChildren();
-        ExtensionMethods.InstantiateAtLocalPosition(townIcon, mapTransform, Vector2Int.zero);
-        CurrentMapInfo.PlayerLocation = null;
-        CurrentMapInfo.SetCurrentMap(MapType.Town);
     }
 
     private Vector2 ConvertArrayCoordinates(int x, int y)
@@ -297,7 +263,19 @@ public class MapManager : SerializedMonoBehaviour
         }
     }
 
-    private void RenderFullMap()
+    private void DrawMapPart(int coordX, int coordY)
+    {
+        var cell = CurrentMapInfo.Map[coordX, coordY];
+        var mapCoordinates = ConvertArrayCoordinates(coordX, coordY);
+        CurrentMapInfo.Map[coordX, coordY].Icon = ExtensionMethods.InstantiateAtLocalPosition(ReturnCorrectMapIcon(cell), mapTransform, mapCoordinates);
+
+        if (CurrentMapInfo.Map[coordX, coordY].CellType == MapCellType.Room && CurrentMapInfo.Map[coordX, coordY].Room.Unexplored)
+        {
+            CurrentMapInfo.Map[coordX, coordY].Icon.GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f, 1);
+        }
+    }
+
+    private void DrawFullMap()
     {
         for (int i = 0; i < CurrentMapInfo.Map.GetLength(0); i++)
         {
@@ -318,11 +296,14 @@ public class MapManager : SerializedMonoBehaviour
     {
         if (scene.name == "Town")
         {
-            ResetMap();
-            if (ES3.DirectoryExists(("Levels/")))
+            ExtensionMethods.InstantiateAtLocalPosition(townIcon, mapTransform, Vector2Int.zero);
+            CurrentMapInfo.PlayerLocation = null;
+            CurrentMapInfo.SetCurrentMap(MapType.Town);
+
+            if (GameManager.Instance.IsNewGame)
             {
-                ES3.DeleteDirectory("Levels/");
-                ES3.DeleteDirectory("Levels/");
+                ForestMapCreator.Instance.CreateMap();
+                CaveMapCreator.Instance.CreateMap();
             }
         }
 
@@ -343,11 +324,6 @@ public class MapManager : SerializedMonoBehaviour
 
         var roomKey = CurrentMapInfo.Coords.x.ToString() + CurrentMapInfo.Coords.y.ToString();
         OnRoomLoaded?.Invoke(CurrentMapInfo.Type, roomKey, CurrentMapInfo.Map[CurrentMapInfo.Coords.x,CurrentMapInfo.Coords.y].Room.Type);
-    }
-
-    public RoomType GetMapRoomType()
-    {
-        return CurrentMapInfo.Map[CurrentMapInfo.Coords.x, CurrentMapInfo.Coords.y].Room.Type;
     }
 }
 

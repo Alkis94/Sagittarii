@@ -1,7 +1,6 @@
 ﻿public enum RoomType
 {
-    None,
+    StartingRoom,
     NormalRoom,
-    BossRoom,
-    StartingRoom
+    BossRoom
 }

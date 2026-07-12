@@ -16,7 +16,7 @@ public class MapChanger : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player" && enabled == true)
+        if (collision.CompareTag("Player") && enabled == true)
         {
             OnMapChangerEntered?.Invoke(currentMap,nextMap);
             OnMapChangerEnteredPlayerDirection?.Invoke(doorPlacement);

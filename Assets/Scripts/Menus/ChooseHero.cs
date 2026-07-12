@@ -1,6 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
-using System.Collections;
 
 public class ChooseHero : MonoBehaviour
 {
@@ -9,7 +7,7 @@ public class ChooseHero : MonoBehaviour
 
     public void OnChoosePress()
     {
-        FindObjectOfType<CharacterChooser>().CharacterClassChosen = characterClass;
+        GameManager.Instance.ChooseCharacter(characterClass, true);
         SceneFader.Instance.LoadSceneWithFade("Town");
         UIManager.Instance.CallLocationText("Floyd's Rest");
     }

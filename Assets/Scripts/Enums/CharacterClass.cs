@@ -1,7 +1,8 @@
 ﻿public enum CharacterClass
 {
-    archer,
-    thief,
-    pyromancer,
-    spearman
+    None,
+    Archer,
+    Thief,
+    Pyromancer,
+    Spearman
 }

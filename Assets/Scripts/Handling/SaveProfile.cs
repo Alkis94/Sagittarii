@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 
 public class SaveProfile : MonoBehaviour
@@ -23,7 +22,6 @@ public class SaveProfile : MonoBehaviour
     private bool isNew = true;
     private int hero;
 
-    // Use this for initialization
     private void Start()
     {
         if(ES3.FileExists("Saves/Profile" + profileID + "/PlayerStats"))
@@ -49,10 +47,9 @@ public class SaveProfile : MonoBehaviour
         }
         else
         {
-            FindObjectOfType<CharacterChooser>().CharacterClassChosen = (CharacterClass)hero;
+            GameManager.Instance.ChooseCharacter((CharacterClass)hero, false);
             SceneFader.Instance.LoadSceneWithFade("Town");
             UIManager.Instance.CallLocationText("Floyd's Rest");
-
         }
     }
 
@@ -60,7 +57,7 @@ public class SaveProfile : MonoBehaviour
     {
         if (ES3.DirectoryExists("Saves/Profile" + profileID))
         {
-            Image heroImage = characterImage.GetComponent<Image>();
+            var heroImage = characterImage.GetComponent<Image>();
             heroImage.sprite = null;
             characterImage.SetActive(false);
             newGameText.SetActive(true);
@@ -68,6 +65,4 @@ public class SaveProfile : MonoBehaviour
             ES3.DeleteDirectory("Saves/Profile" + profileID);
         }
     }
-
-   
 }

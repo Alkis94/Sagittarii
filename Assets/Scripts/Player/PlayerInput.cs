@@ -63,12 +63,12 @@ public class PlayerInput : MonoBehaviour
 
     void Update()
 	{
-        if(GameManager.GameState == GameStateEnum.unpaused)
+        if(GameManager.GameState == GameStateEnum.Unpaused)
         {
-            if (Input.GetButtonDown("Cancel") && GameManager.GameState == GameStateEnum.unpaused)
+            if (Input.GetButtonDown("Cancel") && GameManager.GameState == GameStateEnum.Unpaused)
             {
                 pauseMenu.SetActive(true);
-                GameManager.GameState = GameStateEnum.paused;
+                GameManager.GameState = GameStateEnum.Paused;
             }
 
             if (playerStats.Ammo > 0)
@@ -180,12 +180,12 @@ public class PlayerInput : MonoBehaviour
                 cheatDelay = 0;
             }
         }
-        else if (GameManager.GameState == GameStateEnum.paused)
+        else if (GameManager.GameState == GameStateEnum.Paused)
         {
             if(Input.GetButtonDown("Cancel"))
             {
                 pauseMenu.SetActive(false);
-                GameManager.GameState = GameStateEnum.unpaused;
+                GameManager.GameState = GameStateEnum.Unpaused;
             }
         }
     }

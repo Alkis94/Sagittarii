@@ -16,12 +16,7 @@ public class CameraController : MonoBehaviour
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
         GetConfiner();
-
-        var characterChooser = FindObjectOfType<CharacterChooser>();
-        if (characterChooser != null)
-        {
-            GetComponent<CinemachineVirtualCamera>().Follow = characterChooser.transform.GetChild(0);
-        }
+        GetComponent<CinemachineVirtualCamera>().Follow = GameManager.Instance.ChosenCharacter;
     }
 
     void OnDisable()

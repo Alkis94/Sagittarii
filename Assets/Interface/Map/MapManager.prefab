@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 2563198698278930999}
   - component: {fileID: 2563198698278930998}
   - component: {fileID: 5315690655429474039}
+  - component: {fileID: 7489695569851457284}
+  - component: {fileID: 493034345077541445}
   m_Layer: 5
   m_Name: MapManager
   m_TagString: Map
@@ -118,89 +120,42 @@ MonoBehaviour:
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects:
-    - {fileID: 3744627082314148463, guid: 443c25c2137d42c4fb7aee8ec05eddbe, type: 3}
-    - {fileID: 7221291971631435881, guid: a3c9814c61c23a541ba45c3e649d9c97, type: 3}
-    - {fileID: 9018862760716893072, guid: 28c1b04b3083abe49beba33b90f7703c, type: 3}
-    - {fileID: 9018862760716893072, guid: ee5c446cfc5a92642a9c7c9a3c1a182c, type: 3}
-    - {fileID: 3744627082314148463, guid: 61583b377de1c7047a92d9194579a443, type: 3}
-    - {fileID: 7221291971631435881, guid: b0d6543e91e0b60418fdea05f9758975, type: 3}
-    - {fileID: 9018862760716893072, guid: 8914871d9928a9a4c98ceec7b55fb90a, type: 3}
-    - {fileID: 9018862760716893072, guid: aecdfff7f1de14f46bffd1f1b18aac61, type: 3}
+    ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes:
-    - Name: roomIcons
-      Entry: 7
-      Data: 0|System.Collections.Generic.List`1[[System.Collections.Generic.List`1[[UnityEngine.GameObject,
-        UnityEngine.CoreModule]], mscorlib]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 2
-    - Name: 
-      Entry: 7
-      Data: 1|System.Collections.Generic.List`1[[UnityEngine.GameObject, UnityEngine.CoreModule]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 4
-    - Name: 
-      Entry: 10
-      Data: 0
-    - Name: 
-      Entry: 10
-      Data: 1
-    - Name: 
-      Entry: 10
-      Data: 2
-    - Name: 
-      Entry: 10
-      Data: 3
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 2|System.Collections.Generic.List`1[[UnityEngine.GameObject, UnityEngine.CoreModule]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 4
-    - Name: 
-      Entry: 10
-      Data: 4
-    - Name: 
-      Entry: 10
-      Data: 5
-    - Name: 
-      Entry: 10
-      Data: 6
-    - Name: 
-      Entry: 10
-      Data: 7
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
+    SerializationNodes: []
   renderFullMap: 0
   mapTransform: {fileID: 2563198699218422042}
   playerCurrentMapLocationPrefab: {fileID: 9018862760716893072, guid: 4efb2f40a68fe454ba4782029c988f6c,
     type: 3}
   townIcon: {fileID: 9018862760716893072, guid: ade00e2a112bc824aa548aae28d6470a,
     type: 3}
+--- !u!114 &7489695569851457284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2563198698278930993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d54fe1a725996f546baf40dc81a3fdb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &493034345077541445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2563198698278930993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d5f2061897564d4a9f68d48d600dc35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2563198699218422037
 GameObject:
   m_ObjectHideFlags: 0

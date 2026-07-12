@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class MapCreator
+public abstract class MapCreator : MonoBehaviour
 {
     public MapCell[,] Map { get; private set; }
     protected int TreasureCount = 0;

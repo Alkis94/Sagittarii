@@ -6,7 +6,8 @@ public class MapIcons
     public GameObject VerticalRoad { get; private set; }
     public GameObject NormalRoom { get; private set; }
     public GameObject BossRoom { get; private set; }
-    public MapIcons (string location)
+
+    public void LoadIcons(string location)
     {
         HorizontalRoad = Resources.Load($"Map/{location}/{location}HorizontalRoad") as GameObject;
         VerticalRoad = Resources.Load($"Map/{location}/{location}VerticalRoad") as GameObject;

@@ -14,7 +14,7 @@ public class PlayerRotateHand : MonoBehaviour
 
 	void Update ()
     {
-        if(GameManager.GameState == GameStateEnum.unpaused)
+        if(GameManager.GameState == GameStateEnum.Unpaused)
         {
             HandFollowCursor();
             mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
