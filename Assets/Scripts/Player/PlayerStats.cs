@@ -53,8 +53,6 @@ public class PlayerStats : MonoBehaviour, IDamageable
     [SerializeField]
     private int extraLives = 0;
 
-
-
     private DamageSource lastDamageSource = DamageSource.projectile;
     
     private void OnEnable()
@@ -124,7 +122,6 @@ public class PlayerStats : MonoBehaviour, IDamageable
         {
             CurrentHealth -= (int)(damage * DamageTakenMultiplier);
         }
-        
     }
 
     public void ApplyHeal(int healAmount, bool isPercentage = false)
@@ -163,7 +160,6 @@ public class PlayerStats : MonoBehaviour, IDamageable
         {
             Damage += (int)(damageAmount * DamageMultiplier);
         }
-        
     }
 
     public CharacterClass CharacterClass
@@ -518,4 +514,3 @@ public class PlayerStats : MonoBehaviour, IDamageable
         CurrentEnergy --;
     }
 }
-

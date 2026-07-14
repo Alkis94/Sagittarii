@@ -252,7 +252,7 @@ public class PlayerInput : MonoBehaviour
         if(playerStats.CurrentHealth > 0)
         {
             GetComponent<PlayerSceneChangeManager>().NextPlayerSpawnPointDirection();
-            SceneFader.Instance.LoadSceneWithFade("Town");
+            SceneFader.Instance.LoadSceneWithFade(SceneNames.Town);
         }
     }
 

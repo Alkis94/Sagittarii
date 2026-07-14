@@ -11,10 +11,11 @@ public class RegularEnemyLoader : EnemyLoader
     public override void Load()
     {
         Vector3 originalPosition = transform.position;
-        dead = ES3.Load<bool>("Dead" + EnemyKey.ToString(), "Levels/" + MapType + "/Room" + RoomKey + "/Enemies");
-        criticalDeath = ES3.Load<bool>("CriticalDeath" + EnemyKey.ToString(), "Levels/" + MapType + "/Room" + RoomKey + "/Enemies");
-        transform.position = ES3.Load<Vector3>("Position" + EnemyKey.ToString(), "Levels/" + MapType + "/Room" + RoomKey + "/Enemies");
-        transform.rotation = ES3.Load<Quaternion>("Rotation" + EnemyKey.ToString(), "Levels/" + MapType + "/Room" + RoomKey + "/Enemies");
+        dead = ES3.Load<bool>("Dead" + EnemyKey.ToString(), SaveManager.Instance.GetProfileRunPath() + SaveFolders.Levels + "/" + MapType + SaveFolders.Room + RoomKey + SaveFolders.Enemies);
+        criticalDeath = ES3.Load<bool>("CriticalDeath" + EnemyKey.ToString(), SaveManager.Instance.GetProfileRunPath() + SaveFolders.Levels + "/" + MapType + SaveFolders.Room + RoomKey + SaveFolders.Enemies);
+        transform.SetPositionAndRotation(
+            ES3.Load<Vector3>("Position" + EnemyKey.ToString(), SaveManager.Instance.GetProfileRunPath() + SaveFolders.Levels + "/" + MapType + SaveFolders.Room + RoomKey + SaveFolders.Enemies), 
+            ES3.Load<Quaternion>("Rotation" + EnemyKey.ToString(), SaveManager.Instance.GetProfileRunPath() + SaveFolders.Levels + "/" + MapType + SaveFolders.Room + RoomKey + SaveFolders.Enemies));
         GetComponent<EnemyBrain>().LoadEnemyBrain(originalPosition, dead);
     }
 
@@ -26,11 +27,10 @@ public class RegularEnemyLoader : EnemyLoader
 
     private void OnDestroy()
     {
-        ES3.Save<string>("EnemyName" + EnemyKey.ToString(), enemyStats.EnemyName, "Levels/" + MapType + "/Room" + RoomKey + "/Enemies");
-        ES3.Save<bool>("Dead" + EnemyKey.ToString(), dead, "Levels/" + MapType + "/Room" + RoomKey + "/Enemies");
-        ES3.Save<bool>("CriticalDeath" + EnemyKey.ToString(), criticalDeath, "Levels/" + MapType + "/Room" + RoomKey + "/Enemies");
-        ES3.Save<Vector3>("Position" + EnemyKey.ToString(), transform.position, "Levels/" + MapType + "/Room" + RoomKey + "/Enemies");
-        ES3.Save<Quaternion>("Rotation" + EnemyKey.ToString(), transform.rotation, "Levels/" + MapType + "/Room" + RoomKey + "/Enemies");
+        ES3.Save("EnemyName" + EnemyKey.ToString(), enemyStats.EnemyName, SaveManager.Instance.GetProfileRunPath() + SaveFolders.Levels + "/" + MapType + SaveFolders.Room + RoomKey + SaveFolders.Enemies);
+        ES3.Save("Dead" + EnemyKey.ToString(), dead, SaveManager.Instance.GetProfileRunPath() + SaveFolders.Levels + "/" + MapType + SaveFolders.Room + RoomKey + SaveFolders.Enemies);
+        ES3.Save("CriticalDeath" + EnemyKey.ToString(), criticalDeath, SaveManager.Instance.GetProfileRunPath() + SaveFolders.Levels + "/" + MapType + SaveFolders.Room + RoomKey + SaveFolders.Enemies);
+        ES3.Save("Position" + EnemyKey.ToString(), transform.position, SaveManager.Instance.GetProfileRunPath() + SaveFolders.Levels + "/" + MapType + SaveFolders.Room + RoomKey + SaveFolders.Enemies);
+        ES3.Save("Rotation" + EnemyKey.ToString(), transform.rotation, SaveManager.Instance.GetProfileRunPath() + SaveFolders.Levels + "/" + MapType + SaveFolders.Room + RoomKey + SaveFolders.Enemies);
     }
-
 }

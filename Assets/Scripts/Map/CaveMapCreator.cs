@@ -5,11 +5,8 @@ public class CaveMapCreator : MapCreator
 {
     public static CaveMapCreator Instance { get; private set; }
 
-    public Vector2Int CaveFirstRoomCoordinates { get; private set; } = new(10, 0);
+    public Vector2Int CaveFirstRoomCoordinates { get; private set; } = new(10, 4);
     public MapIcons CaveIcons { get; private set; } = new MapIcons();
-
-    private readonly Vector2Int startRoomCoordinates = new(10, 2);
-    private Vector2Int bossRoomCoordinates;
 
     private void Awake()
     {
@@ -32,18 +29,22 @@ public class CaveMapCreator : MapCreator
     {
         InitializeMapArray(20, 40);
 
-        // Creating map layout
-        Map[10, 0].AddCustomRoom(new Room
+        Map[10, 0].AddRoad(RoadType.Vertical);
+        Map[10, 1].AddRoad(RoadType.Vertical);
+        Map[10, 2].AddRoad(RoadType.Vertical);
+        Map[10, 3].AddRoad(RoadType.Vertical);
+        Map[10, 4].AddCustomRoom(new Room
         {
             Name = "CaveToForest",
-            Type = RoomType.StartingRoom
+            Type = RoomType.StartingRoom,
+            Unexplored = false
         });
-        Map[10, 1].AddRoad(RoadType.Vertical);
-        bossRoomCoordinates = CreatePathToBoss(new PathInfo(10, startRoomCoordinates, false, true, true, true));
+        Map[10, 5].AddRoad(RoadType.Vertical);
+
+        var bossRoomCoordinates = CreatePathToBoss(new PathInfo(10, new(10, 6), false, true, true, true));
         Map[bossRoomCoordinates.x, bossRoomCoordinates.y].Room.Name = ReturnCorrectBossRoom(Map[bossRoomCoordinates.x, bossRoomCoordinates.y].Room.RoomOpenings, "Mushroom");
         CreateRandomPaths(6, 3);
 
-        // Assigning rooms-levels.
         AssignRoomOpenings();
         AssignRooms();
         AddTreasures(3, normalRoomArrayCoordinates);
@@ -95,9 +96,9 @@ public class CaveMapCreator : MapCreator
         }
 
         var numberOfTowers = 3;
-        if (ES3.KeyExists("MushroomsDestroyed", "Saves/Profile" + SaveProfile.SaveID + "/Bosses/MushroomBoss"))
+        if (ES3.KeyExists("MushroomsDestroyed", SaveManager.Instance.GetProfileRunPath() + SaveFolders.Bosses + "/MushroomBoss"))
         {
-            var mushroomsDestroyed = ES3.Load<int>("MushroomsDestroyed", "Saves/Profile" + SaveProfile.SaveID + "/Bosses/MushroomBoss");
+            var mushroomsDestroyed = ES3.Load<int>("MushroomsDestroyed", SaveManager.Instance.GetProfileRunPath() + SaveFolders.Bosses + "/MushroomBoss");
             numberOfTowers -= mushroomsDestroyed;
         }
 

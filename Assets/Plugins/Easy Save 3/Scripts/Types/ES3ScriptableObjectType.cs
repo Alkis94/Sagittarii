@@ -20,9 +20,9 @@ namespace ES3Types
 				throw new ArgumentException("Only types of UnityEngine.ScriptableObject can be written with this method, but argument given is type of "+obj.GetType());
 
 			// If this object is in the instance manager, store it's instance ID with it.
-			var refMgr = ES3ReferenceMgrBase.Current;
+			/*var refMgr = ES3ReferenceMgrBase.Current;
 			if(refMgr != null)
-				writer.WriteRef(instance);
+				writer.WriteRef(instance);*/
 			WriteScriptableObject(instance, writer);
 		}
 
@@ -31,7 +31,13 @@ namespace ES3Types
 			ReadScriptableObject<T>(reader, obj);
 		}
 
-		protected override object ReadUnityObject<T>(ES3Reader reader)
+        protected override object ReadUnityObject<T>(ES3Reader reader)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        protected override object ReadObject<T>(ES3Reader reader)
 		{
 			var refMgr = ES3ReferenceMgrBase.Current;
 			long id = -1;
@@ -41,25 +47,28 @@ namespace ES3Types
 			{
 				if(propertyName == ES3ReferenceMgrBase.referencePropertyName && refMgr != null)
 				{
-					id = reader.Read<long>(ES3Type_long.Instance);
-					instance = refMgr.Get(id);
+					id = reader.Read_ref();
+					instance = refMgr.Get(id, type);
 
-					if(instance != null)
-						break;
+                    if (instance != null)
+                        break;
 				}
 				else
 				{
 					reader.overridePropertiesName = propertyName;
-					if(instance == null)
-					{
-						instance = ScriptableObject.CreateInstance(type);
-						refMgr.Add(instance, id);
-					}
-					break;
+
+                    if (instance == null)
+                    {
+                        instance = ScriptableObject.CreateInstance(type);
+                        if (refMgr != null)
+                            refMgr.Add(instance, id);
+                    }
+
+                    break;
 				}
 			}
 
-			ReadScriptableObject<T>(reader, instance);
+            ReadScriptableObject<T>(reader, instance);
 			return instance;
 		}
 	}

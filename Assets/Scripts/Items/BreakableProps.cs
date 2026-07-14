@@ -27,9 +27,11 @@ public class BreakableProps : MonoBehaviour
 
     private void Start()
     {
-        if (ES3.KeyExists("isEnabled" + transform.GetSiblingIndex(), "Levels/" + mapType + "/Room" + roomKey + "/Props"))
+        if (ES3.KeyExists("isEnabled" + transform.GetSiblingIndex(), 
+            SaveManager.Instance.GetProfileRunPath() + SaveFolders.Levels + "/" + mapType + SaveFolders.Room + roomKey + SaveFolders.Props))
         {
-            isEnabled = ES3.Load<bool>("isEnabled" + transform.GetSiblingIndex(), "Levels/" + mapType + "/Room" + roomKey + "/Props");
+            isEnabled = ES3.Load<bool>("isEnabled" + transform.GetSiblingIndex(), 
+                SaveManager.Instance.GetProfileRunPath() + SaveFolders.Levels + "/" + mapType + SaveFolders.Room + roomKey + SaveFolders.Props);
         }
         else
         {
@@ -39,7 +41,8 @@ public class BreakableProps : MonoBehaviour
                 isEnabled = true;
             }
 
-            ES3.Save<bool>("isEnabled" + transform.GetSiblingIndex(), isEnabled, "Levels/" + mapType + "/Room" + roomKey + "/Props");
+            ES3.Save("isEnabled" + transform.GetSiblingIndex(), isEnabled, 
+                SaveManager.Instance.GetProfileRunPath() + SaveFolders.Levels + "/" + mapType + SaveFolders.Room + roomKey + SaveFolders.Props);
         }
 
         if (isEnabled)
@@ -62,7 +65,8 @@ public class BreakableProps : MonoBehaviour
             PickUpFactory.Instance.DropGold(transform.position, 1, minGoldDrop, maxGoldDrop, true);
             audioSource.Play();
             isBroken = true;
-            ES3.Save<bool>("isEnabled" + transform.GetSiblingIndex(), false, "Levels/" + mapType + "/Room" + roomKey + "/Props");
+            ES3.Save("isEnabled" + transform.GetSiblingIndex(), false, 
+                SaveManager.Instance.GetProfileRunPath() + SaveFolders.Levels + "/" + mapType + SaveFolders.Room + roomKey + SaveFolders.Props);
             transform.gameObject.layer = 14;
         }
     }

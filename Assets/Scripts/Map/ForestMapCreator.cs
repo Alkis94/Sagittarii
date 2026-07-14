@@ -62,5 +62,7 @@ public class ForestMapCreator : MapCreator
         }
 
         AddTreasures(2, normalRoomArrayCoordinates);
+
+        ES3.Save("ForestMap", Map, "Saves/Profile");
     }
 }

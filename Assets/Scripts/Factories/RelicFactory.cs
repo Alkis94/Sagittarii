@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 public class RelicFactory : MonoBehaviour
 {
-
     private static RelicFactory instance = null;
 
     [SerializeField]
@@ -26,11 +25,11 @@ public class RelicFactory : MonoBehaviour
     {
         EnemyDeath.OnDeathDropRelic += CreateItem;
 
-        if(ES3.FileExists("Saves/Profile" + SaveProfile.SaveID + "/UniqueItems"))
+        if(ES3.FileExists(SaveManager.Instance.GetProfileRunPath() + "/UniqueItems"))
         {
             foreach(var relic in PlayerHasUniqueRelic)
             {
-                if (ES3.KeyExists(relic.Key, "Saves/Profile" + SaveProfile.SaveID + "/UniqueItems"))
+                if (ES3.KeyExists(relic.Key, SaveManager.Instance.GetProfileRunPath() + "/UniqueItems"))
                 {
                     PlayerHasUniqueRelic[relic.Key] = true;
                 }
@@ -54,17 +53,17 @@ public class RelicFactory : MonoBehaviour
         }
     }
 
-    private static Dictionary<string, bool> PlayerHasUniqueRelic = new Dictionary<string, bool>()
+    private static readonly Dictionary<string, bool> PlayerHasUniqueRelic = new()
     {
-          {"Trident",false},
-          {"BearJaw",false},
-          {"GreenFlame",false}
+          {"Trident", false},
+          {"BearJaw", false},
+          {"GreenFlame", false}
     };
 
     public static void PlayerGotUniqueRelic (string relicName)
     {
         PlayerHasUniqueRelic[relicName] = true;
-        ES3.Save<bool>(relicName, true, "Saves/Profile" + SaveProfile.SaveID + "/UniqueItems");
+        ES3.Save(relicName, true, SaveManager.Instance.GetProfileRunPath() + SaveFolders.UniqueItems);
     }
 
     public static bool CheckUniqueRelicPossession (string relicName)
@@ -72,25 +71,12 @@ public class RelicFactory : MonoBehaviour
         return PlayerHasUniqueRelic[relicName];
     }
 
-
     private void CreateItem(string relic, Vector3 deadEnemyPosition)
     {
-
-        bool ItemShouldDrop = true;
-
-        if (PlayerHasUniqueRelic.ContainsKey(relic))
-        {
-            if(PlayerHasUniqueRelic[relic])
-            {
-                ItemShouldDrop = false;
-            }
-        }
-
-        if(ItemShouldDrop)
+        if (PlayerHasUniqueRelic.ContainsKey(relic) && !PlayerHasUniqueRelic[relic])
         {
             Instantiate(relicsDictionery[relic], deadEnemyPosition, Quaternion.identity);
         }
-        
     }
 }
 

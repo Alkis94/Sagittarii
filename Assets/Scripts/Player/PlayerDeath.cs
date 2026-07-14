@@ -68,7 +68,7 @@ public class PlayerDeath : MonoBehaviour
             playerStats.ExtraLives--;
             GetComponent<PlayerInput>().enabled = true;
             OnPlayerRessurected?.Invoke();
-            SceneFader.Instance.LoadSceneWithFade("Town");
+            SceneFader.Instance.LoadSceneWithFade(SceneNames.Town);
             yield break;
         }
 
@@ -77,15 +77,9 @@ public class PlayerDeath : MonoBehaviour
         UIManager.Instance.CallDeathUI();
         
 
-        if (ES3.DirectoryExists("Saves/Profile" + SaveProfile.SaveID))
+        if (ES3.DirectoryExists(SaveManager.Instance.GetProfileRunPath()))
         {
-            ES3.DeleteDirectory("Saves/Profile" + SaveProfile.SaveID);
-        }
-
-        if (ES3.DirectoryExists(("Levels/")))
-        {
-            ES3.DeleteDirectory("Levels/");
-            ES3.DeleteDirectory("Levels/");
+            ES3.DeleteDirectory(SaveManager.Instance.GetProfileRunPath());
         }
     }
 }

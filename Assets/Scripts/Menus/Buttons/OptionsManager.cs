@@ -25,21 +25,21 @@ public class OptionsManager : MonoBehaviour
 
     public void SetMasterVolume(float volume)
     {
-        ES3.Save<float>("MasterVolume", volume, "Options");
+        ES3.Save("MasterVolume", volume, "Options");
         volume = Mathf.Log10(volume) * 20;
         audioMixer.SetFloat("Master", volume);
     }
 
     public void SetMusicVolume(float volume)
     {
-        ES3.Save<float>("MusicVolume", volume, "Options");
+        ES3.Save("MusicVolume", volume, "Options");
         volume = Mathf.Log10(volume) * 20;
         audioMixer.SetFloat("Music", volume);
     }
 
     public void SetSoundEffectsVolume(float volume)
     {
-        ES3.Save<float>("SoundEffectsVolume", volume, "Options");
+        ES3.Save("SoundEffectsVolume", volume, "Options");
         volume = Mathf.Log10(volume) * 20;
         audioMixer.SetFloat("SoundEffects", volume);
     }

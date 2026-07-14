@@ -14,13 +14,13 @@ public class PlayerLoader : MonoBehaviour
         SceneManager.sceneLoaded += OnSceneLoaded;
         playerAttackHandler.OnPlayerAttackChanged += SaveAttack;
 
-        if (ES3.FileExists("Saves/Profile" + SaveProfile.SaveID + "/PlayerStats"))
+        if (ES3.FileExists(SaveManager.Instance.GetProfileRunPath() + SaveFolders.PlayerStats))
         {
             LoadPlayer();
         }
         else
         {
-            ES3.Save<int>("Class", (int)playerStats.CharacterClass, "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
+            ES3.Save("Class", (int)playerStats.CharacterClass, SaveManager.Instance.GetProfileRunPath() + SaveFolders.PlayerStats);
             SavePlayer();
         }
     }
@@ -33,13 +33,13 @@ public class PlayerLoader : MonoBehaviour
 
     private void Start()
     {
-        if (ES3.FileExists("Saves/Profile" + SaveProfile.SaveID + "/PlayerAttack"))
+        if (ES3.FileExists(SaveManager.Instance.GetProfileRunPath() + SaveFolders.PlayerAttack))
         {
-            if (ES3.KeyExists("MainAttackProjectileAmount", "Saves/Profile" + SaveProfile.SaveID + "/PlayerAttack"))
+            if (ES3.KeyExists("MainAttackProjectileAmount", SaveManager.Instance.GetProfileRunPath() + SaveFolders.PlayerAttack))
             {
                 LoadAttack(playerAttackHandler.PlayerMainAttack, "MainAttack");
             }
-            if (ES3.KeyExists("SecondaryAttackProjectileAmount", "Saves/Profile" + SaveProfile.SaveID + "/PlayerAttack"))
+            if (ES3.KeyExists("SecondaryAttackProjectileAmount", SaveManager.Instance.GetProfileRunPath() + SaveFolders.PlayerAttack))
             {
                 LoadAttack(playerAttackHandler.PlayerSecondaryAttack, "SecondaryAttack");
                 playerAttackHandler.HasSecondaryAttack = true;
@@ -47,71 +47,70 @@ public class PlayerLoader : MonoBehaviour
         }
     }
 
-
     private void SavePlayer()
     {
-        ES3.Save<int>("MaximumHealth", playerStats.MaximumHealth, "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-        ES3.Save<int>("CurrentHealth", playerStats.CurrentHealth, "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-        ES3.Save<float>("HealthMultiplier", playerStats.HealthMultiplier, "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-        ES3.Save<int>("MaximumEnergy", playerStats.MaximumEnergy, "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-        ES3.Save<int>("CurrentEnergy", playerStats.CurrentEnergy, "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-        ES3.Save<int>("Gold", playerStats.Gold, "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-        ES3.Save<int>("Ammo", playerStats.Ammo, "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-        ES3.Save<int>("Damage", playerStats.Damage, "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-        ES3.Save<float>("DamageMultiplier", playerStats.DamageMultiplier, "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-        ES3.Save<float>("DamageTakenMultiplier", playerStats.DamageTakenMultiplier, "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-        ES3.Save<int>("Armor", playerStats.Armor, "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-        ES3.Save<float>("Speed", playerStats.Speed, "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-        ES3.Save<float>("ProjectileSpeed", playerStats.ProjectileSpeed, "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-        ES3.Save<float>("Luck", playerStats.Luck, "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-        ES3.Save<int>("Lifesteal", playerStats.Lifesteal, "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-        ES3.Save<float>("LifestealChance", playerStats.LifestealChance, "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-        ES3.Save<int>("Energysteal", playerStats.Energysteal, "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-        ES3.Save<float>("EnergystealChance", playerStats.EnergystealChance, "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-        ES3.Save<int>("TownTax", playerStats.TownTax, "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-        ES3.Save<int>("RestCost", playerStats.RestCost, "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
+        ES3.Save("MaximumHealth", playerStats.MaximumHealth, SaveManager.Instance.GetProfileRunPath() + SaveFolders.PlayerStats);
+        ES3.Save("CurrentHealth", playerStats.CurrentHealth, SaveManager.Instance.GetProfileRunPath() + SaveFolders.PlayerStats);
+        ES3.Save("HealthMultiplier", playerStats.HealthMultiplier, SaveManager.Instance.GetProfileRunPath() + SaveFolders.PlayerStats);
+        ES3.Save("MaximumEnergy", playerStats.MaximumEnergy, SaveManager.Instance.GetProfileRunPath() + SaveFolders.PlayerStats);
+        ES3.Save("CurrentEnergy", playerStats.CurrentEnergy, SaveManager.Instance.GetProfileRunPath() + SaveFolders.PlayerStats);
+        ES3.Save("Gold", playerStats.Gold, SaveManager.Instance.GetProfileRunPath() + SaveFolders.PlayerStats);
+        ES3.Save("Ammo", playerStats.Ammo, SaveManager.Instance.GetProfileRunPath() + SaveFolders.PlayerStats);
+        ES3.Save("Damage", playerStats.Damage, SaveManager.Instance.GetProfileRunPath() + SaveFolders.PlayerStats);
+        ES3.Save("DamageMultiplier", playerStats.DamageMultiplier, SaveManager.Instance.GetProfileRunPath() + SaveFolders.PlayerStats);
+        ES3.Save("DamageTakenMultiplier", playerStats.DamageTakenMultiplier, SaveManager.Instance.GetProfileRunPath() + SaveFolders.PlayerStats);
+        ES3.Save("Armor", playerStats.Armor, SaveManager.Instance.GetProfileRunPath() + SaveFolders.PlayerStats);
+        ES3.Save("Speed", playerStats.Speed, SaveManager.Instance.GetProfileRunPath() + SaveFolders.PlayerStats);
+        ES3.Save("ProjectileSpeed", playerStats.ProjectileSpeed, SaveManager.Instance.GetProfileRunPath() + SaveFolders.PlayerStats);
+        ES3.Save("Luck", playerStats.Luck, SaveManager.Instance.GetProfileRunPath() + SaveFolders.PlayerStats);
+        ES3.Save("Lifesteal", playerStats.Lifesteal, SaveManager.Instance.GetProfileRunPath() + SaveFolders.PlayerStats);
+        ES3.Save("LifestealChance", playerStats.LifestealChance, SaveManager.Instance.GetProfileRunPath() + SaveFolders.PlayerStats);
+        ES3.Save("Energysteal", playerStats.Energysteal, SaveManager.Instance.GetProfileRunPath() + SaveFolders.PlayerStats);
+        ES3.Save("EnergystealChance", playerStats.EnergystealChance, SaveManager.Instance.GetProfileRunPath() + SaveFolders.PlayerStats);
+        ES3.Save("TownTax", playerStats.TownTax, SaveManager.Instance.GetProfileRunPath() + SaveFolders.PlayerStats);
+        ES3.Save("RestCost", playerStats.RestCost, SaveManager.Instance.GetProfileRunPath() + SaveFolders.PlayerStats);
     }
 
     private void LoadPlayer()
     {
-        playerStats.MaximumHealth = ES3.Load<int>("MaximumHealth", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-        playerStats.CurrentHealth = ES3.Load<int>("CurrentHealth", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-        playerStats.HealthMultiplier = ES3.Load<float>("HealthMultiplier", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-        playerStats.MaximumEnergy = ES3.Load<int>("MaximumEnergy", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-        playerStats.CurrentEnergy = ES3.Load<int>("CurrentEnergy", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-        playerStats.GoldWithoutGainedGold = ES3.Load<int>("Gold", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-        playerStats.Ammo = ES3.Load<int>("Ammo", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-        playerStats.Damage = ES3.Load<int>("Damage", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-        playerStats.DamageMultiplier = ES3.Load<float>("DamageMultiplier", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-        playerStats.DamageTakenMultiplier = ES3.Load<float>("DamageTakenMultiplier", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-        playerStats.Armor = ES3.Load<int>("Armor", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-        playerStats.Speed = ES3.Load<float>("Speed", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-        playerStats.ProjectileSpeed = ES3.Load<float>("ProjectileSpeed", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-        playerStats.Luck = ES3.Load<float>("Luck", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-        playerStats.Lifesteal = ES3.Load<int>("Lifesteal", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-        playerStats.LifestealChance = ES3.Load<float>("LifestealChance", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-        playerStats.Energysteal = ES3.Load<int>("Energysteal", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-        playerStats.EnergystealChance = ES3.Load<float>("EnergystealChance", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-        playerStats.TownTax = ES3.Load<int>("TownTax", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
-        playerStats.RestCost = ES3.Load<int>("RestCost", "Saves/Profile" + SaveProfile.SaveID + "/PlayerStats");
+        playerStats.MaximumHealth = ES3.Load<int>("MaximumHealth", SaveManager.Instance.GetProfileRunPath() + SaveFolders.PlayerStats);
+        playerStats.CurrentHealth = ES3.Load<int>("CurrentHealth", SaveManager.Instance.GetProfileRunPath() + SaveFolders.PlayerStats);
+        playerStats.HealthMultiplier = ES3.Load<float>("HealthMultiplier", SaveManager.Instance.GetProfileRunPath() + SaveFolders.PlayerStats);
+        playerStats.MaximumEnergy = ES3.Load<int>("MaximumEnergy", SaveManager.Instance.GetProfileRunPath() + SaveFolders.PlayerStats);
+        playerStats.CurrentEnergy = ES3.Load<int>("CurrentEnergy", SaveManager.Instance.GetProfileRunPath() + SaveFolders.PlayerStats);
+        playerStats.GoldWithoutGainedGold = ES3.Load<int>("Gold", SaveManager.Instance.GetProfileRunPath() + SaveFolders.PlayerStats);
+        playerStats.Ammo = ES3.Load<int>("Ammo", SaveManager.Instance.GetProfileRunPath() + SaveFolders.PlayerStats);
+        playerStats.Damage = ES3.Load<int>("Damage", SaveManager.Instance.GetProfileRunPath() + SaveFolders.PlayerStats);
+        playerStats.DamageMultiplier = ES3.Load<float>("DamageMultiplier", SaveManager.Instance.GetProfileRunPath() + SaveFolders.PlayerStats);
+        playerStats.DamageTakenMultiplier = ES3.Load<float>("DamageTakenMultiplier", SaveManager.Instance.GetProfileRunPath() + SaveFolders.PlayerStats);
+        playerStats.Armor = ES3.Load<int>("Armor", SaveManager.Instance.GetProfileRunPath() + SaveFolders.PlayerStats);
+        playerStats.Speed = ES3.Load<float>("Speed", SaveManager.Instance.GetProfileRunPath() + SaveFolders.PlayerStats);
+        playerStats.ProjectileSpeed = ES3.Load<float>("ProjectileSpeed", SaveManager.Instance.GetProfileRunPath() + SaveFolders.PlayerStats);
+        playerStats.Luck = ES3.Load<float>("Luck", SaveManager.Instance.GetProfileRunPath() + SaveFolders.PlayerStats);
+        playerStats.Lifesteal = ES3.Load<int>("Lifesteal", SaveManager.Instance.GetProfileRunPath() + SaveFolders.PlayerStats);
+        playerStats.LifestealChance = ES3.Load<float>("LifestealChance", SaveManager.Instance.GetProfileRunPath() + SaveFolders.PlayerStats);
+        playerStats.Energysteal = ES3.Load<int>("Energysteal", SaveManager.Instance.GetProfileRunPath() + SaveFolders.PlayerStats);
+        playerStats.EnergystealChance = ES3.Load<float>("EnergystealChance", SaveManager.Instance.GetProfileRunPath() + SaveFolders.PlayerStats);
+        playerStats.TownTax = ES3.Load<int>("TownTax", SaveManager.Instance.GetProfileRunPath() + SaveFolders.PlayerStats);
+        playerStats.RestCost = ES3.Load<int>("RestCost", SaveManager.Instance.GetProfileRunPath() + SaveFolders.PlayerStats);
     }
 
     public void SaveAttack(PlayerAttackHolder playerAttackHolder, string attackType)
     {
         if (attackType != "MainAttack")
         {
-            ES3.Save<GameObject>(attackType + "Projectile", playerAttackHolder.Projectile, "Saves/Profile" + SaveProfile.SaveID + "/PlayerAttack");
-            ES3.Save<int>(attackType + "ProjectileMovement", (int)playerAttackHolder.ProjectileMovementType, "Saves/Profile" + SaveProfile.SaveID + "/PlayerAttack");
-            ES3.Save<int>(attackType + "FunctionMovementType", (int)playerAttackHolder.FunctionMovementType, "Saves/Profile" + SaveProfile.SaveID + "/PlayerAttack");
-            ES3.Save<int>(attackType + "AttackType", (int)playerAttackHolder.AttackType, "Saves/Profile" + SaveProfile.SaveID + "/PlayerAttack");
+            ES3.Save(attackType + "Projectile", playerAttackHolder.Projectile, SaveManager.Instance.GetProfileRunPath() + SaveFolders.PlayerAttack);
+            ES3.Save(attackType + "ProjectileMovement", (int)playerAttackHolder.ProjectileMovementType, SaveManager.Instance.GetProfileRunPath() + SaveFolders.PlayerAttack);
+            ES3.Save(attackType + "FunctionMovementType", (int)playerAttackHolder.FunctionMovementType, SaveManager.Instance.GetProfileRunPath() + SaveFolders.PlayerAttack);
+            ES3.Save(attackType + "AttackType", (int)playerAttackHolder.AttackType, SaveManager.Instance.GetProfileRunPath() + SaveFolders.PlayerAttack);
         }
-        ES3.Save<int>(attackType + "ConsecutiveAttacks", playerAttackHolder.ConsecutiveAttacks, "Saves/Profile" + SaveProfile.SaveID + "/PlayerAttack");
-        ES3.Save<float>(attackType + "ConsecutiveAttackDelay", playerAttackHolder.ConsecutiveAttackDelay, "Saves/Profile" + SaveProfile.SaveID + "/PlayerAttack");
-        ES3.Save<List<float>>(attackType + "ProjectileRotations", playerAttackHolder.ProjectileRotations, "Saves/Profile" + SaveProfile.SaveID + "/PlayerAttack");
-        ES3.Save<int>(attackType + "ProjectileAmount", playerAttackHolder.ProjectileAmount, "Saves/Profile" + SaveProfile.SaveID + "/PlayerAttack");
-        ES3.Save<Vector3>(attackType + "UniversalSpawnPositionOffset", playerAttackHolder.UniversalSpawnPositionOffset, "Saves/Profile" + SaveProfile.SaveID + "/PlayerAttack");
-        ES3.Save<float>(attackType + "RandomRotationFactorMin", playerAttackHolder.RandomRotationFactorMin, "Saves/Profile" + SaveProfile.SaveID + "/PlayerAttack");
-        ES3.Save<float>(attackType + "RandomRotationFactorMax", playerAttackHolder.RandomRotationFactorMax, "Saves/Profile" + SaveProfile.SaveID + "/PlayerAttack");
+        ES3.Save(attackType + "ConsecutiveAttacks", playerAttackHolder.ConsecutiveAttacks, SaveManager.Instance.GetProfileRunPath() + SaveFolders.PlayerAttack);
+        ES3.Save(attackType + "ConsecutiveAttackDelay", playerAttackHolder.ConsecutiveAttackDelay, SaveManager.Instance.GetProfileRunPath() + SaveFolders.PlayerAttack);
+        ES3.Save(attackType + "ProjectileRotations", playerAttackHolder.ProjectileRotations, SaveManager.Instance.GetProfileRunPath() + SaveFolders.PlayerAttack);
+        ES3.Save(attackType + "ProjectileAmount", playerAttackHolder.ProjectileAmount, SaveManager.Instance.GetProfileRunPath() + SaveFolders.PlayerAttack);
+        ES3.Save(attackType + "UniversalSpawnPositionOffset", playerAttackHolder.UniversalSpawnPositionOffset, SaveManager.Instance.GetProfileRunPath() + SaveFolders.PlayerAttack);
+        ES3.Save(attackType + "RandomRotationFactorMin", playerAttackHolder.RandomRotationFactorMin, SaveManager.Instance.GetProfileRunPath() + SaveFolders.PlayerAttack);
+        ES3.Save(attackType + "RandomRotationFactorMax", playerAttackHolder.RandomRotationFactorMax, SaveManager.Instance.GetProfileRunPath() + SaveFolders.PlayerAttack);
     }
 
     public void LoadAttack(PlayerAttackHolder playerAttackHolder, string attackType)
@@ -125,18 +124,18 @@ public class PlayerLoader : MonoBehaviour
         }
         else
         {
-            playerAttackHolder.Projectile = ES3.Load<GameObject>(attackType + "Projectile", "Saves/Profile" + SaveProfile.SaveID + "/PlayerAttack");
-            playerAttackHolder.ProjectileMovementType = (ProjectileMovementTypeEnum)ES3.Load<int>(attackType + "ProjectileMovement", "Saves/Profile" + SaveProfile.SaveID + "/PlayerAttack");
-            playerAttackHolder.FunctionMovementType = (FunctionMovementTypeEnum)ES3.Load<int>(attackType + "FunctionMovementType", "Saves/Profile" + SaveProfile.SaveID + "/PlayerAttack");
-            playerAttackHolder.AttackType = (AttackTypeEnum)ES3.Load<int>(attackType + "AttackType", "Saves/Profile" + SaveProfile.SaveID + "/PlayerAttack");
+            playerAttackHolder.Projectile = ES3.Load<GameObject>(attackType + "Projectile", SaveManager.Instance.GetProfileRunPath() + SaveFolders.PlayerAttack);
+            playerAttackHolder.ProjectileMovementType = (ProjectileMovementTypeEnum)ES3.Load<int>(attackType + "ProjectileMovement", SaveManager.Instance.GetProfileRunPath() + SaveFolders.PlayerAttack);
+            playerAttackHolder.FunctionMovementType = (FunctionMovementTypeEnum)ES3.Load<int>(attackType + "FunctionMovementType", SaveManager.Instance.GetProfileRunPath() + SaveFolders.PlayerAttack);
+            playerAttackHolder.AttackType = (AttackTypeEnum)ES3.Load<int>(attackType + "AttackType", SaveManager.Instance.GetProfileRunPath() + SaveFolders.PlayerAttack);
         }
-        playerAttackHolder.ConsecutiveAttacks = ES3.Load<int>(attackType + "ConsecutiveAttacks", "Saves/Profile" + SaveProfile.SaveID + "/PlayerAttack");
-        playerAttackHolder.ConsecutiveAttackDelay = ES3.Load<float>(attackType + "ConsecutiveAttackDelay", "Saves/Profile" + SaveProfile.SaveID + "/PlayerAttack");
-        playerAttackHolder.ProjectileRotations = ES3.Load<List<float>>(attackType + "ProjectileRotations", "Saves/Profile" + SaveProfile.SaveID + "/PlayerAttack");
-        playerAttackHolder.ProjectileAmount = ES3.Load<int>(attackType + "ProjectileAmount", "Saves/Profile" + SaveProfile.SaveID + "/PlayerAttack");
-        playerAttackHolder.UniversalSpawnPositionOffset = ES3.Load<Vector3>(attackType + "UniversalSpawnPositionOffset", "Saves/Profile" + SaveProfile.SaveID + "/PlayerAttack");
-        playerAttackHolder.RandomRotationFactorMin = ES3.Load<float>(attackType + "RandomRotationFactorMin", "Saves/Profile" + SaveProfile.SaveID + "/PlayerAttack");
-        playerAttackHolder.RandomRotationFactorMax = ES3.Load<float>(attackType + "RandomRotationFactorMax", "Saves/Profile" + SaveProfile.SaveID + "/PlayerAttack");
+        playerAttackHolder.ConsecutiveAttacks = ES3.Load<int>(attackType + "ConsecutiveAttacks", SaveManager.Instance.GetProfileRunPath() + SaveFolders.PlayerAttack);
+        playerAttackHolder.ConsecutiveAttackDelay = ES3.Load<float>(attackType + "ConsecutiveAttackDelay", SaveManager.Instance.GetProfileRunPath() + SaveFolders.PlayerAttack);
+        playerAttackHolder.ProjectileRotations = ES3.Load<List<float>>(attackType + "ProjectileRotations", SaveManager.Instance.GetProfileRunPath() + SaveFolders.PlayerAttack);
+        playerAttackHolder.ProjectileAmount = ES3.Load<int>(attackType + "ProjectileAmount", SaveManager.Instance.GetProfileRunPath() + SaveFolders.PlayerAttack);
+        playerAttackHolder.UniversalSpawnPositionOffset = ES3.Load<Vector3>(attackType + "UniversalSpawnPositionOffset", SaveManager.Instance.GetProfileRunPath() + SaveFolders.PlayerAttack);
+        playerAttackHolder.RandomRotationFactorMin = ES3.Load<float>(attackType + "RandomRotationFactorMin", SaveManager.Instance.GetProfileRunPath() + SaveFolders.PlayerAttack);
+        playerAttackHolder.RandomRotationFactorMax = ES3.Load<float>(attackType + "RandomRotationFactorMax", SaveManager.Instance.GetProfileRunPath() + SaveFolders.PlayerAttack);
 
         playerAttackHolder.ProjectileSpawnPositionOffset.Clear();
         for (int i = 0; i < playerAttackHolder.ProjectileAmount; i++)
@@ -147,7 +146,7 @@ public class PlayerLoader : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        //we need this check because the player was saving after exhaustion death with 0 health on scene change!
+        // we need this check because the player was saving after exhaustion death with 0 health on scene change!
         if(playerStats.CurrentHealth > 0 && enabled)
         {
             SavePlayer();
@@ -156,7 +155,7 @@ public class PlayerLoader : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (ES3.DirectoryExists("Saves/Profile" + SaveProfile.SaveID))
+        if (ES3.DirectoryExists(SaveManager.Instance.GetProfileRunPath()))
         {
             SavePlayer();
         }

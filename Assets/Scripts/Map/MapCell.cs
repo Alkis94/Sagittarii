@@ -6,7 +6,7 @@ public class MapCell
     public Room Room { get; set; } = null;
     public RoadType? RoadType { get; set; } = null;
     public GameObject Icon { get; set; } = null;
-    public bool IconPlaced { get; set; } = false;
+    public bool Undrawn { get; set; } = true;
 
     public void AddNormallRoom()
     {

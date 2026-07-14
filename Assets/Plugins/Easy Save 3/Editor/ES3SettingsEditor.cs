@@ -1,8 +1,5 @@
 ﻿using UnityEditor;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using System;
-using System.Collections;
 
 namespace ES3Editor
 {
@@ -17,31 +14,60 @@ namespace ES3Editor
 			if(settings.location == ES3.Location.File)
 				settings.directory = (ES3.Directory)EditorGUILayout.EnumPopup("Directory", settings.directory);
 
-			settings.path = EditorGUILayout.TextField("Default File Path", settings.path);
+			if (settings.location == ES3.Location.Cache)
+			{
+                EditorGUILayout.BeginVertical(style.area);
+
+                settings.autoCacheDefaultFile = EditorGUILayout.Toggle(new GUIContent("Auto cache default file", "When enabled, the default file as defined at the top of the Settings window will be cached when the application starts."), settings.autoCacheDefaultFile);
+                settings.autoCacheFileOnLoad = EditorGUILayout.Toggle(new GUIContent("Auto cache file on load", "Whether we should automatically cache the file when we attempt to load from it and it doesn't exist in the cache."), settings.autoCacheFileOnLoad);
+
+                EditorGUILayout.Space();
+
+                EditorGUILayout.LabelField("Store cached data:");
+
+                EditorGUILayout.BeginVertical(style.area);
+                settings.storeCacheAtEndOfEveryFrame = EditorGUILayout.Toggle("At end of every frame", settings.storeCacheAtEndOfEveryFrame);
+				settings.storeCacheOnApplicationQuit = EditorGUILayout.Toggle("On Application Quit", settings.storeCacheOnApplicationQuit);
+				settings.storeCacheOnApplicationPause = EditorGUILayout.Toggle("On Application Pause", settings.storeCacheOnApplicationPause);
+                EditorGUILayout.EndVertical();
+
+                EditorGUILayout.EndVertical();
+            }
+
+        settings.path = EditorGUILayout.TextField("Default File Path", settings.path);
 
 			EditorGUILayout.Space();
 
-			settings.encryptionType = (ES3.EncryptionType)EditorGUILayout.EnumPopup("Encryption Type", settings.encryptionType);
+			settings.encryptionType = (ES3.EncryptionType)EditorGUILayout.EnumPopup("Encryption", settings.encryptionType);
 			settings.encryptionPassword = EditorGUILayout.TextField("Encryption Password", settings.encryptionPassword);
 
-			EditorGUILayout.Space();
+            EditorGUILayout.Space();
+
+            settings.compressionType = (ES3.CompressionType)EditorGUILayout.EnumPopup("Compression", settings.compressionType);
+
+            EditorGUILayout.Space();
 			
 			settings.saveChildren = EditorGUILayout.Toggle("Save GameObject Children", settings.saveChildren);
 			
 			EditorGUILayout.Space();
 
-			if(settings.showAdvancedSettings = EditorGUILayout.Foldout(settings.showAdvancedSettings, "Advanced Runtime Settings"))
+			if(settings.showAdvancedSettings = EditorGUILayout.Foldout(settings.showAdvancedSettings, "Advanced Settings"))
 			{
 				EditorGUILayout.BeginVertical(style.area);
 
 				settings.format = (ES3.Format)EditorGUILayout.EnumPopup("Format", settings.format);
+                if (settings.format == ES3.Format.JSON)
+                    settings.prettyPrint = EditorGUILayout.Toggle(new GUIContent("Pretty print JSON"), settings.prettyPrint);
 				settings.bufferSize = EditorGUILayout.IntField("Buffer Size", settings.bufferSize);
-				settings.memberReferenceMode = (ES3.ReferenceMode)EditorGUILayout.EnumPopup("Serialise Unity Object fields", settings.memberReferenceMode);
+                settings.referenceMode = (ES3.ReferenceMode)EditorGUILayout.EnumPopup("Serialise Unity Objects", settings.referenceMode);
+                settings.memberReferenceMode = (ES3.ReferenceMode)EditorGUILayout.EnumPopup("Serialise fields of Unity Object", settings.memberReferenceMode);
+                settings.serializationDepthLimit = EditorGUILayout.IntField("Serialisation Depth", settings.serializationDepthLimit);
+                settings.postprocessRawCachedData = EditorGUILayout.Toggle(new GUIContent("Postprocess raw cached data"), settings.postprocessRawCachedData);
 
-				EditorGUILayout.Space();
+                EditorGUILayout.Space();
 
 				EditorGUILayout.EndVertical();
 			}
 		}
-	}
+    }
 }

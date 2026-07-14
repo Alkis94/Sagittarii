@@ -198,11 +198,6 @@ public abstract class MapCreator : MonoBehaviour
                HasSpaceForRoom(room, Direction.North) || HasSpaceForRoom(room, Direction.South);
     }
 
-    protected Vector2 ConvertArrayCoordinates(int x, int y, int offsetX = 0, int offsetY = 0)
-    {
-        return new Vector2(offsetX - 145 + (x + 1) * 20, offsetY + 75 - (y + 1) * 20);
-    }
-
     protected void InitializeMapArray(int rows, int columns)
     {
         Map = new MapCell[rows, columns];

@@ -90,5 +90,4 @@ public class AmmoShop : MonoBehaviour, IInteractable
             projectileMenu.SetActive(false);
         }
     }
-
 }

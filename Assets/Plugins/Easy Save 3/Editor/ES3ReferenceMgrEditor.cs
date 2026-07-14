@@ -3,26 +3,43 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 [CustomEditor(typeof(ES3ReferenceMgr))]
 [System.Serializable]
-public class ES3ReferenceMgrEditor : Editor
+public class ES3ReferenceMgrEditor : UnityEditor.Editor
 {
-    public bool isDraggingOver = false;
+    private bool isDraggingOver = false;
+    private bool openReferences = false;
 
-    public override void OnInspectorGUI() 
+    private ES3ReferenceMgr _mgr = null;
+    private ES3ReferenceMgr mgr
+    {
+        get
+        {
+            if (_mgr == null)
+                _mgr = (ES3ReferenceMgr)serializedObject.targetObject;
+            return _mgr;
+        }
+    }
+
+    public override void OnInspectorGUI()
     {
         EditorGUILayout.HelpBox("This allows Easy Save to maintain references to objects in your scene.\n\nIt is automatically updated when you enter Playmode or build your project.", MessageType.Info);
 
-        var mgr = (ES3ReferenceMgr)serializedObject.targetObject;
+        if (EditorGUILayout.Foldout(openReferences, "References") != openReferences)
+        {
+            openReferences = !openReferences;
+            if (openReferences == true)
+                openReferences = EditorUtility.DisplayDialog("Are you sure?", "Opening this list will display every reference in the manager, which for larger projects can cause the Editor to freeze\n\nIt is strongly recommended that you save your project before continuing.", "Open References", "Cancel");
+        }
 
-        mgr.openReferences = EditorGUILayout.Foldout(mgr.openReferences, "References");
         // Make foldout drag-and-drop enabled for objects.
         if (GUILayoutUtility.GetLastRect().Contains(Event.current.mousePosition))
         {
             Event evt = Event.current;
 
-            switch (evt.type) 
+            switch (evt.type)
             {
                 case EventType.DragUpdated:
                 case EventType.DragPerform:
@@ -33,7 +50,7 @@ public class ES3ReferenceMgrEditor : Editor
                     break;
             }
 
-            if(isDraggingOver)
+            if (isDraggingOver)
             {
                 DragAndDrop.visualMode = DragAndDropVisualMode.Copy;
 
@@ -48,15 +65,12 @@ public class ES3ReferenceMgrEditor : Editor
                 }
             }
         }
-            
-        if(mgr.openReferences)
+
+        if (openReferences)
         {
             EditorGUI.indentLevel++;
 
-            var keys = mgr.idRef.Keys;
-            var values = mgr.idRef.Values;
-
-            foreach(var kvp in mgr.idRef)
+            foreach (var kvp in mgr.idRef)
             {
                 EditorGUILayout.BeginHorizontal();
 
@@ -65,11 +79,11 @@ public class ES3ReferenceMgrEditor : Editor
 
                 EditorGUILayout.EndHorizontal();
 
-                if(value != kvp.Value || key != kvp.Key)
+                if (value != kvp.Value || key != kvp.Key)
                 {
                     Undo.RecordObject(mgr, "Change Easy Save 3 References");
                     // If we're deleting a value, delete it.
-                    if(value == null)
+                    if (value == null)
                         mgr.Remove(key);
                     // Else, update the ID.
                     else
@@ -82,62 +96,210 @@ public class ES3ReferenceMgrEditor : Editor
             EditorGUI.indentLevel--;
         }
 
-        if(GUILayout.Button("Refresh References"))
+        mgr.openPrefabs = EditorGUILayout.Foldout(mgr.openPrefabs, "ES3Prefabs");
+        if (mgr.openPrefabs)
+        {
+            EditorGUI.indentLevel++;
+
+            foreach (var prefab in mgr.prefabs)
+            {
+                EditorGUILayout.BeginHorizontal();
+
+                EditorGUILayout.ObjectField(prefab, typeof(UnityEngine.Object), true);
+
+                EditorGUILayout.EndHorizontal();
+            }
+
+            EditorGUI.indentLevel--;
+        }
+
+        var sp = serializedObject.FindProperty("excludeObjects");
+        EditorGUILayout.PropertyField(sp);
+        serializedObject.ApplyModifiedProperties();
+
+        EditorGUILayout.LabelField("Reference count", mgr.refId.Count.ToString());
+        EditorGUILayout.LabelField("ES3Prefab count", mgr.prefabs.Count.ToString());
+
+        if (GUILayout.Button("Add all scene references"))
         {
             mgr.RefreshDependencies();
-            mgr.GeneratePrefabReferences();
+        }
+
+        if (GUILayout.Button("Remove all references not in this scene"))
+        {
+            mgr.Optimize();
+        }
+
+        if (GUILayout.Button("Clear all references"))
+        {
+            if (EditorUtility.DisplayDialog("Are you sure?", "This will remove all references and their IDs from the manager and invalidate them, which will also invalidate any save data containing these IDs.", "Clear References", "Cancel"))
+            {
+                Undo.RecordObject(mgr, "Clear Reference Manager");
+                mgr.Clear();
+            }
         }
     }
 
-    [MenuItem("GameObject/Easy Save 3/Enable Easy Save for Scene", false, 1002)]
-    [MenuItem("Assets/Easy Save 3/Enable Easy Save for Scene", false, 1002)]
+    [MenuItem("GameObject/Easy Save 3/Add Dependencies to Manager", false, 33)]
+    [MenuItem("Assets/Easy Save 3/Add Dependencies to Manager", false, 33)]
+    public static void AddDependenciesToManager()
+    {
+        var mgr = ES3ReferenceMgr.GetManagerFromScene(SceneManager.GetActiveScene());
+        if (mgr == null)
+        {
+            EditorUtility.DisplayDialog("Could not add reference to manager", "This object could not be added to the reference manager because no reference manager exists in this scene. To create one, go to Tools > Easy Save 3 > Add Manager to Scene", "Ok");
+            return;
+        }
+
+        var selected = new HashSet<UnityEngine.Object>(Selection.GetFiltered<UnityEngine.Object>(SelectionMode.DeepAssets));
+        selected.UnionWith(Selection.GetFiltered<UnityEngine.Object>(SelectionMode.TopLevel));
+
+        if (selected == null || selected.Count == 0)
+            return;
+
+        Undo.RecordObject(mgr, "Update Easy Save 3 Reference Manager");
+
+        foreach (var obj in selected)
+        {
+            if (obj == null)
+                continue;
+
+            if (obj.GetType() == typeof(GameObject))
+            {
+                var go = (GameObject)obj;
+                if (ES3EditorUtility.IsPrefabInAssets(go) && go.GetComponent<ES3Internal.ES3Prefab>() != null)
+                    mgr.AddPrefab(go.GetComponent<ES3Internal.ES3Prefab>());
+            }
+
+            ((ES3ReferenceMgr)mgr).AddDependencies(obj);
+        }
+    }
+
+    [MenuItem("GameObject/Easy Save 3/Add Reference(s) to Manager", false, 33)]
+    [MenuItem("Assets/Easy Save 3/Add Reference(s) to Manager", false, 33)]
+    public static void AddReferencesToManager()
+    {
+        var mgr = ES3ReferenceMgr.Current;
+        if (mgr == null)
+        {
+            EditorUtility.DisplayDialog("Could not add reference to manager", "This object could not be added to the reference manager because no reference manager exists in this scene. To create one, go to Tools > Easy Save 3 > Add Manager to Scene", "Ok");
+            return;
+        }
+
+        var selected = Selection.GetFiltered<UnityEngine.Object>(SelectionMode.TopLevel);
+
+        if (selected == null || selected.Length == 0)
+            return;
+
+        Undo.RecordObject(mgr, "Update Easy Save 3 Reference Manager");
+
+        foreach (var obj in selected)
+        {
+            if (obj == null)
+                continue;
+
+            if (obj.GetType() == typeof(GameObject))
+            {
+                var go = (GameObject)obj;
+                if (ES3EditorUtility.IsPrefabInAssets(go) && go.GetComponent<ES3Internal.ES3Prefab>() != null)
+                    mgr.AddPrefab(go.GetComponent<ES3Internal.ES3Prefab>());
+            }
+
+            ((ES3ReferenceMgr)mgr).Add(obj);
+        }
+    }
+
+    [MenuItem("GameObject/Easy Save 3/Add Reference(s) to Manager", true, 33)]
+    [MenuItem("Assets/Easy Save 3/Add Reference(s) to Manager", true, 33)]
+    [MenuItem("GameObject/Easy Save 3/Add Dependencies to Manager", true, 33)]
+    [MenuItem("Assets/Easy Save 3/Add Dependencies to Manager", true, 33)]
+    private static bool CanAddReferenceToManager()
+    {
+        var selected = Selection.GetFiltered<UnityEngine.Object>(SelectionMode.Deep);
+        return selected != null && selected.Length > 0 && ES3ReferenceMgr.Current != null;
+    }
+
+    [MenuItem("GameObject/Easy Save 3/Exclude Reference(s) from Manager", false, 33)]
+    [MenuItem("Assets/Easy Save 3/Exclude Reference(s) from Manager", false, 33)]
+    public static void ExcludeReferenceFromManager()
+    {
+        var mgr = (ES3ReferenceMgr)ES3ReferenceMgr.Current;
+        if (mgr == null)
+        {
+            EditorUtility.DisplayDialog("Could not exclude reference from manager", "This object could not be excluded from the reference manager because no reference manager exists in this scene. To create one, go to Tools > Easy Save 3 > Add Manager to Scene", "Ok");
+            return;
+        }
+
+        var selected = Selection.GetFiltered<UnityEngine.Object>(SelectionMode.TopLevel);
+
+        if (selected == null || selected.Length == 0)
+            return;
+
+        Undo.RecordObject(mgr, "Exclude from Easy Save 3 Reference Manager");
+
+        foreach (var obj in selected)
+        {
+            if (obj == null)
+                continue;
+
+            mgr.ExcludeObject(obj);
+        }
+
+        mgr.RemoveNullOrInvalidValues();
+    }
+
+    [MenuItem("GameObject/Easy Save 3/Exclude Dependencies from Manager", false, 33)]
+    [MenuItem("Assets/Easy Save 3/Exclude Dependencies from Manager", false, 33)]
+    public static void ExcludeDependenciesFromManager()
+    {
+        var mgr = (ES3ReferenceMgr)ES3ReferenceMgr.Current;
+        if (mgr == null)
+        {
+            EditorUtility.DisplayDialog("Could not exclude reference from manager", "This object could not be excluded from the reference manager because no reference manager exists in this scene. To create one, go to Tools > Easy Save 3 > Add Manager to Scene", "Ok");
+            return;
+        }
+
+        var selected = Selection.GetFiltered<UnityEngine.Object>(SelectionMode.TopLevel);
+
+        if (selected == null || selected.Length == 0)
+            return;
+
+        Undo.RecordObject(mgr, "Exclude from Easy Save 3 Reference Manager");
+
+        var dependencies = EditorUtility.CollectDependencies(selected);
+
+        foreach (var dependency in dependencies)
+            mgr.ExcludeObject(dependency);
+
+        mgr.RemoveNullOrInvalidValues();
+    }
+
+    [MenuItem("GameObject/Easy Save 3/Exclude Dependencies from Manager", true, 33)]
+    [MenuItem("Assets/Easy Save 3/Exclude Dependencies from Manager", true, 33)]
+    [MenuItem("GameObject/Easy Save 3/Exclude Reference(s) from Manager", true, 33)]
+    [MenuItem("Assets/Easy Save 3/Exclude Reference(s) from Manager", true, 33)]
+    private static bool CanExcludeReferencesFromManager()
+    {
+        var selected = Selection.GetFiltered<UnityEngine.Object>(SelectionMode.Deep);
+        return selected != null && selected.Length > 0 && ES3ReferenceMgr.Current != null;
+    }
+
+    [MenuItem("GameObject/Easy Save 3/Add Manager to Scene", false, 33)]
+    [MenuItem("Assets/Easy Save 3/Add Manager to Scene", false, 33)]
+    [MenuItem("Tools/Easy Save 3/Add Manager to Scene", false, 150)]
     public static void EnableForScene()
     {
-        var scene = SceneManager.GetActiveScene();
-        if(!scene.isLoaded)
-            EditorUtility.DisplayDialog("Could not enable Easy Save", "Could not enable Easy Save because there is not currently a scene open.", "Ok");
+        if(!SceneManager.GetActiveScene().isLoaded)
+            EditorUtility.DisplayDialog("Could not add manager to scene", "Could not add Easy Save 3 Manager to scene because there is not currently a scene open.", "Ok");
         Selection.activeObject = ES3Postprocessor.AddManagerToScene();
     }
 
-    [MenuItem("GameObject/Easy Save 3/Enable Easy Save for Scene", true, 1002)]
-    [MenuItem("Assets/Easy Save 3/Enable Easy Save for Scene", true, 1002)]
+    [MenuItem("GameObject/Easy Save 3/Add Manager to Scene", true, 33)]
+    [MenuItem("Assets/Easy Save 3/Add Manager to Scene", true, 33)]
+    [MenuItem("Tools/Easy Save 3/Add Manager to Scene", true, 150)]
     private static bool CanEnableForScene()
     {
-        var scene = SceneManager.GetActiveScene();
-        if(!scene.isLoaded)
-            return false;
-        if(UnityEngine.Object.FindObjectOfType<ES3ReferenceMgr>() != null)
-            return false;
-        return true;
-    }
-
-    [MenuItem("GameObject/Easy Save 3/Generate New Reference IDs for Scene", false, 1002)]
-    [MenuItem("Assets/Easy Save 3/Generate New Reference IDs for Scene", false, 1002)]
-    public static void GenerateNewReferences()
-    {
-        var scene = SceneManager.GetActiveScene();
-        if(!scene.isLoaded)
-            EditorUtility.DisplayDialog("Could not enable Easy Save", "Could not enable Easy Save because there is not currently a scene open.", "Ok");
-
-
-        var refMgr = UnityEngine.Object.FindObjectOfType<ES3ReferenceMgr>();
-        if(refMgr != null)
-        {
-            if(!EditorUtility.DisplayDialog("Are you sure you wish to generate new references?", "By doing this, any save files created using these references will no longer work with references in this scene.", "Generate New Reference IDs", "Cancel"))
-                return;
-            DestroyImmediate(refMgr);
-        }
-            
-        Selection.activeObject = ES3Postprocessor.AddManagerToScene();
-    }
-
-    [MenuItem("GameObject/Easy Save 3/Generate New Reference IDs for Scene", true, 1002)]
-    [MenuItem("Assets/Easy Save 3/Generate New Reference IDs for Scene", true, 1002)]
-    private static bool CanGenerateNewReferences()
-    {
-        var scene = SceneManager.GetActiveScene();
-        if(!scene.isLoaded)
-            return false;
-        return true;
+        return ES3ReferenceMgr.GetManagerFromScene(SceneManager.GetActiveScene(), false) == null;
     }
 }
+

@@ -12,10 +12,11 @@ public class BossEnemyLoader : EnemyLoader
         Vector3 originalPosition = transform.position;
         enemyStats = GetComponent<EnemyStats>();
         enemyStats.LoadFromData();
-        dead = ES3.Load<bool>("Dead" + EnemyKey, "Saves/Profile" + SaveProfile.SaveID + "/Bosses/" + enemyStats.EnemyName);
-        criticalDeath = ES3.Load<bool>("CriticalDeath" + EnemyKey, "Saves/Profile" + SaveProfile.SaveID + "/Bosses/" + enemyStats.EnemyName);
-        transform.position = ES3.Load<Vector3>("Position" + EnemyKey, "Saves/Profile" + SaveProfile.SaveID + "/Bosses/" + enemyStats.EnemyName);
-        transform.rotation = ES3.Load<Quaternion>("Rotation" + EnemyKey, "Saves/Profile" + SaveProfile.SaveID + "/Bosses/" + enemyStats.EnemyName);
+        dead = ES3.Load<bool>("Dead" + EnemyKey, SaveManager.Instance.GetProfileRunPath() + SaveFolders.Bosses + "/" + enemyStats.EnemyName);
+        criticalDeath = ES3.Load<bool>("CriticalDeath" + EnemyKey, SaveManager.Instance.GetProfileRunPath() + SaveFolders.Bosses + "/" + enemyStats.EnemyName);
+        transform.SetPositionAndRotation(
+            ES3.Load<Vector3>("Position" + EnemyKey, SaveManager.Instance.GetProfileRunPath() + SaveFolders.Bosses + "/" + enemyStats.EnemyName), 
+            ES3.Load<Quaternion>("Rotation" + EnemyKey, SaveManager.Instance.GetProfileRunPath() + SaveFolders.Bosses + "/" + enemyStats.EnemyName));
         GetComponent<EnemyBrain>().LoadEnemyBrain(originalPosition, dead);
         GetComponent<BossHealth>().enabled = false;
     }
@@ -24,9 +25,9 @@ public class BossEnemyLoader : EnemyLoader
     {
         dead = true;
         this.criticalDeath = criticalDeath;
-        ES3.Save<bool>("Dead" + EnemyKey, dead, "Saves/Profile" + SaveProfile.SaveID + "/Bosses/" + enemyStats.EnemyName);
-        ES3.Save<bool>("CriticalDeath" + EnemyKey, criticalDeath, "Saves/Profile" + SaveProfile.SaveID + "/Bosses/" + enemyStats.EnemyName);
-        ES3.Save<Vector3>("Position" + EnemyKey, transform.position, "Saves/Profile" + SaveProfile.SaveID + "/Bosses/" + enemyStats.EnemyName);
-        ES3.Save<Quaternion>("Rotation" + EnemyKey, transform.rotation, "Saves/Profile" + SaveProfile.SaveID + "/Bosses/" + enemyStats.EnemyName);
+        ES3.Save("Dead" + EnemyKey, dead, SaveManager.Instance.GetProfileRunPath() + SaveFolders.Bosses + "/" + enemyStats.EnemyName);
+        ES3.Save("CriticalDeath" + EnemyKey, criticalDeath, SaveManager.Instance.GetProfileRunPath() + SaveFolders.Bosses + "/" + enemyStats.EnemyName);
+        ES3.Save("Position" + EnemyKey, transform.position, SaveManager.Instance.GetProfileRunPath() + SaveFolders.Bosses + "/" + enemyStats.EnemyName);
+        ES3.Save("Rotation" + EnemyKey, transform.rotation, SaveManager.Instance.GetProfileRunPath() + SaveFolders.Bosses + "/" + enemyStats.EnemyName);
     }
 }

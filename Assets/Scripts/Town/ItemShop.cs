@@ -32,16 +32,15 @@ public class ItemShop : MonoBehaviour, IInteractable
     {
         audioSource = GetComponent<AudioSource>();
 
-        int count = rareItems.Count;
-        for(int i = rareItems.Count - 1; i >= 0 ; i--)
+        for(var i = rareItems.Count - 1; i >= 0 ; i--)
         {
-            if(ES3.KeyExists(rareItems[i].name, "Saves/Profile" + SaveProfile.SaveID + "/RareShopItemsBought"))
+            if(ES3.KeyExists(rareItems[i].name, SaveManager.Instance.GetProfileRunPath() + "/RareShopItemsBought"))
             {
                 rareItems.Remove(rareItems[i]);
             }
         }
 
-        bool rareItemNotChosen = true;
+        var rareItemNotChosen = true;
         for (int i=0; i < 3; i++)
         {
             float randomChance = Random.Range(0f, 1f);
@@ -107,16 +106,15 @@ public class ItemShop : MonoBehaviour, IInteractable
             buyButtons[i].interactable = false;
             if(chosenItemIsRare[i])
             {
-                ES3.Save<string>(rareItems[rareItemID].name, rareItems[rareItemID].name, "Saves/Profile" + SaveProfile.SaveID + "/RareShopItemsBought");
+                ES3.Save(rareItems[rareItemID].name, rareItems[rareItemID].name, SaveManager.Instance.GetProfileRunPath() + "/RareShopItemsBought");
                 rareItems.RemoveAt(rareItemID);
             }
         }
-        
     }
 
     private GameObject SpawnShopItem(int i)
     {
-        Vector3 spawnPosition = new Vector3(transform.position.x + 2 * i, transform.position.y, 0);
+        var spawnPosition = new Vector3(transform.position.x + 2 * i, transform.position.y, 0);
         GameObject chosenItem = Instantiate(chosenItems[i], spawnPosition, Quaternion.identity); ;
         chosenItem.transform.GetChild(0).gameObject.SetActive(false);
         return chosenItem;
@@ -124,10 +122,9 @@ public class ItemShop : MonoBehaviour, IInteractable
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if(collision.tag == "Player")
+        if(collision.CompareTag("Player"))
         {
             itemMenu.SetActive(false);
         }
     }
-
 }
