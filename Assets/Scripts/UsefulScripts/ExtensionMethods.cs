@@ -1,8 +1,19 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public static class ExtensionMethods 
+public static class ExtensionMethods
 {
+    public static bool ShouldBecomeSingletonInstance<T>(this T behaviour, T existingInstance) where T : MonoBehaviour
+    {
+        if (existingInstance != null && existingInstance != behaviour)
+        {
+            Object.Destroy(behaviour.gameObject);
+            return false;
+        }
+
+        return true;
+    }
+
     public static GameObject InstantiateAtLocalPosition(GameObject gameObject, Transform parent, Vector2 localPosition)
     {
         var newObject = GameObject.Instantiate(gameObject, parent) as GameObject;
@@ -15,17 +26,6 @@ public static class ExtensionMethods
         foreach (Transform child in transform)
         {
             GameObject.Destroy(child.gameObject);
-        }
-    }
-
-    public static void SetBoolArrayToTrue(ref bool[,] array)
-    {
-        for (int i = 0; i < array.GetLength(0); i++)
-        {
-            for (int j = 0; j < array.GetLength(1); j++)
-            {
-                array[i, j] = true;
-            }
         }
     }
 
@@ -83,5 +83,4 @@ public static class ExtensionMethods
         audioSource.Stop();
         audioSource.volume = startVolume;
     }
-
 }

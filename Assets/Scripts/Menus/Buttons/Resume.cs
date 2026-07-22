@@ -16,5 +16,4 @@ public class Resume : MonoBehaviour
     {
         MenuFactory.DestroyMenuAndUnpause();
     }
-
 }

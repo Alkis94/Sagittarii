@@ -1,17 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using System;
 
 
-//We first ensure this script runs before all other player scripts to prevent laggy
-//inputs
+// Ensure this script runs before all other player scripts to prevent laggy inputs
 [DefaultExecutionOrder(-100)]
 public class PlayerInput : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject map;
-    [SerializeField]
-    private GameObject pauseMenu;
+    public static event Action CancelPressed = delegate { };
+    public static event Action MapPressed = delegate { };
 
     [HideInInspector] public float horizontal;		
 	[HideInInspector] public bool jumpHeld;			
@@ -21,7 +19,8 @@ public class PlayerInput : MonoBehaviour
     private float jumpPressedGraceCooldown = 0;
 
 
-	private bool readyToClear;                              //Bool used to keep input in sync
+    // Bool used to keep input in sync
+    private bool readyToClear;                              
     private bool isTeleporting = false;
     private Coroutine teleportCoroutine = null;
 
@@ -36,6 +35,9 @@ public class PlayerInput : MonoBehaviour
     private AudioSource audioSource;
     private float timePassedHoldingAttack = 0;
     private float cheatDelay = 0;
+
+    private const float attackHoldAnimationLength = 0.333f;
+    private const float attackHoldAnimationSpeed = 1f;
 
     private void Awake()
     {
@@ -65,21 +67,10 @@ public class PlayerInput : MonoBehaviour
 	{
         if(GameManager.GameState == GameStateEnum.Unpaused)
         {
-            if (Input.GetButtonDown("Cancel") && GameManager.GameState == GameStateEnum.Unpaused)
-            {
-                pauseMenu.SetActive(true);
-                GameManager.GameState = GameStateEnum.Paused;
-            }
-
             if (playerStats.Ammo > 0)
             {
-                float projectilePower;
-                float attackHoldAnimationSpeed = 1;
-                float attackHoldAnimationLength = 0.333f;
-
                 if ((Input.GetButtonDown("Fire1") || Input.GetButton("Fire1")) && animator.GetCurrentAnimatorStateInfo(0).IsName("IdleHands"))
                 {
-                    projectilePower = 0;
                     timePassedHoldingAttack = 0;
                     animator.SetTrigger("AttackHold");
                     audioSource.Play();
@@ -87,17 +78,14 @@ public class PlayerInput : MonoBehaviour
                 else if (Input.GetButton("Fire1") && animator.GetCurrentAnimatorStateInfo(0).IsName("AttackHold"))
                 {
                     timePassedHoldingAttack += Time.deltaTime;
-                    attackHoldAnimationSpeed = animator.GetCurrentAnimatorStateInfo(0).speedMultiplier;
-
                 }
                 else if (Input.GetButtonUp("Fire1") && animator.GetCurrentAnimatorStateInfo(0).IsName("AttackHold"))
                 {
-                    projectilePower = timePassedHoldingAttack * attackHoldAnimationSpeed / attackHoldAnimationLength;
+                    var projectilePower = timePassedHoldingAttack * attackHoldAnimationSpeed / attackHoldAnimationLength;
                     projectilePower = projectilePower > 1 ? 1 : projectilePower;
                     if (projectilePower > 0.4)
                     {
                         animator.SetTrigger("AttackRelease");
-                       
                     }
                     else
                     {
@@ -116,11 +104,8 @@ public class PlayerInput : MonoBehaviour
                 var result = Physics2D.OverlapCircle(transform.position, 0.5f, 1 << LayerMask.NameToLayer("Interactables"));
                 if (result != null)
                 {
-                    IInteractable interactable = result.gameObject.GetComponent<IInteractable>();
-                    if (interactable != null)
-                    {
-                        interactable.Interact();
-                    }
+                    var interactable = result.gameObject.GetComponent<IInteractable>();
+                    interactable?.Interact();
                 }
             }
 
@@ -128,14 +113,10 @@ public class PlayerInput : MonoBehaviour
             {
                 if (boxCollider2D.IsTouchingLayers(collisionMask))
                 {
-                    gameObject.layer = 19; // PlayerNoPlatform Layer
+                    // PlayerNoPlatform Layer
+                    gameObject.layer = 19; 
                     StartCoroutine(ReturnToNormalLayer());
                 }
-            }
-
-            if (Input.GetKeyDown(KeyCode.M))
-            {
-                map.SetActive(!map.activeInHierarchy);
             }
 
             ClearInput();
@@ -164,36 +145,38 @@ public class PlayerInput : MonoBehaviour
                 }
             }
 
-            //Cheat for testing
-
+            // Cheat for testing
             if (Input.GetKey(KeyCode.O))
             {
                 cheatDelay += Time.deltaTime;
-                
             }
+
             if(Input.GetKeyUp(KeyCode.O))
             {
                 if (cheatDelay > 5)
                 {
                     Cheat();
                 }
+
                 cheatDelay = 0;
             }
         }
-        else if (GameManager.GameState == GameStateEnum.Paused)
+
+        if (Input.GetButtonDown("Cancel"))
         {
-            if(Input.GetButtonDown("Cancel"))
-            {
-                pauseMenu.SetActive(false);
-                GameManager.GameState = GameStateEnum.Unpaused;
-            }
+            CancelPressed?.Invoke();
+        }
+
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            MapPressed?.Invoke();
         }
     }
 
     void FixedUpdate()
 	{
-		//In FixedUpdate() we set a flag that lets inputs to be cleared out during the 
-		//next Update(). This ensures that all code gets to use the current inputs
+		// In FixedUpdate() we set a flag that lets inputs to be cleared out during the 
+		// next Update(). This ensures that all code gets to use the current inputs
 		readyToClear = true;
 	}
 
@@ -202,9 +185,9 @@ public class PlayerInput : MonoBehaviour
 		if (!readyToClear)
 			return;
 
-		horizontal		= 0f;
-		jumpHeld		= false;
-		readyToClear	= false;
+		horizontal = 0f;
+		jumpHeld = false;
+		readyToClear = false;
 
         if(jumpPressedGraceCooldown < Time.time)
         {
@@ -214,10 +197,10 @@ public class PlayerInput : MonoBehaviour
 
 	void ProcessInputs()
 	{
-		//Accumulate horizontal axis input
-		horizontal		+= Input.GetAxis("Horizontal");
+		// accumulate horizontal axis input
+		horizontal += Input.GetAxis("Horizontal");
 
-        //Accumulate button inputs
+        // accumulate button inputs
         if (Input.GetButtonDown("Jump"))
         {
             jumpPressedGraceCooldown = Time.time + jumpPressedBeforeGroundGraceDelay;
@@ -266,7 +249,8 @@ public class PlayerInput : MonoBehaviour
             jumpHeld = false;
             if (Time.time > returnDelay)
             {
-                gameObject.layer = 10; // Player Layer.
+                // Player Layer
+                gameObject.layer = 10; 
                 yield break;
             }
             yield return null;

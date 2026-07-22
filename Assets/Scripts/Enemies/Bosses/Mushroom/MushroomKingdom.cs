@@ -24,9 +24,9 @@ public class MushroomKingdom : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
-        if (ES3.KeyExists("Dead0", SaveManager.Instance.GetProfileRunPath() + SaveFolders.Bosses + "/MushroomBoss"))
+        if (ES3.KeyExists("Dead0", ProfileManager.Instance.GetProfileRunPath() + SaveFolders.Bosses + "/MushroomBoss"))
         {
-            bool dead = ES3.Load<bool>("Dead0", SaveManager.Instance.GetProfileRunPath() + SaveFolders.Bosses + "/MushroomBoss");
+            bool dead = ES3.Load<bool>("Dead0", ProfileManager.Instance.GetProfileRunPath() + SaveFolders.Bosses + "/MushroomBoss");
             gameObject.SetActive(!dead);
         }
     }

@@ -36,5 +36,4 @@ public class ArcherIceLance : SpecialAbility
             UIManager.Instance.UpdateSpecial(Cooldown);
         }
     }
-
 }

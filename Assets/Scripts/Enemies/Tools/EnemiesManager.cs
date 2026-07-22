@@ -17,13 +17,13 @@ public class EnemiesManager : MonoBehaviour
 
     private void Awake()
     {
-        GameObject spawnerObject = GameObject.FindGameObjectWithTag("Spawner");
+        var spawnerObject = GameObject.FindGameObjectWithTag("Spawner");
         if (spawnerObject != null)
         {
             spawner = spawnerObject.GetComponent<Spawner>();
-            spawnerEnemies = new Dictionary<string, GameObject>();
+            spawnerEnemies = new();
 
-            for (int i = 0; i < spawner.EnemySpawnInfos.Count; i++)
+            for (var i = 0; i < spawner.EnemySpawnInfos.Count; i++)
             {
                 spawnerEnemies.Add(spawner.EnemySpawnInfos[i].enemy.name, spawner.EnemySpawnInfos[i].enemy);
             }
@@ -34,7 +34,7 @@ public class EnemiesManager : MonoBehaviour
     {
         mapType = MapManager.Instance.CurrentMapInfo.Type;
         roomKey = MapManager.Instance.CurrentMapInfo.Coords.x.ToString() + MapManager.Instance.CurrentMapInfo.Coords.y.ToString();
-        roomType = MapManager.Instance.CurrentMapInfo.Map[MapManager.Instance.CurrentMapInfo.Coords.x, MapManager.Instance.CurrentMapInfo.Coords.y].Room.Type;
+        roomType = MapManager.Instance.CurrentMapInfo.CurrentCell.Room.Type;
         ChooseAndLoad();
     }
 
@@ -44,9 +44,9 @@ public class EnemiesManager : MonoBehaviour
         {
             chosenGroup = transform.GetChild(0).gameObject;
 
-            if(ES3.KeyExists("Dead0", SaveManager.Instance.GetProfileRunPath() + SaveFolders.Bosses + "/" + SceneManager.GetActiveScene().name))
+            if(ES3.KeyExists("Dead0", ProfileManager.Instance.GetProfileRunPath() + SaveFolders.Bosses + "/" + SceneManager.GetActiveScene().name))
             {
-                bool dead = ES3.Load<bool>("Dead0", SaveManager.Instance.GetProfileRunPath() + SaveFolders.Bosses + "/" + SceneManager.GetActiveScene().name);
+                var dead = ES3.Load<bool>("Dead0", ProfileManager.Instance.GetProfileRunPath() + SaveFolders.Bosses + "/" + SceneManager.GetActiveScene().name);
                 if(dead)
                 {
                     ReloadEnemies();
@@ -63,9 +63,9 @@ public class EnemiesManager : MonoBehaviour
         }
         else
         {
-            if (ES3.FileExists(SaveManager.Instance.GetProfileRunPath() + SaveFolders.Levels + "/" + mapType + SaveFolders.Room + roomKey + SaveFolders.Enemies))
+            if (ES3.FileExists(ProfileManager.Instance.GetProfileRunPath() + SaveFolders.Levels + "/" + mapType + SaveFolders.Room + roomKey + SaveFolders.Enemies))
             {
-                chosenGroupID = ES3.Load<int>("ChosenGroupID", SaveManager.Instance.GetProfileRunPath() + SaveFolders.Levels + "/" + mapType + SaveFolders.Room + roomKey + SaveFolders.Enemies);
+                chosenGroupID = ES3.Load<int>("ChosenGroupID", ProfileManager.Instance.GetProfileRunPath() + SaveFolders.Levels + "/" + mapType + SaveFolders.Room + roomKey + SaveFolders.Enemies);
                 chosenGroup = transform.GetChild(chosenGroupID).gameObject;
                 ReloadEnemies();
             }
@@ -80,15 +80,14 @@ public class EnemiesManager : MonoBehaviour
 
     private void LoadEnemies()
     {
-        var i = 0;
         foreach (Transform child in chosenGroup.transform)
         {
-            EnemyLoader enemyLoader = child.GetComponent<EnemyLoader>();
-            enemyLoader.EnemyKey = i;
+            var enemyLoader = child.GetComponent<EnemyLoader>();
+            enemyLoader.EnemyKey = child.GetSiblingIndex();
             enemyLoader.MapType = mapType;
             enemyLoader.RoomKey = roomKey;
-            i++;
         }
+        
         chosenGroup.SetActive(true);
         CheckForAliveEnemies();
     }
@@ -98,13 +97,15 @@ public class EnemiesManager : MonoBehaviour
         var i = 0;
         var childCount = chosenGroup.transform.childCount;
         var jkey = 0;
+
         while (i < childCount)
         {
-            EnemyLoader enemyLoader = chosenGroup.transform.GetChild(i).GetComponent<EnemyLoader>();
+            var enemyLoader = chosenGroup.transform.GetChild(i).GetComponent<EnemyLoader>();
             enemyLoader.EnemyKey = jkey;
             enemyLoader.MapType = mapType;
             enemyLoader.RoomKey = roomKey;
             enemyLoader.Load();
+
             if (enemyLoader.IsDead())
             {
                 childCount = chosenGroup.transform.childCount;
@@ -113,8 +114,10 @@ public class EnemiesManager : MonoBehaviour
             {
                 i++;
             }
+
             jkey++;
         }
+
         chosenGroup.SetActive(true);
         CheckForAliveEnemies();
     }
@@ -129,6 +132,6 @@ public class EnemiesManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        ES3.Save("ChosenGroupID", chosenGroupID, SaveManager.Instance.GetProfileRunPath() + SaveFolders.Levels + "/" + mapType + SaveFolders.Room + roomKey + SaveFolders.Enemies);
+        ES3.Save("ChosenGroupID", chosenGroupID, ProfileManager.Instance.GetProfileRunPath() + SaveFolders.Levels + "/" + mapType + SaveFolders.Room + roomKey + SaveFolders.Enemies);
     }
 }

@@ -15,11 +15,11 @@ public class BossDoorOutside : BossDoor, IInteractable
         {
             isLocked = false;
         }
-        else if (ES3.FileExists(SaveManager.Instance.GetProfileRunPath() + SaveFolders.Bosses + "/" + bossName))
+        else if (ES3.FileExists(ProfileManager.Instance.GetProfileRunPath() + SaveFolders.Bosses + "/" + bossName))
         {
-            if (ES3.KeyExists("isLocked", SaveManager.Instance.GetProfileRunPath() + SaveFolders.Bosses + "/" + bossName))
+            if (ES3.KeyExists("isLocked", ProfileManager.Instance.GetProfileRunPath() + SaveFolders.Bosses + "/" + bossName))
             {
-                isLocked = ES3.Load<bool>("isLocked", SaveManager.Instance.GetProfileRunPath() + SaveFolders.Bosses + "/" + bossName);
+                isLocked = ES3.Load<bool>("isLocked", ProfileManager.Instance.GetProfileRunPath() + SaveFolders.Bosses + "/" + bossName);
             }
             else
             {

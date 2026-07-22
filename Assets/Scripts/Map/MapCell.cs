@@ -2,12 +2,11 @@
 
 public class MapCell
 {
-    public MapCellType CellType { get; set; } = MapCellType.None;
-    public Room Room { get; set; } = null;
-    public RoadType? RoadType { get; set; } = null;
-    public GameObject Icon { get; set; } = null;
-    public bool Undrawn { get; set; } = true;
-
+    public MapCellType CellType = MapCellType.None;
+    public Room Room = null;
+    public RoadType? RoadType = null;
+    public GameObject Icon = null;
+    public bool Drawn = false;
     public void AddNormallRoom()
     {
         CellType = MapCellType.Room;
@@ -45,13 +44,46 @@ public class MapCell
             Type = RoomType.BossRoom
         };
     }
+
+    /// <summary>
+    /// Extracts the part of this cell that changes as the map is explored/drawn,
+    /// so it can be saved without re-saving the (unchanging) map layout.
+    /// </summary>
+    public MapCellState GetState()
+    {
+        return new MapCellState
+        {
+            Drawn = Drawn,
+            Unexplored = Room != null && Room.Unexplored
+        };
+    }
+
+    /// <summary>
+    /// Re-applies previously saved Drawn/Unexplored state onto this cell.
+    /// Used after the map layout has been loaded or created.
+    /// </summary>
+    public void ApplyState(MapCellState state)
+    {
+        Drawn = state.Drawn;
+
+        if (Room != null)
+        {
+            Room.Unexplored = state.Unexplored;
+        }
+    }
 }
 
-public class Room 
+public class Room
 {
-    public RoomType Type { get; set; } = RoomType.NormalRoom;
-    public string Name { get; set; } = "";
-    public bool HasTreasure { get; set; } = false;
-    public bool Unexplored { get; set; } = true;
-    public RoomOpenings RoomOpenings { get; set; } = RoomOpenings.None;
+    public RoomType Type = RoomType.NormalRoom;
+    public string Name = "";
+    public bool HasTreasure = false;
+    public bool Unexplored = true;
+    public RoomOpenings RoomOpenings = RoomOpenings.None;
+}
+
+public struct MapCellState
+{
+    public bool Drawn;
+    public bool Unexplored;
 }

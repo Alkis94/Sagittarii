@@ -4,16 +4,12 @@ public class ForestMapCreator : MapCreator
 {
     public static ForestMapCreator Instance { get; private set; }
     public Vector2Int ForestFirstRoomCoordinates { get; private set; } = new(2, 0);
-    public MapIcons ForestIcons { get; private set; } = new MapIcons();
+
     private const int forestLength = 10;
 
     private void Awake()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-        }
-        else
+        if (this.ShouldBecomeSingletonInstance(Instance))
         {
             Instance = this;
         }
@@ -21,7 +17,7 @@ public class ForestMapCreator : MapCreator
 
     private void Start()
     {
-        ForestIcons.LoadIcons("Forest");
+        Icons.LoadIcons("Forest");
     }
 
     public void CreateMap()
@@ -49,7 +45,7 @@ public class ForestMapCreator : MapCreator
                 continue;
             }
 
-            if(Map[i,0].Room.Type == RoomType.NormalRoom)
+            if (Map[i,0].Room.Type == RoomType.NormalRoom)
             {
                 var randomNumber = Random.Range(0, RoomTracker.ForestRooms.Count);
                 Map[i, 0].Room.Name = RoomTracker.ForestRooms[randomNumber];
@@ -61,8 +57,8 @@ public class ForestMapCreator : MapCreator
             }
         }
 
-        AddTreasures(2, normalRoomArrayCoordinates);
+        AddTreasures(TreasureCount);
 
-        ES3.Save("ForestMap", Map, "Saves/Profile");
+        SaveMap(MapNames.Forest);
     }
 }

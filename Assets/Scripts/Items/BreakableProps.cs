@@ -9,8 +9,8 @@ public class BreakableProps : MonoBehaviour
     private const float goldDropChance = 0.1f;
     private Animator animator;
     private AudioSource audioSource;
+
     private MapType mapType;
-    private RoomType roomType;
     private string roomKey;
     private bool isEnabled = false;
     private bool isBroken = false;
@@ -28,21 +28,21 @@ public class BreakableProps : MonoBehaviour
     private void Start()
     {
         if (ES3.KeyExists("isEnabled" + transform.GetSiblingIndex(), 
-            SaveManager.Instance.GetProfileRunPath() + SaveFolders.Levels + "/" + mapType + SaveFolders.Room + roomKey + SaveFolders.Props))
+            ProfileManager.Instance.GetProfileRunPath() + SaveFolders.Levels + "/" + mapType + SaveFolders.Room + roomKey + SaveFolders.Props))
         {
             isEnabled = ES3.Load<bool>("isEnabled" + transform.GetSiblingIndex(), 
-                SaveManager.Instance.GetProfileRunPath() + SaveFolders.Levels + "/" + mapType + SaveFolders.Room + roomKey + SaveFolders.Props);
+                ProfileManager.Instance.GetProfileRunPath() + SaveFolders.Levels + "/" + mapType + SaveFolders.Room + roomKey + SaveFolders.Props);
         }
         else
         {
-            float randomNumber = Random.Range(0f, 1f);
+            var randomNumber = Random.Range(0f, 1f);
             if(randomNumber < goldDropChance)
             {
                 isEnabled = true;
             }
 
             ES3.Save("isEnabled" + transform.GetSiblingIndex(), isEnabled, 
-                SaveManager.Instance.GetProfileRunPath() + SaveFolders.Levels + "/" + mapType + SaveFolders.Room + roomKey + SaveFolders.Props);
+                ProfileManager.Instance.GetProfileRunPath() + SaveFolders.Levels + "/" + mapType + SaveFolders.Room + roomKey + SaveFolders.Props);
         }
 
         if (isEnabled)
@@ -66,7 +66,7 @@ public class BreakableProps : MonoBehaviour
             audioSource.Play();
             isBroken = true;
             ES3.Save("isEnabled" + transform.GetSiblingIndex(), false, 
-                SaveManager.Instance.GetProfileRunPath() + SaveFolders.Levels + "/" + mapType + SaveFolders.Room + roomKey + SaveFolders.Props);
+                ProfileManager.Instance.GetProfileRunPath() + SaveFolders.Levels + "/" + mapType + SaveFolders.Room + roomKey + SaveFolders.Props);
             transform.gameObject.layer = 14;
         }
     }
@@ -75,6 +75,5 @@ public class BreakableProps : MonoBehaviour
     {
         this.mapType = mapType;
         this.roomKey = roomKey;
-        this.roomType = roomType;
     }
 }

@@ -4,9 +4,63 @@ using UnityEngine;
 public abstract class MapCreator : MonoBehaviour
 {
     public MapCell[,] Map { get; private set; }
+    public MapIcons Icons { get; private set; } = new MapIcons();
     protected int TreasureCount = 0;
-
     protected List<Vector2Int> normalRoomArrayCoordinates = new();
+
+    public void LoadMap(string  mapName)
+    {
+        Map = ES3.Load<MapCell[,]>(mapName, ProfileManager.Instance.GetProfileRunPath() + SaveFolders.Maps + "/" + mapName);
+    }
+
+    public void SaveMap(string mapName)
+    {
+        ES3.Save(mapName, Map, ProfileManager.Instance.GetProfileRunPath() + SaveFolders.Maps + "/" + mapName);
+    }
+
+    /// <summary>
+    /// Saves only the Drawn/Unexplored state of the map, which is the only part
+    /// that changes after the map layout has been created. Cheaper than re-saving
+    /// the full map every time a room is explored.
+    /// </summary>
+    public void SaveMapState(string mapName)
+    {
+        var state = new MapCellState[Map.GetLength(0), Map.GetLength(1)];
+
+        for (var i = 0; i < Map.GetLength(0); i++)
+        {
+            for (var j = 0; j < Map.GetLength(1); j++)
+            {
+                state[i, j] = Map[i, j].GetState();
+            }
+        }
+
+        ES3.Save(mapName, state, ProfileManager.Instance.GetProfileRunPath() + SaveFolders.Maps + "/" + mapName + "State");
+    }
+
+    /// <summary>
+    /// Applies previously saved Drawn/Unexplored state onto the current (already loaded/created)
+    /// map layout. Should be called after LoadMap/CreateMap has populated Map.
+    /// </summary>
+    public void LoadMapState(string mapName)
+    {
+        var path = ProfileManager.Instance.GetProfileRunPath() + SaveFolders.Maps + "/" + mapName + "State";
+
+        if (!ES3.FileExists(path))
+        {
+            return;
+        }
+
+        var state = ES3.Load<MapCellState[,]>(mapName, path);
+
+        for (var i = 0; i < Map.GetLength(0); i++)
+        {
+            for (var j = 0; j < Map.GetLength(1); j++)
+            {
+                Map[i, j].ApplyState(state[i, j]);
+            }
+        }
+    }
 
     protected void CreatePath(PathInfo pathInfo)
     {
@@ -113,9 +167,9 @@ public abstract class MapCreator : MonoBehaviour
         return bossRoomCoordinates;
     }
 
-    protected void AddTreasures(int TreasuresAmount, List<Vector2Int> normalRoomArrayCoordinates)
+    protected void AddTreasures(int treasuresAmount)
     {
-        for (var i = 0; i < TreasuresAmount; i++)
+        for (var i = 0; i < treasuresAmount; i++)
         {
             var randomNumber = Random.Range(0, normalRoomArrayCoordinates.Count);
             Map[normalRoomArrayCoordinates[randomNumber].x, normalRoomArrayCoordinates[randomNumber].y].Room.HasTreasure = true;
@@ -124,9 +178,9 @@ public abstract class MapCreator : MonoBehaviour
 
     protected RoomOpenings ReturnCorrectRoomOpening(int coordinatesX, int coordinatesY)
     {
-        var north = coordinatesY - 1 > 0 && Map[coordinatesX, coordinatesY - 1].CellType == MapCellType.Road;
+        var north = coordinatesY - 1 >= 0 && Map[coordinatesX, coordinatesY - 1].CellType == MapCellType.Road;
         var south = coordinatesY + 1 < Map.GetLength(1) && Map[coordinatesX, coordinatesY + 1].CellType == MapCellType.Road;
-        var west = coordinatesX - 1 > 0 && Map[coordinatesX - 1, coordinatesY].CellType == MapCellType.Road;
+        var west = coordinatesX - 1 >= 0 && Map[coordinatesX - 1, coordinatesY].CellType == MapCellType.Road;
         var east = coordinatesX + 1 < Map.GetLength(0) && Map[coordinatesX + 1, coordinatesY].CellType == MapCellType.Road;
 
         return (north, south, east, west) switch
@@ -201,6 +255,7 @@ public abstract class MapCreator : MonoBehaviour
     protected void InitializeMapArray(int rows, int columns)
     {
         Map = new MapCell[rows, columns];
+        normalRoomArrayCoordinates.Clear();
 
         for (var i = 0; i < Map.GetLength(0); i++)
         {

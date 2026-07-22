@@ -28,6 +28,7 @@ public class MainMenuToTownEnabler : MonoBehaviour
     {
         if (scene.name == "Town")
         {
+            
             playerUI.SetActive(true);
             playerCamera.SetActive(true);
             character.transform.GetChild(0).gameObject.SetActive(true);

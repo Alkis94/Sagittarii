@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class OptionsManager : MonoBehaviour
 {
+    private static OptionsManager Instance = null;
+
     [SerializeField]
     private AudioMixer audioMixer;
     [SerializeField]
@@ -12,6 +14,18 @@ public class OptionsManager : MonoBehaviour
     private Slider musicSlider;
     [SerializeField]
     private Slider soundEffectsSlider;
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
 
     private void OnEnable()
     {
@@ -43,5 +57,4 @@ public class OptionsManager : MonoBehaviour
         volume = Mathf.Log10(volume) * 20;
         audioMixer.SetFloat("SoundEffects", volume);
     }
-
 }

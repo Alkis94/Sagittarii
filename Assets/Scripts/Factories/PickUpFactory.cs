@@ -11,8 +11,8 @@ public class PickUpFactory : MonoBehaviour
     private Dictionary<string, GameObject> pickupsDictionery;
     private PlayerStats playerStats;
 
-    private float healthDropRate = 0.02f;
-    private float energyDropRate = 0.01f;
+    private readonly float healthDropRate = 0.02f;
+    private readonly float energyDropRate = 0.01f;
 
     private void Awake()
     {
@@ -32,7 +32,7 @@ public class PickUpFactory : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name == "Town")
+        if (scene.name == SceneNames.Town)
         {
             playerStats = FindObjectOfType<PlayerStats>();
             SceneManager.sceneLoaded -= OnSceneLoaded;
@@ -84,10 +84,10 @@ public class PickUpFactory : MonoBehaviour
 
         if (randomNumber < dropChance)
         {
-            int minCopperCoins = minGoldGiven / CoinPickup.copperValue;
-            int maxCopperCoins = maxGoldGiven / CoinPickup.copperValue;
-            int finalGoldGiven = Random.Range(minCopperCoins, maxCopperCoins + 1) * CoinPickup.copperValue;
-
+            var minCopperCoins = minGoldGiven / CoinPickup.copperValue;
+            var maxCopperCoins = maxGoldGiven / CoinPickup.copperValue;
+            var finalGoldGiven = Random.Range(minCopperCoins, maxCopperCoins + 1) * CoinPickup.copperValue;
+            
             int GoldCoins;
             int SilverCoins;
             int CooperCoins;

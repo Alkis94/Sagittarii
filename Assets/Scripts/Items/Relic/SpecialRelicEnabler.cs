@@ -17,11 +17,11 @@ public class SpecialRelicEnabler : MonoBehaviour
             }
         }
 
-        if (ES3.FileExists(SaveManager.Instance.GetProfileRunPath() + SaveFolders.SpecialItems))
+        if (ES3.FileExists(ProfileManager.Instance.GetProfileRunPath() + SaveFolders.SpecialItems))
         {
             foreach (var relic in specialRelicDictionery)
             {
-                if (ES3.KeyExists("Special" + relic.Key, SaveManager.Instance.GetProfileRunPath() + SaveFolders.SpecialItems))
+                if (ES3.KeyExists("Special" + relic.Key, ProfileManager.Instance.GetProfileRunPath() + SaveFolders.SpecialItems))
                 {
                     specialRelicDictionery[relic.Key].enabled = true;
                 }
@@ -32,6 +32,6 @@ public class SpecialRelicEnabler : MonoBehaviour
     public void EnableRelic(string relic)
     {
         specialRelicDictionery[relic].enabled = true;
-        ES3.Save("Special" + relic, true, SaveManager.Instance.GetProfileRunPath() + SaveFolders.SpecialItems);
+        ES3.Save("Special" + relic, true, ProfileManager.Instance.GetProfileRunPath() + SaveFolders.SpecialItems);
     }
 }

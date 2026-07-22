@@ -88,7 +88,7 @@ public class PlayerAttackHandler : MonoBehaviour
     // #                                             #
     // ###############################################
 
-    //Gets called from animation!
+    // Gets called from animation!
     public void CallAttackFromAnimation()
     {
         StartCoroutine(PlayerAttack(PlayerMainAttack));

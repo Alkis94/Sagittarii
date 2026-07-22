@@ -32,9 +32,9 @@ public class MushroomTower : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         cinemachineImpulseSource = GetComponent<CinemachineImpulseSource>();
 
-        if (ES3.KeyExists("isBroken", SaveManager.Instance.GetProfileRunPath() + SaveFolders.Levels + "/" + mapType + SaveFolders.Room + roomKey + SaveFolders.Props))
+        if (ES3.KeyExists("isBroken", ProfileManager.Instance.GetProfileRunPath() + SaveFolders.Levels + "/" + mapType + SaveFolders.Room + roomKey + SaveFolders.Props))
         {
-            isBroken = ES3.Load<bool>("isBroken", SaveManager.Instance.GetProfileRunPath() + SaveFolders.Levels + "/" + mapType + SaveFolders.Room + roomKey + SaveFolders.Props);
+            isBroken = ES3.Load<bool>("isBroken", ProfileManager.Instance.GetProfileRunPath() + SaveFolders.Levels + "/" + mapType + SaveFolders.Room + roomKey + SaveFolders.Props);
         }
 
         if(isBroken)
@@ -54,31 +54,31 @@ public class MushroomTower : MonoBehaviour
             cinemachineImpulseSource.GenerateImpulse();
             isBroken = true;
             transform.gameObject.layer = 14;
-            ES3.Save("isBroken", true, SaveManager.Instance.GetProfileRunPath() + SaveFolders.Levels + "/" + mapType + SaveFolders.Room + roomKey + SaveFolders.Props);
+            ES3.Save("isBroken", true, ProfileManager.Instance.GetProfileRunPath() + SaveFolders.Levels + "/" + mapType + SaveFolders.Room + roomKey + SaveFolders.Props);
 
-            if (ES3.FileExists(SaveManager.Instance.GetProfileRunPath() + SaveFolders.Bosses + "/MushroomBoss"))
+            if (ES3.FileExists(ProfileManager.Instance.GetProfileRunPath() + SaveFolders.Bosses + "/MushroomBoss"))
             {
-                if (ES3.KeyExists("MushroomsDestroyed", SaveManager.Instance.GetProfileRunPath() + SaveFolders.Bosses + "/MushroomBoss"))
+                if (ES3.KeyExists("MushroomsDestroyed", ProfileManager.Instance.GetProfileRunPath() + SaveFolders.Bosses + "/MushroomBoss"))
                 {
-                    var mushroomsDestroyed = ES3.Load<int>("MushroomsDestroyed", SaveManager.Instance.GetProfileRunPath() + SaveFolders.Bosses + "/MushroomBoss");
+                    var mushroomsDestroyed = ES3.Load<int>("MushroomsDestroyed", ProfileManager.Instance.GetProfileRunPath() + SaveFolders.Bosses + "/MushroomBoss");
                     mushroomsDestroyed++;
-                    ES3.Save("MushroomsDestroyed", mushroomsDestroyed, SaveManager.Instance.GetProfileRunPath() + SaveFolders.Bosses + "/MushroomBoss");
+                    ES3.Save("MushroomsDestroyed", mushroomsDestroyed, ProfileManager.Instance.GetProfileRunPath() + SaveFolders.Bosses + "/MushroomBoss");
                     if (mushroomsDestroyed >= 3 )
                     {
                         
-                        ES3.Save("isLocked", false, SaveManager.Instance.GetProfileRunPath() + SaveFolders.Bosses + "/MushroomBoss");
+                        ES3.Save("isLocked", false, ProfileManager.Instance.GetProfileRunPath() + SaveFolders.Bosses + "/MushroomBoss");
                     }
                     
                 }
                 else
                 {
-                    ES3.Save("MushroomsDestroyed", true, SaveManager.Instance.GetProfileRunPath() + SaveFolders.Bosses + "/MushroomBoss");
+                    ES3.Save("MushroomsDestroyed", true, ProfileManager.Instance.GetProfileRunPath() + SaveFolders.Bosses + "/MushroomBoss");
                 }
             }
             else
             {
-                ES3.Save("isLocked", true, SaveManager.Instance.GetProfileRunPath() + SaveFolders.Bosses + "/MushroomBoss");
-                ES3.Save("MushroomsDestroyed", 1, SaveManager.Instance.GetProfileRunPath() + SaveFolders.Bosses + "/MushroomBoss");
+                ES3.Save("isLocked", true, ProfileManager.Instance.GetProfileRunPath() + SaveFolders.Bosses + "/MushroomBoss");
+                ES3.Save("MushroomsDestroyed", 1, ProfileManager.Instance.GetProfileRunPath() + SaveFolders.Bosses + "/MushroomBoss");
             }
         }
         else

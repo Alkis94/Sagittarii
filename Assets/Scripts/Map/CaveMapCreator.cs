@@ -4,17 +4,11 @@ using System.Collections.Generic;
 public class CaveMapCreator : MapCreator
 {
     public static CaveMapCreator Instance { get; private set; }
-
     public Vector2Int CaveFirstRoomCoordinates { get; private set; } = new(10, 4);
-    public MapIcons CaveIcons { get; private set; } = new MapIcons();
 
     private void Awake()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-        }
-        else
+        if (this.ShouldBecomeSingletonInstance(Instance))
         {
             Instance = this;
         }
@@ -22,12 +16,13 @@ public class CaveMapCreator : MapCreator
 
     private void Start()
     {
-        CaveIcons.LoadIcons("Cave");
+        Icons.LoadIcons("Cave");
     }
 
     public void CreateMap()
     {
         InitializeMapArray(20, 40);
+        TreasureCount = 3;
 
         Map[10, 0].AddRoad(RoadType.Vertical);
         Map[10, 1].AddRoad(RoadType.Vertical);
@@ -47,8 +42,10 @@ public class CaveMapCreator : MapCreator
 
         AssignRoomOpenings();
         AssignRooms();
-        AddTreasures(3, normalRoomArrayCoordinates);
+        AddTreasures(TreasureCount);
         AssignMushroomTowers();
+
+        SaveMap(MapNames.Cave);
     }
 
     private void AssignRooms()
@@ -96,11 +93,13 @@ public class CaveMapCreator : MapCreator
         }
 
         var numberOfTowers = 3;
-        if (ES3.KeyExists("MushroomsDestroyed", SaveManager.Instance.GetProfileRunPath() + SaveFolders.Bosses + "/MushroomBoss"))
+        if (ES3.KeyExists("MushroomsDestroyed", ProfileManager.Instance.GetProfileRunPath() + SaveFolders.Bosses + "/MushroomBoss"))
         {
-            var mushroomsDestroyed = ES3.Load<int>("MushroomsDestroyed", SaveManager.Instance.GetProfileRunPath() + SaveFolders.Bosses + "/MushroomBoss");
+            var mushroomsDestroyed = ES3.Load<int>("MushroomsDestroyed", ProfileManager.Instance.GetProfileRunPath() + SaveFolders.Bosses + "/MushroomBoss");
             numberOfTowers -= mushroomsDestroyed;
         }
+
+        numberOfTowers = Mathf.Min(numberOfTowers, edgeRooms.Count);
 
         for (var i = 0; i < numberOfTowers; i++)
         {

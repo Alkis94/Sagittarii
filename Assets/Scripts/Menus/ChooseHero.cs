@@ -7,7 +7,7 @@ public class ChooseHero : MonoBehaviour
 
     public void OnChoosePress()
     {
-        GameManager.Instance.ChooseCharacter(characterClass, true);
+        GameManager.Instance.ChooseCharacter(true, characterClass);
         SceneFader.Instance.LoadSceneWithFade(SceneNames.Town);
         UIManager.Instance.CallLocationText(LocationNames.Town);
     }

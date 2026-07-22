@@ -25,11 +25,11 @@ public class RelicFactory : MonoBehaviour
     {
         EnemyDeath.OnDeathDropRelic += CreateItem;
 
-        if(ES3.FileExists(SaveManager.Instance.GetProfileRunPath() + "/UniqueItems"))
+        if(ES3.FileExists(ProfileManager.Instance.GetProfileRunPath() + "/UniqueItems"))
         {
             foreach(var relic in PlayerHasUniqueRelic)
             {
-                if (ES3.KeyExists(relic.Key, SaveManager.Instance.GetProfileRunPath() + "/UniqueItems"))
+                if (ES3.KeyExists(relic.Key, ProfileManager.Instance.GetProfileRunPath() + "/UniqueItems"))
                 {
                     PlayerHasUniqueRelic[relic.Key] = true;
                 }
@@ -63,7 +63,7 @@ public class RelicFactory : MonoBehaviour
     public static void PlayerGotUniqueRelic (string relicName)
     {
         PlayerHasUniqueRelic[relicName] = true;
-        ES3.Save(relicName, true, SaveManager.Instance.GetProfileRunPath() + SaveFolders.UniqueItems);
+        ES3.Save(relicName, true, ProfileManager.Instance.GetProfileRunPath() + SaveFolders.UniqueItems);
     }
 
     public static bool CheckUniqueRelicPossession (string relicName)

@@ -34,7 +34,7 @@ public class ItemShop : MonoBehaviour, IInteractable
 
         for(var i = rareItems.Count - 1; i >= 0 ; i--)
         {
-            if(ES3.KeyExists(rareItems[i].name, SaveManager.Instance.GetProfileRunPath() + "/RareShopItemsBought"))
+            if(ES3.KeyExists(rareItems[i].name, ProfileManager.Instance.GetProfileRunPath() + "/RareShopItemsBought"))
             {
                 rareItems.Remove(rareItems[i]);
             }
@@ -106,7 +106,7 @@ public class ItemShop : MonoBehaviour, IInteractable
             buyButtons[i].interactable = false;
             if(chosenItemIsRare[i])
             {
-                ES3.Save(rareItems[rareItemID].name, rareItems[rareItemID].name, SaveManager.Instance.GetProfileRunPath() + "/RareShopItemsBought");
+                ES3.Save(rareItems[rareItemID].name, rareItems[rareItemID].name, ProfileManager.Instance.GetProfileRunPath() + "/RareShopItemsBought");
                 rareItems.RemoveAt(rareItemID);
             }
         }

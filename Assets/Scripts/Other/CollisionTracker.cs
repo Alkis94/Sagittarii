@@ -2,7 +2,6 @@
 
 public class CollisionTracker : MonoBehaviour
 {
-
     public LayerMask collisionMask;
     public CollisionInfo collisions;
     private Raycaster raycaster;
@@ -16,16 +15,14 @@ public class CollisionTracker : MonoBehaviour
 
     public void TrackHorizontalCollisions()
     {
-        int horizontalDirection = transform.parent.localRotation.y == 0 ? 1 : -1;
-
-        int directionX = (int) Mathf.Sign(horizontalDirection);
+        var horizontalDirection = transform.parent.localRotation.y == 0 ? 1 : -1;
+        var directionX = (int)Mathf.Sign(horizontalDirection);
         
-
-        for (int i = 0; i < raycaster.horizontalRayCount; i++)
+        for (var i = 0; i < raycaster.horizontalRayCount; i++)
         {
-            Vector2 rayOrigin = (directionX == -1) ? raycaster.raycastOrigins.bottomLeft : raycaster.raycastOrigins.bottomRight;
+            var rayOrigin = (directionX == -1) ? raycaster.raycastOrigins.bottomLeft : raycaster.raycastOrigins.bottomRight;
             rayOrigin += Vector2.up * (raycaster.horizontalRaySpacing * i);
-            RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.right * directionX, horizontalRayLength, collisionMask);
+            var hit = Physics2D.Raycast(rayOrigin, Vector2.right * directionX, horizontalRayLength, collisionMask);
 
             Debug.DrawRay(rayOrigin, Vector2.right * directionX, Color.red);
 
@@ -39,15 +36,14 @@ public class CollisionTracker : MonoBehaviour
 
     public void TrackVerticalCollisions(float velocityY)
     {
+        var directionY = velocityY > 0 ? 1 : -1;
+        var rayLength = 3*Raycaster.skinWidth;
 
-        int directionY = velocityY > 0 ? 1 : -1;
-        float rayLength = 3*Raycaster.skinWidth;
-
-        for (int i = 0; i < raycaster.verticalRayCount; i++)
+        for (var i = 0; i < raycaster.verticalRayCount; i++)
         {
-            Vector2 rayOrigin = (directionY == -1) ? raycaster.raycastOrigins.bottomLeft  : raycaster.raycastOrigins.topLeft;
+            var rayOrigin = (directionY == -1) ? raycaster.raycastOrigins.bottomLeft  : raycaster.raycastOrigins.topLeft;
             rayOrigin += Vector2.right * (raycaster.verticalRaySpacing * i);
-            RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLength, collisionMask);
+            var hit = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLength, collisionMask);
 
             Debug.DrawRay(rayOrigin, Vector2.up * directionY, Color.red);
 
@@ -61,18 +57,17 @@ public class CollisionTracker : MonoBehaviour
 
     public bool CloseToGroundEdge()
     {
-        float rayLength = 2 * Raycaster.skinWidth;
+        var rayLength = 2 * Raycaster.skinWidth;
+        var horizontalDirection = transform.parent.localRotation.y == 0 ? 1 : -1;
 
-        int horizontalDirection = transform.parent.localRotation.y == 0 ? 1 : -1;
-
-        Vector2 rayOrigin = raycaster.raycastOrigins.bottomLeft;
-        RaycastHit2D FirstRayHit = Physics2D.Raycast(rayOrigin, -Vector2.up, rayLength, collisionMask);
-        // Debug.DrawRay(rayOrigin, -Vector2.up, Color.red);
+        var rayOrigin = raycaster.raycastOrigins.bottomLeft;
+        var FirstRayHit = Physics2D.Raycast(rayOrigin, -Vector2.up, rayLength, collisionMask);
+        Debug.DrawRay(rayOrigin, -Vector2.up, Color.red);
 
 
         rayOrigin = raycaster.raycastOrigins.bottomRight;
-        RaycastHit2D LastRayHit = Physics2D.Raycast(rayOrigin, -Vector2.up, rayLength, collisionMask);
-        // Debug.DrawRay(rayOrigin, -Vector2.up, Color.red);
+        var LastRayHit = Physics2D.Raycast(rayOrigin, -Vector2.up, rayLength, collisionMask);
+        Debug.DrawRay(rayOrigin, -Vector2.up, Color.red);
 
         if (FirstRayHit.distance > LastRayHit.distance && horizontalDirection > 0)
         {

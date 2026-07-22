@@ -75,11 +75,10 @@ public class PlayerDeath : MonoBehaviour
         yield return new WaitForSeconds(3f);
 
         UIManager.Instance.CallDeathUI();
-        
 
-        if (ES3.DirectoryExists(SaveManager.Instance.GetProfileRunPath()))
+        if (ProfileManager.Instance.ProfileHasActiveRun())
         {
-            ES3.DeleteDirectory(SaveManager.Instance.GetProfileRunPath());
+            ES3.DeleteDirectory(ProfileManager.Instance.GetProfileRunPath());
         }
     }
 }

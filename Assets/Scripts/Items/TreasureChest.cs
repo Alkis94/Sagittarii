@@ -8,8 +8,8 @@ public class TreasureChest : MonoBehaviour, IInteractable
     private int maxGoldDrop = 100;
     private Animator animator;
     private AudioSource audioSource;
+
     private MapType mapType;
-    private RoomType roomType;
     private string roomKey;
     private bool isEnabled = false;
     private bool isClosed = true;
@@ -31,9 +31,9 @@ public class TreasureChest : MonoBehaviour, IInteractable
         {
             animator = GetComponentInChildren<Animator>();
             audioSource = GetComponent<AudioSource>();
-            if (ES3.KeyExists("isClosed", SaveManager.Instance.GetProfileRunPath() + SaveFolders.Levels + "/" + mapType + SaveFolders.Room + roomKey + SaveFolders.Props))
+            if (ES3.KeyExists("isClosed", ProfileManager.Instance.GetProfileRunPath() + SaveFolders.Levels + "/" + mapType + SaveFolders.Room + roomKey + SaveFolders.Props))
             {
-                isClosed = ES3.Load<bool>("isClosed", SaveManager.Instance.GetProfileRunPath() + SaveFolders.Levels + "/" + mapType + SaveFolders.Room + roomKey + SaveFolders.Props);
+                isClosed = ES3.Load<bool>("isClosed", ProfileManager.Instance.GetProfileRunPath() + SaveFolders.Levels + "/" + mapType + SaveFolders.Room + roomKey + SaveFolders.Props);
             }
 
             if (!isClosed)
@@ -57,7 +57,7 @@ public class TreasureChest : MonoBehaviour, IInteractable
             audioSource.Play();
             PickUpFactory.Instance.DropGold(transform.position, 1, minGoldDrop, maxGoldDrop, true);
             isClosed = false;
-            ES3.Save("isClosed", isClosed, SaveManager.Instance.GetProfileRunPath() + SaveFolders.Levels + "/" + mapType + SaveFolders.Room + roomKey + SaveFolders.Props);
+            ES3.Save("isClosed", isClosed, ProfileManager.Instance.GetProfileRunPath() + SaveFolders.Levels + "/" + mapType + SaveFolders.Room + roomKey + SaveFolders.Props);
         }
     }
 
@@ -65,8 +65,5 @@ public class TreasureChest : MonoBehaviour, IInteractable
     {
         this.mapType = mapType;
         this.roomKey = roomKey;
-        this.roomType = roomType;
     }
-
-
 }
