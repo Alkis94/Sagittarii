@@ -67,5 +67,4 @@ public class WolfBrain : GroundEnemyBrain
             yield return new WaitForSeconds(enemyStats.AttackData[0].AttackFrequency);
         }
     }
-
 }

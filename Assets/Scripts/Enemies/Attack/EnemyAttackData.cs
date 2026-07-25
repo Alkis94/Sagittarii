@@ -1,15 +1,12 @@
 ﻿using System.Collections.Generic;
-using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using UnityEngine;
 using System.IO;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 
 [CreateAssetMenu(fileName = "EnemyAttackData", menuName = "EnemyAttackData", order = 1)]
 public class EnemyAttackData : AttackData
 {
-
     [OdinSerialize] public int ProjectileAmount { get; private set; } = 1;
     [OdinSerialize] public float AttackFrequency { get; private set; } = 7;
     [OdinSerialize] public float ProjectileDestroyDelay { get; private set; } = 10f;
@@ -24,15 +21,15 @@ public class EnemyAttackData : AttackData
         {
             ProjectileSpawnPositionOffset = new List<Vector3>();
 
-            for (int i = 0; i < ProjectileAmount; i++)
+            for (var i = 0; i < ProjectileAmount; i++)
             {
                 ProjectileSpawnPositionOffset.Add(Vector3.zero);
             }
         }
         else if (ProjectileSpawnPositionOffset.Count < ProjectileAmount)
         {
-            int limit = ProjectileAmount - ProjectileSpawnPositionOffset.Count;
-            for (int i = 0; i < limit; i++)
+            var limit = ProjectileAmount - ProjectileSpawnPositionOffset.Count;
+            for (var i = 0; i < limit; i++)
             {
                 ProjectileSpawnPositionOffset.Add(Vector3.zero);
             }
@@ -42,22 +39,22 @@ public class EnemyAttackData : AttackData
         {
             ProjectileRotations = new List<float>();
 
-            for (int i = 0; i < ProjectileAmount; i++)
+            for (var i = 0; i < ProjectileAmount; i++)
             {
                 ProjectileRotations.Add(0);
             }
         }
         else if (ProjectileRotations.Count == 0)
         {
-            for (int i = 0; i < ProjectileAmount; i++)
+            for (var i = 0; i < ProjectileAmount; i++)
             {
                 ProjectileRotations.Add(0);
             }
         }
         else if (ProjectileRotations.Count < ProjectileAmount)
         {
-            int limit = ProjectileAmount - ProjectileRotations.Count;
-            for (int i = 0; i < limit; i++)
+            var limit = ProjectileAmount - ProjectileRotations.Count;
+            for (var i = 0; i < limit; i++)
             {
                 ProjectileRotations.Add(ProjectileRotations[0]);
             }
@@ -66,10 +63,9 @@ public class EnemyAttackData : AttackData
 
     private  void LoadFromJson()
     {
-        AttackDataInfo attackDataInfo = new AttackDataInfo();
-
+        var attackerName = name.Substring(0, name.Length - 11);
         string fileContent;
-        string attackerName = name.Substring(0, name.Length - 11);
+
         if (File.Exists(Application.streamingAssetsPath + "/Enemy/" + attackerName + "/" + name + ".json"))
         {
             fileContent = File.ReadAllText(Application.streamingAssetsPath + "/Enemy/" + attackerName + "/" + name + ".json");
@@ -80,15 +76,16 @@ public class EnemyAttackData : AttackData
             fileContent = File.ReadAllText(Application.streamingAssetsPath + "/Enemy/" + attackerName + "/" + name + ".json");
         }
 
-        attackDataInfo = JsonConvert.DeserializeObject<AttackDataInfo>(fileContent);
+        var attackDataInfo = JsonConvert.DeserializeObject<AttackDataInfo>(fileContent);
 
         ProjectileMovementType = attackDataInfo.ProjectileMovementType;
         FunctionMovementType = attackDataInfo.FunctionMovementType;
         AttackType = attackDataInfo.AttackType;
         AttackIsDirectionDependant = attackDataInfo.AttackIsDirectionDependant;
+        AttackHasExternalSpawner = attackDataInfo.AttackHasExternalSpawner;
 
         ProjectileAmount = attackDataInfo.ProjectileAmount;
-        AttackFrequency = attackDataInfo.attackFrequency;
+        AttackFrequency = attackDataInfo.AttackFrequency;
         Damage = attackDataInfo.Damage;
         ProjectileSpeed = attackDataInfo.ProjectileSpeed;
         ProjectileDestroyDelay = attackDataInfo.ProjectileDestroyDelay;
@@ -96,15 +93,8 @@ public class EnemyAttackData : AttackData
         ConsecutiveAttackDelay = attackDataInfo.ConsecutiveAttackDelay;
         UniversalSpawnPositionOffset = attackDataInfo.UniversalSpawnPositionOffset;
 
-        if(ProjectileSpawnPositionOffset != null)
-        {
-            ProjectileSpawnPositionOffset.Clear();
-        }
-        
-        if(ProjectileRotations != null)
-        {
-            ProjectileRotations.Clear();
-        }
+        ProjectileSpawnPositionOffset?.Clear();
+        ProjectileRotations?.Clear();
         
         ProjectileRotations = attackDataInfo.ProjectileRotations;
         ProjectileSpawnPositionOffset = attackDataInfo.ProjectileSpawnPositionOffset;
@@ -115,6 +105,5 @@ public class EnemyAttackData : AttackData
         RandomVerticalFactorMax = attackDataInfo.RandomVerticalFactorMax;
         RandomRotationFactorMin = attackDataInfo.RandomRotationFactorMin;
         RandomRotationFactorMax = attackDataInfo.RandomRotationFactorMax;
-        
     }
 }

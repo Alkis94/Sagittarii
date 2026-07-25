@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public abstract class EnemyLoader : MonoBehaviour
 {
@@ -19,7 +18,6 @@ public abstract class EnemyLoader : MonoBehaviour
 
     protected bool dead = false;
     protected bool criticalDeath = false;
-
 
     public abstract void Load();
     public abstract void ChangeEnemyStatusToDead(bool criticalDeath);
@@ -63,6 +61,7 @@ public abstract class EnemyLoader : MonoBehaviour
             transform.parent = null;
             return true;
         }
+
         return false;
     }
 }

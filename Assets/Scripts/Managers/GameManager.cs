@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 
+[DefaultExecutionOrder(-101)]
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     private GameObject map;
     [SerializeField]
     private GameObject pauseMenu;
-
+    [SerializeField]
     private CharacterClass chosenCharacterClass = CharacterClass.None;
     private static GameStateEnum gameState = GameStateEnum.Unpaused;
 

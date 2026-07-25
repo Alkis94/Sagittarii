@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System;
 
 public class EnemyWasCriticalHitDetector : MonoBehaviour
 {
@@ -12,7 +11,7 @@ public class EnemyWasCriticalHitDetector : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "PlayerProjectile")
+        if (collision.CompareTag("PlayerProjectile"))
         {
             enemyGotShot.CriticalHit(collision.GetComponent<ProjectileDataInitializer>().Damage, collision.GetComponent<ProjectileHandler>().velocityOnHit);
         }

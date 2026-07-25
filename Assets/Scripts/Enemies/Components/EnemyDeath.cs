@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System;
-using Factories;
 using System.Collections;
 using Cinemachine;
 using Sirenix.OdinInspector;
@@ -175,5 +174,4 @@ public class EnemyDeath : SerializedMonoBehaviour
             }
         }
     }
-
 }

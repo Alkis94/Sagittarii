@@ -64,7 +64,7 @@ public abstract class  EnemyBrain : MonoBehaviour
         transform.localRotation = transform.localRotation.y == 0 ? Quaternion.Euler(0, 180, 0) : Quaternion.Euler(0, 0, 0);
     }
 
-    public virtual void LoadEnemyBrain(Vector3 originalPosition,bool dead)
+    public virtual void LoadEnemyBrain(Vector3 originalPosition, bool dead)
     {
         //is needed by some enemy brains to make changes when reloading an enemy
     }
@@ -88,7 +88,7 @@ public abstract class  EnemyBrain : MonoBehaviour
 
     protected void StartFacingRandomDirection()
     {
-        float random = Random.Range(0f, 1f);
+        var random = Random.Range(0f, 1f);
         if (random < 0.5f)
         {
             ChangeHorizontalDirection();
@@ -101,7 +101,7 @@ public abstract class  EnemyBrain : MonoBehaviour
         StopAllCoroutines();
     }
 
-    //Gets called from animation sometimes!
+    // Gets called from animation sometimes!
     protected void CallMainAttack()
     {
         enemyAttackHandler.Attack(enemyStats.AttackData[0]);

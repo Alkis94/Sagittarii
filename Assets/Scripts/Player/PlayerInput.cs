@@ -62,7 +62,6 @@ public class PlayerInput : MonoBehaviour
         SceneManager.sceneLoaded -= ResetAnimator;
     }
 
-
     void Update()
 	{
         if(GameManager.GameState == GameStateEnum.Unpaused)

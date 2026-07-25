@@ -2,31 +2,31 @@
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using UnityEngine;
-using System.IO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
 public class AttackData : SerializedScriptableObject
 {
-    //Attack Type
+    // Attack Type
     [OdinSerialize] public AttackTypeEnum AttackType { get; protected set; } = AttackTypeEnum.perimetrical;
     [OdinSerialize] public ProjectileMovementTypeEnum ProjectileMovementType { get; protected set; } = ProjectileMovementTypeEnum.straight;
     [ShowIf("@ ProjectileMovementType == ProjectileMovementTypeEnum.function")]
     [OdinSerialize] public FunctionMovementTypeEnum FunctionMovementType { get; protected set; } = FunctionMovementTypeEnum.sin;
     [ShowIf("@ AttackType == AttackTypeEnum.perimetrical")]
     [OdinSerialize] public bool AttackIsDirectionDependant { get; protected set; } = false;
+    [OdinSerialize] public bool AttackHasExternalSpawner { get; protected set; } = false;
 
-    //Attack Stats
+    // Attack Stats
     [OdinSerialize] public int ConsecutiveAttacks { get; protected set; } = 1;
     [ShowIf("@ ConsecutiveAttacks > 1")]
     [OdinSerialize] public float ConsecutiveAttackDelay { get; protected set; } = 0;
     
-    //Placement
+    // Placement
     [OdinSerialize] public List<float> ProjectileRotations { get; protected set; }
     [OdinSerialize] public List<Vector3> ProjectileSpawnPositionOffset { get; protected set; }
     [OdinSerialize] public Vector3 UniversalSpawnPositionOffset { get; protected set; } 
 
-    //randomness
+    // Randomness
     [OdinSerialize] public float RandomHorizontalFactorMin { get; protected set; } = 0;
     [OdinSerialize] public float RandomHorizontalFactorMax { get; protected set; } = 0;
     [OdinSerialize] public float RandomVerticalFactorMin { get; protected set; } = 0;
@@ -34,13 +34,9 @@ public class AttackData : SerializedScriptableObject
     [OdinSerialize] public float RandomRotationFactorMin { get; protected set; } = 0;
     [OdinSerialize] public float RandomRotationFactorMax { get; protected set; } = 0;
 
-    //Parts
+    // Parts
     [OdinSerialize] public GameObject Projectile { get; protected set; }
     [OdinSerialize] public AudioClip AttackSound { get; protected set; } = null;
-
-   
-
-    
 }
 
 public struct AttackDataInfo
@@ -52,24 +48,23 @@ public struct AttackDataInfo
     [JsonConverter(typeof(StringEnumConverter))]
     public AttackTypeEnum AttackType;
     public bool AttackIsDirectionDependant;
+    public bool AttackHasExternalSpawner;
 
-
-    //Attack Stats
+    // Attack Stats
     public int ProjectileAmount;
     public int ConsecutiveAttacks;
     public float ConsecutiveAttackDelay;
-    public float attackFrequency;
+    public float AttackFrequency;
     public int Damage;
     public float ProjectileSpeed;
     public float ProjectileDestroyDelay;
 
-    //Placement
+    // Placement
     public List<float> ProjectileRotations;
     public List<Vector3> ProjectileSpawnPositionOffset;
     public Vector3 UniversalSpawnPositionOffset;
 
-
-    //randomness
+    // Randomness
     public float RandomHorizontalFactorMin;
     public float RandomHorizontalFactorMax;
     public float RandomVerticalFactorMin;

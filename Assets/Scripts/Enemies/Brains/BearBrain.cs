@@ -21,7 +21,7 @@ public class BearBrain : GroundEnemyBrain
     protected override void Start()
     {
         base.Start();
-        InvokeRepeating("StartAttackAnimation", enemyStats.DelayBeforeFirstAttack, enemyStats.AttackData[0].AttackFrequency);  
+        InvokeRepeating(nameof(StartAttackAnimation), enemyStats.DelayBeforeFirstAttack, enemyStats.AttackData[0].AttackFrequency);  
     }
 
     protected virtual void FixedUpdate()

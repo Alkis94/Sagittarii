@@ -385,6 +385,7 @@ public class CurrentMapInfo
     public GameObject PlayerLocation { get; set; } = null;
 
     public MapCell CurrentCell => Map?[Coords.x, Coords.y];
+    public Room CurrentRoom => CurrentCell?.Room;
 
     public void SetCurrentMap(MapType type, MapCell[,] map = null, Vector2Int coords = default, MapIcons icons = null)
     {

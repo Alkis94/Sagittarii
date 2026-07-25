@@ -1,52 +1,7 @@
 fileFormatVersion: 2
-guid: 1d110cd7dcf26d541b9a2882b0b98b87
+guid: adc61c7995c4fef4ebc59692de4bde90
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: 21300000
-    second: tileset1_0
-  - first:
-      213: 21300002
-    second: tileset1_1
-  - first:
-      213: 21300004
-    second: tileset1_2
-  - first:
-      213: 21300006
-    second: tileset1_3
-  - first:
-      213: 21300008
-    second: tileset1_4
-  - first:
-      213: 21300010
-    second: tileset1_5
-  - first:
-      213: 21300012
-    second: tileset1_6
-  - first:
-      213: 21300014
-    second: tileset1_7
-  - first:
-      213: 21300016
-    second: tileset1_8
-  - first:
-      213: 21300018
-    second: BearBossGroundAttack_0
-  - first:
-      213: 21300020
-    second: BearBossGroundAttack_1
-  - first:
-      213: 21300022
-    second: BearBossGroundAttack_2
-  - first:
-      213: 21300024
-    second: BearBossGroundAttack_3
-  - first:
-      213: 21300026
-    second: BearBossGroundAttack_4
-  - first:
-      213: 21300028
-    second: BearBossGroundAttack_5
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 12
   mipmaps:
@@ -107,92 +62,44 @@ TextureImporter:
   compressionQualitySet: 0
   textureFormatSet: 0
   ignorePngGamma: 0
-  applyGammaDecoding: 1
-  cookieLightType: 1
+  applyGammaDecoding: 0
+  cookieLightType: 0
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 1
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 1
-  - serializedVersion: 3
-    buildTarget: iPhone
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 1
-  - serializedVersion: 3
-    buildTarget: tvOS
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 1
-  - serializedVersion: 3
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 1
-  - serializedVersion: 3
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 1
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: BearBossGroundAttack_0
+      name: BearBossSmash_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 68
-        height: 102
+        width: 58
+        height: 58
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -200,20 +107,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 645b83e2752721a449dde6525240ddd7
-      internalID: 21300018
+      spriteID: 732d9d9848f025447816e97af7ffade7
+      internalID: -882220085
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BearBossGroundAttack_1
+      name: BearBossSmash_1
       rect:
         serializedVersion: 2
-        x: 69
+        x: 58
         y: 0
-        width: 68
-        height: 102
+        width: 58
+        height: 58
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -221,20 +128,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d1ea5e86a1cbda945b6c9320fb3eea22
-      internalID: 21300020
+      spriteID: 1ad3671df072d0b4cbeb98de5d6f1231
+      internalID: 1109217051
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BearBossGroundAttack_2
+      name: BearBossSmash_2
       rect:
         serializedVersion: 2
-        x: 138
+        x: 116
         y: 0
-        width: 68
-        height: 102
+        width: 58
+        height: 58
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -242,20 +149,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6c6262ef274bb244eb3e15ef6a1cbb17
-      internalID: 21300022
+      spriteID: 57499a20e68404244b0d2693230eaac1
+      internalID: -2111243319
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BearBossGroundAttack_3
+      name: BearBossSmash_3
       rect:
         serializedVersion: 2
-        x: 207
+        x: 174
         y: 0
-        width: 68
-        height: 102
+        width: 58
+        height: 58
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -263,20 +170,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 504d7eb113744dd4a92f6b13951cc187
-      internalID: 21300024
+      spriteID: caaa07b78f12b5b41aa12923c0cf2058
+      internalID: 2092912221
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BearBossGroundAttack_4
+      name: BearBossSmash_4
       rect:
         serializedVersion: 2
-        x: 276
+        x: 232
         y: 0
-        width: 68
-        height: 102
+        width: 58
+        height: 58
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -284,20 +191,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 369287d24b0a2ea49a0bedf78c8c60cc
-      internalID: 21300026
+      spriteID: 73bb9d5448c726d49aedd58f0965cd50
+      internalID: -2051513294
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BearBossGroundAttack_5
+      name: BearBossSmash_5
       rect:
         serializedVersion: 2
-        x: 345
+        x: 290
         y: 0
-        width: 68
-        height: 102
+        width: 58
+        height: 58
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -305,8 +212,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a96a9eedaa80b1a4b84f1f80af5e2843
-      internalID: 21300028
+      spriteID: 0d0265c598218a94bb24154cf70c1de5
+      internalID: 264832793
       vertices: []
       indices: 
       edges: []
@@ -314,7 +221,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 7a1be4ade4f5a4a418ff1a8308ab881c
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -322,12 +229,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      BearBossGroundAttack_0: 21300018
-      BearBossGroundAttack_1: 21300020
-      BearBossGroundAttack_2: 21300022
-      BearBossGroundAttack_3: 21300024
-      BearBossGroundAttack_4: 21300026
-      BearBossGroundAttack_5: 21300028
+      BearBossSmash_0: -882220085
+      BearBossSmash_1: 1109217051
+      BearBossSmash_2: -2111243319
+      BearBossSmash_3: 2092912221
+      BearBossSmash_4: -2051513294
+      BearBossSmash_5: 264832793
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

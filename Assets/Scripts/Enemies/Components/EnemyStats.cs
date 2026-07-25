@@ -102,9 +102,9 @@ public class EnemyStats : SerializedMonoBehaviour , IDamageable
 
     private void RandomizeDelayBeforeFirstAttack()
     {
-        float extraRandomDelay = 0;
-        float randomizer = UnityEngine.Random.Range(0, 1f);
-        float randomΝumber = UnityEngine.Random.Range(0, 1f);
+        var extraRandomDelay = 0f;
+        var randomizer = UnityEngine.Random.Range(0f, 1f);
+        var randomΝumber = UnityEngine.Random.Range(0f, 1f);
         
         if(randomΝumber < 0.5f)
         {
@@ -112,6 +112,4 @@ public class EnemyStats : SerializedMonoBehaviour , IDamageable
         }
         DelayBeforeFirstAttack += randomizer + extraRandomDelay;
     }
-
-
 }

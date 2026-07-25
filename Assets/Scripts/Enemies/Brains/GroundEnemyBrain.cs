@@ -46,8 +46,6 @@ public abstract class GroundEnemyBrain : EnemyBrain
         return false;
     }
 
-
-
     protected virtual void HandleWalkingAnimation()
     {
         if (collisionTracker.collisions.below)

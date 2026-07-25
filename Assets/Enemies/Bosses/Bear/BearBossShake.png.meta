@@ -1,49 +1,7 @@
 fileFormatVersion: 2
-guid: a6cb4cffb8f619246b68d7dc11050f02
+guid: 22bab0a60d45430458d7cad0f12fc769
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: 21300000
-    second: tileset1_0
-  - first:
-      213: 21300002
-    second: tileset1_1
-  - first:
-      213: 21300004
-    second: tileset1_2
-  - first:
-      213: 21300006
-    second: tileset1_3
-  - first:
-      213: 21300008
-    second: tileset1_4
-  - first:
-      213: 21300010
-    second: tileset1_5
-  - first:
-      213: 21300012
-    second: tileset1_6
-  - first:
-      213: 21300014
-    second: tileset1_7
-  - first:
-      213: 21300016
-    second: tileset1_8
-  - first:
-      213: 21300018
-    second: BearBossAttacking_0
-  - first:
-      213: 21300020
-    second: BearBossAttacking_1
-  - first:
-      213: 21300022
-    second: BearBossAttacking_2
-  - first:
-      213: 21300024
-    second: BearBossAttacking_3
-  - first:
-      213: 21300026
-    second: BearBossAttacking_4
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 12
   mipmaps:
@@ -104,92 +62,44 @@ TextureImporter:
   compressionQualitySet: 0
   textureFormatSet: 0
   ignorePngGamma: 0
-  applyGammaDecoding: 1
-  cookieLightType: 1
+  applyGammaDecoding: 0
+  cookieLightType: 0
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 1
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 1
-  - serializedVersion: 3
-    buildTarget: iPhone
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 1
-  - serializedVersion: 3
-    buildTarget: tvOS
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 1
-  - serializedVersion: 3
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 1
-  - serializedVersion: 3
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 1
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: BearBossAttacking_0
+      name: BearBossShake_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 68
-        height: 102
+        width: 32
+        height: 58
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -197,20 +107,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5c7b3937afcd3e84ab7a49e994a7eb99
-      internalID: 21300018
+      spriteID: d788656b05a43584dacb174bf9c6679d
+      internalID: 153511271
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BearBossAttacking_1
+      name: BearBossShake_1
       rect:
         serializedVersion: 2
-        x: 69
+        x: 32
         y: 0
-        width: 68
-        height: 102
+        width: 32
+        height: 58
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -218,20 +128,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 079b91cf6ca7e1841bb0c6206533aa38
-      internalID: 21300020
+      spriteID: 22632022169ddbb4a95ced9f6253cd33
+      internalID: 1181390823
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BearBossAttacking_2
+      name: BearBossShake_2
       rect:
         serializedVersion: 2
-        x: 138
+        x: 64
         y: 0
-        width: 68
-        height: 102
+        width: 32
+        height: 58
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -239,20 +149,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 97109801bba832149b356dc29e08fdf4
-      internalID: 21300022
+      spriteID: 066fafa18c4015c4791cae7a186b8716
+      internalID: -1494361838
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BearBossAttacking_3
+      name: BearBossShake_3
       rect:
         serializedVersion: 2
-        x: 207
+        x: 96
         y: 0
-        width: 68
-        height: 102
+        width: 32
+        height: 58
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -260,20 +170,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ee695d09c90e8114c87cf281bbb3c329
-      internalID: 21300024
+      spriteID: 5e98369b22df17d44aac55d77fb88d78
+      internalID: 1461906512
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BearBossAttacking_4
+      name: BearBossShake_4
       rect:
         serializedVersion: 2
-        x: 276
+        x: 128
         y: 0
-        width: 68
-        height: 102
+        width: 32
+        height: 58
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -281,8 +191,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ac7890dd5ccc2e343a50d4957dbeee80
-      internalID: 21300026
+      spriteID: 1968056118c1b7048b8e06f2c4c074c7
+      internalID: 644072264
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BearBossShake_5
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 0
+        width: 32
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2050ef0d80f755e4aa624075797cc46f
+      internalID: 2140121303
       vertices: []
       indices: 
       edges: []
@@ -290,7 +221,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 7a1be4ade4f5a4a418ff1a8308ab881c
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -298,11 +229,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      BearBossAttacking_0: 21300018
-      BearBossAttacking_1: 21300020
-      BearBossAttacking_2: 21300022
-      BearBossAttacking_3: 21300024
-      BearBossAttacking_4: 21300026
+      BearBossShake_0: 153511271
+      BearBossShake_1: 1181390823
+      BearBossShake_2: -1494361838
+      BearBossShake_3: 1461906512
+      BearBossShake_4: 644072264
+      BearBossShake_5: 2140121303
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

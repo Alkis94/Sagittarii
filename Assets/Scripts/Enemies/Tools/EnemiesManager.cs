@@ -34,8 +34,15 @@ public class EnemiesManager : MonoBehaviour
     {
         mapType = MapManager.Instance.CurrentMapInfo.Type;
         roomKey = MapManager.Instance.CurrentMapInfo.Coords.x.ToString() + MapManager.Instance.CurrentMapInfo.Coords.y.ToString();
-        roomType = MapManager.Instance.CurrentMapInfo.CurrentCell.Room.Type;
-        ChooseAndLoad();
+        if (MapManager.Instance.CurrentMapInfo.CurrentRoom != null)
+        {
+            roomType = MapManager.Instance.CurrentMapInfo.CurrentRoom.Type;
+            ChooseAndLoad();
+        }
+        else
+        {
+            Debug.LogWarning("CurrentRoom is null in MapManager.Instance.CurrentMapInfo");
+        }
     }
 
     private void ChooseAndLoad()

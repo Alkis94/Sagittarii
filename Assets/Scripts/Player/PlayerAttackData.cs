@@ -1,13 +1,10 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.IO;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 
 [CreateAssetMenu(fileName = "PlayerAttackData", menuName = "PlayerAttackData", order = 1)]
 public class PlayerAttackData : AttackData
 {
-
     private void OnEnable()
     {
         LoadFromJson();
@@ -15,10 +12,8 @@ public class PlayerAttackData : AttackData
 
     private  void LoadFromJson()
     {
-        AttackDataInfo attackDataInfo = new AttackDataInfo();
-
         string fileContent;
-        string attackerName = name.Substring(0, name.Length - 11);
+        var attackerName = name.Substring(0, name.Length - 11);
         if (File.Exists(Application.streamingAssetsPath + "/Player/" + attackerName + "/" + name + ".json"))
         {
             fileContent = File.ReadAllText(Application.streamingAssetsPath + "/Player/" + attackerName + "/" + name + ".json");
@@ -29,7 +24,7 @@ public class PlayerAttackData : AttackData
             fileContent = File.ReadAllText(Application.streamingAssetsPath + "/Player/" + attackerName + "/" + name + ".json");
         }
 
-        attackDataInfo = JsonConvert.DeserializeObject<AttackDataInfo>(fileContent);
+        var attackDataInfo = JsonConvert.DeserializeObject<AttackDataInfo>(fileContent);
 
         ProjectileMovementType = attackDataInfo.ProjectileMovementType;
         FunctionMovementType = attackDataInfo.FunctionMovementType;

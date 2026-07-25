@@ -16,36 +16,73 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 1000012292187914, guid: a75dc35dd1f7b4342940fddd001474e8, type: 3}
+    - {fileID: 1000012292187914, guid: 5eb4f75f91df06a49b8ede87b5fc55e6, type: 3}
     - {fileID: 8300000, guid: 9e40a9f54c0c78249b63198a7bef3672, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
+    - Name: AttackType
+      Entry: 3
+      Data: 0
     - Name: ProjectileMovementType
       Entry: 3
       Data: 0
     - Name: FunctionMovementType
       Entry: 3
       Data: 0
-    - Name: AttackType
-      Entry: 3
-      Data: 0
     - Name: AttackIsDirectionDependant
       Entry: 5
-      Data: false
+      Data: true
     - Name: ConsecutiveAttacks
       Entry: 3
       Data: 1
     - Name: ConsecutiveAttackDelay
       Entry: 4
-      Data: 0
+      Data: 0.15
     - Name: ProjectileRotations
-      Entry: 6
+      Entry: 7
+      Data: 0|System.Collections.Generic.List`1[[System.Single, mscorlib]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
       Data: 
     - Name: ProjectileSpawnPositionOffset
-      Entry: 6
+      Entry: 7
+      Data: 1|System.Collections.Generic.List`1[[UnityEngine.Vector3, UnityEngine.CoreModule]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
       Data: 
     - Name: UniversalSpawnPositionOffset
       Entry: 7
@@ -55,7 +92,7 @@ MonoBehaviour:
       Data: 0
     - Name: 
       Entry: 4
-      Data: 0
+      Data: -1
     - Name: 
       Entry: 4
       Data: 0
@@ -91,13 +128,13 @@ MonoBehaviour:
       Data: 1
     - Name: AttackFrequency
       Entry: 4
-      Data: 7
-    - Name: Damage
-      Entry: 3
-      Data: 10
-    - Name: ProjectileSpeed
-      Entry: 4
       Data: 5
     - Name: ProjectileDestroyDelay
       Entry: 4
-      Data: 10
+      Data: 30
+    - Name: ProjectileSpeed
+      Entry: 4
+      Data: 9
+    - Name: Damage
+      Entry: 3
+      Data: 50

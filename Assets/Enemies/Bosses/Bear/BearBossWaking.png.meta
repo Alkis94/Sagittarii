@@ -1,58 +1,7 @@
 fileFormatVersion: 2
-guid: b7859cb849a88cd498583483bc430954
+guid: 10d749fe320c44d468443d066d8c1cc4
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: 21300000
-    second: tileset1_0
-  - first:
-      213: 21300002
-    second: tileset1_1
-  - first:
-      213: 21300004
-    second: tileset1_2
-  - first:
-      213: 21300006
-    second: tileset1_3
-  - first:
-      213: 21300008
-    second: tileset1_4
-  - first:
-      213: 21300010
-    second: tileset1_5
-  - first:
-      213: 21300012
-    second: tileset1_6
-  - first:
-      213: 21300014
-    second: tileset1_7
-  - first:
-      213: 21300016
-    second: tileset1_8
-  - first:
-      213: 21300018
-    second: BearBossWaking_0
-  - first:
-      213: 21300020
-    second: BearBossWaking_1
-  - first:
-      213: 21300022
-    second: BearBossWaking_2
-  - first:
-      213: 21300024
-    second: BearBossWaking_3
-  - first:
-      213: 21300026
-    second: BearBossWaking_4
-  - first:
-      213: 21300028
-    second: BearBossWaking_5
-  - first:
-      213: 21300030
-    second: BearBossWaking_6
-  - first:
-      213: 21300032
-    second: BearBossWaking_7
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 12
   mipmaps:
@@ -113,8 +62,8 @@ TextureImporter:
   compressionQualitySet: 0
   textureFormatSet: 0
   ignorePngGamma: 0
-  applyGammaDecoding: 1
-  cookieLightType: 1
+  applyGammaDecoding: 0
+  cookieLightType: 0
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -127,7 +76,7 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 1
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
     maxTextureSize: 2048
@@ -139,7 +88,7 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 1
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: iPhone
     maxTextureSize: 2048
@@ -151,7 +100,7 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 1
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: tvOS
     maxTextureSize: 2048
@@ -163,7 +112,7 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 1
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Android
     maxTextureSize: 2048
@@ -175,7 +124,7 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 1
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: WebGL
     maxTextureSize: 2048
@@ -187,7 +136,7 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 1
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -197,8 +146,8 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 68
-        height: 102
+        width: 33
+        height: 58
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -206,8 +155,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7e4e85034db250c48960142cbbb997f4
-      internalID: 21300018
+      spriteID: 3ef10e1ab5467d741a4f05550140cc19
+      internalID: 1081866553
       vertices: []
       indices: 
       edges: []
@@ -216,10 +165,10 @@ TextureImporter:
       name: BearBossWaking_1
       rect:
         serializedVersion: 2
-        x: 69
+        x: 33
         y: 0
-        width: 68
-        height: 102
+        width: 33
+        height: 58
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -227,8 +176,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c81280ca7ef64504196c7c64bdb504e5
-      internalID: 21300020
+      spriteID: 3b338cb78189e89419b9b3740ac13c27
+      internalID: 83578250
       vertices: []
       indices: 
       edges: []
@@ -237,10 +186,10 @@ TextureImporter:
       name: BearBossWaking_2
       rect:
         serializedVersion: 2
-        x: 138
+        x: 66
         y: 0
-        width: 68
-        height: 102
+        width: 33
+        height: 58
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -248,113 +197,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4d7d532b8b6fb914ea3893a937b03714
-      internalID: 21300022
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BearBossWaking_3
-      rect:
-        serializedVersion: 2
-        x: 207
-        y: 0
-        width: 68
-        height: 102
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 05d392e949252a84a8c313eba6ad51b4
-      internalID: 21300024
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BearBossWaking_4
-      rect:
-        serializedVersion: 2
-        x: 276
-        y: 0
-        width: 68
-        height: 102
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6f94c0cf9a7c06043923bdedc889507f
-      internalID: 21300026
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BearBossWaking_5
-      rect:
-        serializedVersion: 2
-        x: 345
-        y: 0
-        width: 68
-        height: 102
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 335aa0fb652773046bf50d16d604540f
-      internalID: 21300028
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BearBossWaking_6
-      rect:
-        serializedVersion: 2
-        x: 414
-        y: 0
-        width: 68
-        height: 102
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c8a7d9d6c8b423149b7745616439c855
-      internalID: 21300030
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BearBossWaking_7
-      rect:
-        serializedVersion: 2
-        x: 483
-        y: 0
-        width: 68
-        height: 102
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9b3312d91abbbd748bed7a022fddd18d
-      internalID: 21300032
+      spriteID: 661a3ce0c8457e641a23d78eb56835d2
+      internalID: 44333572
       vertices: []
       indices: 
       edges: []
@@ -370,14 +214,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      BearBossWaking_0: 21300018
-      BearBossWaking_1: 21300020
-      BearBossWaking_2: 21300022
-      BearBossWaking_3: 21300024
-      BearBossWaking_4: 21300026
-      BearBossWaking_5: 21300028
-      BearBossWaking_6: 21300030
-      BearBossWaking_7: 21300032
+      BearBossWaking_0: 1081866553
+      BearBossWaking_1: 83578250
+      BearBossWaking_2: 44333572
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

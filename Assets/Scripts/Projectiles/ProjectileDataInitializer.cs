@@ -2,62 +2,25 @@
 
 public class ProjectileDataInitializer : MonoBehaviour
 {
-
-    public float DestroyDelay { private set; get; }
     public float Speed { private set; get; }
     public int Damage { private set; get; }
     public FunctionMovementTypeEnum FunctionMovementType { get; private set; }
 
-    public void Initialize(Vector3 parentPosition, Vector3 spawnPositionOffset, float projectileSpeed, float projectileDestroyDelay, int damage, float projectileRotation, ProjectileMovementTypeEnum movementTypeEnum, int layer, string tag)
+    public void Initialize(ProjectileSpawnInfo spawnInfo, int layer, string tag)
     {
-        AddMovementComponent(movementTypeEnum);
-        transform.position = parentPosition + spawnPositionOffset;
-        transform.rotation = Quaternion.Euler(0f, 0f, projectileRotation);
-        Speed = projectileSpeed;
-        if(Speed < 0)
-        {
-            GetComponent<SpriteRenderer>().flipX = true;
-        }
-        DestroyDelay = projectileDestroyDelay;
-        Damage = damage;
-        gameObject.layer = layer;
-        gameObject.tag = tag;
-        Destroy(gameObject, DestroyDelay);
-    }
-
-    public void Initialize(Vector3 parentPosition, Vector3 spawnPositionOffset, float projectileSpeed, float projectileDestroyDelay, int damage, Quaternion projectileRotation, ProjectileMovementTypeEnum movementTypeEnum, int layer, string tag)
-    {
-        AddMovementComponent(movementTypeEnum);
-        transform.position = parentPosition + spawnPositionOffset;
-        transform.rotation = projectileRotation;
-        Speed = projectileSpeed;
+        AddMovementComponent(spawnInfo.movementTypeEnum);
+        transform.SetPositionAndRotation(spawnInfo.spawnPosition + spawnInfo.spawnPositionOffset, Quaternion.Euler(0f, 0f, spawnInfo.rotation));
+        Speed = spawnInfo.speed;
         if (Speed < 0)
         {
             GetComponent<SpriteRenderer>().flipX = true;
         }
-        DestroyDelay = projectileDestroyDelay;
-        Damage = damage;
-        gameObject.layer = layer;
-        gameObject.tag = tag;
-        Destroy(gameObject, DestroyDelay);
-    }
 
-    public void Initialize(Vector3 parentPosition, Vector3 spawnPositionOffset, float projectileSpeed, float projectileDestroyDelay, int damage, float projectileRotation, ProjectileMovementTypeEnum movementTypeEnum, FunctionMovementTypeEnum functionMovementType, int layer, string tag)
-    {
-        AddMovementComponent(movementTypeEnum);
-        transform.position = parentPosition + spawnPositionOffset;
-        transform.rotation = Quaternion.Euler(0f, 0f, projectileRotation);
-        Speed = projectileSpeed;
-        if (Speed < 0)
-        {
-            GetComponent<SpriteRenderer>().flipX = true;
-        }
-        DestroyDelay = projectileDestroyDelay;
-        Damage = damage;
-        FunctionMovementType = functionMovementType;
+        Damage = spawnInfo.damage;
+        FunctionMovementType = spawnInfo.functionMovementType;
         gameObject.layer = layer;
         gameObject.tag = tag;
-        Destroy(gameObject, DestroyDelay);
+        Destroy(gameObject, spawnInfo.destroyDelay);
     }
 
     private void AddMovementComponent(ProjectileMovementTypeEnum movementTypeEnum)
@@ -65,22 +28,22 @@ public class ProjectileDataInitializer : MonoBehaviour
         switch(movementTypeEnum)
         {
             case ProjectileMovementTypeEnum.straight:
-                ProjectileStraightMovement projectileStraightMovement = gameObject.AddComponent<ProjectileStraightMovement>() as ProjectileStraightMovement;
+                gameObject.AddComponent<ProjectileStraightMovement>();
                 break;
             case ProjectileMovementTypeEnum.arrow:
-                ProjectileArrowMovement projectileArrowMovement = gameObject.AddComponent<ProjectileArrowMovement>() as ProjectileArrowMovement;
+                gameObject.AddComponent<ProjectileArrowMovement>();
                 break;
             case ProjectileMovementTypeEnum.sin:
-                ProjectileSinMovement projectileSinMovement = gameObject.AddComponent<ProjectileSinMovement>() as ProjectileSinMovement;
+                gameObject.AddComponent<ProjectileSinMovement>();
                 break;
             case ProjectileMovementTypeEnum.circle:
-                ProjectileCircleMovement projectileCircleMovement = gameObject.AddComponent<ProjectileCircleMovement>() as ProjectileCircleMovement;
+                gameObject.AddComponent<ProjectileCircleMovement>();
                 break;
             case ProjectileMovementTypeEnum.spiral:
-                ProjectileSpiralMovement projectileSpiralMovement = gameObject.AddComponent<ProjectileSpiralMovement>() as ProjectileSpiralMovement;
+                gameObject.AddComponent<ProjectileSpiralMovement>();
                 break;
             case ProjectileMovementTypeEnum.function:
-                ProjectileFunctionMovement projectileFunctionMovement = gameObject.AddComponent<ProjectileFunctionMovement>() as ProjectileFunctionMovement;
+                gameObject.AddComponent<ProjectileFunctionMovement>();
                 break;
             case ProjectileMovementTypeEnum.none:
                 break;
@@ -89,5 +52,17 @@ public class ProjectileDataInitializer : MonoBehaviour
                 break;
         }
     }
+}
 
+public struct ProjectileSpawnInfo
+{
+    public Vector3 spawnPosition;
+    public GameObject projectile;
+    public Vector3 spawnPositionOffset;
+    public float speed;
+    public float destroyDelay;
+    public int damage;
+    public float rotation;
+    public ProjectileMovementTypeEnum movementTypeEnum;
+    public FunctionMovementTypeEnum functionMovementType;
 }

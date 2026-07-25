@@ -1,12 +1,15 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Factories;
+using System;
+using Random = UnityEngine.Random;
 
 public class EnemyAttackHandler: MonoBehaviour
 {
     private AudioSource audioSource;
     private EnemyStats enemyStats;
+
+    public static event Action<AttackInfo> OnEnemyExternalAttack = delegate { };
 
     private void Awake()
     {
@@ -20,7 +23,6 @@ public class EnemyAttackHandler: MonoBehaviour
         {
             enemyStats.EnemyDied += StopCoroutines;
         }
-        
     }
 
     private void OnDisable()
@@ -43,30 +45,34 @@ public class EnemyAttackHandler: MonoBehaviour
 
     IEnumerator StartAttacking(EnemyAttackData attackData)
     {
-        for (int j = 0; j < attackData.ConsecutiveAttacks; j++)
+        for (var j = 0; j < attackData.ConsecutiveAttacks; j++)
         {
-            for (int i = 0; i < attackData.ProjectileAmount; i++)
+            if (attackData.AttackHasExternalSpawner)
             {
-                AttackInfo attackInfo = new AttackInfo();
-                attackInfo = CalculateAttackInfo(attackData, attackInfo, i, j);
-                ProjectileFactory.CreateProjectile(attackInfo,13,"EnemyProjectile");
+                var attackInfo = CalculateAttackInfo(attackData, 0, j);
+                OnEnemyExternalAttack.Invoke(attackInfo);
             }
+            else
+            {
+                for (var i = 0; i < attackData.ProjectileAmount; i++)
+                {
+                    var attackInfo = CalculateAttackInfo(attackData, i, j);
+                    ProjectileFactory.CreateEnemyProjectile(attackInfo);
+                }
+            }
+
             yield return new WaitForSeconds(attackData.ConsecutiveAttackDelay);
         }
     }
 
-    private AttackInfo CalculateAttackInfo(EnemyAttackData attackData, AttackInfo attackInfo, int i, int j)
+    private AttackInfo CalculateAttackInfo(EnemyAttackData attackData, int i, int j)
     {
-
-        Vector3 positionRandomness = Vector3.zero;
-        float rotationRandomness = 0f;
-        positionRandomness = new Vector3(Random.Range(attackData.RandomHorizontalFactorMin, attackData.RandomHorizontalFactorMax),
-                                         Random.Range(attackData.RandomVerticalFactorMin, attackData.RandomVerticalFactorMax), 0);
-        rotationRandomness = Random.Range(attackData.RandomRotationFactorMin, attackData.RandomRotationFactorMax);
-
+        var attackInfo = new AttackInfo();
+        var rotationRandomness = Random.Range(attackData.RandomRotationFactorMin, attackData.RandomRotationFactorMax);
+        var positionRandomness = new Vector3(Random.Range(attackData.RandomHorizontalFactorMin, attackData.RandomHorizontalFactorMax),
+            Random.Range(attackData.RandomVerticalFactorMin, attackData.RandomVerticalFactorMax), 0);
+        
         attackInfo.spawnPosition = transform.position;
-
-
         attackInfo.projectile = attackData.Projectile;
 
         if (attackData.AttackIsDirectionDependant)
@@ -77,7 +83,7 @@ public class EnemyAttackHandler: MonoBehaviour
         }
         else
         {
-            attackInfo.spawnPositionOffset = new Vector3((attackData.UniversalSpawnPositionOffset.x + attackData.ProjectileSpawnPositionOffset[i].x + positionRandomness.x),
+            attackInfo.spawnPositionOffset = new Vector3(attackData.UniversalSpawnPositionOffset.x + attackData.ProjectileSpawnPositionOffset[i].x + positionRandomness.x,
                                                           attackData.UniversalSpawnPositionOffset.y + attackData.ProjectileSpawnPositionOffset[i].y + positionRandomness.y, 0);
             attackInfo.speed = attackData.ProjectileSpeed;
         }
@@ -104,16 +110,17 @@ public class EnemyAttackHandler: MonoBehaviour
 
         attackInfo.movementTypeEnum = attackData.ProjectileMovementType;
         attackInfo.functionMovementType = attackData.FunctionMovementType;
+
         return attackInfo;
     }
 
     private float CalculateTargetedRotation()
     {
-        Vector3 difference;
-        float projectileRotation;
-        difference = (GameObject.FindGameObjectWithTag("Player").transform.position - transform.position);
+
+        var difference = GameObject.FindGameObjectWithTag("Player").transform.position - transform.position;
         difference.Normalize();
-        projectileRotation = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
+        var projectileRotation = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
+
         return projectileRotation;
     }
 
@@ -121,7 +128,6 @@ public class EnemyAttackHandler: MonoBehaviour
     {
         StopAllCoroutines();
     }
-
 }
 
 public struct AttackInfo

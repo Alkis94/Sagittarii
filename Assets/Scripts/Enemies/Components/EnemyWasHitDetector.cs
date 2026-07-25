@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System;
 
 public class EnemyWasHitDetector : MonoBehaviour
 {
@@ -12,7 +11,7 @@ public class EnemyWasHitDetector : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "PlayerProjectile")
+        if (collision.CompareTag("PlayerProjectile"))
         {
             enemyGotShot.Hit(collision.GetComponent<ProjectileDataInitializer>().Damage);
         }

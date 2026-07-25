@@ -6,7 +6,6 @@ using System.Collections;
 
 public class PlayerAttackHandler : MonoBehaviour
 {
-
     public PlayerAttackHolder PlayerMainAttack { get; set; }
     public PlayerAttackHolder PlayerSecondaryAttack { get; set; }
     public bool HasSecondaryAttack { get; set; } = false;
@@ -32,10 +31,8 @@ public class PlayerAttackHandler : MonoBehaviour
     public AttackTypeEnum AttackTypeMain { get => attackTypeMain; private set => attackTypeMain = value; }
     public GameObject MainProjectile { get => mainProjectile; private set => mainProjectile = value; }
 
-    private Vector3 arrowEmitterPosition;
     private PlayerStats playerStats;
     private AudioSource audioSource;
-    private PlayerLoader playerLoader;
 
     public PlayerAttackData AttackData
     {
@@ -73,7 +70,6 @@ public class PlayerAttackHandler : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         PlayerMainAttack = new PlayerAttackHolder();
         PlayerSecondaryAttack = new PlayerAttackHolder();
-        playerLoader = GetComponent<PlayerLoader>();
     }
 
     private void OnEnable()
@@ -92,10 +88,12 @@ public class PlayerAttackHandler : MonoBehaviour
     public void CallAttackFromAnimation()
     {
         StartCoroutine(PlayerAttack(PlayerMainAttack));
+
         if (HasSecondaryAttack)
         {
             StartCoroutine(PlayerAttack(PlayerSecondaryAttack));
         }
+
         playerStats.Ammo -= 1;
     }
 
@@ -110,23 +108,20 @@ public class PlayerAttackHandler : MonoBehaviour
         {
             for (int i = 0; i < playerAttackHolder.ProjectileAmount; i++)
             {
-                AttackInfo attackInfo = new AttackInfo();
-                attackInfo = PlayerCalculateAttackInfo(playerAttackHolder, attackInfo, i, j);
-                ProjectileFactory.CreateProjectile(attackInfo, 11, "PlayerProjectile");
+                var attackInfo = PlayerCalculateAttackInfo(playerAttackHolder, i, j);
+                ProjectileFactory.CreatePlayerProjectile(attackInfo);
             }
             yield return new WaitForSeconds(playerAttackHolder.ConsecutiveAttackDelay);
         }
     }
 
-    //Calculates and returns the final info for each attack from playerAttackHolders for main and secondary attack.
-    private AttackInfo PlayerCalculateAttackInfo(PlayerAttackHolder playerAttackHolder, AttackInfo attackInfo, int i, int j)
+    // Calculates and returns the final info for each attack from playerAttackHolders for main and secondary attack.
+    private AttackInfo PlayerCalculateAttackInfo(PlayerAttackHolder playerAttackHolder, int i, int j)
     {
-        Vector3 positionRandomness = Vector3.zero;
-        float rotationRandomness = 0f;
-        positionRandomness = new Vector3(UnityEngine.Random.Range(playerAttackHolder.RandomHorizontalFactorMin, playerAttackHolder.RandomHorizontalFactorMax),
+        var positionRandomness = new Vector3(UnityEngine.Random.Range(playerAttackHolder.RandomHorizontalFactorMin, playerAttackHolder.RandomHorizontalFactorMax),
                                          UnityEngine.Random.Range(playerAttackHolder.RandomVerticalFactorMin, playerAttackHolder.RandomVerticalFactorMax), 0);
-        rotationRandomness = UnityEngine.Random.Range(playerAttackHolder.RandomRotationFactorMin, playerAttackHolder.RandomRotationFactorMax);
-
+        var rotationRandomness = UnityEngine.Random.Range(playerAttackHolder.RandomRotationFactorMin, playerAttackHolder.RandomRotationFactorMax);
+        var attackInfo = new AttackInfo();
 
         if (playerAttackHolder.AttackType == AttackTypeEnum.aimed)
         {
@@ -169,7 +164,7 @@ public class PlayerAttackHandler : MonoBehaviour
         return attackInfo;
     }
 
-    //Changes the AttackHolders data depending on new data picked up by the player main through items!
+    // Changes the AttackHolders data depending on new data picked up by the player main through items!
     private void CalculateNewPlayerAttackData(PlayerAttackHolder playerAttackHolder, PlayerAttackData attackData, bool isMainAttack = false)
     {
         playerAttackHolder.ConsecutiveAttacks = attackData.ConsecutiveAttacks > playerAttackHolder.ConsecutiveAttacks ? attackData.ConsecutiveAttacks : playerAttackHolder.ConsecutiveAttacks;
@@ -209,7 +204,7 @@ public class PlayerAttackHandler : MonoBehaviour
     // #                                             #
     // ###############################################
 
-    //Gets called from other attack sources like special abilities and items!
+    // Gets called from other attack sources like special abilities and items!
     public void SpecialAttack(PlayerAttackData playerAttackData, float damageMultiplier, float speedMultiplier)
     {
         StartCoroutine(PlayerAttack(playerAttackData, damageMultiplier, speedMultiplier));
@@ -228,20 +223,18 @@ public class PlayerAttackHandler : MonoBehaviour
             {
                 AttackInfo attackInfo = new AttackInfo();
                 attackInfo = PlayerCalculateAttackInfo(playerAttackData, attackInfo, i, j, damageMultiplier, speedMultiplier);
-                ProjectileFactory.CreateProjectile(attackInfo, 11, "PlayerProjectile");
+                ProjectileFactory.CreatePlayerProjectile(attackInfo);
             }
             yield return new WaitForSeconds(playerAttackData.ConsecutiveAttackDelay);
         }
     }
 
-    //Calculates final attack from simple attackData.
+    // Calculates final attack from simple attackData.
     private AttackInfo PlayerCalculateAttackInfo(PlayerAttackData attackData, AttackInfo attackInfo, int i, int j, float specialDamageMultiplier, float specialSpeedMultiplier)
     {
-        Vector3 positionRandomness = Vector3.zero;
-        float rotationRandomness = 0f;
-        positionRandomness = new Vector3(UnityEngine.Random.Range(attackData.RandomHorizontalFactorMin, attackData.RandomHorizontalFactorMax),
+        var positionRandomness = new Vector3(UnityEngine.Random.Range(attackData.RandomHorizontalFactorMin, attackData.RandomHorizontalFactorMax),
                                          UnityEngine.Random.Range(attackData.RandomVerticalFactorMin, attackData.RandomVerticalFactorMax), 0);
-        rotationRandomness = UnityEngine.Random.Range(attackData.RandomRotationFactorMin, attackData.RandomRotationFactorMax);
+        var rotationRandomness = UnityEngine.Random.Range(attackData.RandomRotationFactorMin, attackData.RandomRotationFactorMax);
 
 
         if (attackData.AttackType == AttackTypeEnum.aimed)

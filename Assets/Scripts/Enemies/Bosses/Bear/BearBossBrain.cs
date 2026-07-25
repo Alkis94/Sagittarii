@@ -12,12 +12,7 @@ public class BearBossBrain : GroundEnemyBrain
     private AudioClip groundStompSound;
 
     private bool ableToMove = true;
-    private bool isDoingGroundAttack = false;
     private int animatorAbleToWalk;
-
-    private Vector3 teleport1 = new Vector3(-7.75f, -4.443924f, 0);
-    private Vector3 teleport2 = new Vector3(6.15f, -4.443924f, 0);
-    private Vector3 teleport3 = new Vector3(20.5f, -4.443924f, 0);
 
     protected override void Awake()
     {
@@ -39,8 +34,7 @@ public class BearBossBrain : GroundEnemyBrain
         base.Start();
         player = GameObject.FindGameObjectWithTag("Player").transform;
         animatorAbleToWalk = Animator.StringToHash("AbleToWalk");
-        StartCoroutine(DoRandomAction());
-        audioSource.PlayOneShot(wakeUpSound);
+        StartCoroutine(WakeUp());
     }
 
     private void Update()
@@ -72,7 +66,7 @@ public class BearBossBrain : GroundEnemyBrain
     {
         UpdateCollisionTracker();
 
-        if ((collisionTracker.collisions.left || collisionTracker.collisions.right || collisionTracker.CloseToGroundEdge()))
+        if (collisionTracker.collisions.left || collisionTracker.collisions.right || collisionTracker.CloseToGroundEdge())
         {
             ableToMove = false;
         }
@@ -88,95 +82,55 @@ public class BearBossBrain : GroundEnemyBrain
     {
         if (collisionTracker.collisions.below && ableToMove)
         {
-
             animator.SetBool(animatorAbleToWalk, true);
         }
         else
         {
-
             animator.SetBool(animatorAbleToWalk, false);
         }
     }
 
-    IEnumerator DoRandomAction()
+    private IEnumerator WakeUp()
     {
-        float randomTime = 3;
-        float nextTeleportTime = Random.Range(7.5f, 10) + Time.time;
-        float randomNumber;
+        audioSource.PlayOneShot(wakeUpSound);
+        yield return new WaitForSeconds(3f);
+        animator.SetTrigger("WakeEnd");
+        StartCoroutine(DoRandomAction());
+    }
+
+    private IEnumerator DoRandomAction()
+    {
+        var randomTime = 0.2f;
+        var previousAttackWasSmash = true;
+        var normalAttackCounter = 0;
+
         while (true)
         {
             yield return new WaitForSeconds(randomTime);
 
-            if (Time.time > nextTeleportTime)
+            if ((Random.value < 0.3f || normalAttackCounter >= 3) && !previousAttackWasSmash)
             {
-                nextTeleportTime = Random.Range(4f, 6f) + Time.time;
-                randomTime = Random.Range(0.25f, 0.35f);
-                BearTeleport();
+                animator.SetTrigger("StartSmash");
+                audioSource.PlayOneShot(groundStompSound);
+                randomTime = Random.Range(2f, 4f);
+                yield return new WaitForSeconds(randomTime);
+                animator.SetTrigger("EndSmash");
+                randomTime = Random.Range(0.5f, 1f);
+                previousAttackWasSmash = true;
+                normalAttackCounter = 0;
             }
             else
             {
-                randomNumber = Random.Range(0, 1f);
-                if (randomNumber < 0.3f)
-                {
-                    StartGroundAttack();
-                    randomTime = Random.Range(1f, 2f);
-                }
-                else
-                {
-                    animator.SetTrigger("Attack");
-                    randomTime = Random.Range(1, 2f);
-                }
+                normalAttackCounter++;
+                animator.SetTrigger("Attack");
+                randomTime = Random.Range(1f, 1.5f);
+                previousAttackWasSmash = false;
             }
         }
     }
 
-    protected void StartGroundAttack()
+    protected void CallAttack(int attackIndex)
     {
-        animator.SetTrigger("AttackGround");
-        rigidbody2d.velocity = Vector2.zero;
-        rigidbody2d.Impulse(0, Random.Range(25,35));
-        isDoingGroundAttack = true;
+        enemyAttackHandler.Attack(enemyStats.AttackData[attackIndex]);
     }
-
-    //gets called from GroundStart animation;
-    protected void CallImpulse()
-    {
-        rigidbody2d.velocity = Vector3.zero;
-        rigidbody2d.Impulse(0, -40);
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if(collision.gameObject.tag == "Ground" && isDoingGroundAttack /*animator.GetCurrentAnimatorStateInfo(0).IsName("BearBossGroundStart")*/)
-        {
-            isDoingGroundAttack = false;
-            audioSource.PlayOneShot(groundStompSound);
-            animator.SetTrigger("GroundCollision");
-            enemyAttackHandler.Attack(enemyStats.AttackData[1]);
-        }
-    }
-
-    private void BearTeleport()
-    {
-        Instantiate(teleport, transform.position, Quaternion.identity);
-
-        float distance1 = Vector3.Distance(teleport1, player.position);
-        float distance2 = Vector3.Distance(teleport2, player.position);
-        float distance3 = Vector3.Distance(teleport3, player.position);
-
-        if(distance1 < distance2)
-        {
-            if(distance1 < distance3)
-            {
-                transform.position = teleport1;
-            }
-            else
-            {
-                transform.position = teleport3;
-            }
-        }
-        else if (distance2 < distance3) transform.position = teleport2;
-        else transform.position = teleport3;
-    }
-
 }
