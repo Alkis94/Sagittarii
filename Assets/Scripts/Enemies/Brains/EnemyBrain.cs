@@ -4,57 +4,57 @@ using System.Collections;
 public abstract class  EnemyBrain : MonoBehaviour
 {
     [HideInInspector]
-    public EnemyStats enemyStats { get; protected set; }
+    public EnemyStats EnemyStats { get; protected set; }
     [HideInInspector]
-    public CollisionTracker collisionTracker { get; protected set; }
+    public CollisionTracker CollisionTracker { get; protected set; }
     [HideInInspector]
-    public Rigidbody2D rigidbody2d { get; protected set; }
+    public Rigidbody2D Rigidbody2d { get; protected set; }
     [HideInInspector]
-    public AudioSource audioSource { get; protected set; }
+    public AudioSource AudioSource { get; protected set; }
     [HideInInspector]
-    public EnemyGotShot enemyGotShot { get; protected set; }
+    public EnemyGotShot EnemyGotShot { get; protected set; }
     [HideInInspector]
-    public SpriteRenderer spriteRenderer { get; protected set; }
+    public SpriteRenderer SpriteRenderer { get; protected set; }
     [HideInInspector]
-    public Raycaster raycaster { get; protected set; }
+    public Raycaster Raycaster { get; protected set; }
     [HideInInspector]
-    public EnemyAttackHandler enemyAttackHandler { get; protected set; }
+    public EnemyAttackHandler EnemyAttackHandler { get; protected set; }
     [HideInInspector]
-    public Animator animator { get; protected set; }
+    public Animator Animator { get; protected set; }
     [HideInInspector]
     public MovementPattern[] MovementPatterns { get; protected set; }
 
-    //This timer will help enemies that get stuck somewhere not to change directions too rapidly
+    // This timer will help enemies that get stuck somewhere not to change directions too rapidly
     [HideInInspector]
     public float cannotChangeDirectionTime = 0f;
 
     protected virtual void OnEnable()
     {
-        enemyStats.EnemyDied += OnEnemyDiedStopAll;
+        EnemyStats.EnemyDied += OnEnemyDiedStopAll;
     }
 
     protected virtual void OnDisable()
     {
         CancelInvoke();
         StopAllCoroutines();
-        enemyStats.EnemyDied -= OnEnemyDiedStopAll;
+        EnemyStats.EnemyDied -= OnEnemyDiedStopAll;
     }
 
     protected virtual void Awake()
     {
-        enemyGotShot = GetComponent<EnemyGotShot>();
-        enemyStats = GetComponent<EnemyStats>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        enemyAttackHandler = GetComponent<EnemyAttackHandler>();
-        collisionTracker = GetComponentInChildren<CollisionTracker>();
+        EnemyGotShot = GetComponent<EnemyGotShot>();
+        EnemyStats = GetComponent<EnemyStats>();
+        SpriteRenderer = GetComponent<SpriteRenderer>();
+        EnemyAttackHandler = GetComponent<EnemyAttackHandler>();
+        CollisionTracker = GetComponentInChildren<CollisionTracker>();
     }
 
     protected virtual void Start()
     {
-        raycaster = GetComponentInChildren<Raycaster>();
-        rigidbody2d = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
-        audioSource = GetComponent<AudioSource>();
+        Raycaster = GetComponentInChildren<Raycaster>();
+        Rigidbody2d = GetComponent<Rigidbody2D>();
+        Animator = GetComponent<Animator>();
+        AudioSource = GetComponent<AudioSource>();
 
         StartFacingRandomDirection();
     }
@@ -71,9 +71,9 @@ public abstract class  EnemyBrain : MonoBehaviour
 
     public void UpdateCollisionTracker()
     {
-        collisionTracker.collisions.Reset();
-        collisionTracker.TrackHorizontalCollisions();
-        collisionTracker.TrackVerticalCollisions(rigidbody2d.velocity.y);
+        CollisionTracker.collisions.Reset();
+        CollisionTracker.TrackHorizontalCollisions();
+        CollisionTracker.TrackVerticalCollisions(Rigidbody2d.velocity.y);
     }
 
     public IEnumerator ChangingDirectionsOverTime(float changeDirectionFrequency)
@@ -84,7 +84,6 @@ public abstract class  EnemyBrain : MonoBehaviour
             yield return new WaitForSeconds(changeDirectionFrequency);
         }
     }
-
 
     protected void StartFacingRandomDirection()
     {
@@ -104,12 +103,12 @@ public abstract class  EnemyBrain : MonoBehaviour
     // Gets called from animation sometimes!
     protected void CallMainAttack()
     {
-        enemyAttackHandler.Attack(enemyStats.AttackData[0]);
+        EnemyAttackHandler.Attack(EnemyStats.AttackData[0]);
     }
 
     protected void StartAttackAnimation()
     {
-        animator.SetTrigger("Attack");
+        Animator.SetTrigger("Attack");
     }
 
     public void LookTowardsPlayer(Transform enemy,Vector3 playerPosition)

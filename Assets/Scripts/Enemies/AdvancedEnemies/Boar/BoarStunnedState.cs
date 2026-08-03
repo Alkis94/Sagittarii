@@ -21,7 +21,7 @@ public class BoarStunnedState : State<BoarBrain>
     private IEnumerator Stunned()
     {
         yield return new WaitForFixedUpdate();
-        stateOwner.rigidbody2d.velocity = Vector3.zero;
+        stateOwner.Rigidbody2d.velocity = Vector3.zero;
         yield return new WaitForSeconds(3f);
         stateOwner.stateMachine.ChangeState(stateOwner.idleState);
     }

@@ -12,7 +12,7 @@ public class OwlHuntAttackState : State<OwlBrain>
 
     public override void FixedUpdateState()
     {
-        if (stateOwner.animator.GetCurrentAnimatorStateInfo(0).IsName("Attacking"))
+        if (stateOwner.Animator.GetCurrentAnimatorStateInfo(0).IsName("Attacking"))
         {
             return;
         }
@@ -33,12 +33,12 @@ public class OwlHuntAttackState : State<OwlBrain>
 
         if (player.position.x - 0.5f < stateOwner.transform.position.x && stateOwner.transform.position.x < player.position.x + 0.5f)
         {
-            stateOwner.animator.SetTrigger("Attack");
+            stateOwner.Animator.SetTrigger("Attack");
             stateOwner.MovementPatterns[1].Move(0, stateOwner.verticalDirection, 1);
         }
         else 
         {
-            stateOwner.MovementPatterns[1].Move(stateOwner.enemyStats.Speed + 2, stateOwner.verticalDirection, 1);
+            stateOwner.MovementPatterns[1].Move(stateOwner.EnemyStats.Speed + 2, stateOwner.verticalDirection, 1);
         }
     }
 

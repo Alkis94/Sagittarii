@@ -48,6 +48,11 @@ public class PlayerLoader : MonoBehaviour
 
     private void SavePlayer()
     {
+        if (playerStats == null)
+        {
+            return;
+        }
+
         ES3.Save("Class", playerStats.CharacterClass, ProfileManager.Instance.GetProfileRunPath() + SaveFolders.PlayerStats);
         ES3.Save("MaximumHealth", playerStats.MaximumHealth, ProfileManager.Instance.GetProfileRunPath() + SaveFolders.PlayerStats);
         ES3.Save("CurrentHealth", playerStats.CurrentHealth, ProfileManager.Instance.GetProfileRunPath() + SaveFolders.PlayerStats);

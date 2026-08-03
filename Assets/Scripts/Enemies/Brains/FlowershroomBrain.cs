@@ -19,6 +19,6 @@ public class FlowershroomBrain : EnemyBrain
     protected override void Start()
     {
         base.Start();
-        InvokeRepeating("StartAttackAnimation", enemyStats.DelayBeforeFirstAttack, enemyStats.AttackData[0].AttackFrequency);
+        InvokeRepeating("StartAttackAnimation", EnemyStats.DelayBeforeFirstAttack, EnemyStats.AttackData[0].AttackFrequency);
     }
 }

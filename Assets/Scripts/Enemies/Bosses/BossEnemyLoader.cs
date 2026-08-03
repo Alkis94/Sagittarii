@@ -9,7 +9,7 @@ public class BossEnemyLoader : EnemyLoader
 
     public override void Load()
     {
-        Vector3 originalPosition = transform.position;
+        var originalPosition = transform.position;
         enemyStats = GetComponent<EnemyStats>();
         enemyStats.LoadFromData();
         dead = ES3.Load<bool>("Dead" + EnemyKey, ProfileManager.Instance.GetProfileRunPath() + SaveFolders.Bosses + "/" + enemyStats.EnemyName);

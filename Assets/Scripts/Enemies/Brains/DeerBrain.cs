@@ -26,10 +26,10 @@ public class DeerBrain : GroundEnemyBrain
 
     protected void FixedUpdate()
     {
-        if (enemyStats.Health > 0)
+        if (EnemyStats.Health > 0)
         {
-            Move(enemyStats.Speed);
-            raycaster.UpdateRaycastOrigins();
+            Move(EnemyStats.Speed);
+            Raycaster.UpdateRaycastOrigins();
             UpdateCollisionTracker();
 
             if (CheckHorizontalGround() && Time.time > cannotChangeDirectionTime)
@@ -37,12 +37,12 @@ public class DeerBrain : GroundEnemyBrain
                 cannotChangeDirectionTime = Time.time + 1.5f;
                 ChangeHorizontalDirection();
             }
-            animator.SetFloat("VelocityY", rigidbody2d.velocity.y);
+            Animator.SetFloat("VelocityY", Rigidbody2d.velocity.y);
         }
 
-        if(animator.GetCurrentAnimatorStateInfo(0).IsName("Jumping") && rigidbody2d.velocity.y >= 6)
+        if(Animator.GetCurrentAnimatorStateInfo(0).IsName("Jumping") && Rigidbody2d.velocity.y >= 6)
         {
-            animator.SetTrigger("Falling");
+            Animator.SetTrigger("Falling");
         }
     }
 
@@ -55,18 +55,18 @@ public class DeerBrain : GroundEnemyBrain
             return;
         }
 
-        if (enemyStats.Health > 0)
+        if (EnemyStats.Health > 0)
         {
-            if (rigidbody2d.velocity.y <= 0 && collisionTracker.collisions.below)
+            if (Rigidbody2d.velocity.y <= 0 && CollisionTracker.collisions.below)
             {
-                animator.SetTrigger("Jumping");
+                Animator.SetTrigger("Jumping");
                 Jump(1, 8);
                 float randomDelay = Random.Range(0.25f, 0.75f); 
                 Invoke("CallMainAttack",randomDelay);
             }
-            else if(collisionTracker.collisions.above)
+            else if(CollisionTracker.collisions.above)
             {
-                rigidbody2d.velocity = new Vector2(rigidbody2d.velocity.x, -1);
+                Rigidbody2d.velocity = new Vector2(Rigidbody2d.velocity.x, -1);
             }
         }
     }

@@ -9,34 +9,34 @@ public class BoarChargeState : State<BoarBrain>
 
     public override void EnterState()
     {
-        stateOwner.animator.SetTrigger("Charge");
-        stateOwner.audioSource.Play();
+        stateOwner.Animator.SetTrigger("Charge");
+        stateOwner.AudioSource.Play();
     }
 
     public override void ExitState()
     {
         stateOwner.Move(0);
-        stateOwner.rigidbody2d.velocity =  Vector3.zero;
-        stateOwner.audioSource.Stop();
+        stateOwner.Rigidbody2d.velocity =  Vector3.zero;
+        stateOwner.AudioSource.Stop();
     }
 
     public override void FixedUpdateState()
     {
-        if (stateOwner.enemyStats.Health > 0)
+        if (stateOwner.EnemyStats.Health > 0)
         {
             //RaycastHit2D hit = Physics2D.Raycast(stateOwner.transform.position, stateOwner.transform.right, 3, 1 << LayerMask.NameToLayer("Player"));
             bool hit = Physics2D.OverlapCircle(stateOwner.transform.position, 4, 1 << LayerMask.NameToLayer("Player"));
             if (hit)
             {
-                stateOwner.animator.SetTrigger("Attack");
+                stateOwner.Animator.SetTrigger("Attack");
                 stateOwner.stateMachine.ChangeState(stateOwner.stunnedState);
             }
 
-            stateOwner.Move(stateOwner.enemyStats.Speed);
+            stateOwner.Move(stateOwner.EnemyStats.Speed);
 
-            if ((stateOwner.collisionTracker.collisions.left || stateOwner.collisionTracker.collisions.right || stateOwner.collisionTracker.CloseToGroundEdge()))
+            if ((stateOwner.CollisionTracker.collisions.left || stateOwner.CollisionTracker.collisions.right || stateOwner.CollisionTracker.CloseToGroundEdge()))
             {
-                stateOwner.animator.SetTrigger("Attack");
+                stateOwner.Animator.SetTrigger("Attack");
                 stateOwner.stateMachine.ChangeState(stateOwner.stunnedState);
             }
         }

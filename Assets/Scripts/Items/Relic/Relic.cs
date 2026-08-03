@@ -42,7 +42,7 @@ public class Relic : MonoBehaviour
         gameObject.layer = 14;
         spriteRenderer.enabled = false;
         audioSource.Play();
-        UIManager.Instance.CallItemTexts(relicName, relicDescription, relicRarity);
+        UIManager.Instance.ShowItemText(relicName, relicDescription, relicRarity);
         Destroy(transform.parent.gameObject, 0.3f);
     }
 

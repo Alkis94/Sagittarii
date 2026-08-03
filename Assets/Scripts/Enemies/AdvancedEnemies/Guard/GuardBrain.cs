@@ -22,8 +22,8 @@ public class GuardBrain : GroundEnemyBrain
 
     private void Update()
     {
-        animator.SetFloat("VelocityY", rigidBody2d.velocity.y);
-        animator.SetFloat("VelocityX", Mathf.Abs(rigidBody2d.velocity.x));
+        Animator.SetFloat("VelocityY", rigidBody2d.velocity.y);
+        Animator.SetFloat("VelocityX", Mathf.Abs(rigidBody2d.velocity.x));
     }
 
     protected void FixedUpdate()
@@ -32,12 +32,12 @@ public class GuardBrain : GroundEnemyBrain
 
         if (Mathf.Abs(transform.position.x - player.position.x) > 2 + ExtraDinstance)
         {
-            Move(enemyStats.Speed);
+            Move(EnemyStats.Speed);
             CheckForJump();
         }
         else
         {
-            rigidbody2d.velocity = new Vector2(0, rigidbody2d.velocity.y);
+            Rigidbody2d.velocity = new Vector2(0, Rigidbody2d.velocity.y);
         }
 
         LookTowardsPlayer(transform, player.position);
@@ -45,16 +45,16 @@ public class GuardBrain : GroundEnemyBrain
 
     protected  void CheckCollisions()
     {
-        raycaster.UpdateRaycastOrigins();
+        Raycaster.UpdateRaycastOrigins();
         UpdateCollisionTracker();
         HandleWalkingAnimation();
     }
 
     private void CheckForJump()
     {
-        if ((collisionTracker.collisions.left || collisionTracker.collisions.right || collisionTracker.CloseToGroundEdge()) && Time.time > cannotChangeDirectionTime)
+        if ((CollisionTracker.collisions.left || CollisionTracker.collisions.right || CollisionTracker.CloseToGroundEdge()) && Time.time > cannotChangeDirectionTime)
         {
-            if (collisionTracker.collisions.below)
+            if (CollisionTracker.collisions.below)
             {
                 StartCoroutine(GuardJump());
             }

@@ -24,21 +24,26 @@ public abstract class GroundEnemyBrain : EnemyBrain
 
     public void Move(float speed)
     {
-        if (rigidbody2d.velocity.y == 0)
+        if (CollisionTracker.collisions.below)
         {
-            rigidbody2d.velocity = new Vector2(transform.right.x * speed, rigidbody2d.velocity.y);
+            Rigidbody2d.velocity = new Vector2(transform.right.x * speed, Rigidbody2d.velocity.y);
         }
+    }
+
+    public void Stop()
+    {
+        Rigidbody2d.velocity = new Vector2(0f, Rigidbody2d.velocity.y);
     }
 
     public void Jump(float horizontalForce, float verticalForce)
     {
-        int horizontalDirection = transform.localRotation.y == 0 ? 1 : -1;
-        rigidbody2d.AddForce(new Vector2(horizontalForce * horizontalDirection, verticalForce), ForceMode2D.Impulse);
+        var horizontalDirection = transform.localRotation.y == 0 ? 1 : -1;
+        Rigidbody2d.AddForce(new Vector2(horizontalForce * horizontalDirection, verticalForce), ForceMode2D.Impulse);
     }
 
-    public bool CheckHorizontalGround ()
+    public bool CheckHorizontalGround()
     {
-        if (collisionTracker.collisions.left || collisionTracker.collisions.right || collisionTracker.CloseToGroundEdge())
+        if (CollisionTracker.collisions.left || CollisionTracker.collisions.right || CollisionTracker.CloseToGroundEdge())
         {
             return true;
         }
@@ -46,17 +51,16 @@ public abstract class GroundEnemyBrain : EnemyBrain
         return false;
     }
 
-    protected virtual void HandleWalkingAnimation()
+    protected void HandleWalkingAnimation()
     {
-        if (collisionTracker.collisions.below)
+        if (CollisionTracker.collisions.below)
         {
-
-            animator.SetBool("IsGrounded", true);
+            Animator.SetBool("IsGrounded", true);
         }
         else
         {
 
-            animator.SetBool("IsGrounded", false);
+            Animator.SetBool("IsGrounded", false);
         }
     }
 }

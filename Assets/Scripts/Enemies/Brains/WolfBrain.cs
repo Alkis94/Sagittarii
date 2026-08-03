@@ -26,10 +26,10 @@ public class WolfBrain : GroundEnemyBrain
 
     protected void FixedUpdate()
     {
-        if (enemyStats.Health > 0)
+        if (EnemyStats.Health > 0)
         {
-            Move(enemyStats.Speed);
-            raycaster.UpdateRaycastOrigins();
+            Move(EnemyStats.Speed);
+            Raycaster.UpdateRaycastOrigins();
             UpdateCollisionTracker();
             HandleWalkingAnimation();
 
@@ -38,7 +38,7 @@ public class WolfBrain : GroundEnemyBrain
                 cannotChangeDirectionTime = Time.time + 0.1f;
                 ChangeHorizontalDirection();
             }
-            animator.SetFloat("VelocityY", rigidbody2d.velocity.y);
+            Animator.SetFloat("VelocityY", Rigidbody2d.velocity.y);
         }
     }
 
@@ -46,25 +46,25 @@ public class WolfBrain : GroundEnemyBrain
     private void CallJump()
     {
         Jump(5, 5);
-        animator.SetFloat("VelocityY", rigidbody2d.velocity.y);
+        Animator.SetFloat("VelocityY", Rigidbody2d.velocity.y);
     }
 
     IEnumerator WolfAttack()
     {
-        yield return new WaitForSeconds(enemyStats.DelayBeforeFirstAttack);
+        yield return new WaitForSeconds(EnemyStats.DelayBeforeFirstAttack);
         while(true)
         {
-            if (collisionTracker.collisions.below && animator.GetCurrentAnimatorStateInfo(0).IsName("Grounded"))
+            if (CollisionTracker.collisions.below && Animator.GetCurrentAnimatorStateInfo(0).IsName("Grounded"))
             {
                 CallJump();
                 yield return new WaitForFixedUpdate();
-                animator.SetTrigger("Attack");
-                animator.SetFloat("VelocityY", rigidbody2d.velocity.y);
+                Animator.SetTrigger("Attack");
+                Animator.SetFloat("VelocityY", Rigidbody2d.velocity.y);
                 yield return new WaitForSeconds(0.5f);
                 CallMainAttack();
             }
 
-            yield return new WaitForSeconds(enemyStats.AttackData[0].AttackFrequency);
+            yield return new WaitForSeconds(EnemyStats.AttackData[0].AttackFrequency);
         }
     }
 }

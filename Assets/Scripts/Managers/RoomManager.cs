@@ -9,7 +9,7 @@ public class RoomManager : MonoBehaviour
 
     private void Awake()
     {
-        GameObject spawnerObject = GameObject.FindGameObjectWithTag("Spawner");
+        var spawnerObject = GameObject.FindGameObjectWithTag("Spawner");
         if(spawnerObject != null)
         {
             spawner = spawnerObject.GetComponent<Spawner>();

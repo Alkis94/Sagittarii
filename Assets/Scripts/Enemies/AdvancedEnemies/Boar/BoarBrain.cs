@@ -41,7 +41,7 @@ public class BoarBrain : GroundEnemyBrain
     private void Update()
     {
         UpdateCollisionTracker();
-        raycaster.UpdateRaycastOrigins();
+        Raycaster.UpdateRaycastOrigins();
         stateMachine.Update();
     }
 

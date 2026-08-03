@@ -39,17 +39,17 @@ public class SpiderBrain : EnemyBrain
             Instantiate(web, transform.position, Quaternion.identity);
         }
 
-        InvokeRepeating("Attack", enemyStats.DelayBeforeFirstAttack, enemyStats.AttackData[0].AttackFrequency);
+        InvokeRepeating(nameof(Attack), EnemyStats.DelayBeforeFirstAttack, EnemyStats.AttackData[0].AttackFrequency);
         base.Start();
     }
 
     private void Attack()
     {
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+        if (Animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
         {
-            enemyAttackHandler.Attack(enemyStats.AttackData[0]);
-            animator.SetTrigger("Attack");
-            audioSource.Play();
+            EnemyAttackHandler.Attack(EnemyStats.AttackData[0]);
+            Animator.SetTrigger("Attack");
+            AudioSource.Play();
         }
     }
 }

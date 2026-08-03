@@ -107,7 +107,7 @@ public class MapManager : SerializedMonoBehaviour
         {
             CurrentMapInfo.SetCurrentMap(MapType.Town);
             SceneFader.Instance.LoadSceneWithFade(SceneNames.Town);
-            UIManager.Instance.CallLocationText(LocationNames.Town);
+            UIManager.Instance.ShowLocation(LocationNames.Town);
         }
         else if (nextMap == MapType.Forest)
         {
@@ -128,7 +128,7 @@ public class MapManager : SerializedMonoBehaviour
             MoveCurrentPlayerPositionAndCenterMap();
 
             SceneFader.Instance.LoadSceneWithFade(CurrentMapInfo.CurrentCell.Room.Name);
-            UIManager.Instance.CallLocationText(LocationNames.Forest);
+            UIManager.Instance.ShowLocation(LocationNames.Forest);
         }
         else if (nextMap == MapType.Cave)
         {
@@ -151,7 +151,7 @@ public class MapManager : SerializedMonoBehaviour
             MoveCurrentPlayerPositionAndCenterMap();
 
             SceneFader.Instance.LoadSceneWithFade(CurrentMapInfo.CurrentCell.Room.Name);
-            UIManager.Instance.CallLocationText(LocationNames.Cave);
+            UIManager.Instance.ShowLocation(LocationNames.Cave);
         }
     }
 

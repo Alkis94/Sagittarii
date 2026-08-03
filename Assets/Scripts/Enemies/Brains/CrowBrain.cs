@@ -23,13 +23,13 @@ public class CrowBrain : FlyingEnemyBrain
     protected override void Start()
     {
         base.Start();
-        InvokeRepeating("CallMainAttack", enemyStats.DelayBeforeFirstAttack, enemyStats.AttackData[0].AttackFrequency);
+        InvokeRepeating("CallMainAttack", EnemyStats.DelayBeforeFirstAttack, EnemyStats.AttackData[0].AttackFrequency);
     }
 
     private void Update()
     {
         UpdateCollisionTracker();
-        raycaster.UpdateRaycastOrigins();
+        Raycaster.UpdateRaycastOrigins();
 
         if (HorizontalCollisions() && Time.time > cannotChangeDirectionTime)
         {
@@ -40,9 +40,9 @@ public class CrowBrain : FlyingEnemyBrain
 
     private void FixedUpdate()
     {
-        if (enemyStats.Health > 0)
+        if (EnemyStats.Health > 0)
         {
-            MovementPatterns[0].Move(enemyStats.Speed, 1, 1);
+            MovementPatterns[0].Move(EnemyStats.Speed, 1, 1);
         }
     }
 }

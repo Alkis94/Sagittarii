@@ -28,7 +28,7 @@ public abstract class FlyingEnemyBrain : EnemyBrain
 
     protected bool HorizontalCollisions()
     {
-        if (collisionTracker.collisions.left || collisionTracker.collisions.right)
+        if (CollisionTracker.collisions.left || CollisionTracker.collisions.right)
         {
             return true;
         }
@@ -37,7 +37,7 @@ public abstract class FlyingEnemyBrain : EnemyBrain
 
     protected bool VerticalCollisions()
     {
-        if (collisionTracker.collisions.above || collisionTracker.collisions.below)
+        if (CollisionTracker.collisions.above || CollisionTracker.collisions.below)
         {
             return true;
         }

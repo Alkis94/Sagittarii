@@ -25,7 +25,7 @@ public class WalkshroomBrain : GroundEnemyBrain
 
     protected void FixedUpdate()
     {
-        raycaster.UpdateRaycastOrigins();
+        Raycaster.UpdateRaycastOrigins();
         UpdateCollisionTracker();
         HandleWalkingAnimation();
 
@@ -35,18 +35,18 @@ public class WalkshroomBrain : GroundEnemyBrain
             ChangeHorizontalDirection();
         }
 
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Walking"))
+        if (Animator.GetCurrentAnimatorStateInfo(0).IsName("Walking"))
         {
             bool result = Physics2D.OverlapCircle(transform.position, 2.5f, 1 << LayerMask.NameToLayer("Player"));
             if (result)
             {
-                animator.SetTrigger("Attack");
+                Animator.SetTrigger("Attack");
                 Move(0);
-                enemyAttackHandler.Attack(enemyStats.AttackData[0]);
+                EnemyAttackHandler.Attack(EnemyStats.AttackData[0]);
             }
             else
             {
-                Move(enemyStats.Speed);
+                Move(EnemyStats.Speed);
             }
         }
     }

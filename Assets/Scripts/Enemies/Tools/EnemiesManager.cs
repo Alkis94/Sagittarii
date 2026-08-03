@@ -3,14 +3,13 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 
-
 public class EnemiesManager : MonoBehaviour
 {
     public static event Action OnRoomHasAliveEnemies = delegate { };
+
     private MapType mapType;
     private string roomKey;
     private RoomType roomType;
-    private int chosenGroupID;
     private GameObject chosenGroup;
     private Spawner spawner;
     private Dictionary<string,GameObject> spawnerEnemies;
@@ -72,13 +71,14 @@ public class EnemiesManager : MonoBehaviour
         {
             if (ES3.FileExists(ProfileManager.Instance.GetProfileRunPath() + SaveFolders.Levels + "/" + mapType + SaveFolders.Room + roomKey + SaveFolders.Enemies))
             {
-                chosenGroupID = ES3.Load<int>("ChosenGroupID", ProfileManager.Instance.GetProfileRunPath() + SaveFolders.Levels + "/" + mapType + SaveFolders.Room + roomKey + SaveFolders.Enemies);
+                var chosenGroupID = ES3.Load<int>("ChosenGroupID", ProfileManager.Instance.GetProfileRunPath() + SaveFolders.Levels + "/" + mapType + SaveFolders.Room + roomKey + SaveFolders.Enemies);
                 chosenGroup = transform.GetChild(chosenGroupID).gameObject;
                 ReloadEnemies();
             }
             else
             {
-                chosenGroupID = UnityEngine.Random.Range(0, transform.childCount);
+                var chosenGroupID = UnityEngine.Random.Range(0, transform.childCount);
+                ES3.Save("ChosenGroupID", chosenGroupID, ProfileManager.Instance.GetProfileRunPath() + SaveFolders.Levels + "/" + mapType + SaveFolders.Room + roomKey + SaveFolders.Enemies);
                 chosenGroup = transform.GetChild(chosenGroupID).gameObject;
                 LoadEnemies();
             }
@@ -135,10 +135,5 @@ public class EnemiesManager : MonoBehaviour
         {
             OnRoomHasAliveEnemies?.Invoke();
         }
-    }
-
-    private void OnDestroy()
-    {
-        ES3.Save("ChosenGroupID", chosenGroupID, ProfileManager.Instance.GetProfileRunPath() + SaveFolders.Levels + "/" + mapType + SaveFolders.Room + roomKey + SaveFolders.Enemies);
     }
 }

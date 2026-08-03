@@ -23,14 +23,14 @@ public class BatBrain : FlyingEnemyBrain
     protected override void Start()
     {
         base.Start();
-        InvokeRepeating("CallMainAttack", enemyStats.DelayBeforeFirstAttack, enemyStats.AttackData[0].AttackFrequency);
+        InvokeRepeating("CallMainAttack", EnemyStats.DelayBeforeFirstAttack, EnemyStats.AttackData[0].AttackFrequency);
         StartCoroutine(ChangingDirectionsOverTime(5));
     }
 
     private void Update()
     {
         UpdateCollisionTracker();
-        raycaster.UpdateRaycastOrigins();
+        Raycaster.UpdateRaycastOrigins();
 
         if (HorizontalCollisions() && Time.time > cannotChangeDirectionTime)
         {
@@ -48,9 +48,9 @@ public class BatBrain : FlyingEnemyBrain
 
     private void FixedUpdate()
     {
-        if (enemyStats.Health > 0)
+        if (EnemyStats.Health > 0)
         {
-            MovementPatterns[0].Move(enemyStats.Speed, 1, verticalDirection);
+            MovementPatterns[0].Move(EnemyStats.Speed, 1, verticalDirection);
         }
     }
 

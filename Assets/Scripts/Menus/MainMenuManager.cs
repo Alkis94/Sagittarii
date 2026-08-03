@@ -74,7 +74,7 @@ public class MainMenuManager : MonoBehaviour
     {
         GameManager.Instance.ChooseCharacter(false);
         SceneFader.Instance.LoadSceneWithFade(SceneNames.Town);
-        UIManager.Instance.CallLocationText(LocationNames.Town);
+        UIManager.Instance.ShowLocation(LocationNames.Town);
     }
 
     public void OnAbandonRunPress()

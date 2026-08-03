@@ -28,7 +28,7 @@ public class BunnyBrain : GroundEnemyBrain
 
     protected void FixedUpdate()
     {
-        raycaster.UpdateRaycastOrigins();
+        Raycaster.UpdateRaycastOrigins();
         UpdateCollisionTracker();
         HandleWalkingAnimation();
 
@@ -38,7 +38,7 @@ public class BunnyBrain : GroundEnemyBrain
             ChangeHorizontalDirection();
         }
 
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Walking"))
+        if (Animator.GetCurrentAnimatorStateInfo(0).IsName("Walking"))
         {
             Vector3 origin = new Vector3(transform.position.x, transform.position.y + rayOriginOffset, 0);
             RaycastHit2D hit = Physics2D.Raycast(origin, transform.right, 10, 1 << LayerMask.NameToLayer("Player"));
@@ -46,18 +46,18 @@ public class BunnyBrain : GroundEnemyBrain
             {
                 if (hit.distance < 5)
                 {
-                    animator.SetTrigger("Attack");
+                    Animator.SetTrigger("Attack");
                     Move(0);
-                    enemyAttackHandler.Attack(enemyStats.AttackData[0]);
+                    EnemyAttackHandler.Attack(EnemyStats.AttackData[0]);
                 }
                 else
                 {
-                    Move(enemyStats.Speed + 6);
+                    Move(EnemyStats.Speed + 6);
                 }
             }
             else
             {
-                Move(enemyStats.Speed);
+                Move(EnemyStats.Speed);
             }
         }
     }

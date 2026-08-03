@@ -21,15 +21,15 @@ public class BearBrain : GroundEnemyBrain
     protected override void Start()
     {
         base.Start();
-        InvokeRepeating(nameof(StartAttackAnimation), enemyStats.DelayBeforeFirstAttack, enemyStats.AttackData[0].AttackFrequency);  
+        InvokeRepeating(nameof(StartAttackAnimation), EnemyStats.DelayBeforeFirstAttack, EnemyStats.AttackData[0].AttackFrequency);  
     }
 
     protected virtual void FixedUpdate()
     {
-        if (enemyStats.Health > 0)
+        if (EnemyStats.Health > 0)
         {
-            Move(enemyStats.Speed);
-            raycaster.UpdateRaycastOrigins();
+            Move(EnemyStats.Speed);
+            Raycaster.UpdateRaycastOrigins();
             UpdateCollisionTracker();
             HandleWalkingAnimation();
 

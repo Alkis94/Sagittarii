@@ -38,8 +38,8 @@ public class MushroomBossBrain : GroundEnemyBrain
     protected override void Start()
     {
         base.Start();
-        collisionTracker = GetComponentInChildren<CollisionTracker>();
-        raycaster = GetComponentInChildren<Raycaster>();
+        CollisionTracker = GetComponentInChildren<CollisionTracker>();
+        Raycaster = GetComponentInChildren<Raycaster>();
 
         stateMachine = new StateMachine<MushroomBossBrain>(this);
         stateMachine.ChangeState(mushroomKingPhase1);
@@ -52,12 +52,12 @@ public class MushroomBossBrain : GroundEnemyBrain
 
     protected void CallAttack1()
     {
-        enemyAttackHandler.Attack(enemyStats.AttackData[1]);
+        EnemyAttackHandler.Attack(EnemyStats.AttackData[1]);
     }
 
     protected void CallAttack2()
     {
-        enemyAttackHandler.Attack(enemyStats.AttackData[2]);
+        EnemyAttackHandler.Attack(EnemyStats.AttackData[2]);
     }
 
     public void SpawnWalkshroom()
@@ -71,7 +71,7 @@ public class MushroomBossBrain : GroundEnemyBrain
     {
         if (collision.gameObject.tag == "Ground" && enabled)
         {
-            animator.SetTrigger("GroundCollision");
+            Animator.SetTrigger("GroundCollision");
         }
     }
 }

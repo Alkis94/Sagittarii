@@ -21,11 +21,21 @@ public class ButtonSound : MonoBehaviour, IPointerEnterHandler
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        if (audioSource == null || !audioSource.isActiveAndEnabled)
+        {
+            return;
+        }
+
         audioSource.PlayOneShot(buttonOverSound);
     }
 
     public void OnButtonPressed()
     {
+        if (audioSource == null || !audioSource.isActiveAndEnabled)
+        {
+            return;
+        }
+
         audioSource.PlayOneShot(buttonPressedSound);
     }
 }

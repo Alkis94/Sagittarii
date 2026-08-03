@@ -39,7 +39,7 @@ public class OwlBrain : FlyingEnemyBrain
     private void Update()
     {
         UpdateCollisionTracker();
-        raycaster.UpdateRaycastOrigins();
+        Raycaster.UpdateRaycastOrigins();
 
         if (HorizontalCollisions() && Time.time > cannotChangeDirectionTime)
         {
@@ -63,18 +63,18 @@ public class OwlBrain : FlyingEnemyBrain
     //Called from Animation
     public void CallAttack()
     {
-        enemyAttackHandler.Attack(enemyStats.AttackData[0]);
+        EnemyAttackHandler.Attack(EnemyStats.AttackData[0]);
     }
 
     //Called from Animation
     public void CallDive()
     {
-        rigidbody2d.AddForce(new Vector2(0, -8), ForceMode2D.Impulse);
+        Rigidbody2d.AddForce(new Vector2(0, -8), ForceMode2D.Impulse);
     }
 
     public void CallMoveBack()
     {
-        rigidbody2d.AddForce(new Vector2(0, 16), ForceMode2D.Impulse);
+        Rigidbody2d.AddForce(new Vector2(0, 16), ForceMode2D.Impulse);
     }
 
 }

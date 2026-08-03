@@ -492,7 +492,7 @@ MonoBehaviour:
   cannotChangeDirectionTime: 0
   teleport: {fileID: 2089284342073273242, guid: 7835795ad097d4b4cb7c1f074be28cfc,
     type: 3}
-  wakeUpSound: {fileID: 8300000, guid: bb44a92bac1e3294c817229e74899bdb, type: 3}
+  wakeUpSound: {fileID: 8300000, guid: 0880ff9a3b4d27e4bbcf4b4dfd546b66, type: 3}
   groundStompSound: {fileID: 8300000, guid: b8fe5840127e30a4dab94441ea375a9f, type: 3}
 --- !u!114 &1471221887
 MonoBehaviour:
@@ -508,16 +508,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ImpulseDefinition:
     m_ImpulseChannel: 1
-    m_ImpulseShape: 0
+    m_ImpulseShape: 4
     m_CustomImpulseShape:
       serializedVersion: 2
       m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    m_ImpulseDuration: 0.2
+    m_ImpulseDuration: 5
     m_ImpulseType: 3
-    m_DissipationRate: 0
+    m_DissipationRate: 0.25
     m_RawSignal: {fileID: 11400000, guid: 51cc240dfa6a6bd48b2f3ffa5b6aea7d, type: 2}
     m_AmplitudeGain: 1
     m_FrequencyGain: 1
@@ -537,14 +537,14 @@ MonoBehaviour:
         m_PostInfinity: 2
         m_RotationOrder: 4
       m_AttackTime: 0
-      m_SustainTime: 5
-      m_DecayTime: 0
-      m_ScaleWithImpact: 0
+      m_SustainTime: 0.2
+      m_DecayTime: 0.7
+      m_ScaleWithImpact: 1
       m_HoldForever: 0
     m_ImpactRadius: 100
     m_DirectionMode: 0
-    m_DissipationMode: 1
-    m_DissipationDistance: 1000
+    m_DissipationMode: 2
+    m_DissipationDistance: 100
     m_PropagationSpeed: 343
   m_DefaultVelocity: {x: 0, y: -1, z: 0}
 --- !u!114 &5182200612906122127

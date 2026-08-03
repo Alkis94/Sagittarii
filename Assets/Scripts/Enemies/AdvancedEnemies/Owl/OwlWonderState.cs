@@ -12,7 +12,7 @@ public class OwlWonderState: State<OwlBrain>
 
     public override void EnterState()
     {
-        nextAttackTime = Time.time + stateOwner.enemyStats.AttackData[0].AttackFrequency;
+        nextAttackTime = Time.time + stateOwner.EnemyStats.AttackData[0].AttackFrequency;
         playerPosition = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
@@ -23,15 +23,15 @@ public class OwlWonderState: State<OwlBrain>
             stateOwner.stateMachine.ChangeState(stateOwner.huntAttackState);
         }
 
-        if (stateOwner.enemyStats.Health > 0)
+        if (stateOwner.EnemyStats.Health > 0)
         {
-            stateOwner.MovementPatterns[0].Move(stateOwner.enemyStats.Speed, stateOwner.verticalDirection);
+            stateOwner.MovementPatterns[0].Move(stateOwner.EnemyStats.Speed, stateOwner.verticalDirection);
         }
 
         if(nextAttackTime < Time.time)
         {
-            stateOwner.animator.SetTrigger("Attack");
-            nextAttackTime = Time.time + stateOwner.enemyStats.AttackData[0].AttackFrequency;
+            stateOwner.Animator.SetTrigger("Attack");
+            nextAttackTime = Time.time + stateOwner.EnemyStats.AttackData[0].AttackFrequency;
         }
     }
 

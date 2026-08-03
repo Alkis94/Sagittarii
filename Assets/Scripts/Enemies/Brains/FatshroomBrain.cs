@@ -25,7 +25,7 @@ public class FatshroomBrain : EnemyBrain
     {
         base.Start();
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        InvokeRepeating("StartAttackAnimation", enemyStats.DelayBeforeFirstAttack, enemyStats.AttackData[0].AttackFrequency);
+        InvokeRepeating("StartAttackAnimation", EnemyStats.DelayBeforeFirstAttack, EnemyStats.AttackData[0].AttackFrequency);
     }
 
     private void FixedUpdate()

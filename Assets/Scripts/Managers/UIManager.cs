@@ -272,7 +272,7 @@ public class UIManager : MonoBehaviour
         bossHealthImage.fillAmount = 1f;
     }
 
-    public void CallItemTexts(string relicName, string relicDescription, RelicRarity relicRarity)
+    public void ShowItemText(string relicName, string relicDescription, RelicRarity relicRarity)
     {
         relicNameText.color = relicRarity switch
         {
@@ -307,7 +307,7 @@ public class UIManager : MonoBehaviour
         LeanTween.moveLocalX(relicTextBackground, 600, 0.5f).setEaseInOutBack();
     }
 
-    public void CallDeathUI()
+    public void ShowDeathUI()
     {
         StartCoroutine(ActivateDeathUI());
     }
@@ -328,12 +328,12 @@ public class UIManager : MonoBehaviour
         defeatMenu.SetActive(true);
     }
 
-    public void CallLocationText(string location)
+    public void ShowLocation(string location)
     {
-        StartCoroutine(ShowLocation(location));
+        StartCoroutine(ShowLocationCoroutine(location));
     }
 
-    private IEnumerator ShowLocation(string location)
+    private IEnumerator ShowLocationCoroutine(string location)
     {
         yield return new WaitForSeconds(0.5f);
         locationText.text = location;

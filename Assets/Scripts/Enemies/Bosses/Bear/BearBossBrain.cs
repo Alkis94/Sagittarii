@@ -1,5 +1,6 @@
-﻿using UnityEngine;
+﻿using Cinemachine;
 using System.Collections;
+using UnityEngine;
 
 public class BearBossBrain : GroundEnemyBrain
 {
@@ -11,7 +12,6 @@ public class BearBossBrain : GroundEnemyBrain
     [SerializeField]
     private AudioClip groundStompSound;
 
-    private bool ableToMove = true;
     private int animatorAbleToWalk;
 
     protected override void Awake()
@@ -39,7 +39,7 @@ public class BearBossBrain : GroundEnemyBrain
 
     private void Update()
     {
-        if (enemyStats.Health > 0)
+        if (EnemyStats.Health > 0)
         {
             CheckCollisions();
 
@@ -56,9 +56,18 @@ public class BearBossBrain : GroundEnemyBrain
 
     private void FixedUpdate()
     {
-        if (enemyStats.Health > 0 && animator.GetCurrentAnimatorStateInfo(0).IsName("BearBossWalking"))
+        if (EnemyStats.Health <= 0)
         {
-            Move(enemyStats.Speed);
+            return;
+        }
+
+        if (Animator.GetCurrentAnimatorStateInfo(0).IsName("BearBossWalking"))
+        {
+            Move(EnemyStats.Speed);
+        }
+        else
+        {
+            Stop();
         }
     }
 
@@ -66,35 +75,27 @@ public class BearBossBrain : GroundEnemyBrain
     {
         UpdateCollisionTracker();
 
-        if (collisionTracker.collisions.left || collisionTracker.collisions.right || collisionTracker.CloseToGroundEdge())
+        var isColliding = CollisionTracker.collisions.left || CollisionTracker.collisions.right || CollisionTracker.CloseToGroundEdge();
+
+        if (CollisionTracker.collisions.below && !isColliding)
         {
-            ableToMove = false;
+            Animator.SetBool(animatorAbleToWalk, true);
         }
         else
         {
-            ableToMove = true;
-        }
-
-        HandleWalkingAnimation();
-    }
-
-    protected override void HandleWalkingAnimation()
-    {
-        if (collisionTracker.collisions.below && ableToMove)
-        {
-            animator.SetBool(animatorAbleToWalk, true);
-        }
-        else
-        {
-            animator.SetBool(animatorAbleToWalk, false);
+            Animator.SetBool(animatorAbleToWalk, false);
         }
     }
 
     private IEnumerator WakeUp()
     {
-        audioSource.PlayOneShot(wakeUpSound);
-        yield return new WaitForSeconds(3f);
-        animator.SetTrigger("WakeEnd");
+        AudioSource.PlayOneShot(wakeUpSound);
+        var impulseSource = GetComponent<CinemachineImpulseSource>();
+        impulseSource.m_ImpulseDefinition.m_TimeEnvelope.m_SustainTime = wakeUpSound.length;
+        impulseSource.m_ImpulseDefinition.m_TimeEnvelope.m_DecayTime = wakeUpSound.length / 10;
+        impulseSource.GenerateImpulse();
+        yield return new WaitForSeconds(wakeUpSound.length);
+        Animator.SetTrigger("WakeEnd");
         StartCoroutine(DoRandomAction());
     }
 
@@ -110,11 +111,11 @@ public class BearBossBrain : GroundEnemyBrain
 
             if ((Random.value < 0.3f || normalAttackCounter >= 3) && !previousAttackWasSmash)
             {
-                animator.SetTrigger("StartSmash");
-                audioSource.PlayOneShot(groundStompSound);
+                Animator.SetTrigger("StartSmash");
+                AudioSource.PlayOneShot(groundStompSound);
                 randomTime = Random.Range(2f, 4f);
                 yield return new WaitForSeconds(randomTime);
-                animator.SetTrigger("EndSmash");
+                Animator.SetTrigger("EndSmash");
                 randomTime = Random.Range(0.5f, 1f);
                 previousAttackWasSmash = true;
                 normalAttackCounter = 0;
@@ -122,15 +123,16 @@ public class BearBossBrain : GroundEnemyBrain
             else
             {
                 normalAttackCounter++;
-                animator.SetTrigger("Attack");
+                Animator.SetTrigger("Attack");
                 randomTime = Random.Range(1f, 1.5f);
                 previousAttackWasSmash = false;
             }
         }
     }
 
+    // Called from animation event
     protected void CallAttack(int attackIndex)
     {
-        enemyAttackHandler.Attack(enemyStats.AttackData[attackIndex]);
+        EnemyAttackHandler.Attack(EnemyStats.AttackData[attackIndex]);
     }
 }

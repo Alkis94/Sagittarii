@@ -18,7 +18,7 @@
     protected override void Start()
     {
         base.Start();
-        float randomizer = UnityEngine.Random.Range(0, enemyStats.AttackData[0].AttackFrequency - 2f);
-        InvokeRepeating("StartAttackAnimation", enemyStats.DelayBeforeFirstAttack + randomizer, enemyStats.AttackData[0].AttackFrequency);
+        float randomizer = UnityEngine.Random.Range(0, EnemyStats.AttackData[0].AttackFrequency - 2f);
+        InvokeRepeating("StartAttackAnimation", EnemyStats.DelayBeforeFirstAttack + randomizer, EnemyStats.AttackData[0].AttackFrequency);
     }
 }

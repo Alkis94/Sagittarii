@@ -10,7 +10,7 @@ public class RegularEnemyLoader : EnemyLoader
 
     public override void Load()
     {
-        Vector3 originalPosition = transform.position;
+        var originalPosition = transform.position;
         dead = ES3.Load<bool>("Dead" + EnemyKey.ToString(), ProfileManager.Instance.GetProfileRunPath() + SaveFolders.Levels + "/" + MapType + SaveFolders.Room + RoomKey + SaveFolders.Enemies);
         criticalDeath = ES3.Load<bool>("CriticalDeath" + EnemyKey.ToString(), ProfileManager.Instance.GetProfileRunPath() + SaveFolders.Levels + "/" + MapType + SaveFolders.Room + RoomKey + SaveFolders.Enemies);
         transform.SetPositionAndRotation(
@@ -27,6 +27,11 @@ public class RegularEnemyLoader : EnemyLoader
 
     private void OnDestroy()
     {
+        if (!ProfileManager.Instance.ProfileHasActiveRun())
+        {
+            return;
+        }
+
         ES3.Save("EnemyName" + EnemyKey.ToString(), enemyStats.EnemyName, ProfileManager.Instance.GetProfileRunPath() + SaveFolders.Levels + "/" + MapType + SaveFolders.Room + RoomKey + SaveFolders.Enemies);
         ES3.Save("Dead" + EnemyKey.ToString(), dead, ProfileManager.Instance.GetProfileRunPath() + SaveFolders.Levels + "/" + MapType + SaveFolders.Room + RoomKey + SaveFolders.Enemies);
         ES3.Save("CriticalDeath" + EnemyKey.ToString(), criticalDeath, ProfileManager.Instance.GetProfileRunPath() + SaveFolders.Levels + "/" + MapType + SaveFolders.Room + RoomKey + SaveFolders.Enemies);

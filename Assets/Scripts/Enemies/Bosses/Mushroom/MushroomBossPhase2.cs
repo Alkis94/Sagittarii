@@ -10,20 +10,20 @@ public class MushroomBossPhase2 : State<MushroomBossBrain>
 
     public override void EnterState()
     {
-        stateOwner.enemyStats.Damageable = true;
-        stateOwner.rigidbody2d.gravityScale = 1;
+        stateOwner.EnemyStats.Damageable = true;
+        stateOwner.Rigidbody2d.gravityScale = 1;
         stateOwner.StartCoroutine(DoRandomAttack());
         stateOwner.InvokeRepeating("SpawnWalkshroom", 5, 7);
     }
 
     public override void FixedUpdateState()
     {
-        stateOwner.raycaster.UpdateRaycastOrigins();
+        stateOwner.Raycaster.UpdateRaycastOrigins();
         stateOwner.UpdateCollisionTracker();
 
-        if (stateOwner.animator.GetCurrentAnimatorStateInfo(0).IsName("Walking"))
+        if (stateOwner.Animator.GetCurrentAnimatorStateInfo(0).IsName("Walking"))
         {
-            stateOwner.Move(stateOwner.enemyStats.Speed);
+            stateOwner.Move(stateOwner.EnemyStats.Speed);
         }
 
         if (stateOwner.CheckHorizontalGround() && Time.time > stateOwner.cannotChangeDirectionTime)
@@ -39,19 +39,19 @@ public class MushroomBossPhase2 : State<MushroomBossBrain>
 
         while (true)
         {
-            stateOwner.rigidbody2d.velocity = Vector3.zero;
+            stateOwner.Rigidbody2d.velocity = Vector3.zero;
             yield return new WaitForFixedUpdate();
-            stateOwner.rigidbody2d.velocity = Vector3.zero;
+            stateOwner.Rigidbody2d.velocity = Vector3.zero;
             float randomNumber = Random.Range(0, 1f);
             if (randomNumber < 0.5f)
             {
-                stateOwner.animator.SetTrigger("Attack1");
+                stateOwner.Animator.SetTrigger("Attack1");
             }
             else
             {
-                stateOwner.animator.SetTrigger("Attack2");
+                stateOwner.Animator.SetTrigger("Attack2");
             }
-            yield return new WaitForSeconds(stateOwner.enemyStats.AttackData[0].AttackFrequency);
+            yield return new WaitForSeconds(stateOwner.EnemyStats.AttackData[0].AttackFrequency);
         }
     }
 

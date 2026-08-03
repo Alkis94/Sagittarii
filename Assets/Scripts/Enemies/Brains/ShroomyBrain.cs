@@ -39,8 +39,8 @@ public class ShroomyBrain : EnemyBrain
             RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right, 40, 1 << LayerMask.NameToLayer("Player"));
             if (hit)
             {
-                animator.SetTrigger("Attack");
-                yield return new WaitForSeconds(enemyStats.AttackData[0].AttackFrequency);
+                Animator.SetTrigger("Attack");
+                yield return new WaitForSeconds(EnemyStats.AttackData[0].AttackFrequency);
             }
             yield return new WaitForSeconds(0.25f);
         }

@@ -9,6 +9,6 @@ public class ChooseHero : MonoBehaviour
     {
         GameManager.Instance.ChooseCharacter(true, characterClass);
         SceneFader.Instance.LoadSceneWithFade(SceneNames.Town);
-        UIManager.Instance.CallLocationText(LocationNames.Town);
+        UIManager.Instance.ShowLocation(LocationNames.Town);
     }
 }

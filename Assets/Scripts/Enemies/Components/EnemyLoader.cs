@@ -53,9 +53,9 @@ public abstract class EnemyLoader : MonoBehaviour
             gameObject.layer = 14;
             enemyGotShot.enabled = false;
 
-            foreach (Transform trans in GetComponentsInChildren<Transform>(true))
+            foreach (var child in GetComponentsInChildren<Transform>(true))
             {
-                trans.gameObject.layer = 14;
+                child.gameObject.layer = 14;
             }
 
             transform.parent = null;

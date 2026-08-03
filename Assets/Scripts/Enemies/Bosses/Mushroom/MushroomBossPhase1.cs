@@ -11,9 +11,9 @@ public class MushroomBossPhase1 : State<MushroomBossBrain>
     public override void EnterState()
     {
         EnemyStats.OnEnemyWasKilled += CountEemiesTillChange;
-        stateOwner.audioSource.Play();
+        stateOwner.AudioSource.Play();
         stateOwner.impulseSource.GenerateImpulse();
-        stateOwner.InvokeRepeating("StartAttackAnimation", 1f, stateOwner.enemyStats.AttackData[0].AttackFrequency);
+        stateOwner.InvokeRepeating("StartAttackAnimation", 1f, stateOwner.EnemyStats.AttackData[0].AttackFrequency);
     }
 
     public override void ExitState()
@@ -37,7 +37,7 @@ public class MushroomBossPhase1 : State<MushroomBossBrain>
         enemiesDiedCounter++;
         if(enemiesDiedCounter > 15)
         {
-            stateOwner.animator.runtimeAnimatorController = stateOwner.phase2Controller;
+            stateOwner.Animator.runtimeAnimatorController = stateOwner.phase2Controller;
             stateOwner.stateMachine.ChangeState(stateOwner.mushroomKingPhase2);
         }
     }

@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using Cinemachine;
 using Sirenix.OdinInspector;
+using Random = UnityEngine.Random;
 
 
 [ShowOdinSerializedPropertiesInInspector]
@@ -23,7 +24,6 @@ public class EnemyDeath : SerializedMonoBehaviour
     [SerializeField]
     private AudioClip deathCry;
     
-
     private bool hasBlood;
     private bool hasCriticalDeath;
     private bool shakeBeforeDeath;
@@ -45,7 +45,6 @@ public class EnemyDeath : SerializedMonoBehaviour
     {
         enemyStats.EnemyDied -= ProcessDeath;
     }
-
 
     void Start()
     {
@@ -82,8 +81,8 @@ public class EnemyDeath : SerializedMonoBehaviour
             enemyBrain.enabled = false;
         }
 
-        //Put child objects to deadEnemies layer too because colliders are child objects.
-        foreach (Transform trans in GetComponentsInChildren<Transform>(true))
+        // Put child objects to deadEnemies layer too because colliders are child objects.
+        foreach (var trans in GetComponentsInChildren<Transform>(true))
         {
             trans.gameObject.layer = 14;
         }
@@ -101,24 +100,24 @@ public class EnemyDeath : SerializedMonoBehaviour
     IEnumerator BeforeDeath()
     {
         animator.SetTrigger("ShakeBeforeDeath");
-        CinemachineImpulseSource impulseSource;
-        impulseSource = GetComponent<CinemachineImpulseSource>();
+
+        var impulseSource = GetComponent<CinemachineImpulseSource>();
         impulseSource.m_ImpulseDefinition.m_TimeEnvelope.m_SustainTime = 4f;
         impulseSource.m_ImpulseDefinition.m_TimeEnvelope.m_DecayTime   = 1f;
         impulseSource.GenerateImpulse();
 
-        Color red = new Color(1f, 0f, 0f);
-        Color white = new Color(1f, 1f, 1f);
-        Vector3 randomVector = new Vector3(UnityEngine.Random.Range(-3f, 3f), UnityEngine.Random.Range(-3f, 3f), 0);
+        var red = new Color(1f, 0f, 0f);
+        var white = new Color(1f, 1f, 1f);
+        var randomVector = new Vector3(Random.Range(-3f, 3f), Random.Range(-3f, 3f), 0);
 
         for (int i = 0; i < 10; i++)
         {
             Instantiate(bloodSplat, transform.position + randomVector, Quaternion.identity);
-            randomVector = new Vector3(UnityEngine.Random.Range(-3f, 3f), UnityEngine.Random.Range(-3f, 3f), 0);
+            randomVector = new Vector3(Random.Range(-3f, 3f), Random.Range(-3f, 3f), 0);
             spriteRenderer.color = red;
             yield return new WaitForSeconds(0.2f);
             Instantiate(bloodSplat, transform.position + randomVector, Quaternion.identity);
-            randomVector = new Vector3(UnityEngine.Random.Range(-3f, 3f), UnityEngine.Random.Range(-3f, 3f), 0);
+            randomVector = new Vector3(Random.Range(-3f, 3f), Random.Range(-3f, 3f), 0);
             spriteRenderer.color = white;
             yield return new WaitForSeconds(0.2f);
         }
@@ -162,12 +161,9 @@ public class EnemyDeath : SerializedMonoBehaviour
 
     private void DropRelic()
     {
-        for (int i = 0; i < enemyStats.Relics.Count; i++)
-        {
-            float randomNumber;
-            randomNumber = UnityEngine.Random.Range(0f, 1f);
-            
-            if (randomNumber < enemyStats.RelicDropChance[i])
+        for (var i = 0; i < enemyStats.Relics.Count; i++)
+        {            
+            if (Random.value < enemyStats.RelicDropChance[i])
             {
                 OnDeathDropRelic?.Invoke(enemyStats.Relics[i], transform.position);
                 return;

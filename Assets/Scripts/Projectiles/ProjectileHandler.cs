@@ -63,7 +63,7 @@ public class ProjectileHandler: MonoBehaviour
         OnCollision?.Invoke();
         velocityOnHit = rigidbody2d.velocity;
 
-        float impactDestroyDelay = 0;
+        var impactDestroyDelay = 0f;
         if (hasImpactAnimation)
         {
             animator.SetTrigger("Impact");
@@ -78,7 +78,7 @@ public class ProjectileHandler: MonoBehaviour
 
         StopProjectile();
 
-        ParticleSystem particleSystem = GetComponentInChildren<ParticleSystem>();
+        var particleSystem = GetComponentInChildren<ParticleSystem>();
         if(particleSystem != null)
         {
             particleSystem.Stop();

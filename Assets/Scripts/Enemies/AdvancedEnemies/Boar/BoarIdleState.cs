@@ -23,7 +23,7 @@ public class BoarIdleState : State<BoarBrain>
 
     public override void FixedUpdateState()
     {
-        if (stateOwner.enemyStats.Health > 0)
+        if (stateOwner.EnemyStats.Health > 0)
         {
             RaycastHit2D hit = Physics2D.Raycast(stateOwner.transform.position, stateOwner.transform.right, 25, 1 << LayerMask.NameToLayer("Player"));
             if (hit)
@@ -40,7 +40,7 @@ public class BoarIdleState : State<BoarBrain>
         yield return new WaitForSeconds(2f);
         while(true)
         {
-            stateOwner.animator.SetTrigger("Idle");
+            stateOwner.Animator.SetTrigger("Idle");
             yield return new WaitForSeconds(5f);
         }
     }

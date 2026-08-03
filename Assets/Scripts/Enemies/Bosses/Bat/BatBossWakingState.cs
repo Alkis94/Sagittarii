@@ -8,7 +8,7 @@ public class BatBossWakingState : State<BatBossBrain>
 
     public override void FixedUpdateState()
     {
-       if(!stateOwner.animator.GetCurrentAnimatorStateInfo(0).IsName("BatBossWaking"))
+       if(!stateOwner.Animator.GetCurrentAnimatorStateInfo(0).IsName("BatBossWaking"))
         {
             stateOwner.stateMachine.ChangeState(stateOwner.calmState);
         }
@@ -16,6 +16,6 @@ public class BatBossWakingState : State<BatBossBrain>
 
     public override void ExitState()
     {
-        stateOwner.enemyStats.Damageable = true;
+        stateOwner.EnemyStats.Damageable = true;
     }
 }

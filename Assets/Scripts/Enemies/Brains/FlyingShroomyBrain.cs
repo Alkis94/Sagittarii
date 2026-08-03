@@ -24,13 +24,13 @@ public class FlyingShroomyBrain : FlyingEnemyBrain
     {
         base.Start();
         StartCoroutine(FlyupFreefallMovement());
-        InvokeRepeating("StartAttackAnimation", enemyStats.DelayBeforeFirstAttack, enemyStats.AttackData[0].AttackFrequency);
+        InvokeRepeating("StartAttackAnimation", EnemyStats.DelayBeforeFirstAttack, EnemyStats.AttackData[0].AttackFrequency);
     }
 
     private void Update()
     {
         UpdateCollisionTracker();
-        raycaster.UpdateRaycastOrigins();
+        Raycaster.UpdateRaycastOrigins();
 
         //if (collisionTracker.collisions.above && Time.time > cannotChangeDirectionTime)
         //{
@@ -47,17 +47,17 @@ public class FlyingShroomyBrain : FlyingEnemyBrain
         {
             if(fallTime < Time.time)
             {
-                rigidbody2d.velocity = Vector2.zero;
-                animator.SetBool("Flying", false);
-                rigidbody2d.gravityScale = 0.2f;
+                Rigidbody2d.velocity = Vector2.zero;
+                Animator.SetBool("Flying", false);
+                Rigidbody2d.gravityScale = 0.2f;
                 yield return new WaitForSeconds(2f);
                 fallTime = Time.time + 2;
-                rigidbody2d.gravityScale = 0;
-                animator.SetBool("Flying", true);
+                Rigidbody2d.gravityScale = 0;
+                Animator.SetBool("Flying", true);
             }
             else
             {
-                rigidbody2d.velocity = new Vector2(0, 1.9f);
+                Rigidbody2d.velocity = new Vector2(0, 1.9f);
                 yield return new WaitForFixedUpdate();
             }
         }
