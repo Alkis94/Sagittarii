@@ -96,7 +96,7 @@ public class EnemiesManager : MonoBehaviour
         }
         
         chosenGroup.SetActive(true);
-        CheckForAliveEnemies();
+        // CheckForAliveEnemies();
     }
 
     private void ReloadEnemies()
@@ -126,10 +126,18 @@ public class EnemiesManager : MonoBehaviour
         }
 
         chosenGroup.SetActive(true);
-        CheckForAliveEnemies();
+        // CheckForAliveEnemies();
     }
 
-    private void CheckForAliveEnemies()
+    //private void CheckForAliveEnemies()
+    //{
+    //    if (chosenGroup.transform.childCount > 0)
+    //    {
+    //        OnRoomHasAliveEnemies?.Invoke();
+    //    }
+    //}
+
+    private void OnDestroy()
     {
         if (chosenGroup.transform.childCount > 0)
         {

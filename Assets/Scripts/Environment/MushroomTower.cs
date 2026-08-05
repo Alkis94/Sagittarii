@@ -39,7 +39,7 @@ public class MushroomTower : MonoBehaviour
 
         if(isBroken)
         {
-            transform.gameObject.layer = 14;
+            transform.gameObject.layer = UnityLayer.Dead;    
             animator.SetTrigger("AlreadyBroken");
         }
     }
@@ -53,7 +53,7 @@ public class MushroomTower : MonoBehaviour
             cinemachineImpulseSource.m_ImpulseDefinition.m_TimeEnvelope.m_SustainTime = 1;
             cinemachineImpulseSource.GenerateImpulse();
             isBroken = true;
-            transform.gameObject.layer = 14;
+            transform.gameObject.layer = UnityLayer.Dead;
             ES3.Save("isBroken", true, ProfileManager.Instance.GetProfileRunPath() + SaveFolders.Levels + "/" + mapType + SaveFolders.Room + roomKey + SaveFolders.Props);
 
             if (ES3.FileExists(ProfileManager.Instance.GetProfileRunPath() + SaveFolders.Bosses + "/MushroomBoss"))

@@ -1,8 +1,8 @@
 ﻿public enum DamageSource
 {
-    projectile,
-    explosion,
-    traps,
-    judgement,
-    exhaustion
+    Projectile,
+    Explosion,
+    Traps,
+    Judgement,
+    Exhaustion
 }

@@ -50,12 +50,12 @@ public abstract class EnemyLoader : MonoBehaviour
             GetComponent<EnemyBrain>().enabled = false;
             rigidbody2d.gravityScale = 1;
             spriteRenderer.sortingLayerName = "DeadEnemies";
-            gameObject.layer = 14;
+            gameObject.layer = UnityLayer.Dead;
             enemyGotShot.enabled = false;
 
             foreach (var child in GetComponentsInChildren<Transform>(true))
             {
-                child.gameObject.layer = 14;
+                child.gameObject.layer = UnityLayer.Dead;
             }
 
             transform.parent = null;

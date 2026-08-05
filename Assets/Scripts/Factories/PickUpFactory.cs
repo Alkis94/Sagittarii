@@ -8,11 +8,11 @@ public class PickUpFactory : MonoBehaviour
 
     [SerializeField]
     private List<GameObject> pickupsList;
-    private Dictionary<string, GameObject> pickupsDictionery;
+    private Dictionary<string, GameObject> pickupsDictionary;
     private PlayerStats playerStats;
 
-    private readonly float healthDropRate = 0.02f;
-    private readonly float energyDropRate = 0.01f;
+    private readonly float healthDropRate = 0.1f;
+    private readonly float energyDropRate = 0.075f;
 
     private void Awake()
     {
@@ -42,47 +42,47 @@ public class PickUpFactory : MonoBehaviour
     private void Start()
     {
         playerStats = FindObjectOfType<PlayerStats>();
-        pickupsDictionery = new Dictionary<string, GameObject>();
+        pickupsDictionary = new Dictionary<string, GameObject>();
 
         for (int i = 0; i < pickupsList.Count; i++)
         {
-            pickupsDictionery.Add(pickupsList[i].name, pickupsList[i]);
+            pickupsDictionary.Add(pickupsList[i].name, pickupsList[i]);
         }
     }
 
     private void CreatePickup(Vector3 spawnPosition, string pickup)
     {
-        Instantiate(pickupsDictionery[pickup], spawnPosition, Quaternion.identity);
+        Instantiate(pickupsDictionary[pickup], spawnPosition, Quaternion.identity);
     }
 
-    public void DropPickup(Vector3 spawnPosition)
+    public bool DropPickup(Vector3 spawnPosition)
     {
-        float randomNumber = Random.Range(0f, 1f);
-        float dropChance = healthDropRate + (playerStats.Luck / 2);
+        var dropChance = healthDropRate + (playerStats.Luck / 2);
         dropChance = dropChance < 0.3f ? dropChance : 0.3f;
 
-        if (randomNumber < dropChance)
+        if (Random.value < dropChance)
         {
             CreatePickup(spawnPosition, "HealthPickup");
-            return;
+            return true;
         }
 
-        randomNumber = Random.Range(0f, 1f);
         dropChance = energyDropRate + (playerStats.Luck / 2);
         dropChance = dropChance < 0.3f ? dropChance : 0.3f;
-        if (randomNumber < dropChance)
+
+        if (Random.value < dropChance)
         {
             CreatePickup(spawnPosition, "EnergyPickup");
-            return;
+            return true;
         }
+
+        return false;
     }
 
-    public void DropGold(Vector3 spawnPosition, float goldDropChance, int minGoldGiven, int maxGoldGiven, bool dropRandomCoins = false)
+    public bool DropGold(Vector3 spawnPosition, float goldDropChance, int minGoldGiven, int maxGoldGiven, bool dropRandomCoins = false)
     {
-        float randomNumber = Random.Range(0f, 1f);
-        float dropChance = goldDropChance + (playerStats.Luck / 4);
+        var dropChance = goldDropChance + (playerStats.Luck / 4);
 
-        if (randomNumber < dropChance)
+        if (Random.value < dropChance)
         {
             var minCopperCoins = minGoldGiven / CoinPickup.copperValue;
             var maxCopperCoins = maxGoldGiven / CoinPickup.copperValue;
@@ -106,20 +106,24 @@ public class PickUpFactory : MonoBehaviour
             }
             
 
-            for (int i = 0; i < GoldCoins; i++)
+            for (var i = 0; i < GoldCoins; i++)
             {
                 CreatePickup(spawnPosition, "Gold");
             }
 
-            for (int i = 0; i < SilverCoins; i++)
+            for (var i = 0; i < SilverCoins; i++)
             {
                 CreatePickup(spawnPosition, "Silver");
             }
 
-            for (int i = 0; i < CooperCoins; i++)
+            for (var i = 0; i < CooperCoins; i++)
             {
                 CreatePickup(spawnPosition, "Copper");
             }
+
+            return true;
         }
+
+        return false;
     }
 }

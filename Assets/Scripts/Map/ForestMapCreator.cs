@@ -5,7 +5,7 @@ public class ForestMapCreator : MapCreator
     public static ForestMapCreator Instance { get; private set; }
     public Vector2Int ForestFirstRoomCoordinates { get; private set; } = new(2, 0);
 
-    private const int forestLength = 7;
+    private const int forestLength = 5;
 
     private void Awake()
     {

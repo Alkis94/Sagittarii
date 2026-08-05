@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System;
 using System.Collections;
 using Cinemachine;
 using Sirenix.OdinInspector;
@@ -9,7 +8,7 @@ using Random = UnityEngine.Random;
 [ShowOdinSerializedPropertiesInInspector]
 public class EnemyDeath : SerializedMonoBehaviour
 {
-    public static event Action<string, Vector3> OnDeathDropRelic = delegate { };
+    // public static event Action<string, Vector3> OnDeathDropRelic = delegate { };
 
     private EnemyStats enemyStats;
     private EnemyGotShot enemyGotShot;
@@ -63,7 +62,7 @@ public class EnemyDeath : SerializedMonoBehaviour
     public void ProcessDeath(DamageType lastDamageType)
     {
         spriteRenderer.sortingLayerName = "DeadEnemies";
-        gameObject.layer = 14;
+        gameObject.layer = UnityLayer.Dead;
         enemyGotShot.enabled = false;
         transform.localRotation = Quaternion.Euler(0, transform.localEulerAngles.y, 0);
         projectileVelocityOnHit = enemyGotShot.ProjectileVelocityOnHit;
@@ -81,10 +80,10 @@ public class EnemyDeath : SerializedMonoBehaviour
             enemyBrain.enabled = false;
         }
 
-        // Put child objects to deadEnemies layer too because colliders are child objects.
+        // Put child objects to dead layer too because colliders are child objects.
         foreach (var trans in GetComponentsInChildren<Transform>(true))
         {
-            trans.gameObject.layer = 14;
+            trans.gameObject.layer = UnityLayer.Dead;
         }
 
         if (shakeBeforeDeath)
@@ -154,20 +153,25 @@ public class EnemyDeath : SerializedMonoBehaviour
         rigidbody2d.velocity = Vector2.zero;
         transform.parent = null;
 
-        DropRelic();
-        PickUpFactory.Instance.DropPickup(transform.position);
-        PickUpFactory.Instance.DropGold(transform.position, enemyStats.GoldDropChance, enemyStats.MinGoldGiven, enemyStats.MaxGoldGiven);
+        DropItems();
     }
 
-    private void DropRelic()
+    private void DropItems()
     {
-        for (var i = 0; i < enemyStats.Relics.Count; i++)
-        {            
-            if (Random.value < enemyStats.RelicDropChance[i])
-            {
-                OnDeathDropRelic?.Invoke(enemyStats.Relics[i], transform.position);
-                return;
-            }
+        var relicDropped = RelicFactory.Instance.DropRelic(enemyStats.Relics, enemyStats.RelicDropChance, transform.position);
+
+        if (relicDropped)
+        {
+            return;
         }
+
+        var pickUpDropped = PickUpFactory.Instance.DropPickup(transform.position);
+
+        if (pickUpDropped)
+        {
+            return;
+        }
+
+        PickUpFactory.Instance.DropGold(transform.position, enemyStats.GoldDropChance, enemyStats.MinGoldGiven, enemyStats.MaxGoldGiven, true);
     }
 }

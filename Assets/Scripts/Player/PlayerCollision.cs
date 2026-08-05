@@ -22,14 +22,14 @@ public class PlayerCollision : MonoBehaviour
             if (other.tag == "EnemyProjectile")
             {
                 int damage = other.GetComponent<ProjectileDataInitializer>().Damage;
-                playerStats.ApplyDamage(damage, DamageSource.projectile);
+                playerStats.ApplyDamage(damage, DamageSource.Projectile);
                 StartCoroutine(FlashDarkRed());
                 playerAudio.PlayGotHitSound();
             }
 
             if (other.tag == "Spikes")
             {
-                playerStats.ApplyDamage(playerStats.MaximumHealth, DamageSource.traps);
+                playerStats.ApplyDamage(playerStats.MaximumHealth, DamageSource.Traps);
             }
         }
     }

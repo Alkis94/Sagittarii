@@ -23,7 +23,7 @@ public class BearJaw : MonoBehaviour
 
     private void AddDamgeEveryTen(DamageSource damageSource)
     {
-        if (damageSource == DamageSource.projectile)
+        if (damageSource == DamageSource.Projectile)
         {
             killCounter++;
             if(killCounter >= 30)

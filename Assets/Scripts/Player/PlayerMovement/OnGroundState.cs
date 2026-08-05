@@ -2,13 +2,14 @@
 
 public class OnGroundState : State<PlayerMovement>
 {
-    public float footOffset = -0.065f;          //X Offset of feet raycast
-    public float groundDistance = 0;        //Distance player is considered to be on the ground
-    public LayerMask groundLayer;			//Layer of the ground
+    // X Offset of feet raycast
+    public float footOffset = -0.065f;
+    // Distance player is considered to be on the ground
+    public float groundDistance = 0;
+    // Layer of the ground
+    public LayerMask groundLayer;			
     private const float skinWidth = .015f;
     private float lastTimeInThisState = 0;
-
-    
 
     public OnGroundState(PlayerMovement owner)
     {

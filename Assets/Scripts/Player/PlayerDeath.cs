@@ -41,7 +41,7 @@ public class PlayerDeath : MonoBehaviour
             child.gameObject.SetActive(false);
         }
        
-        if(damageSource == DamageSource.projectile || damageSource == DamageSource.exhaustion)
+        if(damageSource == DamageSource.Projectile || damageSource == DamageSource.Exhaustion)
         {
             animator.SetTrigger("Die");
             playerAudio.PlayDeathSound();
@@ -53,7 +53,7 @@ public class PlayerDeath : MonoBehaviour
         }
 
         Instantiate(bloodSplat, transform.position, Quaternion.identity);
-        gameObject.layer = 14;
+        gameObject.layer = UnityLayer.Dead;
         enabled = false;
 
         if (playerStats.ExtraLives > 0)
@@ -63,7 +63,7 @@ public class PlayerDeath : MonoBehaviour
             {
                 child.gameObject.SetActive(false);
             }
-            gameObject.layer = 10;
+            gameObject.layer = UnityLayer.Player;
             enabled = true;
             playerStats.ExtraLives--;
             GetComponent<PlayerInput>().enabled = true;

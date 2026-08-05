@@ -26,7 +26,7 @@ public class Pickup : MonoBehaviour
 
     private void PickupPlayerCollision()
     {
-        gameObject.layer = 14;
+        gameObject.layer = UnityLayer.Dead;
         spriteRenderer.enabled = false;
         audioSource.enabled = true;
         audioSource.Play();

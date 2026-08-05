@@ -53,7 +53,7 @@ public class BreakableProps : MonoBehaviour
         }
         else
         {
-            transform.gameObject.layer = 14;
+            transform.gameObject.layer = UnityLayer.Dead;
         }
     }
 
@@ -67,7 +67,7 @@ public class BreakableProps : MonoBehaviour
             isBroken = true;
             ES3.Save("isEnabled" + transform.GetSiblingIndex(), false, 
                 ProfileManager.Instance.GetProfileRunPath() + SaveFolders.Levels + "/" + mapType + SaveFolders.Room + roomKey + SaveFolders.Props);
-            transform.gameObject.layer = 14;
+            transform.gameObject.layer = UnityLayer.Dead;
         }
     }
 

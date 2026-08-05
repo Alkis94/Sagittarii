@@ -19,12 +19,9 @@ public class ItemAttackChanger : MonoBehaviour
     private bool isUnique = false;
     
     
-
-
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        if (collision.CompareTag("Player"))
         {
             if(changeMainAttack)
             {
@@ -38,9 +35,8 @@ public class ItemAttackChanger : MonoBehaviour
             
             if(isUnique)
             {
-                RelicFactory.PlayerGotUniqueRelic(relicName);
+                RelicFactory.PlayerAcquiredUniqueRelic(relicName);
             }
-            
         }
     }
 }

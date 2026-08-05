@@ -44,14 +44,7 @@ public class ProjectileHandler: MonoBehaviour
     {
         if (!ignoresCollisions)
         {
-            if (isPenetrative)
-            {
-                if (other.gameObject.layer == 8)
-                {
-                    HandleCollision();
-                }
-            }
-            else
+            if (!isPenetrative || (isPenetrative && other.gameObject.layer == UnityLayer.Ground))
             {
                 HandleCollision();
             }
@@ -89,7 +82,7 @@ public class ProjectileHandler: MonoBehaviour
 
     private void StopProjectile()
     {
-        gameObject.layer = 14;
+        gameObject.layer = UnityLayer.Dead;
         rigidbody2d.velocity = Vector2.zero;
         rigidbody2d.angularVelocity = 0;
         rigidbody2d.isKinematic = true;

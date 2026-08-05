@@ -754,10 +754,10 @@ MonoBehaviour:
   currentHealth: 100
   maximumHealth: 100
   healthMultiplier: 1
-  currentEnergy: 30
-  maximumEnergy: 30
+  currentEnergy: 20
+  maximumEnergy: 20
   ammo: 500
-  gold: 100
+  gold: 10
   armor: 0
   luck: 0
   speed: 8
@@ -769,9 +769,9 @@ MonoBehaviour:
   lifestealChance: 0
   energysteal: 0
   energystealChance: 0
-  townTax: 100
+  townTax: 10
   restCost: 10
-  cooldown: 15
+  cooldown: 10
   extraLives: 0
 --- !u!114 &6432451859485017418
 MonoBehaviour:
@@ -821,8 +821,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 580a2dbf60fd13b44b0f121971e9983e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  map: {fileID: 0}
-  pauseMenu: {fileID: 0}
   horizontal: 0
   jumpHeld: 0
   jumpPressed: 0

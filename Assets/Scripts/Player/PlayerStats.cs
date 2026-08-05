@@ -1,9 +1,9 @@
 ﻿using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class PlayerStats : MonoBehaviour, IDamageable
 {
-
     public static event Action<DamageSource> OnPlayerDied = delegate { };
 
     [SerializeField]
@@ -15,13 +15,13 @@ public class PlayerStats : MonoBehaviour, IDamageable
     [SerializeField]
     private float healthMultiplier = 1f;
     [SerializeField]
-    private int currentEnergy = 30;
+    private int currentEnergy = 20;
     [SerializeField]
-    private int maximumEnergy = 30;
+    private int maximumEnergy = 20;
     [SerializeField]
     private int ammo = 500;
     [SerializeField]
-    private int gold = 0;
+    private int gold = 10;
     [SerializeField]
     private int armor = 0;
     [SerializeField]
@@ -31,7 +31,7 @@ public class PlayerStats : MonoBehaviour, IDamageable
     [SerializeField]
     private float projectileSpeed = 10;
     [SerializeField]
-    private int damage = 0;
+    private int damage = 10;
     [SerializeField]
     private float damageMultiplier = 1f;
     [SerializeField]
@@ -53,18 +53,18 @@ public class PlayerStats : MonoBehaviour, IDamageable
     [SerializeField]
     private int extraLives = 0;
 
-    private DamageSource lastDamageSource = DamageSource.projectile;
+    private DamageSource lastDamageSource = DamageSource.Projectile;
     
     private void OnEnable()
     {
-        EnemiesManager.OnRoomHasAliveEnemies += EnteredRoomWithEnemies;
+        EnemiesManager.OnRoomHasAliveEnemies += EscapedRoomWithEnemies;
         EnemyStats.OnEnemyWasKilled += EnemyWasKilled;
         PlayerDeath.OnPlayerRessurected += Ressurection;
     }
 
     private void OnDisable()
     {
-        EnemiesManager.OnRoomHasAliveEnemies -= EnteredRoomWithEnemies;
+        EnemiesManager.OnRoomHasAliveEnemies -= EscapedRoomWithEnemies;
         EnemyStats.OnEnemyWasKilled -= EnemyWasKilled;
         PlayerDeath.OnPlayerRessurected += Ressurection;
     }
@@ -77,22 +77,17 @@ public class PlayerStats : MonoBehaviour, IDamageable
 
     private void EnemyWasKilled (DamageSource damageSource)
     {
-        if(damageSource == DamageSource.projectile)
+        if(damageSource == DamageSource.Projectile)
         {
-            float randomNumber = UnityEngine.Random.Range(0f, 1f);
-
-            if(randomNumber < LifestealChance)
+            if(Random.value < LifestealChance)
             {
                 CurrentHealth += Lifesteal;
             }
 
-            randomNumber = UnityEngine.Random.Range(0f, 1f);
-
-            if (randomNumber < EnergystealChance)
+            if (Random.value < EnergystealChance)
             {
                 CurrentHealth += Energysteal;
             }
-
         }
     }
 
@@ -104,17 +99,17 @@ public class PlayerStats : MonoBehaviour, IDamageable
         UIManager.Instance.UpdateAmmo(Ammo);
     }
 
-    public void ApplyDamage(int damage, DamageSource damageSource = DamageSource.projectile, DamageType damageType = DamageType.normal)
+    public void ApplyDamage(int damage, DamageSource damageSource = DamageSource.Projectile, DamageType damageType = DamageType.normal)
     {
         lastDamageSource = damageSource;
 
-        if(damageSource == DamageSource.projectile)
+        if(damageSource == DamageSource.Projectile)
         {
-            int damageToTake = (int)(damage * DamageTakenMultiplier) - armor;
+            var damageToTake = (int)(damage * DamageTakenMultiplier) - armor;
             damageToTake = damageToTake > damage / 2 ? damageToTake : damage / 2;
             CurrentHealth -= damageToTake;
         }
-        else if (damageSource == DamageSource.traps)
+        else if (damageSource == DamageSource.Traps)
         {
             CurrentHealth -= (int)(damage * DamageTakenMultiplier);
         }
@@ -128,7 +123,7 @@ public class PlayerStats : MonoBehaviour, IDamageable
     {
         if(isPercentage)
         {
-            float percentage = (float)healAmount / 100;
+            var percentage = (float)healAmount / 100;
             CurrentHealth += (int)(MaximumHealth * percentage);
         }
         else
@@ -141,7 +136,7 @@ public class PlayerStats : MonoBehaviour, IDamageable
     {
         if (isPercentage)
         {
-            float percentage = (float)healthAmount / 100;
+            var percentage = (float)healthAmount / 100;
             CurrentHealth += (int)(CurrentHealth * percentage);
         }
         else
@@ -235,11 +230,11 @@ public class PlayerStats : MonoBehaviour, IDamageable
 
         set
         {
-            int newCurrentExhaustion = value;
+            var newCurrentExhaustion = value;
 
             if (newCurrentExhaustion < 0)
             {
-                ApplyDamage((int)(MaximumHealth * 0.05f), DamageSource.exhaustion);
+                ApplyDamage((int)(MaximumHealth * 0.1f), DamageSource.Exhaustion);
                 currentEnergy = 0;
             }
             else if (newCurrentExhaustion <= MaximumEnergy)
@@ -250,6 +245,7 @@ public class PlayerStats : MonoBehaviour, IDamageable
             {
                 currentEnergy = MaximumEnergy;
             }
+
             UIManager.Instance.UpdateEnergy(CurrentEnergy, MaximumEnergy);
         }
     }
@@ -508,9 +504,8 @@ public class PlayerStats : MonoBehaviour, IDamageable
         }
     }
 
-
-    private void EnteredRoomWithEnemies()
+    private void EscapedRoomWithEnemies()
     {
-        CurrentEnergy --;
+        CurrentEnergy -= 2;
     }
 }

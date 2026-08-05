@@ -24,9 +24,7 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI relicDescriptionText;
     [SerializeField]
-    private Coroutine textCoroutine;
-    [SerializeField]
-    private GameObject relicTextBackground;
+    private GameObject relicInfoMenu;
     [SerializeField]
     private Image healthImage;
     [SerializeField]
@@ -51,6 +49,7 @@ public class UIManager : MonoBehaviour
     private int bossCurrentHealth;
     private int goldGained;
 
+    private Coroutine relicCoroutine = null;
     private Coroutine energyCoroutine = null;
     private Coroutine healthCoroutine = null;
     private Coroutine bossHealthCoroutine = null;
@@ -250,7 +249,7 @@ public class UIManager : MonoBehaviour
     public void UpdateBossHealth(int damage)
     {
         bossCurrentHealth -=  damage;
-        UpdateBar(bossCurrentHealth, bossMaxHealth, bossHealthImage,ref bossHealthCoroutine);
+        UpdateBar(bossCurrentHealth, bossMaxHealth, bossHealthImage, ref bossHealthCoroutine);
         if(bossCurrentHealth <= 0)
         {
             bossCurrentHealth = 0;
@@ -282,29 +281,24 @@ public class UIManager : MonoBehaviour
             _ => Color.green,
         };
 
-        relicNameText.transform.localPosition = new Vector3(600, relicNameText.transform.localPosition.y, 0);
-        relicDescriptionText.transform.localPosition = new Vector3(600, relicDescriptionText.transform.localPosition.y, 0);
-        relicTextBackground.transform.localPosition = new Vector3(600, relicTextBackground.transform.localPosition.y, 0);
+        // relicInfoMenu.transform.localPosition = new Vector3(450, relicInfoMenu.transform.localPosition.y, 0);
 
         relicNameText.text = relicName;
         relicDescriptionText.text = relicDescription;
 
-        if(textCoroutine != null)
+        if(relicCoroutine != null)
         {
-            StopCoroutine(textCoroutine);
+            StopCoroutine(relicCoroutine);
         }
-        textCoroutine = StartCoroutine(MoveItemTexts());
+
+        relicCoroutine = StartCoroutine(MoveItemTexts());
     }
 
     private IEnumerator MoveItemTexts()
     {
-        LeanTween.moveLocalX(relicNameText.gameObject, 45, 0.5f).setEaseInOutCubic();
-        LeanTween.moveLocalX(relicDescriptionText.gameObject, 45, 0.5f).setEaseInOutCubic();
-        LeanTween.moveLocalX(relicTextBackground, 45, 0.5f).setEaseInOutCubic();
-        yield return new WaitForSeconds(3f);
-        LeanTween.moveLocalX(relicNameText.gameObject, 600, 0.5f).setEaseInOutBack();
-        LeanTween.moveLocalX(relicDescriptionText.gameObject, 600, 0.5f).setEaseInOutBack();
-        LeanTween.moveLocalX(relicTextBackground, 600, 0.5f).setEaseInOutBack();
+        LeanTween.moveLocalX(relicInfoMenu, 230, 0.5f).setEaseInOutCubic();
+        yield return new WaitForSeconds(5f);
+        LeanTween.moveLocalX(relicInfoMenu, 450, 0.5f).setEaseInOutBack();
     }
 
     public void ShowDeathUI()

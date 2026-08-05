@@ -112,8 +112,7 @@ public class PlayerInput : MonoBehaviour
             {
                 if (boxCollider2D.IsTouchingLayers(collisionMask))
                 {
-                    // PlayerNoPlatform Layer
-                    gameObject.layer = 19; 
+                    gameObject.layer = UnityLayer.PlayerNoPlatform; 
                     StartCoroutine(ReturnToNormalLayer());
                 }
             }
@@ -248,8 +247,7 @@ public class PlayerInput : MonoBehaviour
             jumpHeld = false;
             if (Time.time > returnDelay)
             {
-                // Player Layer
-                gameObject.layer = 10; 
+                gameObject.layer = UnityLayer.Player; 
                 yield break;
             }
             yield return null;
